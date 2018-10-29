@@ -138,17 +138,28 @@ public class Vacuum{
     ChamberInteractionModel cim = new ChamberInteractionModel();
     private Chamber[] chambers;
     private int currentChamber;
+    private bool vacuumOn; //True = ON, False = OFF
 
     public Vacuum(){
 
         //assign and populate chamber array
         chambers = new Chamber[3];
         currentChamber = 0;
+        vacuumOn = false;
 
         chambers[0] = new Chamber();
         chambers[1] = new Chamber();
         chambers[2] = new Chamber();
 
+    }
+
+    //Switch for turning on and off vacuum
+    public void SetVacuum(bool b){
+        vacuumOn = b;
+    }
+
+    public bool GetVacuumOn(){
+        return vacuumOn;
     }
 
     //Change the chamber based on direction
@@ -157,16 +168,21 @@ public class Vacuum{
         return currentChamber;
     }
 
+    //Add an item to the chamber given id
     public int AddToChamber(int id){
         chambers[currentChamber] = chambers[currentChamber].Add(id);
         return 1;
     }
 
+    //Used for debugging contents of a vacuum
     public void DebugVac(){
-        string s = "CHAMBER 0:\n";
+        string s = "";
 
-        foreach (Chamber.InventoryPair e in chambers[0].GetContents()){
-            s += e.GetElementID().ToString() + ": " + e.GetCount().ToString() + "\n";
+        for (int i = 0; i < 3; i++){
+            s += "Chamber " + i.ToString() + ":\n";
+            foreach(Chamber.InventoryPair elem in chambers[i].GetContents()){
+                s += "  " + elem.GetElementID().ToString() + ": " + elem.GetCount().ToString() + "\n";
+            }
         }
 
         Debug.Log(s);
