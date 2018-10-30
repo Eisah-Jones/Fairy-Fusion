@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
+
+	private bool facingRight = true;
+	private bool flipped = false;
     [SerializeField]
     private float speed;
+
 
 	// Use this for initialization
 	void Start () {
@@ -20,6 +24,11 @@ public class PlayerController : MonoBehaviour {
     public void Move(Vector2 direction)
     {
         transform.Translate(direction * speed * Time.deltaTime);
+		if (flipped) {
+			flipped = false;
+			transform.Rotate (0f, 180f, 0f);
+		}
+			
     }
 
     private void GetInput(){
@@ -30,12 +39,22 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetKey(KeyCode.A))
         {
-            Move(Vector2.left);
+			if (facingRight) {
+				facingRight = false;
+				flipped = true;
+			}
+			Move(Vector2.right);
+
         }
 
         if (Input.GetKey(KeyCode.D))
         {
+			if (!facingRight) {
+				facingRight = true;
+				flipped = true;
+			}
             Move(Vector2.right);
+
         }
 
         if (Input.GetKey(KeyCode.S))

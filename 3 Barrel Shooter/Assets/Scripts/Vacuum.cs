@@ -162,6 +162,10 @@ public class Vacuum{
         return vacuumOn;
     }
 
+	public int GetCurrentChamberElement(){
+		return chambers [currentChamber].GetElementIDByIndex (0);
+	}
+
     //Change the chamber based on direction
     public int changeChamber(int direction){
         currentChamber = (currentChamber + direction)%3;
