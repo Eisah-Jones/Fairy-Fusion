@@ -36,7 +36,7 @@ public class VacuumController : MonoBehaviour {
         //}
 
         bool isLMouseDown = Input.GetMouseButton(0);
-        Debug.Log(isLMouseDown);
+        
         v.SetVacuum(isLMouseDown);
         vacuumArea.enabled = isLMouseDown;
 

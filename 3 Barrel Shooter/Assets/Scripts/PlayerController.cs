@@ -9,11 +9,11 @@ public class PlayerController : MonoBehaviour
     private bool facingRight = true;
     private bool flipped = false;
     [SerializeField]
-    private float speed =3f;
- 
+    private float speed =5f;
+    public string inputHorizontal = "Horizontal";
+    public string inputVertical = "Vertical";
     float horizontal;
     float vertical;
- 
 
     void Start()
     {
@@ -22,8 +22,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical");
+        float horizontal = Input.GetAxisRaw(inputHorizontal);
+        float vertical = Input.GetAxisRaw(inputVertical);
+        Debug.Log("Vert: " +vertical.ToString()+ "Horizont: "+ horizontal.ToString());
+
+
     }
 
     void FixedUpdate()
@@ -33,7 +36,9 @@ public class PlayerController : MonoBehaviour
     public void Move()
     {
         Vector2 movement = new Vector2(horizontal * speed, vertical * speed);
-        transform.Translate(movement * Time.deltaTime);
+        transform.Translate(movement * Time.deltaTime, Space.World);
+   
+
     }
 
         //   // Use this for initialization
