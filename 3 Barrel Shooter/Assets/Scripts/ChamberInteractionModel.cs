@@ -6,20 +6,23 @@ using UnityEngine;
 //This is where all the functions for handling chamber interactions will be programmed and mapped
 public class ChamberInteractionModel
 {
-    //Establish elementManager for the model
-    ElementManager em = new ElementManager();
+    // Establish elementManager for the model
+    ElementManager em;
 
-    //Used to store elementID for interactions
-    int ID1;
-    int ID2;
-    string functionCall;
+    // Used to store elementID for interactions
+    private int ID1;
+    private int ID2;
 
+    public ChamberInteractionModel(ElementManager elemMan){
+        em = elemMan;
+    }
 
+    // Increases the amount of an element in a chamber
     public List<Vacuum.Chamber.InventoryPair> IncreaseElement(List<Vacuum.Chamber.InventoryPair> c, int id){
 
         List<Vacuum.Chamber.InventoryPair> result = c;
 
-        //Unit value will vary per element, how much ammo is added per 1 element unit?
+        // Unit value will vary per element, how much ammo is added per 1 element unit?
         int unitValue = 1;
         result[0].SetCount(result[0].GetCount() + unitValue);
 
@@ -27,11 +30,11 @@ public class ChamberInteractionModel
     }
 
 
-
+    // Adds an element to a chamber
     public List<Vacuum.Chamber.InventoryPair> AddToChamber(List<Vacuum.Chamber.InventoryPair> c, int id){
         List<Vacuum.Chamber.InventoryPair> result = c;
 
-        //Unit value will vary per element, how much ammo is added per 1 element unit?
+        // Unit value will vary per element, how much ammo is added per 1 element unit?
         int unitValue = 1;
         result.Add(new Vacuum.Chamber.InventoryPair(id, unitValue));
 
@@ -39,39 +42,56 @@ public class ChamberInteractionModel
     }
 
 
-    //General function for combining elements in chamber
-    //Assuming always 2 objects in the chamber
-    public List<Vacuum.Chamber.InventoryPair> NormalizeChamber(List<Vacuum.Chamber.InventoryPair> c){
-        Debug.Log("Normalizing Chamber");
+    // Removes an element from the chamber
+    public List<Vacuum.Chamber.InventoryPair> RemoveFromChamber(List<Vacuum.Chamber.InventoryPair> c, int id){
         List<Vacuum.Chamber.InventoryPair> result = c;
-        if (c.Count == 2)
-        {
-            ID1 = Mathf.Min(result[0].GetElementID(), result[1].GetElementID());
-            ID2 = Mathf.Max(result[0].GetElementID(), result[1].GetElementID());
-            functionCall = "Interaction" + ID1.ToString() + ID2.ToString();
-            Debug.Log("Running " + functionCall);
-            List<Vacuum.Chamber.InventoryPair> tempList = PerformInteraction(ID1, ID2, result);
-            result = tempList;
+
+        result[0].DecreaseCount(1);
+
+        if(result[0].GetCount() <= 0){
+            result.RemoveAt(0);
         }
+
         return result;
     }
 
 
-    private List<Vacuum.Chamber.InventoryPair> PerformInteraction(int id1, int id2, List<Vacuum.Chamber.InventoryPair> c)
+
+    //General function for combining elements in chamber
+    //Assuming always 2 objects in the chamber
+    public List<Vacuum.Chamber.InventoryPair> NormalizeChamber(List<Vacuum.Chamber.InventoryPair> c){
+        List<Vacuum.Chamber.InventoryPair> newChamber = c;
+        if (c.Count == 2)
+        {
+            ID1 = Mathf.Min(c[0].GetElementID(), c[1].GetElementID());
+            ID2 = Mathf.Max(c[0].GetElementID(), c[1].GetElementID());
+            newChamber = HandleInteraction(ID1, ID2, c);
+        }
+        return newChamber;
+    }
+
+
+    //Runs interaction function between two elements and returns the correct chamber
+    private List<Vacuum.Chamber.InventoryPair> HandleInteraction(int id1, int id2, List<Vacuum.Chamber.InventoryPair> c)
     {
         if(id1 == 1 && id2 == 2){
-            return Interaction12(c);
+            return Interaction1_2(c);
+        }
+
+        if(id1 == 3 && id2 == 4){
+            return Interaction3_4(c);
         }
 
         return c;
     }
 
 
+    // ## ENCODE INTERACTION FUNCTIONS BELOW ##
+    // When complete, make sure to add mapping to the HandleInteraction function
 
 
-
-    //Fire & Rock interaction: +5 fire ammo
-    private List<Vacuum.Chamber.InventoryPair> Interaction12(List<Vacuum.Chamber.InventoryPair> c)
+    //Fire - 1 & Rock - 2 interaction: +5 fire ammo
+    private List<Vacuum.Chamber.InventoryPair> Interaction1_2(List<Vacuum.Chamber.InventoryPair> c)
     {
         List<Vacuum.Chamber.InventoryPair> result = c;
 
@@ -89,9 +109,30 @@ public class ChamberInteractionModel
         return result;
     }
 
-    //Fire & Water interaction
 
-    //Fire & Wood interaction
+    //Fire - 1 & Water - 3: Creates Steam
 
-    //Rock & Rock interaction
+
+
+    //Fire - 1 & Wood - 4: Increase fire range
+
+
+
+    //Rock - 2 & Water - 3: Mud ball
+
+
+
+    //Rock - 2 & Wood - 4: Birdshot
+
+
+
+    //Water - 3 & Wood - 4: Creates Stakes
+    private List<Vacuum.Chamber.InventoryPair> Interaction3_4(List<Vacuum.Chamber.InventoryPair> c)
+    {
+        List<Vacuum.Chamber.InventoryPair> result = new List<Vacuum.Chamber.InventoryPair>();
+
+        result.Add(new Vacuum.Chamber.InventoryPair(9, 5));
+
+        return result;
+    }
 }

@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class VacuumController : MonoBehaviour {
-	
+
+    LevelManager levelManager;
     Vacuum v;
     BoxCollider2D vacuumArea;
-	Shooting shoot_script;
 
-	private int shoot_type = 0;
+    //Sets the vacuum for the player, should be called after player gameObject instantiation 
+    public void SetVacuum(Vacuum vac, LevelManager lm){
+        v = vac;
+        vacuumArea = GetComponent<BoxCollider2D>();
+        levelManager = lm;
+    }
 
 	// Use this for initialization
 	void Start () {
-        v = new Vacuum();
-        vacuumArea = GetComponent<BoxCollider2D>();
-		shoot_script = GetComponent<Shooting> ();
+		
     }
 	
 	// Update is called once per frame
@@ -24,65 +27,44 @@ public class VacuumController : MonoBehaviour {
 	}
 
     private void GetInput(){
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    v.SetVacuum(true);
-        //    vacuumArea.enabled = true;
-        //}
-        //else
-        //{
-        //    v.SetVacuum(false);
-        //    vacuumArea.enabled = false;
-        //}
 
+        //Save whether or not player is shooting
+        bool isRMouseDown = Input.GetMouseButtonDown(1);
+        //FIRST we want to see if the player is sucking
         bool isLMouseDown = Input.GetMouseButton(0);
-        Debug.Log(isLMouseDown);
         v.SetVacuum(isLMouseDown);
         vacuumArea.enabled = isLMouseDown;
 
-		if (Input.GetKeyDown (KeyCode.Q) && !v.GetVacuumOn ()) {
-			v.changeChamber (-1);
-		} else if (Input.GetKeyDown (KeyCode.E) && !v.GetVacuumOn ()) {
-			v.changeChamber (1);
-		} else if (Input.GetKey (KeyCode.Mouse1) && !v.GetVacuumOn ()) {
-			shoot_type = v.GetCurrentChamberElement ();
-		}
+        // For debugging purposes
+        //if (isLMouseDown)
+            //Debug.Log(vacuumArea.enabled);
 
-		if (shoot_type != 0) {
-			Shoot (shoot_type);
+        //If q is pressed and vacuum isn't already on, switch chamber left
+        if (Input.GetKeyDown (KeyCode.Q) && !v.GetVacuumOn ()) {
+			v.changeChamber (-1);
+        } //If e is pressed and vacuum isn't already on, switch chamber right
+        else if (Input.GetKeyDown (KeyCode.E) && !v.GetVacuumOn ()) {
+			v.changeChamber (1);
+		} //If RMB is pressed and vacuum isn't already on, shoot from the current chamber
+        else if (isRMouseDown && !v.GetVacuumOn ()) {
+            int elementID = v.Shoot();
+
+            //If element if -1, we could not shoot else can shoot
+            if (elementID != -1){
+                //Instantiate element!!
+                ProjectileSpawner p = GetComponent<ProjectileSpawner>();
+                p.GetComponent<ProjectileSpawner>().shootProjectile(elementID, levelManager);
+            }
 		}
     }
 
-    void OnTriggerStay2D(Collider2D other)
+    void OnTriggerStay2D(Collider2D collision)
     {
-        if (other.gameObject.tag == "Rock")
-        {
-            v.AddToChamber(2);
-            Destroy(other.gameObject);
-        }
-        else if (other.gameObject.tag == "Water")
-        {
-            v.AddToChamber(3);
-            Destroy(other.gameObject);
-        }
-        else if (other.gameObject.tag == "Fire")
-        {
-            v.AddToChamber(1);
-            Destroy(other.gameObject);
-        }
+
+        v.AddToChamber(int.Parse(collision.gameObject.tag[0].ToString()));
+        //If the item was added to the chamber destroy, else spit it back out randomly
+        Destroy(collision.gameObject);
 
         v.DebugVac();
     }
-
-
-	void Shoot(int type){
-		if (type == 1) {
-			shoot_script.Fire ();
-		} else if (type == 2) {
-			shoot_script.Rock ();
-		} else if (type == 3) {
-			shoot_script.Water ();
-		}
-		shoot_type = 0;
-	}
 }

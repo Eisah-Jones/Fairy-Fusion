@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114521888956385594}
   m_Layer: 0
   m_Name: Rock Bullet
-  m_TagString: Rock
+  m_TagString: 4-Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

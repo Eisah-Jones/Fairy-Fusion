@@ -8,6 +8,9 @@ public class Vacuum{
     //Chamber represents one slot in the vacuum
     public class Chamber
     {
+
+        // #######  INVENTORY PAIR CODE  #######
+
         //InventoryPair only used in the chamber, keeps track of element occurence in a vacuum chamber
         public class InventoryPair
         {
@@ -29,7 +32,10 @@ public class Vacuum{
 
             //Decreases count by amount i
             public void DecreaseCount(int i){
-                count -= i;
+                if (count != 0)
+                {
+                    count -= i;
+                }
             }
 
             //Returns the elementID
@@ -57,20 +63,27 @@ public class Vacuum{
         }
 
 
+
         // #######  CHAMBER CODE  #######
 
 
+        LevelManager levelManager;
+
         //declare chamber variable
         private List<InventoryPair> chamber;
-        ChamberInteractionModel interactionModel = new ChamberInteractionModel();
+        ChamberInteractionModel interactionModel;
 
 
         //Constructor
-        public Chamber()
+        public Chamber(LevelManager lm)
         {
+            levelManager = lm;
+            interactionModel = lm.chamberInteractionModel;
+
             //Assign chamber variable
             chamber = new List<InventoryPair>();
         }
+
 
         //Adds given element to the chamber
         public Vacuum.Chamber Add(int elemID){
@@ -87,44 +100,53 @@ public class Vacuum{
             return this;
         }
 
-        private bool ContainsElement(int eID){
-            if (chamber.Count <= 0)
-                return false;
-            return chamber[0].GetElementID() == eID;
-        }
 
-
+        //Removes an amount of element from a chamber, given that it is in the chamber
         public int Remove(int elemID){
             //Return 2 if element is successfully removed and chamber is now empty
             //Return 1 if element is successfully removed
             //Return 0 if not
 
             //Check to see if the element is in the chamber, if not return 0
-            foreach(InventoryPair elem in chamber){
-                if (elem.GetElementID() == elemID){
-                    // **RUN CHAMBER INTERACTION SCRIPT**
-
-                    //If removal makes chamber empty, return 2
-                    //Else return 1
-                    return 1;
-                }
+            if (this.ContainsElement(elemID)){
+                chamber = interactionModel.RemoveFromChamber(chamber, elemID);
+                //If removal makes chamber empty, return 2
+                //Else return 1
+                return 1;
             }
 
             return 0;
         }
 
+
+        //Returns whether or not the chamber contains an element
+        private bool ContainsElement(int eID)
+        {
+            if (chamber.Count <= 0)
+                return false;
+            return chamber[0].GetElementID() == eID;
+        }
+
+
+        //Get number of elements in a chamber
         public int GetNumElements(){
             return chamber.Count;
         }
 
+
+        //Get the ID of an element given its index
         public int GetElementIDByIndex(int i){
             return chamber[i].GetElementID();
         }
 
+
+        //Get the contents of a chamber
         public List<InventoryPair> GetContents(){
             return chamber;
         }
 
+
+        //Set the contents of a chamber
         public void SetContents(List<InventoryPair> c)
         {
             chamber = c;
@@ -132,25 +154,31 @@ public class Vacuum{
     }
 
 
+
     // #######  VACUUM CODE  #######
 
+    // NOTE: CIM MAY NOT BE NECESSARY IN VACUUM, JUST IN CHAMBER
+
     //declare vacuum chamber array
-    ChamberInteractionModel cim = new ChamberInteractionModel();
+    LevelManager levelManager;
+    ChamberInteractionModel cim;
     private Chamber[] chambers;
     private int currentChamber;
     private bool vacuumOn; //True = ON, False = OFF
 
-    public Vacuum(){
+    // Vacuum constructor
+    public Vacuum(LevelManager lm){
+        levelManager = lm;
+
+        cim = levelManager.chamberInteractionModel;
 
         //assign and populate chamber array
         chambers = new Chamber[3];
         currentChamber = 0;
         vacuumOn = false;
 
-        chambers[0] = new Chamber();
-        chambers[1] = new Chamber();
-        chambers[2] = new Chamber();
-
+        for (int i = 0; i < 3; i++)
+            chambers[i] = new Chamber(levelManager);
     }
 
     //Switch for turning on and off vacuum
@@ -158,6 +186,7 @@ public class Vacuum{
         vacuumOn = b;
     }
 
+    //Get a boolean determining whether or not the vacuum is set to on
     public bool GetVacuumOn(){
         return vacuumOn;
     }
@@ -176,6 +205,35 @@ public class Vacuum{
     public int AddToChamber(int id){
         chambers[currentChamber] = chambers[currentChamber].Add(id);
         return 1;
+    }
+     
+    //Returns the current chamber
+    public Chamber GetCurrentChamber(){
+        return chambers[currentChamber];
+    }
+
+    public bool isCurrentChamberEmpty(){
+        return chambers[currentChamber].GetContents().Count == 0;
+    }
+
+    //Shooting scripts
+    public int Shoot(){
+
+        //Check to make sure that we can shoot
+        if (isCurrentChamberEmpty()){
+            return -1; //There is nothing to shoot! Return -1 to disapprove instantiating anything
+        }
+
+        //Get the elementID of element in the chamber
+        int eID = chambers[currentChamber].GetContents()[0].GetElementID();
+
+        //Remove that element from the chamber
+        chambers[currentChamber].Remove(eID);
+
+        //return eID to give approval for instantiating
+        return eID;
+
+        //NOTE: Element script on object will handle motion and collision of the element
     }
 
     //Used for debugging contents of a vacuum

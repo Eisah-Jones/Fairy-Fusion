@@ -5,13 +5,11 @@ using UnityEngine;
 public class ElementManager
 {
     //declare ElementManager variables
-    private Element[] elements;
+    private ElementInfo[] elements;
 
-    public ElementManager()
-    {
-
+    public void initElementManager(){
         //assign ElementManager variables
-        elements = new Element[6];
+        elements = new ElementInfo[6];
 
         //declare temp loading variables
         int tID;
@@ -25,10 +23,11 @@ public class ElementManager
 
         //LOAD INFORMATION FROM RESOURCES "elements.txt"
         string elementPath = "elements";
-        Debug.Log("Loading " + elementPath);
+        //Debug.Log("Loading " + elementPath);
         TextAsset elementFile = Resources.Load(elementPath) as TextAsset;
         string[] wordList = elementFile.text.Split(new char[] { '\n', '\r' });
-        foreach (string s in wordList){
+        foreach (string s in wordList)
+        {
             if (s[0] != '#')
             {
                 //Assign values to temp loading variables
@@ -41,13 +40,23 @@ public class ElementManager
                 tAmountType = lineList[5][0];
 
 
-                elements[tID-1] = new Element(tID, tDamage, tFireRate, tRange, tCapacity, tAmountType);
+                elements[tID - 1] = new ElementInfo(tID, tDamage, tFireRate, tRange, tCapacity, tAmountType);
                 //elements[tID-1].debugElement();
             }
         }
     }
 
-    public int GetCapacityByID(int id){
-        return elements[id-1].GetCapacity();
+    //Gets the capacity of an element given its ID
+    public int GetCapacityByID(int id)
+    {
+        return elements[id - 1].GetCapacity();
+    }
+
+    public ElementInfo GetElementByID(int id){
+        return elements[id - 1];
+    }
+
+    public float GetDamageByID(int id){
+        return elements[id - 1].GetDamage();
     }
 }
