@@ -9,86 +9,80 @@ public class ElementObject : MonoBehaviour {
     ElementCollisionModel elementCollisionModel;
 
 
-    private int ID;
-    private float damage;
-    private float life;
-    private float speed;
-    private bool isProjectile;
+    private int ID; //The id of the element
+    private float damage; //The damage that the object does to a player
+    private float life; //The time that an object remains a projectile
+    private float speed; //The speed of the elementObject
+    private bool isProjectile; //Dictates whether or not an element does damage to a player
 
-    public void initElement(LevelManager lm, ElementInfo e, bool isP){
+    public void initElement(LevelManager lm, elementData e, bool isP){
         levelManager = lm;
         elementCollisionModel = lm.elementCollisionModel;
 
-        ID = e.GetID();
-        damage = e.GetDamage();
-        life = e.GetLife();
-        speed = e.GetSpeed();
+        ID = e.ID;
+        name = e.name;
+        damage = e.damage;
+        life = 20;
+        speed = 10.0f;
         isProjectile = isP;
     }
 
     private void Update()
     {
-        //Check the life of the projectile, if <= 0, set isProjectile false
+        // Check the life of the projectile, if <= 0, set isProjectile false
         if (life <= 0){
             isProjectile = false;
-            life = 100;
             transform.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         }
 
 
-        //If the element is a projectile, then we move it and decrease its life
+        // If the element is a projectile, then we move it and decrease its life
         if (isProjectile && life > 0){
             life -= 1;
-            transform.GetComponent<Rigidbody2D>().velocity = transform.right * 10.0f;
+            transform.GetComponent<Rigidbody2D>().velocity = transform.right * speed; //Replace number with speed when ready
         }
     }
 
+    // Gets the element ID
     public int GetID(){
         return ID;
     }
 
+    public string GetName(){
+        return name;
+    }
+
+    // Gets the projectile state of the element
     public bool GetIsProjectile(){
         return isProjectile;
     }
 
     // When an element collides with something else
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-
+        // We don't care if we collide with these objects
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Untagged") return;
 
-        Debug.Log(tag);
-        Debug.Log(collision.tag);
+        //Debug.Log(tag + " : " + collision.tag);
 
+        // Get the ID of the element we collided with
         int ID2 = int.Parse(collision.tag[0].ToString());
+
         ElementCollisionModel.CollisionResult cr = elementCollisionModel.HandleInteraction(ID, ID2);
 
-        // This is needed since scripts will call on both projectiles on collision
-        // This allows us to call it on only one object in the collision
-
-        Debug.Log("State1 " + cr.state1.ToString());
-        Debug.Log(cr.state2);
-
-        if (cr.state2 == -1){
-            if (cr.environmentalEffect2 == 1){ //Steam explosion
-                //Run steam explosion code
-            } else if (cr.environmentalEffect2 == 2){
-                //Run ground fire code
+        int i = 0;
+        foreach( string result in cr.elementResults ){
+            if (result == "Destroy"){
+                // Get environmental effect and then run it
+                // Destroy gameobject
+                if (i == 0) // We are evaluating outcome of THIS element object
+                    Destroy(this.gameObject);
+                else // We are evaluating outcome of COLLISION element object
+                    Destroy(collision.gameObject);
             }
-            Destroy(collision.gameObject);
-        }
 
-        if (cr.state1 == -1){
-            if (cr.environmentalEffect1 == 1)
-            { //Steam explosion
-                //Run steam explosion code
-            }
-            else if (cr.environmentalEffect1 == 2)
-            {
-                //Run ground fire code
-            }
-            Destroy(this.gameObject);
-            return;
+
+            i++;
         }
     }
 }

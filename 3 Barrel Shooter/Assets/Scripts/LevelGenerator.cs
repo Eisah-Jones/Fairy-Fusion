@@ -50,9 +50,12 @@ public class LevelGenerator : MonoBehaviour {
         int lim = 3;
         int x = 0;
 
+        int id;
+
         for (int i = 0; i < lim; i++){
+            id = int.Parse(p[i].tag.Split('-')[0]);
             GameObject o = Instantiate(p[i], new Vector2(x, 0), Quaternion.identity);
-            o.GetComponent<ElementObject>().initElement(lm, em.GetElementByID(int.Parse(p[i].tag[0].ToString())), false);
+            o.GetComponent<ElementObject>().initElement(lm, em.GetElementDataByID(id) , false);
             x += 3;
         }
     }

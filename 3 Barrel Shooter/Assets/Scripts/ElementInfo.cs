@@ -2,68 +2,75 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//Stores the base information for all Elements in the game
-public class ElementInfo{
+// NOTE: ELEMENTS MUST BE ORDERED BY ID
 
-    private int ID;
-    private float damage;
-    private float fireRate;
-    private float life;
-    private float speed;
-    private int resourceMax;
-    private int capacity;
-    private char ammoType;
+[System.Serializable]
+public class ChamberInteractions
+{
+    public string Fire;
+    public string Rock;
+    public string Water;
+    public string Wood;
+    public string Air;
+    public string Steam;
+    public string Fireball;
+    public string Mud;
+    public string Stakes;
+    public string Birdshot;
+}
 
-    // Constructor
-    public ElementInfo(int id, float dam, float fr, float l, int cap, char at){
-        ID = id;
-        damage = dam;
-        fireRate = fr;
-        life = l;
-        capacity = cap;
-        ammoType = at;
+[System.Serializable]
+public class collisionPair
+{
+    public string c1;
+    public string c2;
+}
+
+[System.Serializable]
+public class ElementCollisions
+{
+    public collisionPair Fire;
+    public collisionPair Rock;
+    public collisionPair Water;
+    public collisionPair Wood;
+    public collisionPair Air;
+    public collisionPair Steam;
+    public collisionPair Fireball;
+    public collisionPair Mud;
+    public collisionPair Stakes;
+    public collisionPair Birdshot;
+
+    public collisionPair GetCollisionResult(string name){
+        if (name == "Fire") return Fire;
+
+        if (name == "Rock") return Rock;
+
+        if (name == "Water") return Water;
+
+        return new collisionPair();
     }
+}
 
-    // Debug function for an element
-    public void debugElement(){
-        string s = "ID: " + ID.ToString() + "\nAmmoType: " + ammoType.ToString();
-        Debug.Log(s);
-    }
+[System.Serializable]
+public class elementData
+{
+    public string name;
+    public int ID;
+    public float damage;
+    public float fireRate;
+    public string projectileType;
+    public int chamberCapacity;
+    public List<string> playerCollisionEffects;
+    public ChamberInteractions chamberInteractions;
+    public ElementCollisions elementCollisions;
+}
 
+//Stores the base information for elements in the game
 
-    public int GetID(){
-        return ID;
-    }
-
-
-    public float GetDamage(){
-        return damage;
-    }
-
-
-    public float GetFireRate(){
-        return fireRate;
-    }
-
-
-    public float GetLife(){
-        return life;
-    }
-
-
-    public float GetSpeed(){
-        return speed;
-    }
-
-
-    public int GetResourceMax(){
-        return resourceMax;
-    }
-
-
-    // Returns the capacity of an element
-    public int GetCapacity(){
-        return capacity;
-    }
-
+[System.Serializable]
+public class ElementInfo
+{
+    public elementData Fire;
+    public elementData Rock;
+    public elementData Water;
 }

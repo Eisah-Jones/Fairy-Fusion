@@ -12,15 +12,16 @@ public class Vacuum{
         // #######  INVENTORY PAIR CODE  #######
 
         //InventoryPair only used in the chamber, keeps track of element occurence in a vacuum chamber
-        public class InventoryPair
+        public class InventoryInfo
         {
-
+            private string elementName;
             private int elementID;
             private int count;
 
             //Constructor
-            public InventoryPair(int id, int c)
+            public InventoryInfo(string n, int id, int c)
             {
+                elementName = n;
                 elementID = id;
                 count = c;
             }
@@ -48,6 +49,10 @@ public class Vacuum{
                 return count;
             }
 
+            public string GetElementName(){
+                return elementName;
+            }
+
             //Returns the count
             public void SetCount(int c)
             {
@@ -55,9 +60,9 @@ public class Vacuum{
             }
 
             //Returns the count
-            public void SetElementID(int eID)
+            public void SetElementID(int id)
             {
-                elementID = eID;
+                elementID = id;
             }
 
         }
@@ -70,7 +75,7 @@ public class Vacuum{
         LevelManager levelManager;
 
         //declare chamber variable
-        private List<InventoryPair> chamber;
+        private List<InventoryInfo> chamber;
         ChamberInteractionModel interactionModel;
 
 
@@ -81,12 +86,13 @@ public class Vacuum{
             interactionModel = lm.chamberInteractionModel;
 
             //Assign chamber variable
-            chamber = new List<InventoryPair>();
+            chamber = new List<InventoryInfo>();
         }
 
 
         //Adds given element to the chamber
-        public Vacuum.Chamber Add(int elemID){
+        public Vacuum.Chamber Add(string name, int elemID)
+        {
             //Check to see if the element is already in the chamber
             if (this.ContainsElement(elemID)){
                 // **RUN CHAMBER INTERACTION SCRIPT**
@@ -95,7 +101,7 @@ public class Vacuum{
             }
 
             //If not in chamber, then we will add it, assuming it can be added
-            chamber = interactionModel.AddToChamber(chamber, elemID);
+            chamber = interactionModel.AddToChamber(chamber, name, elemID);
             chamber = interactionModel.NormalizeChamber(chamber);
             return this;
         }
@@ -141,13 +147,13 @@ public class Vacuum{
 
 
         //Get the contents of a chamber
-        public List<InventoryPair> GetContents(){
+        public List<InventoryInfo> GetContents(){
             return chamber;
         }
 
 
         //Set the contents of a chamber
-        public void SetContents(List<InventoryPair> c)
+        public void SetContents(List<InventoryInfo> c)
         {
             chamber = c;
         }
@@ -202,8 +208,8 @@ public class Vacuum{
     }
 
     //Add an item to the chamber given id
-    public int AddToChamber(int id){
-        chambers[currentChamber] = chambers[currentChamber].Add(id);
+    public int AddToChamber(string n, int id){
+        chambers[currentChamber] = chambers[currentChamber].Add(n, id);
         return 1;
     }
      
@@ -217,21 +223,24 @@ public class Vacuum{
     }
 
     //Shooting scripts
-    public int Shoot(){
+    public Chamber.InventoryInfo Shoot(){
 
         //Check to make sure that we can shoot
         if (isCurrentChamberEmpty()){
-            return -1; //There is nothing to shoot! Return -1 to disapprove instantiating anything
+            return null; //There is nothing to shoot! Return -1 to disapprove instantiating anything
         }
 
         //Get the elementID of element in the chamber
-        int eID = chambers[currentChamber].GetContents()[0].GetElementID();
+        string name = chambers[currentChamber].GetContents()[0].GetElementName();
+        int id = chambers[currentChamber].GetContents()[0].GetElementID();
+
+        Chamber.InventoryInfo result = chambers[currentChamber].GetContents()[0];
 
         //Remove that element from the chamber
-        chambers[currentChamber].Remove(eID);
+        chambers[currentChamber].Remove(result.GetElementID());
 
         //return eID to give approval for instantiating
-        return eID;
+        return result;
 
         //NOTE: Element script on object will handle motion and collision of the element
     }
@@ -242,8 +251,8 @@ public class Vacuum{
 
         for (int i = 0; i < 3; i++){
             s += "Chamber " + i.ToString() + ":\n";
-            foreach(Chamber.InventoryPair elem in chambers[i].GetContents()){
-                s += "  " + elem.GetElementID().ToString() + ": " + elem.GetCount().ToString() + "\n";
+            foreach(Chamber.InventoryInfo elem in chambers[i].GetContents()){
+                s += "  " + elem.GetElementName() + ": " + elem.GetCount().ToString() + "\n";
             }
         }
 

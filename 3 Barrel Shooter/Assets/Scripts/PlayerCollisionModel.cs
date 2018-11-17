@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 // For when a player is hit by an element; functions should return (new player state, new element state)
 public class PlayerCollisionModel {
@@ -25,8 +26,8 @@ public class PlayerCollisionModel {
         em = elemMan;
     }
 
-    public CollisionResult HandleCollision(float playerHealth, int elementID){
-        float resultingHealth = playerHealth - em.GetDamageByID(elementID);
+    public CollisionResult HandleCollision(float playerHealth, string name){
+        float resultingHealth = playerHealth - em.GetDamageByID(name);
         //Will get actual effect list once implemented in ElementInfo and elementManager
         List<int> effectList = new List<int>();
         return new CollisionResult(resultingHealth, effectList);

@@ -47,21 +47,22 @@ public class VacuumController : MonoBehaviour {
 			v.changeChamber (1);
 		} //If RMB is pressed and vacuum isn't already on, shoot from the current chamber
         else if (isRMouseDown && !v.GetVacuumOn ()) {
-            int elementID = v.Shoot();
+            Vacuum.Chamber.InventoryInfo result = v.Shoot();
 
             //If element if -1, we could not shoot else can shoot
-            if (elementID != -1){
+            if (result != null){
                 //Instantiate element!!
                 ProjectileSpawner p = GetComponent<ProjectileSpawner>();
-                p.GetComponent<ProjectileSpawner>().shootProjectile(elementID, levelManager);
+                p.GetComponent<ProjectileSpawner>().shootProjectile(result.GetElementID(), levelManager);
             }
 		}
     }
 
     void OnTriggerStay2D(Collider2D collision)
     {
-
-        v.AddToChamber(int.Parse(collision.gameObject.tag[0].ToString()));
+        string name = collision.tag.Split('-')[1];
+        int id = int.Parse(collision.tag.Split('-')[0]);
+        v.AddToChamber(name, id);
         //If the item was added to the chamber destroy, else spit it back out randomly
         Destroy(collision.gameObject);
 

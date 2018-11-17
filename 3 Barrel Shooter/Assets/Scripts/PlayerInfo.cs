@@ -77,7 +77,8 @@ public class PlayerInfo : MonoBehaviour
         }
 
         int elemID = element.GetID();
-        PlayerCollisionModel.CollisionResult result = levelManager.playerCollisionModel.HandleCollision(health, elemID);
+        string elemName = element.GetName();
+        PlayerCollisionModel.CollisionResult result = levelManager.playerCollisionModel.HandleCollision(health, elemName);
         health = result.health;
         //Will apply player effects later
     }

@@ -1,62 +1,75 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using UnityEditor;
 
 public class ElementManager
 {
-    //declare ElementManager variables
-    private ElementInfo[] elements;
 
-    public void initElementManager(){
-        //assign ElementManager variables
-        elements = new ElementInfo[6];
+    public ElementInfo loadedElementInfo;
 
-        //declare temp loading variables
-        int tID;
-        float tDamage;
-        float tFireRate;
-        float tRange;
-        int tCapacity;
-        char tAmountType;
+    public List<elementData> elementDataList;
 
+    private string rawJSON;
 
+    public void initElementManager()
+    {
 
-        //LOAD INFORMATION FROM RESOURCES "elements.txt"
-        string elementPath = "elements";
-        //Debug.Log("Loading " + elementPath);
-        TextAsset elementFile = Resources.Load(elementPath) as TextAsset;
-        string[] wordList = elementFile.text.Split(new char[] { '\n', '\r' });
-        foreach (string s in wordList)
+        string filePath = Path.Combine(Application.streamingAssetsPath, "elements.json");
+
+        if (File.Exists(filePath))
         {
-            if (s[0] != '#')
-            {
-                //Assign values to temp loading variables
-                string[] lineList = s.Split(';');
-                tID = int.Parse(lineList[0]);
-                tDamage = float.Parse(lineList[1]);
-                tFireRate = float.Parse(lineList[2]);
-                tRange = float.Parse(lineList[3]);
-                tCapacity = int.Parse(lineList[4]);
-                tAmountType = lineList[5][0];
-
-
-                elements[tID - 1] = new ElementInfo(tID, tDamage, tFireRate, tRange, tCapacity, tAmountType);
-                //elements[tID-1].debugElement();
-            }
+            // Read the json from the file into a string
+            rawJSON = File.ReadAllText(filePath);
+            // Pass the json to JsonUtility, and tell it to create a GameData object from it
+            loadedElementInfo = JsonUtility.FromJson<ElementInfo>(rawJSON);
+            //NEED TO PUT ALL ELEMENTS INTO AN ARRAY
+            InitElementDataList();
+        }
+        else
+        {
+            Debug.LogError("Cannot load element data!");
         }
     }
 
+    private void InitElementDataList(){
+
+        elementDataList = new List<elementData>();
+
+        // Must be added in order by ID!
+        elementDataList.Add(loadedElementInfo.Fire);
+        elementDataList.Add(loadedElementInfo.Rock);
+        elementDataList.Add(loadedElementInfo.Water);
+    }
+
+
+
+    // TODO: FIX THESE FUNCTIONS BELOW!!!
+
     //Gets the capacity of an element given its ID
-    public int GetCapacityByID(int id)
+    public int GetCapacityByID(string name)
     {
-        return elements[id - 1].GetCapacity();
+        // loadedElementInfo.Element.chamberCapacity
+        return ExpressionEvaluator.Evaluate<int>(string.Format("loadedElementInfo.{0}.chamberCapacity", name));
     }
 
-    public ElementInfo GetElementByID(int id){
-        return elements[id - 1];
+    public float GetDamageByID(string name)
+    {
+        // loadedElementInfo.Fire.damage
+        return ExpressionEvaluator.Evaluate<float>(string.Format("loadedElementInfo.{0}.damage", name));
     }
 
-    public float GetDamageByID(int id){
-        return elements[id - 1].GetDamage();
+    public string GetChamberInteractions(string n1, string n2)
+    {
+        return ExpressionEvaluator.Evaluate<string>(string.Format("loadedElementInfo.{0}.chamberInteractions.{1}", n1, n2));
+    }
+
+    public elementData GetElementDataByID(int id){
+        return elementDataList[id - 1];
+    }
+
+    public int GetElementIDByName(string name){
+        return ExpressionEvaluator.Evaluate<int>(string.Format("loadedElementInfo.{0}.id", name));
     }
 }
