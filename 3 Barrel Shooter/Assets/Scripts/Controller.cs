@@ -63,6 +63,8 @@ public class Controller : MonoBehaviour {
 
         Left_Stick_Vertical = "Left_Stick_Vertical " + pNum;
         Left_Stick_Horizontal = "Left_Stick_Horizontal " + pNum;
+        Right_Stick_Vertical = "Right_Stick_Vertical " + pNum;
+        Right_Stick_Horizontal = "Right_Stick_Horizontal " + pNum;
     }
 
     public ControllerInputs GetInputs(){

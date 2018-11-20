@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 114685123911194454}
   - component: {fileID: 114280476902625794}
   - component: {fileID: 114348881451724554}
+  - component: {fileID: 114316634091906604}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -167,6 +168,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11103206b72f848b69e19a00fbeb22f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114316634091906604
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1489515086694090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d23c130088dd124b9f0e704da62a77c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114334466118458182
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -199,7 +211,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 699e1eb7cba513f459cab9bc0a955e4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerBody: {fileID: 0}
   speed: 2
+  inputHorizontal: Horizontal
+  inputVertical: Vertical
+  shootButton: ShootButton_P1
+  vacuumButton: VacuumButton_P1
 --- !u!114 &114685123911194454
 MonoBehaviour:
   m_ObjectHideFlags: 1

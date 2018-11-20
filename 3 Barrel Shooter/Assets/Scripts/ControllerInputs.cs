@@ -41,6 +41,8 @@ public class ControllerInputs
 
         Left_Stick_Horizontal = Input.GetAxisRaw(c.Left_Stick_Horizontal);
         Left_Stick_Veritcal = Input.GetAxisRaw(c.Left_Stick_Vertical);
+        Right_Stick_Horizontal = Input.GetAxisRaw(c.Right_Stick_Horizontal);
+        Right_Stick_Veritcal = Input.GetAxisRaw(c.Right_Stick_Vertical);
 
         return this;
     }

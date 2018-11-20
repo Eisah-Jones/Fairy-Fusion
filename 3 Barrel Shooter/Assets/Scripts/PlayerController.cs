@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     float vertical;
     bool suck;
     bool shoot;
+    float last_heading;
 
 
     private VacuumController vacControl;
@@ -46,10 +47,26 @@ public class PlayerController : MonoBehaviour
         horizontal = inputs.Left_Stick_Horizontal;
         vertical = -inputs.Left_Stick_Veritcal;
 
-        //Debug.Log(horizontal + " : " + vertical);
+        float r_vertical = inputs.Right_Stick_Veritcal;
+        float r_horizontal = inputs.Right_Stick_Horizontal;
+        float heading = Mathf.Atan2(r_vertical,r_horizontal);
+    
+        
+            
+        //Debug.Log(heading);
 
         //Change the position of the player
         Vector2 movement = new Vector2(horizontal * speed, vertical * speed);
-        transform.Translate(movement * Time.deltaTime);
+        transform.Translate(movement * Time.deltaTime,Space.World);
+        //change rotation of pplayer if no input received keeps same rotation as last time it got input prevents snapping back to 0,0 heading
+        if (heading != 0)
+        {
+            float last_heading = heading;
+            transform.rotation = Quaternion.Euler(0f, 0f, last_heading * Mathf.Rad2Deg);
+        }
+
+       
+
+  
     }
 }
