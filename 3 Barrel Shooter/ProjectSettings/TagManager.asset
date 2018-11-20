@@ -10,6 +10,10 @@ TagManager:
   - 4-Wood
   - 5-Air
   - Gun
+  - 6-Steam
+  - 7-Fireball
+  - 8-Mud
+  - 9-Stakes
   layers:
   - Default
   - TransparentFX

@@ -29,6 +29,7 @@ public class InputManager : MonoBehaviour {
         //buttons
     public static bool vacuumButton()
     {
+        Debug.Log("Vacuum!!!!");
         return Input.GetButtonDown("VacuumButton");
     }
     public static bool shootButton()

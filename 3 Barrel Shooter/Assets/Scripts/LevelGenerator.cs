@@ -34,19 +34,29 @@ public class LevelGenerator : MonoBehaviour {
         return;
     }
 
-    public void SpawnPlayer(GameObject p, LevelManager lm){
-        GameObject o = Instantiate(p);
-        o.AddComponent<PlayerInfo>();
-        o.GetComponent<PlayerInfo>().initPlayerInfo(lm);
-        GameObject g = o.transform.Find("Gun").gameObject;
-        g.AddComponent<VacuumController>();
-        g.GetComponent<VacuumController>().SetVacuum(o.GetComponent<PlayerInfo>().GetVacuum(), lm);
-        g.AddComponent<ProjectileSpawner>();
+    public List<GameObject> SpawnPlayers(GameObject p, LevelManager lm, int numPlayers){
+
+        List<GameObject> result = new List<GameObject>();
+
+        for (int i = 0; i < numPlayers; i++){
+            GameObject player = Instantiate(p); // Spawn player object
+            player.AddComponent<PlayerInfo>(); // Add PlayerInfo script
+            player.GetComponent<PlayerInfo>().InitPlayerInfo(lm, i+1); // Initialize player info script
+            GameObject playerGun = player.transform.Find("Gun").gameObject; // Get a reference to the player's gun object
+            playerGun.AddComponent<VacuumController>(); // Add vacuum controller
+            playerGun.GetComponent<VacuumController>().SetVacuum(player.GetComponent<PlayerInfo>().GetVacuum(), lm);
+            playerGun.AddComponent<ProjectileSpawner>(); // Add a projectile spawner script to the player gun
+            PlayerController pc = player.gameObject.GetComponent<PlayerController>();
+            pc.InitPlayerController(playerGun.GetComponent<VacuumController>());
+            result.Add(player); //Add player to our player list
+        }
+
+        return result;
     }
 
     public void SpawnResources(LevelManager lm, ElementManager em, GameObject[] p){
         List<Vector2> l = new List<Vector2>();
-        //l.Add()
+
         int lim = -1;
         int x = 0;
 

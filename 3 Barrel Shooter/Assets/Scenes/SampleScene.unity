@@ -692,6 +692,7 @@ GameObject:
   - component: {fileID: 1017884661}
   - component: {fileID: 1017884660}
   - component: {fileID: 1017884662}
+  - component: {fileID: 1017884663}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -770,6 +771,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1467446196756536, guid: 7e28ebb8d5d6241a1bc4966101df93aa, type: 2}
+  playerList: []
   processCollision: 0
   elemPrefabs:
   - {fileID: 1504345038597090, guid: c0cd16e601811456e82fb0fa21c1d49e, type: 2}
@@ -777,6 +779,21 @@ MonoBehaviour:
   - {fileID: 1821820668566678, guid: 72eb473c3c6da41f08d986340cda8657, type: 2}
   - {fileID: 1363146396752148, guid: 0f2f48619714f4dfe8619fa335dcbd24, type: 2}
   - {fileID: 1085138494941238, guid: ca67b390e9f1048d4be766a6ef5ee26d, type: 2}
+  - {fileID: 1680363510909248, guid: dbe9d3a3d33cf468f979f801db91aa3e, type: 2}
+  - {fileID: 1010250680845768, guid: 309ea2e0456e7425c89d926eaf37dc7b, type: 2}
+  - {fileID: 1561566444673538, guid: 667275776d815494e95b2913bfcbe5e0, type: 2}
+  - {fileID: 1991368369619112, guid: ff5cd9c274ddf4422839de3af6b90891, type: 2}
+--- !u!114 &1017884663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1017884659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2817bc1ff84e340f5a1fe8afc768df25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1056071072
 GameObject:
   m_ObjectHideFlags: 0

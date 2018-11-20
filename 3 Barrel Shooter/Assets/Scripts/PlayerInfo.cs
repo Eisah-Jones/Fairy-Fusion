@@ -11,14 +11,16 @@ public class PlayerInfo : MonoBehaviour
     BoxCollider2D vacuumArea;
 
     public float health;
+    public int playerNum;
 
     private bool startedRespawn;
 
-    public void initPlayerInfo(LevelManager lm){
+    public void InitPlayerInfo(LevelManager lm, int pNum){
         levelManager = lm;
         vacuum = new Vacuum(levelManager);
 
         health = 100.0f;
+        playerNum = pNum;
 
         startedRespawn = false;
 

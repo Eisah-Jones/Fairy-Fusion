@@ -23,46 +23,41 @@ public class VacuumController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //Get the user input
-        GetInput();
+        //GetInput();
 	}
 
-    private void GetInput(){
+    // Sets the vacuum state based on controller input
+    public void HandleVacuumStateInput(bool state){
+        v.SetVacuum(state);
+        vacuumArea.enabled = state;
+    }
 
-        //Save whether or not player is shooting
-        bool isRMouseDown = Input.GetMouseButtonDown(1);
-        //FIRST we want to see if the player is sucking
-        bool isLMouseDown = Input.GetMouseButton(0);
-        v.SetVacuum(isLMouseDown);
-        vacuumArea.enabled = isLMouseDown;
+    // Sets the chamber based on controller input
+    public void HandleChamberStateInput(int direction){
+        if (!v.GetVacuumOn())
+            v.changeChamber(direction);
+    }
 
-        // For debugging purposes
-        //if (isLMouseDown)
-            //Debug.Log(vacuumArea.enabled);
-
-        //If q is pressed and vacuum isn't already on, switch chamber left
-        if (Input.GetKeyDown (KeyCode.Q) && !v.GetVacuumOn ()) {
-			v.changeChamber (-1);
-        } //If e is pressed and vacuum isn't already on, switch chamber right
-        else if (Input.GetKeyDown (KeyCode.E) && !v.GetVacuumOn ()) {
-			v.changeChamber (1);
-		} //If RMB is pressed and vacuum isn't already on, shoot from the current chamber
-        else if (isRMouseDown && !v.GetVacuumOn ()) {
+    // Sets the shoot staten based on controller input
+    public void HandleShootStateInput(bool isShooting){
+        if (isShooting && !v.GetVacuumOn()){
             Vacuum.Chamber.InventoryInfo result = v.Shoot();
 
             //If element if -1, we could not shoot else can shoot
-            if (result != null){
+            if (result != null)
+            {
                 //Instantiate element!!
                 ProjectileSpawner p = GetComponent<ProjectileSpawner>();
                 p.GetComponent<ProjectileSpawner>().shootProjectile(result.GetElementID(), levelManager);
             }
-		}
+        }
     }
 
     void OnTriggerStay2D(Collider2D collision)
     {
-        string name = collision.tag.Split('-')[1];
+        string cName = collision.tag.Split('-')[1];
         int id = int.Parse(collision.tag.Split('-')[0]);
-        v.AddToChamber(name, id);
+        v.AddToChamber(cName, id);
         //If the item was added to the chamber destroy, else spit it back out randomly
         Destroy(collision.gameObject);
 

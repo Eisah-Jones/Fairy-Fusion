@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4810042843120258}
   - component: {fileID: 212338395989304352}
   - component: {fileID: 61469555470657318}
-  - component: {fileID: 114109978463736982}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -154,27 +153,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114109978463736982
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1393504448597020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87d102a9eb8bb19458ed4eab9ba6b2cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firepoint: {fileID: 4810042843120258}
-  Fire_bullet: {fileID: 1481518444843500, guid: ab77cffc236ec1349bbcb1a1ca846c51,
-    type: 2}
-  Water_bullet: {fileID: 1930256038863884, guid: 2abaa31351369c345a2d42a87c871bd2,
-    type: 2}
-  Rock_bullet: {fileID: 1864603396921688, guid: 1c4b0406b72171749828df6e0f28aefa,
-    type: 2}
-  Fire_delay: 0.01
-  Rock_delay: 0.5
-  Water_delay: 0.01
 --- !u!114 &114822568842177130
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -186,7 +164,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 699e1eb7cba513f459cab9bc0a955e4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerBody: {fileID: 0}
   speed: 2
+  inputHorizontal: Horizontal
+  inputVertical: Vertical
+  shootButton: ShootButton_P1
+  vacuumButton: VacuumButton_P1
 --- !u!212 &212338395989304352
 SpriteRenderer:
   m_ObjectHideFlags: 1

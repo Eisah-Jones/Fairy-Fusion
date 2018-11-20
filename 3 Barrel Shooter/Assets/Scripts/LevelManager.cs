@@ -11,10 +11,13 @@ public class LevelManager: MonoBehaviour {
     public ChamberInteractionModel chamberInteractionModel;
     public PlayerCollisionModel playerCollisionModel;
     public ElementCollisionModel elementCollisionModel;
+    public ControllerManager controllerManager;
 
     private LevelGenerator levelGen = new LevelGenerator();
 
     public GameObject player;
+    public List<GameObject> playerList;
+
     public bool processCollision;
     [SerializeField]
     public GameObject[] elemPrefabs = new GameObject[3];
@@ -25,21 +28,41 @@ public class LevelManager: MonoBehaviour {
         chamberInteractionModel = new ChamberInteractionModel(elementManager);
         playerCollisionModel = new PlayerCollisionModel(elementManager);
         elementCollisionModel = new ElementCollisionModel(elementManager);
+        controllerManager = GetComponent<ControllerManager>();
 
-        levelGen.SpawnPlayer(player, GetComponent<LevelManager>());
+        int numPlayers = 2;
+        playerList = levelGen.SpawnPlayers(player, GetComponent<LevelManager>(), numPlayers);
         levelGen.SpawnResources(GetComponent<LevelManager>(), elementManager, elemPrefabs);
 
         processCollision = true;
 	}
 
     //Continually check to see if game is over, track player states, log information, etc.
-    private void Update()
+    //Fixed update because of physics calculations
+    private void FixedUpdate()
     {
+        // Get each controller inputs
+        List<ControllerInputs> controllerInputs = controllerManager.GetControllerInputs();
+        // Send these inputs to the player
+        SendControllerInputsToPlayer(controllerInputs);
+    }
 
+    private void SendControllerInputsToPlayer(List<ControllerInputs> i)
+    {
+        int mapping = 0;
+        foreach( GameObject p in playerList){
+            p.GetComponent<PlayerController>().UpdatePlayerMovement(i[mapping]);
+            p.GetComponent<PlayerController>().UpdatePlayerInputs(i[mapping]);
+            mapping++;
+        }
     }
 
     public void SetProcessCollision(bool b){
         Debug.Log("Set Process Collision " + b.ToString());
         processCollision = b;
+    }
+
+    public int GetNumPlayers(){
+        return playerList.Count;
     }
 }
