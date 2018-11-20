@@ -17,6 +17,21 @@ public class ChamberInteractions
     public string Mud;
     public string Stakes;
     public string Birdshot;
+
+    public string GetChamberResult(string name){
+
+        if (name == "Fire") return Fire;
+
+        if (name == "Rock") return Rock;
+
+        if (name == "Water") return Water;
+
+        if (name == "Wood") return Wood;
+
+        if (name == "Air") return Air;
+
+        return "None";
+    }
 }
 
 [System.Serializable]
@@ -47,6 +62,10 @@ public class ElementCollisions
 
         if (name == "Water") return Water;
 
+        if (name == "Wood") return Wood;
+
+        if (name == "Air") return Air;
+
         return new collisionPair();
     }
 }
@@ -66,11 +85,12 @@ public class elementData
 }
 
 //Stores the base information for elements in the game
-
 [System.Serializable]
 public class ElementInfo
 {
     public elementData Fire;
     public elementData Rock;
     public elementData Water;
+    public elementData Wood;
+    public elementData Air;
 }

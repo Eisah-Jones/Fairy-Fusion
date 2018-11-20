@@ -47,12 +47,12 @@ public class LevelGenerator : MonoBehaviour {
     public void SpawnResources(LevelManager lm, ElementManager em, GameObject[] p){
         List<Vector2> l = new List<Vector2>();
         //l.Add()
-        int lim = 3;
+        int lim = -1;
         int x = 0;
 
         int id;
 
-        for (int i = 0; i < lim; i++){
+        for (int i = 4; i > lim; i--){
             id = int.Parse(p[i].tag.Split('-')[0]);
             GameObject o = Instantiate(p[i], new Vector2(x, 0), Quaternion.identity);
             o.GetComponent<ElementObject>().initElement(lm, em.GetElementDataByID(id) , false);

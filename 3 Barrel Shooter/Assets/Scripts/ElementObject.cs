@@ -63,12 +63,14 @@ public class ElementObject : MonoBehaviour {
         // We don't care if we collide with these objects
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Untagged") return;
 
-        //Debug.Log(tag + " : " + collision.tag);
+        Debug.Log(tag + " : " + collision.tag);
 
         // Get the ID of the element we collided with
         int ID2 = int.Parse(collision.tag[0].ToString());
 
         ElementCollisionModel.CollisionResult cr = elementCollisionModel.HandleInteraction(ID, ID2);
+
+        Debug.Log("Collision Results : " + cr.elementResults[0].ToString());
 
         int i = 0;
         foreach( string result in cr.elementResults ){

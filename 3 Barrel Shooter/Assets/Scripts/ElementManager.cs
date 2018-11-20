@@ -41,12 +41,15 @@ public class ElementManager
         elementDataList.Add(loadedElementInfo.Fire);
         elementDataList.Add(loadedElementInfo.Rock);
         elementDataList.Add(loadedElementInfo.Water);
+        elementDataList.Add(loadedElementInfo.Wood);
+        elementDataList.Add(loadedElementInfo.Air);
     }
 
 
 
     // TODO: FIX THESE FUNCTIONS BELOW!!!
 
+    // Doesn't work
     //Gets the capacity of an element given its ID
     public int GetCapacityByID(string name)
     {
@@ -54,22 +57,27 @@ public class ElementManager
         return ExpressionEvaluator.Evaluate<int>(string.Format("loadedElementInfo.{0}.chamberCapacity", name));
     }
 
+    // Doesn't work
     public float GetDamageByID(string name)
     {
         // loadedElementInfo.Fire.damage
         return ExpressionEvaluator.Evaluate<float>(string.Format("loadedElementInfo.{0}.damage", name));
     }
 
-    public string GetChamberInteractions(string n1, string n2)
-    {
-        return ExpressionEvaluator.Evaluate<string>(string.Format("loadedElementInfo.{0}.chamberInteractions.{1}", n1, n2));
-    }
-
+    // This works!
     public elementData GetElementDataByID(int id){
         return elementDataList[id - 1];
     }
 
-    public int GetElementIDByName(string name){
-        return ExpressionEvaluator.Evaluate<int>(string.Format("loadedElementInfo.{0}.id", name));
+    // Doesn't work
+    public int GetElementIDByName(string n){
+        foreach (elementData eD in elementDataList){
+            if (eD.name == n){
+                return eD.ID;
+            }
+        }
+
+        //If no element is found
+        return -1;
     }
 }

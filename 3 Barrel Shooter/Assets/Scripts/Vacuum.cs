@@ -234,7 +234,10 @@ public class Vacuum{
         string name = chambers[currentChamber].GetContents()[0].GetElementName();
         int id = chambers[currentChamber].GetContents()[0].GetElementID();
 
+        Debug.Log("Current Element: " + name);
+
         Chamber.InventoryInfo result = chambers[currentChamber].GetContents()[0];
+
 
         //Remove that element from the chamber
         chambers[currentChamber].Remove(result.GetElementID());
