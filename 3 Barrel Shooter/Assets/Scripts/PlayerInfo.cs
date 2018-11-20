@@ -9,7 +9,6 @@ public class PlayerInfo : MonoBehaviour
     LevelManager levelManager;
     Vacuum vacuum;
     BoxCollider2D vacuumArea;
-    Shooting shoot_script;
 
     public float health;
 
@@ -18,7 +17,6 @@ public class PlayerInfo : MonoBehaviour
     public void initPlayerInfo(LevelManager lm){
         levelManager = lm;
         vacuum = new Vacuum(levelManager);
-        shoot_script = GetComponent<Shooting>();
 
         health = 100.0f;
 
