@@ -752,6 +752,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBody: {fileID: 1177652541}
   speed: 2
+  inputHorizontal: Horizontal
+  inputVertical: Vertical
 --- !u!61 &232240687
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1806,6 +1808,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBody: {fileID: 164151241}
   speed: 2
+  inputHorizontal: Horizontal2
+  inputVertical: Vertical2
 --- !u!114 &914820514
 MonoBehaviour:
   m_ObjectHideFlags: 0
