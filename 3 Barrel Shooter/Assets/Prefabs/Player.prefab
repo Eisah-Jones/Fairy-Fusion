@@ -58,7 +58,6 @@ GameObject:
   - component: {fileID: 4455635218415062}
   - component: {fileID: 212148894370376728}
   - component: {fileID: 61841298007369936}
-  - component: {fileID: 114334466118458182}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Gun
@@ -99,7 +98,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1489515086694090}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.79, y: -0.18, z: -2}
+  m_LocalPosition: {x: -3.3329053, y: 2.2093425, z: -2}
   m_LocalScale: {x: 0.5, y: 1, z: 1}
   m_Children:
   - {fileID: 4266722305196270}
@@ -179,27 +178,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d23c130088dd124b9f0e704da62a77c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114334466118458182
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1929716765507484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87d102a9eb8bb19458ed4eab9ba6b2cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firepoint: {fileID: 4455635218415062}
-  Fire_bullet: {fileID: 1481518444843500, guid: ab77cffc236ec1349bbcb1a1ca846c51,
-    type: 2}
-  Water_bullet: {fileID: 1930256038863884, guid: 2abaa31351369c345a2d42a87c871bd2,
-    type: 2}
-  Rock_bullet: {fileID: 1864603396921688, guid: 1c4b0406b72171749828df6e0f28aefa,
-    type: 2}
-  Fire_delay: 0.01
-  Rock_delay: 0.5
-  Water_delay: 0.01
 --- !u!114 &114348881451724554
 MonoBehaviour:
   m_ObjectHideFlags: 1
