@@ -174,6 +174,7 @@ public class Vacuum{
 
     // Vacuum constructor
     public Vacuum(LevelManager lm){
+
         levelManager = lm;
 
         cim = levelManager.chamberInteractionModel;
@@ -216,6 +217,12 @@ public class Vacuum{
     //Returns the current chamber
     public Chamber GetCurrentChamber(){
         return chambers[currentChamber];
+    }
+
+    //Returns the chamber given the index
+    public Chamber GetChamberByIndex(int i)
+    {
+        return chambers[i];
     }
 
     public bool isCurrentChamberEmpty(){

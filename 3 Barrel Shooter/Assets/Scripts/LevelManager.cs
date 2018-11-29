@@ -32,7 +32,7 @@ public class LevelManager: MonoBehaviour {
 
         int numPlayers = 2;
         playerList = levelGen.SpawnPlayers(player, GetComponent<LevelManager>(), numPlayers);
-        levelGen.SpawnResources(GetComponent<LevelManager>(), elementManager, elemPrefabs);
+        //levelGen.SpawnResources(GetComponent<LevelManager>(), elementManager, elemPrefabs);
 
         processCollision = true;
 	}

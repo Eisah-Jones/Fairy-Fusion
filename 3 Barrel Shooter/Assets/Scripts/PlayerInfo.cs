@@ -26,14 +26,21 @@ public class PlayerInfo : MonoBehaviour
 
     }
 
+
     public Vacuum GetVacuum(){
         return vacuum;
+    }
+
+
+    public float GetPlayerHealth(){
+        return health;
     }
 
 
     public bool isDead(){
         return health <= 0.0f;
     }
+
 
     private void Update()
     {

@@ -59,6 +59,7 @@ public class LevelGenerator : MonoBehaviour {
 
         int lim = -1;
         int x = 0;
+        int y = 0;
 
         int id;
 
@@ -67,6 +68,18 @@ public class LevelGenerator : MonoBehaviour {
             GameObject o = Instantiate(p[i], new Vector2(x, 0), Quaternion.identity);
             o.GetComponent<ElementObject>().initElement(lm, em.GetElementDataByID(id) , false);
             x += 3;
+        }
+
+        y = -4;
+        for (int i = 0; i < 5; i++){
+            x = -4;
+            for (int j = 0; j < 5; j++){
+                id = int.Parse(p[i].tag.Split('-')[0]);
+                GameObject o = Instantiate(p[i], new Vector2(x, 0), Quaternion.identity);
+                o.GetComponent<ElementObject>().initElement(lm, em.GetElementDataByID(id), false);
+                x += 3;
+            }
+            y += 3;
         }
     }
 

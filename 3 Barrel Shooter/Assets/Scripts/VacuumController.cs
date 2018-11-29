@@ -8,11 +8,16 @@ public class VacuumController : MonoBehaviour {
     Vacuum v;
     BoxCollider2D vacuumArea;
 
+    bool canShoot;
+    int shootNum = 10;
+    int tempShoot = 0;
+
     //Sets the vacuum for the player, should be called after player gameObject instantiation 
     public void SetVacuum(Vacuum vac, LevelManager lm){
         v = vac;
         vacuumArea = GetComponent<BoxCollider2D>();
         levelManager = lm;
+        canShoot = true;
     }
 
 	// Use this for initialization
@@ -22,8 +27,11 @@ public class VacuumController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //Get the user input
-        //GetInput();
+        tempShoot += 1;
+        if (tempShoot > shootNum){
+            canShoot = true;
+            tempShoot = 0;
+        }
 	}
 
     // Sets the vacuum state based on controller input
@@ -40,6 +48,12 @@ public class VacuumController : MonoBehaviour {
 
     // Sets the shoot staten based on controller input
     public void HandleShootStateInput(bool isShooting){
+
+        if (!canShoot)
+            return;
+
+        canShoot = false;
+
         if (isShooting && !v.GetVacuumOn()){
             Vacuum.Chamber.InventoryInfo result = v.Shoot();
 
