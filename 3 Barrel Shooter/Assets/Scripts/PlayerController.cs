@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(heading);
 
         //Change the position of the player
-        Vector2 movement = new Vector2(horizontal * speed, vertical * speed);
+        Vector2 movement = new Vector2(-1 * speed, vertical * speed);
         transform.Translate(movement * Time.deltaTime, Space.World);
         //change rotation of pplayer if no input received keeps same rotation as last time it got input prevents snapping back to 0,0 heading
         if (heading != 0)

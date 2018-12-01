@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 212593330761833634}
   - component: {fileID: 61942274801721230}
   - component: {fileID: 114822568842177130}
+  - component: {fileID: 50722674422464910}
   m_Layer: 0
   m_Name: SmallerPlayer
   m_TagString: Player
@@ -85,7 +86,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1467446196756536}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.179134, y: -2.6014142, z: -2}
+  m_LocalPosition: {x: -6.436016, y: -2.2443557, z: -2}
   m_LocalScale: {x: 0.33333334, y: 0.6666667, z: 1}
   m_Children:
   - {fileID: 4611199150889332}
@@ -133,6 +134,26 @@ Transform:
   m_Father: {fileID: 4496988601752736}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50722674422464910
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1467446196756536}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!61 &61469555470657318
 BoxCollider2D:
   m_ObjectHideFlags: 1
