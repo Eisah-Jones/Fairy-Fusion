@@ -15,6 +15,10 @@ TagManager:
   - 8-Mud
   - 9-Stakes
   - Minimap
+  - Rock
+  - Fire
+  - Water
+  - Walls
   layers:
   - Default
   - TransparentFX
