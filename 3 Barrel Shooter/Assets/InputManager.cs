@@ -26,16 +26,16 @@ public class InputManager : MonoBehaviour {
     }
 
 
-        //buttons
-    public static bool vacuumButton()
-    {
-        Debug.Log("Vacuum!!!!");
-        return Input.GetButtonDown("VacuumButton");
-    }
-    public static bool shootButton()
-    {
-        return Input.GetButtonDown("ShootButton");
-    }
+    //    //buttons
+    //public static float vacuumButton()
+    //{
+    //    Debug.Log("Vacuum!!!!");
+    //    return Input.GetAxisRaw("VacuumButton");
+    //}
+    //public static float shootButton()
+    //{
+    //    return Input.GetAxisRaw("ShootButton");
+    //}
 
     
 
