@@ -17,8 +17,8 @@ public class PlayerController : MonoBehaviour
     public string vacuumButton = "VacuumButton_P1";
     float horizontal;
     float vertical;
-    bool suck;
-    bool shoot;
+    bool suck= false;
+    bool shoot= false;
     float last_heading;
 
 
@@ -30,8 +30,10 @@ public class PlayerController : MonoBehaviour
 
     public void UpdatePlayerInputs(ControllerInputs inputs)
     {
-        suck = inputs.Xbox_A;
-        shoot = inputs.Xbox_B;
+        Debug.Log(inputs.Left_Trigger + ":" + inputs.Right_Trigger);
+        if (inputs.Left_Trigger == 1) { suck = true; } else suck = false;
+        if (inputs.Right_Trigger == 1) { shoot = true; } else shoot = false;
+
 
 
 
