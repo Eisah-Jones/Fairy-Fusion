@@ -88,7 +88,7 @@ public class PlayerInfo : MonoBehaviour
     {
 		if (collision.tag == "Walls") {
 			rearea = collision.name;
-			return
+			return;
 		}
         //Get the element script from the collision gameobject for reference
         ElementObject element = collision.gameObject.GetComponent<ElementObject>();
