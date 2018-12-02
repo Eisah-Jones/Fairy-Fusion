@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212214133518308968}
   m_Layer: 0
   m_Name: B_Water
-  m_TagString: Untagged
+  m_TagString: 3-Water
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

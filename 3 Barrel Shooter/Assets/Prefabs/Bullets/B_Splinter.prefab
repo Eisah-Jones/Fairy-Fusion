@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212273740981625570}
   m_Layer: 0
   m_Name: B_Splinter
-  m_TagString: Untagged
+  m_TagString: 4-Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
