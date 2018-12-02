@@ -34,6 +34,16 @@ public class ChamberInteractions
     }
 }
 
+
+[System.Serializable]
+public class combinationRequirements
+{
+    public string elem1;
+    public int elem1Num;
+    public string elem2;
+    public int elem2Num;
+}
+
 [System.Serializable]
 public class collisionPair
 {
@@ -82,6 +92,7 @@ public class elementData
     public List<string> playerCollisionEffects;
     public ChamberInteractions chamberInteractions;
     public ElementCollisions elementCollisions;
+    public combinationRequirements combinationRequirements;
 }
 
 //Stores the base information for elements in the game

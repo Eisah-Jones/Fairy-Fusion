@@ -66,10 +66,11 @@ public class ElementManager
 
     // This works!
     public elementData GetElementDataByID(int id){
+        if (id == -1) { return null; }
         return elementDataList[id - 1];
     }
 
-    // Doesn't work
+    // This now works
     public int GetElementIDByName(string n){
         foreach (elementData eD in elementDataList){
             if (eD.name == n){
@@ -77,7 +78,22 @@ public class ElementManager
             }
         }
 
-        //If no element is found
+        // If no element is found
         return -1;
     }
+
+    // This works!
+    public elementData GetElementDataByName(string n){
+        foreach (elementData eD in elementDataList)
+        {
+            if (eD.name == n)
+            {
+                return eD;
+            }
+        }
+
+        // No element found
+        return null;
+    }
+
 }

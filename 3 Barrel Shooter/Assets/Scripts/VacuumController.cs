@@ -57,23 +57,30 @@ public class VacuumController : MonoBehaviour {
         if (isShooting && !v.GetVacuumOn()){
             Vacuum.Chamber.InventoryInfo result = v.Shoot();
 
-            //If element if -1, we could not shoot else can shoot
+            //If element null, we could not shoot else can shoot
             if (result != null)
             {
                 //Instantiate element!!
                 ProjectileSpawner p = GetComponent<ProjectileSpawner>();
                 p.GetComponent<ProjectileSpawner>().shootProjectile(result.GetElementID(), levelManager);
+                v.SetCombinationChambers();
             }
         }
     }
 
     void OnTriggerStay2D(Collider2D collision)
     {
+        Debug.Log(collision.tag);
+
+        if (collision.tag == "Walls" || collision.tag == "Player") return;
+
         string cName = collision.tag.Split('-')[1];
         int id = int.Parse(collision.tag.Split('-')[0]);
         v.AddToChamber(cName, id);
         //If the item was added to the chamber destroy, else spit it back out randomly
+
         Destroy(collision.gameObject);
+        v.SetCombinationChambers();
 
         v.DebugVac();
     }

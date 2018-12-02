@@ -61,7 +61,7 @@ public class ElementObject : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // We don't care if we collide with these objects
-        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Untagged") return;
+        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Untagged" || collision.gameObject.tag == "Walls") return;
 
         Debug.Log(tag + " : " + collision.tag);
 
@@ -82,8 +82,6 @@ public class ElementObject : MonoBehaviour {
                 else // We are evaluating outcome of COLLISION element object
                     Destroy(collision.gameObject);
             }
-
-
             i++;
         }
     }

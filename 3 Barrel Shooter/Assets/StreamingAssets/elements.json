@@ -22,6 +22,12 @@
       "Stakes": null,
       "Birdshot": null
     },
+    "combinationRequirements":{
+      "elem1": null,
+      "elem1Num": null,
+      "elem2": null,
+      "elem2Num": null
+    },
     "elementCollisions": {
       "Fire": {
         "c1": null,
@@ -88,6 +94,12 @@
       "Mud": null,
       "Stakes": null,
       "Birdshot": null
+    },
+    "combinationRequirements":{
+      "elem1": null,
+      "elem1Num": null,
+      "elem2": null,
+      "elem2Num": null
     },
     "elementCollisions": {
       "Fire": {
@@ -156,6 +168,12 @@
       "Stakes": null,
       "Birdshot": null
     },
+    "combinationRequirements":{
+      "elem1": null,
+      "elem1Num": null,
+      "elem2": null,
+      "elem2Num": null
+    },
     "elementCollisions": {
       "Fire": {
         "c1": null,
@@ -222,6 +240,12 @@
       "Mud": null,
       "Stakes": null,
       "Birdshot": null
+    },
+    "combinationRequirements":{
+      "elem1": null,
+      "elem1Num": null,
+      "elem2": null,
+      "elem2Num": null
     },
     "elementCollisions": {
       "Fire": {
@@ -290,6 +314,12 @@
       "Stakes": null,
       "Birdshot": null
     },
+    "combinationRequirements":{
+      "elem1": null,
+      "elem1Num": null,
+      "elem2": null,
+      "elem2Num": null
+    },
     "elementCollisions": {
       "Fire": {
         "c1": null,
@@ -356,6 +386,12 @@
       "Mud": null,
       "Stakes": null,
       "Birdshot": null
+    },
+    "combinationRequirements":{
+      "elem1": null,
+      "elem1Num": null,
+      "elem2": null,
+      "elem2Num": null
     },
     "elementCollisions": {
       "Fire": {
