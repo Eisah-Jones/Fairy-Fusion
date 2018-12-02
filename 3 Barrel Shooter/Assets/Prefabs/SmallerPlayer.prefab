@@ -58,6 +58,8 @@ GameObject:
   - component: {fileID: 61942274801721230}
   - component: {fileID: 114822568842177130}
   - component: {fileID: 50722674422464910}
+  - component: {fileID: 111836402085619214}
+  - component: {fileID: 95675529617812438}
   m_Layer: 0
   m_Name: SmallerPlayer
   m_TagString: Player
@@ -72,7 +74,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1467446196756536}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.9715264, y: -3.5222485, z: -2}
+  m_LocalPosition: {x: 0, y: 0, z: -2}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 4810042843120258}
@@ -176,6 +178,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.1430295, y: 2.0365062}
   m_EdgeRadius: 0
+--- !u!95 &95675529617812438
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1467446196756536}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 42966a8bfd389e8459d8044da01be47b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!95 &95910343759178510
 Animator:
   serializedVersion: 3
@@ -205,6 +225,20 @@ Animation:
   m_Animation: {fileID: 7400000, guid: daa59abd7bce2e14db0063a12e24b70e, type: 2}
   m_Animations:
   - {fileID: 7400000, guid: 9b2ffcf1d85396744a5694f2a0575ac6, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!111 &111836402085619214
+Animation:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1467446196756536}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: d9eade7ec22636e498716367ab6114b7, type: 2}
+  m_Animations: []
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
