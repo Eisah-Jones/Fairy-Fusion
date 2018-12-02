@@ -6,6 +6,9 @@ public class PlayerController : MonoBehaviour
 {
 
     public GameObject playerBody;
+	public Animator player_animator;
+	private Animator gun_animator;
+
 
     private bool facingRight = true;
     private bool flipped = false;
@@ -22,8 +25,9 @@ public class PlayerController : MonoBehaviour
     bool combinationToggle = false; //If true then canshoot combination, else cannot
     float last_heading;
 
-
     private VacuumController vacControl;
+
+
 
     public void InitPlayerController(VacuumController vc){
         vacControl = vc;
@@ -77,4 +81,14 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, 0f, last_heading * Mathf.Rad2Deg);
         }
     }
+
+	private void Update()
+	{
+		gun_animator.SetBool ("Sucking", suck);
+	}
+
+	void Start()
+	{
+		gun_animator = GetComponentInChildren<Animator>();
+	}
 }

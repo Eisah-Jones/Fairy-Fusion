@@ -37,6 +37,8 @@ GameObject:
   - component: {fileID: 4810042843120258}
   - component: {fileID: 212338395989304352}
   - component: {fileID: 61469555470657318}
+  - component: {fileID: 111686052916099952}
+  - component: {fileID: 95910343759178510}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -174,6 +176,39 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.1430295, y: 2.0365062}
   m_EdgeRadius: 0
+--- !u!95 &95910343759178510
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1393504448597020}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b2f0aaf462e30f34893bc6cf8c6e3e6b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!111 &111686052916099952
+Animation:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1393504448597020}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: daa59abd7bce2e14db0063a12e24b70e, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 9b2ffcf1d85396744a5694f2a0575ac6, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!114 &114822568842177130
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -186,6 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerBody: {fileID: 0}
+  player_animator: {fileID: 0}
   speed: 2
   inputHorizontal: Horizontal
   inputVertical: Vertical
