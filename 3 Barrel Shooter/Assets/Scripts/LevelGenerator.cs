@@ -49,6 +49,7 @@ public class LevelGenerator : MonoBehaviour {
             PlayerController pc = player.gameObject.GetComponent<PlayerController>();
             pc.InitPlayerController(playerGun.GetComponent<VacuumController>());
             result.Add(player); //Add player to our player list
+			player.name = string.Format("Player{0}",i);
         }
 
         return result;
