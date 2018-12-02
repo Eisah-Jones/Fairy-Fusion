@@ -72,7 +72,7 @@ public class VacuumController : MonoBehaviour {
     {
         Debug.Log(collision.tag);
 
-        if (collision.tag == "Walls") return;
+        if (collision.tag == "Walls" || collision.tag == "Player") return;
 
         string cName = collision.tag.Split('-')[1];
         int id = int.Parse(collision.tag.Split('-')[0]);

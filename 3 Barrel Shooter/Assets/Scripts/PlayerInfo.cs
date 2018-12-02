@@ -90,7 +90,7 @@ public class PlayerInfo : MonoBehaviour
 
     public void OnTriggerStay2D(Collider2D collision)
     {
-		if (collision.tag == "Walls") {
+		if (collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged") {
 			rearea = collision.name;
 			return;
 		}
