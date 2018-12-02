@@ -34,6 +34,12 @@ public class VacuumController : MonoBehaviour {
         }
 	}
 
+    public void SetIsCombiningElements(bool b)
+    {
+        v.SetIsCombiningElements(b);
+    }
+
+
     // Sets the vacuum state based on controller input
     public void HandleVacuumStateInput(bool state){
         v.SetVacuum(state);

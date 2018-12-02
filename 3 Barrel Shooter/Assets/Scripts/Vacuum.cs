@@ -217,6 +217,11 @@ public class Vacuum{
     }
 
 
+    public void SetIsCombiningElements(bool b){
+        isCombiningElements = b;
+    }
+
+
     //Switch for turning on and off vacuum
     public void SetVacuum(bool b){
         vacuumOn = b;
@@ -236,6 +241,7 @@ public class Vacuum{
 
     // Change the chamber based on direction
     public int changeChamber(int direction){
+        Debug.Log("Change Chamber " + direction);
         currentChamber = (currentChamber + direction)%3;
         return currentChamber;
     }

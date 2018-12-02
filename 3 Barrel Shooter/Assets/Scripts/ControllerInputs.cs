@@ -37,9 +37,15 @@ public class ControllerInputs
     {
         Left_Trigger = Input.GetAxisRaw(c.Left_Trigger);
         Right_Trigger = Input.GetAxisRaw(c.Right_Trigger);
+
+        Right_Bumper = Input.GetButtonDown(c.Right_Bumper);
+        Left_Bumper = Input.GetButtonDown(c.Left_Bumper);
+
         Left_Stick_Click = Input.GetButtonDown(c.Left_Stick_Click);
+
         Left_Stick_Horizontal = Input.GetAxisRaw(c.Left_Stick_Horizontal);
         Left_Stick_Veritcal = Input.GetAxisRaw(c.Left_Stick_Vertical);
+
         Right_Stick_Horizontal = Input.GetAxisRaw(c.Right_Stick_Horizontal);
         Right_Stick_Veritcal = Input.GetAxisRaw(c.Right_Stick_Vertical);
 

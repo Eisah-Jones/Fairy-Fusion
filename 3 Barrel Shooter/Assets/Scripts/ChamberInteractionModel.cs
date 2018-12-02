@@ -87,9 +87,19 @@ public class ChamberInteractionModel
         //This returns the resulting name of the element of the chamber interaction
         string resultName = elem1.chamberInteractions.GetChamberResult(c2.GetElementNameByIndex(0));
 
+        Debug.Log("MIX: " + resultName);
+        //Filter out results, call function to perform other actions
+        if (resultName == "Ammo") return null;
+
+
         //If the number of elem1 and elem2 are enough to create an element return that element's data, else return null
 
-        combinationRequirements combReq = em.GetElementDataByName(resultName).combinationRequirements;
+        elementData e = em.GetElementDataByName(resultName);
+        if (e == null) return null;
+
+        combinationRequirements combReq = e.combinationRequirements;
+
+        Debug.Log(combReq);
 
         string elem1ReqName = combReq.elem1;
         int elem1ReqNum = combReq.elem1Num;
