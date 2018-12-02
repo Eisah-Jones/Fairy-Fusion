@@ -147,6 +147,7 @@ public class Vacuum{
 
 
         public int GetAmountByIndex(int i){
+            if (chamber.Count <= i) { return -1; }
             return chamber[i].GetCount();
         }
 
@@ -234,6 +235,11 @@ public class Vacuum{
         return vacuumOn;
     }
 
+
+    public bool GetIsCombiningElements(){
+        return isCombiningElements;
+    }
+
     //Get the current element id from a chamber
 	public int GetCurrentChamberElement(){
 		return chambers [currentChamber].GetElementIDByIndex (0);
@@ -245,6 +251,8 @@ public class Vacuum{
         if (direction == 0) return currentChamber;
         Debug.Log("Change Chamber " + direction);
         currentChamber = (currentChamber + direction)%3;
+        if (currentChamber == -1)
+            currentChamber = 2;
         return currentChamber;
     }
 
@@ -259,6 +267,10 @@ public class Vacuum{
     // Returns the current chamber
     public Chamber GetCurrentChamber(){
         return chambers[currentChamber];
+    }
+
+    public int GetCurrentChamberIndex(){
+        return currentChamber;
     }
 
 
@@ -281,7 +293,7 @@ public class Vacuum{
 
 
     public bool IsCombinationChamberEmpty(){
-        return combinationChambers[currentChamber] != null;
+        return combinationChambers[currentChamber] == null;
     }
 
 
@@ -326,10 +338,9 @@ public class Vacuum{
                 chambers[nextChamber].Remove(combReq.elem1, e2Num);
             }
 
-
-            return chambers[currentChamber].GetContents()[0];
+            elementData ed = combinationChambers[currentChamber];
+            return new Chamber.InventoryInfo(ed.name, ed.ID, 1);
         }
-
 
         // If we are not combining elements
 

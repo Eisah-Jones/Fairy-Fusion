@@ -55,13 +55,18 @@ public class LevelManager: MonoBehaviour {
     private void UpdateGUI(){
         PlayerInfo pi = playerList[0].GetComponent<PlayerInfo>();
         testHUD.text = "Health: " + pi.GetPlayerHealth() + "\n";
-        testHUD.text += "Chamber 0: " +  pi.GetVacuum().GetChamberByIndex(0).GetElementNameByIndex(0) + "\n";
+        testHUD.text += "Chamber 0: " +  pi.GetVacuum().GetChamberByIndex(0).GetElementNameByIndex(0) + " " + pi.GetVacuum().GetChamberByIndex(0).GetAmountByIndex(0) + "\n";
         testHUD.text += "  COMBO 0: " + pi.GetVacuum().GetCombinationByIndex(0).name + "\n";
-        Debug.Log("YAYAYA: " + pi.GetVacuum().GetCombinationByIndex(0).name);
-        testHUD.text += "Chamber 1: " + pi.GetVacuum().GetChamberByIndex(1).GetElementNameByIndex(0) + "\n";
+        testHUD.text += "Chamber 1: " + pi.GetVacuum().GetChamberByIndex(1).GetElementNameByIndex(0) + " " + pi.GetVacuum().GetChamberByIndex(1).GetAmountByIndex(0) + "\n";
         testHUD.text += "  COMBO 1: " + pi.GetVacuum().GetCombinationByIndex(1).name + "\n";
-        testHUD.text += "Chamber 2: " + pi.GetVacuum().GetChamberByIndex(2).GetElementNameByIndex(0) + "\n";
+        testHUD.text += "Chamber 2: " + pi.GetVacuum().GetChamberByIndex(2).GetElementNameByIndex(0) + " " + pi.GetVacuum().GetChamberByIndex(2).GetAmountByIndex(0) + "\n";
         testHUD.text += "  COMBO 2: " + pi.GetVacuum().GetCombinationByIndex(2).name + "\n";
+        string v;
+        if (pi.GetVacuum().GetIsCombiningElements())
+            v = "COMBO ";
+        else
+            v = "Chamber ";
+        testHUD.text += "**CURRENT: " + v + pi.GetVacuum().GetCurrentChamberIndex();
     }
 
     private void SendControllerInputsToPlayer(List<ControllerInputs> i)

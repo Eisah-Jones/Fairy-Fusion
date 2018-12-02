@@ -90,12 +90,12 @@ public class ChamberInteractionModel
         string resultName = elem1.chamberInteractions.GetChamberResult(c2.GetElementNameByIndex(0));
 
         Debug.Log("MIX: " + resultName);
+
         //Filter out results, call function to perform other actions
         if (resultName == "Ammo") return null;
 
 
         //If the number of elem1 and elem2 are enough to create an element return that element's data, else return null
-
         elementData e = em.GetElementDataByName(resultName);
         Debug.Log("EEEEEE: " + e);
         if (e == null) return null;
@@ -124,6 +124,7 @@ public class ChamberInteractionModel
                 return em.GetElementDataByName(resultName);
         }
 
+        Debug.Log("NOT ENOUGH");
         return null;
     }
 }

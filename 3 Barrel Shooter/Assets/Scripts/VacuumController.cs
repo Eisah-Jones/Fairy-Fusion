@@ -62,7 +62,6 @@ public class VacuumController : MonoBehaviour {
 
         if (isShooting && !v.GetVacuumOn()){
             Vacuum.Chamber.InventoryInfo result = v.Shoot();
-            Debug.Log("I'M GONNA SHOOT " + result.GetElementName());
             //If element null, we could not shoot else can shoot
             if (result != null)
             {
