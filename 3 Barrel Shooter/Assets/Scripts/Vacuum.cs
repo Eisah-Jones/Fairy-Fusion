@@ -152,6 +152,7 @@ public class Vacuum{
 
 
         public string GetElementNameByIndex(int i){
+            if (chamber.Count <= i) { return "NONE"; }
             return chamber[i].GetElementName();
         }
 
@@ -241,6 +242,7 @@ public class Vacuum{
 
     // Change the chamber based on direction
     public int changeChamber(int direction){
+        if (direction == 0) return currentChamber;
         Debug.Log("Change Chamber " + direction);
         currentChamber = (currentChamber + direction)%3;
         return currentChamber;
@@ -264,6 +266,12 @@ public class Vacuum{
     public Chamber GetChamberByIndex(int i)
     {
         return chambers[i];
+    }
+
+
+    public elementData GetCombinationByIndex(int i){
+        if (combinationChambers[i] == null) return new elementData();
+        return combinationChambers[i];
     }
 
 
@@ -297,6 +305,7 @@ public class Vacuum{
             int nextChamber = (currentChamber + 1) % 3;
 
             // Get the combinationRequirements of elements needed for each chamber
+            Debug.Log(cim.GetElementCombination(chambers[currentChamber], chambers[nextChamber]));
             combinationRequirements combReq = cim.GetElementCombination(chambers[currentChamber], chambers[nextChamber]).combinationRequirements;
 
             // Make sure we are taking away from the correct chambers

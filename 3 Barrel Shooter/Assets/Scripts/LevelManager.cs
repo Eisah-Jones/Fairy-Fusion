@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 //This function manages all level information
@@ -21,6 +22,8 @@ public class LevelManager: MonoBehaviour {
     public bool processCollision;
     [SerializeField]
     public GameObject[] elemPrefabs = new GameObject[3];
+
+    public Text testHUD;
 
     // Use this for initialization
     void Start () {
@@ -45,6 +48,20 @@ public class LevelManager: MonoBehaviour {
         List<ControllerInputs> controllerInputs = controllerManager.GetControllerInputs();
         // Send these inputs to the player
         SendControllerInputsToPlayer(controllerInputs);
+        UpdateGUI();
+    }
+
+
+    private void UpdateGUI(){
+        PlayerInfo pi = playerList[0].GetComponent<PlayerInfo>();
+        testHUD.text = "Health: " + pi.GetPlayerHealth() + "\n";
+        testHUD.text += "Chamber 0: " +  pi.GetVacuum().GetChamberByIndex(0).GetElementNameByIndex(0) + "\n";
+        testHUD.text += "  COMBO 0: " + pi.GetVacuum().GetCombinationByIndex(0).name + "\n";
+        Debug.Log("YAYAYA: " + pi.GetVacuum().GetCombinationByIndex(0).name);
+        testHUD.text += "Chamber 1: " + pi.GetVacuum().GetChamberByIndex(1).GetElementNameByIndex(0) + "\n";
+        testHUD.text += "  COMBO 1: " + pi.GetVacuum().GetCombinationByIndex(1).name + "\n";
+        testHUD.text += "Chamber 2: " + pi.GetVacuum().GetChamberByIndex(2).GetElementNameByIndex(0) + "\n";
+        testHUD.text += "  COMBO 2: " + pi.GetVacuum().GetCombinationByIndex(2).name + "\n";
     }
 
     private void SendControllerInputsToPlayer(List<ControllerInputs> i)

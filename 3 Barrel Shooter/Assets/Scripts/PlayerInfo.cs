@@ -45,7 +45,6 @@ public class PlayerInfo : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("Health: "+health);
         //Check to see if player is dead
         if(isDead()){
             //Destroy the player object and notify player of death!!
@@ -90,7 +89,7 @@ public class PlayerInfo : MonoBehaviour
         health = 100.0f;
     }
 
-    public void OnTriggerStay2D(Collider2D collision)
+    public void OnTriggerEnter2D(Collider2D collision)
     {
 		if (collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged") {
 			rearea = collision.name;

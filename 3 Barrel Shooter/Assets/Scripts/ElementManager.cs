@@ -57,11 +57,18 @@ public class ElementManager
         return ExpressionEvaluator.Evaluate<int>(string.Format("loadedElementInfo.{0}.chamberCapacity", name));
     }
 
-    // Doesn't work
-    public float GetDamageByID(string name)
+    // This works!
+    public float GetDamageByID(string n)
     {
-        // loadedElementInfo.Fire.damage
-        return ExpressionEvaluator.Evaluate<float>(string.Format("loadedElementInfo.{0}.damage", name));
+        foreach (elementData eD in elementDataList)
+        {
+            if (eD.name == n)
+            {
+                return eD.damage;
+            }
+        }
+
+        return -1;
     }
 
     // This works!

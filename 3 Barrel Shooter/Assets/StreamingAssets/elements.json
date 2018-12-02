@@ -435,6 +435,79 @@
         "c2": "Reflect"
       }
     }
+  },
+  
+  "Fireball": {
+    "name": "Fireball",
+    "ID" : 7,
+    "damage": 25,
+    "fireRate": 10,
+    "projectileType": "ball",
+    "projectileLife": 25,
+    "chamberCapacity": 10,
+    "playerCollisionEffects": [
+      "burn", "flinch"
+    ],
+    "chamberInteractions": {
+      "Fire": null,
+      "Rock": null,
+      "Water": null,
+      "Wood": null,
+      "Air": null,
+      "Steam": null,
+      "Fireball": null,
+      "Mud": null,
+      "Stakes": null,
+      "Birdshot": null
+    },
+    "combinationRequirements":{
+      "elem1": "Fire",
+      "elem1Num": 2,
+      "elem2": "Rock",
+      "elem2Num": 1
+    },
+    "elementCollisions": {
+      "Fire": {
+        "c1": null,
+        "c2": null
+      },
+      "Rock": {
+        "c1": "Destroy",
+        "c2": "Destroy"
+      },
+      "Water": {
+        "c1": "Rock",
+        "c2": "Destroy"
+      },
+      "Wood": {
+        "c1": null,
+        "c2": "Destroy"
+      },
+      "Air": {
+        "c1": "Reflect",
+        "c2": null
+      },
+      "Steam": {
+        "c1": "Reflect;Rock",
+        "c2": null
+      },
+      "Fireball": {
+        "c1": "Destroy;Fire",
+        "c2": "Destroy;Fire"
+      },
+      "Mud": {
+        "c1": "Destroy",
+        "c2": "Destroy"
+      },
+      "Stakes": {
+        "c1": null,
+        "c2": "Destroy"
+      },
+      "Birdshot": {
+        "c1": null,
+        "c2": null
+      }
+    }
   }
   
 }
