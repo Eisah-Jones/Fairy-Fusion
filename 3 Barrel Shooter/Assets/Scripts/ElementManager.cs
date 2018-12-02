@@ -43,6 +43,8 @@ public class ElementManager
         elementDataList.Add(loadedElementInfo.Water);
         elementDataList.Add(loadedElementInfo.Wood);
         elementDataList.Add(loadedElementInfo.Air);
+        elementDataList.Add(null); //temporary
+        elementDataList.Add(loadedElementInfo.Fireball);
     }
 
 
@@ -73,12 +75,14 @@ public class ElementManager
 
     // This works!
     public elementData GetElementDataByID(int id){
+        Debug.Log("id: " + id);
         if (id == -1) { return null; }
         return elementDataList[id - 1];
     }
 
     // This now works
     public int GetElementIDByName(string n){
+        Debug.Log("GETTING ELEMENT ID");
         foreach (elementData eD in elementDataList){
             if (eD.name == n){
                 return eD.ID;
@@ -93,6 +97,7 @@ public class ElementManager
     public elementData GetElementDataByName(string n){
         foreach (elementData eD in elementDataList)
         {
+            if (eD == null) { continue; }
             if (eD.name == n)
             {
                 return eD;
