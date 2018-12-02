@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraFollow : MonoBehaviour {
-
+public class CameraFollow : MonoBehaviour
+{
 	public GameObject player;
 	private Camera cam;
 	public int cam_num;
@@ -24,6 +24,19 @@ public class CameraFollow : MonoBehaviour {
 			} else
 				cam.enabled = false;
 			break;
+
+		case 3:
+			if (player_count >= 3) {
+				player = GameObject.Find ("Player0");
+			} else
+				cam.enabled = false;
+			break;
+		case 4:
+			if (player_count >= 4) {
+				player = GameObject.Find ("Player1");
+			} else
+				cam.enabled = false;
+			break;
 		}
 	}
 	
@@ -31,7 +44,7 @@ public class CameraFollow : MonoBehaviour {
 	void Update () {
 		if (player) {
 			Debug.Log ("WORKING");
-			transform.position.Set (player.transform.position.x, player.transform.position.y, transform.position.z);
+			transform.position = new Vector3(player.transform.position.x,player.transform.position.y,transform.position.z);
 		}
 		else {
 			cam = GetComponent<Camera>();
@@ -48,7 +61,21 @@ public class CameraFollow : MonoBehaviour {
 				} else
 					cam.enabled = false;
 				break;
+			
+			case 3:
+				if (player_count >= 3) {
+					player = GameObject.Find ("Player0");
+				} else
+					cam.enabled = false;
+				break;
+			case 4:
+				if (player_count >= 4) {
+					player = GameObject.Find ("Player1");
+				} else
+					cam.enabled = false;
+				break;
 			}
 		}
 	}
+
 }
