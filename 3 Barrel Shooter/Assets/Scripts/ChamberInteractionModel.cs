@@ -13,6 +13,7 @@ public class ChamberInteractionModel
         em = elemMan;
     }
 
+
     // Increases the amount of an element in a chamber
     public List<Vacuum.Chamber.InventoryInfo> IncreaseElement(List<Vacuum.Chamber.InventoryInfo> c, int id){
 
@@ -40,10 +41,10 @@ public class ChamberInteractionModel
 
 
     // Removes an element from the chamber
-    public List<Vacuum.Chamber.InventoryInfo> RemoveFromChamber(List<Vacuum.Chamber.InventoryInfo> c, int id){
+    public List<Vacuum.Chamber.InventoryInfo> RemoveFromChamber(List<Vacuum.Chamber.InventoryInfo> c, int num){
         List<Vacuum.Chamber.InventoryInfo> result = c;
 
-        result[0].DecreaseCount(1);
+        result[0].DecreaseCount(num);
 
         if(result[0].GetCount() <= 0){
             result.RemoveAt(0);
@@ -51,7 +52,6 @@ public class ChamberInteractionModel
 
         return result;
     }
-
 
 
     //General function for combining elements in chamber
@@ -73,5 +73,44 @@ public class ChamberInteractionModel
             newChamber = new List<Vacuum.Chamber.InventoryInfo> { new Vacuum.Chamber.InventoryInfo(result, em.GetElementIDByName(result), count) };
         }
         return newChamber;
+    }
+
+
+    public elementData GetElementCombination(Vacuum.Chamber c1, Vacuum.Chamber c2){
+        elementData elem1 = em.GetElementDataByID(c1.GetElementIDByIndex(0));
+        elementData elem2 = em.GetElementDataByID(c2.GetElementIDByIndex(0));
+
+        if (elem1 == null || elem2 == null){
+            return null;
+        }
+
+        //This returns the resulting name of the element of the chamber interaction
+        string resultName = elem1.chamberInteractions.GetChamberResult(c2.GetElementNameByIndex(0));
+
+        //If the number of elem1 and elem2 are enough to create an element return that element's data, else return null
+
+        combinationRequirements combReq = em.GetElementDataByName(resultName).combinationRequirements;
+
+        string elem1ReqName = combReq.elem1;
+        int elem1ReqNum = combReq.elem1Num;
+
+        string elem2ReqName = combReq.elem1;
+        int elem2ReqNum = em.GetElementDataByName(resultName).combinationRequirements.elem2Num;
+
+        // If there is enough of element 1 in the first chamber
+        if (combReq.elem1 == elem1.name && combReq.elem1Num <= c1.GetAmountByIndex(0))
+        {
+            // If there is enough of element 2 in the second chamber
+            if (combReq.elem2 == elem2.name && combReq.elem2Num <= c2.GetAmountByIndex(0))
+                return em.GetElementDataByName(resultName);
+        }
+        // Check to see if elements are in opposite order
+        else if (combReq.elem1 == elem2.name && combReq.elem1Num <= c2.GetAmountByIndex(0))
+        {
+            if (combReq.elem2 == elem1.name && combReq.elem2Num <= c1.GetAmountByIndex(0))
+                return em.GetElementDataByName(resultName);
+        }
+
+        return null;
     }
 }

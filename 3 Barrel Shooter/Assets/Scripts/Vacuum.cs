@@ -94,7 +94,7 @@ public class Vacuum{
         public Vacuum.Chamber Add(string name, int elemID)
         {
             //Check to see if the element is already in the chamber
-            if (this.ContainsElement(elemID)){
+            if (this.ContainsElement(name)){
                 // **RUN CHAMBER INTERACTION SCRIPT**
                 chamber = interactionModel.IncreaseElement(chamber, elemID);
                 return this;
@@ -102,20 +102,19 @@ public class Vacuum{
 
             //If not in chamber, then we will add it, assuming it can be added
             chamber = interactionModel.AddToChamber(chamber, name, elemID);
-            chamber = interactionModel.NormalizeChamber(chamber);
             return this;
         }
 
 
         //Removes an amount of element from a chamber, given that it is in the chamber
-        public int Remove(int elemID){
+        public int Remove(string elemName, int num){
             //Return 2 if element is successfully removed and chamber is now empty
             //Return 1 if element is successfully removed
             //Return 0 if not
 
             //Check to see if the element is in the chamber, if not return 0
-            if (this.ContainsElement(elemID)){
-                chamber = interactionModel.RemoveFromChamber(chamber, elemID);
+            if (this.ContainsElement(elemName)){
+                chamber = interactionModel.RemoveFromChamber(chamber, num);
                 //If removal makes chamber empty, return 2
                 //Else return 1
                 return 1;
@@ -126,11 +125,11 @@ public class Vacuum{
 
 
         //Returns whether or not the chamber contains an element
-        private bool ContainsElement(int eID)
+        private bool ContainsElement(string name)
         {
             if (chamber.Count <= 0)
                 return false;
-            return chamber[0].GetElementID() == eID;
+            return chamber[0].GetElementName() == name;
         }
 
 
@@ -142,7 +141,18 @@ public class Vacuum{
 
         //Get the ID of an element given its index
         public int GetElementIDByIndex(int i){
+            if (chamber.Count <= i) { return -1; }
             return chamber[i].GetElementID();
+        }
+
+
+        public int GetAmountByIndex(int i){
+            return chamber[i].GetCount();
+        }
+
+
+        public string GetElementNameByIndex(int i){
+            return chamber[i].GetElementName();
         }
 
 
@@ -169,8 +179,10 @@ public class Vacuum{
     LevelManager levelManager;
     ChamberInteractionModel cim;
     private Chamber[] chambers;
+    private elementData[] combinationChambers;
     private int currentChamber;
     private bool vacuumOn; //True = ON, False = OFF
+    private bool isCombiningElements; //True = combinationChambers, False = normalChambers
 
     // Vacuum constructor
     public Vacuum(LevelManager lm){
@@ -181,78 +193,147 @@ public class Vacuum{
 
         //assign and populate chamber array
         chambers = new Chamber[3];
+        combinationChambers = new elementData[3];
         currentChamber = 0;
         vacuumOn = false;
+        isCombiningElements = false;
 
         for (int i = 0; i < 3; i++)
             chambers[i] = new Chamber(levelManager);
     }
+
+    // Sets the combination chambers based on normal chambers
+    public void SetCombinationChambers(){
+
+        for (int i = 0; i < 3; i++)
+        {
+            elementData result = cim.GetElementCombination(chambers[i], chambers[(i + 1) % 3]);
+            if (result != null)
+            {
+                combinationChambers[i] = result;
+            }
+        }
+        Debug.Log("Combo: " + combinationChambers);
+    }
+
 
     //Switch for turning on and off vacuum
     public void SetVacuum(bool b){
         vacuumOn = b;
     }
 
-    //Get a boolean determining whether or not the vacuum is set to on
+
+    // Get a boolean determining whether or not the vacuum is set to on
     public bool GetVacuumOn(){
         return vacuumOn;
     }
 
+    //Get the current element id from a chamber
 	public int GetCurrentChamberElement(){
 		return chambers [currentChamber].GetElementIDByIndex (0);
 	}
 
-    //Change the chamber based on direction
+
+    // Change the chamber based on direction
     public int changeChamber(int direction){
         currentChamber = (currentChamber + direction)%3;
         return currentChamber;
     }
 
-    //Add an item to the chamber given id
+
+    // Add an item to the chamber given id
     public int AddToChamber(string n, int id){
         chambers[currentChamber] = chambers[currentChamber].Add(n, id);
         return 1;
     }
      
-    //Returns the current chamber
+
+    // Returns the current chamber
     public Chamber GetCurrentChamber(){
         return chambers[currentChamber];
     }
 
-    //Returns the chamber given the index
+
+    // Returns the chamber given the index
     public Chamber GetChamberByIndex(int i)
     {
         return chambers[i];
     }
 
-    public bool isCurrentChamberEmpty(){
+
+    public bool IsCurrentChamberEmpty(){
         return chambers[currentChamber].GetContents().Count == 0;
     }
 
-    //Shooting scripts
+
+    public bool IsCombinationChamberEmpty(){
+        return combinationChambers[currentChamber] != null;
+    }
+
+
+    // Shooting scripts
     public Chamber.InventoryInfo Shoot(){
 
-        //Check to make sure that we can shoot
-        if (isCurrentChamberEmpty()){
-            return null; //There is nothing to shoot! Return -1 to disapprove instantiating anything
+        // Check to make sure that we can shoot
+        // if the chamber is not empty; if there is nothing in the current chamber, 
+        //  there can also be nothing in the current combination chamber
+        // if there is something in the current chamber we must check to see if there is anything 
+        //  in the combination chamber, if they are in combination chamber set
+        if (IsCurrentChamberEmpty() || (IsCombinationChamberEmpty() && isCombiningElements))
+        {
+            return null; //There is nothing to shoot! Return null to disapprove instantiating anything
         }
 
-        //Get the elementID of element in the chamber
+
+        // If we are combining elements, we need to take an element out num of elements from currentChamber and currentChamber+1
+        if (isCombiningElements){
+
+            int nextChamber = (currentChamber + 1) % 3;
+
+            // Get the combinationRequirements of elements needed for each chamber
+            combinationRequirements combReq = cim.GetElementCombination(chambers[currentChamber], chambers[nextChamber]).combinationRequirements;
+
+            // Make sure we are taking away from the correct chambers
+            if (chambers[currentChamber].GetContents()[0].GetElementName() == combReq.elem1)
+            {
+                int e1Num = combReq.elem1Num;
+                int e2Num = combReq.elem2Num;
+
+                chambers[currentChamber].Remove(combReq.elem1, e1Num);
+                chambers[nextChamber].Remove(combReq.elem2, e2Num);
+            } 
+            else  
+            {
+                int e1Num = combReq.elem2Num;
+                int e2Num = combReq.elem1Num;
+
+                chambers[currentChamber].Remove(combReq.elem2, e1Num);
+                chambers[nextChamber].Remove(combReq.elem1, e2Num);
+            }
+
+
+            return chambers[currentChamber].GetContents()[0];
+        }
+
+
+        // If we are not combining elements
+
+        // Get the elementID of element in the chamber
         string name = chambers[currentChamber].GetContents()[0].GetElementName();
         int id = chambers[currentChamber].GetContents()[0].GetElementID();
 
         Chamber.InventoryInfo result = chambers[currentChamber].GetContents()[0];
 
-        //Remove that element from the chamber
-        chambers[currentChamber].Remove(result.GetElementID());
+        // Remove that element from the chamber
+        chambers[currentChamber].Remove(result.GetElementName(), 1);
 
-        //return eID to give approval for instantiating
+        // return eID to give approval for instantiating
         return result;
 
-        //NOTE: Element script on object will handle motion and collision of the element
+        //// NOTE: Element script on object will handle motion and collision of the element
     }
 
-    //Used for debugging contents of a vacuum
+    // Used for debugging contents of a vacuum
     public void DebugVac(){
         string s = "";
 

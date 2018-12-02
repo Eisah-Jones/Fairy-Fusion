@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
 
     public void UpdatePlayerInputs(ControllerInputs inputs)
     {
-        Debug.Log(inputs.Left_Trigger + ":" + inputs.Right_Trigger);
+        //Debug.Log(inputs.Left_Trigger + ":" + inputs.Right_Trigger);
         if (inputs.Left_Trigger == 1) { suck = true; } else suck = false;
         if (inputs.Right_Trigger == 1) { shoot = true; } else shoot = false;
 
