@@ -35,13 +35,10 @@ public class PlayerController : MonoBehaviour
 
     public void UpdatePlayerInputs(ControllerInputs inputs)
     {
-        Debug.Log("1: " + inputs.Left_Stick_Click);
         if (inputs.Left_Stick_Click){
             combinationToggle = !combinationToggle;
             vacControl.SetIsCombiningElements(combinationToggle);
         }
-
-        Debug.Log(combinationToggle);
 
         if (inputs.Left_Trigger == 1) { suck = true; } else suck = false;
         if (inputs.Right_Trigger == 1) { shoot = true; } else shoot = false;

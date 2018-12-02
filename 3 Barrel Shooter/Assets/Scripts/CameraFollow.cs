@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraFollow : MonoBehaviour {
-
+public class CameraFollow : MonoBehaviour
+{
 	public GameObject player;
 	private Camera cam;
 	public int cam_num;
@@ -77,4 +77,5 @@ public class CameraFollow : MonoBehaviour {
 			}
 		}
 	}
+
 }

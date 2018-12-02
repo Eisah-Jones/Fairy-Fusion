@@ -80,6 +80,8 @@ public class ChamberInteractionModel
         elementData elem1 = em.GetElementDataByID(c1.GetElementIDByIndex(0));
         elementData elem2 = em.GetElementDataByID(c2.GetElementIDByIndex(0));
 
+        Debug.Log(elem1 + ", " + elem2);
+
         if (elem1 == null || elem2 == null){
             return null;
         }
@@ -95,6 +97,7 @@ public class ChamberInteractionModel
         //If the number of elem1 and elem2 are enough to create an element return that element's data, else return null
 
         elementData e = em.GetElementDataByName(resultName);
+        Debug.Log("EEEEEE: " + e);
         if (e == null) return null;
 
         combinationRequirements combReq = e.combinationRequirements;

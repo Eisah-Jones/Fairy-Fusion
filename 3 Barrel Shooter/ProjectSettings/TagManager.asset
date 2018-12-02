@@ -19,6 +19,7 @@ TagManager:
   - Fire
   - Water
   - Walls
+  - HUD
   layers:
   - Default
   - TransparentFX
