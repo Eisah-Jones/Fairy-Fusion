@@ -45,6 +45,7 @@ public class PlayerInfo : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log("Health: "+health);
         //Check to see if player is dead
         if(isDead()){
             //Destroy the player object and notify player of death!!
@@ -62,6 +63,7 @@ public class PlayerInfo : MonoBehaviour
                 startedRespawn = !startedRespawn;
                 StartCoroutine("respawn");
             }
+
         }
     }
 

@@ -30,7 +30,7 @@ public class LevelManager: MonoBehaviour {
         elementCollisionModel = new ElementCollisionModel(elementManager);
         controllerManager = GetComponent<ControllerManager>();
 
-        int numPlayers = 1;
+        int numPlayers = 2;
         playerList = levelGen.SpawnPlayers(player, GetComponent<LevelManager>(), numPlayers);
         //levelGen.SpawnResources(GetComponent<LevelManager>(), elementManager, elemPrefabs);
 
