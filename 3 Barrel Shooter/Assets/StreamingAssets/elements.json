@@ -75,7 +75,7 @@
   "Fire": {
     "name": "Fire",
     "ID" : 1,
-    "damage": 2,
+    "damage": 25,
     "fireRate": 0,
     "projectileType": "Floating",
     "projectileLife": 10,
