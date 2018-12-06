@@ -64,6 +64,8 @@ public class ElementManager
     {
         foreach (elementData eD in elementDataList)
         {
+            if (eD == null)
+                continue; // tempfix
             if (eD.name == n)
             {
                 return eD.damage;

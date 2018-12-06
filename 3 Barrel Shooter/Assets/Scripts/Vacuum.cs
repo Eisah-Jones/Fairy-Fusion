@@ -259,6 +259,12 @@ public class Vacuum{
 
     // Add an item to the chamber given id
     public int AddToChamber(string n, int id){
+        // If the element is not the same as what is in the chamber, return -1
+        if (chambers[currentChamber].GetElementIDByIndex(0) != id && chambers[currentChamber].GetNumElements() != 0){
+            return -1;
+        }
+
+
         chambers[currentChamber] = chambers[currentChamber].Add(n, id);
         return 1;
     }

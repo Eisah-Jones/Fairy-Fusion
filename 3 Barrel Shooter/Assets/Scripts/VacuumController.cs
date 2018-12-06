@@ -37,8 +37,8 @@ public class VacuumController : MonoBehaviour {
         if (FlameOn)
         {
             // GetComponentInParent<Transform>().rotation = throwTransform.transform.localRotation;
-            thrower.transform.position = throwTransform.transform.position;
-            thrower.transform.rotation = throwTransform.transform.rotation;
+            //thrower.transform.position = throwTransform.transform.position;
+            //thrower.transform.rotation = throwTransform.transform.rotation;
             //thrower.transform.LookAt(throwTransform.transform.forward);
         }
         tempShoot += 1;
@@ -72,11 +72,12 @@ public class VacuumController : MonoBehaviour {
 
         if (!canShoot)
             return;
+
         if (!isShooting)
         {
 
             FlameOn = false;
-            thrower.Stop();
+            //thrower.Stop();
         }
         canShoot = false;
 
@@ -85,52 +86,52 @@ public class VacuumController : MonoBehaviour {
             //If element null, we could not shoot else can shoot
             if (result != null)
             {
-                if (result.GetElementID() == 1)
-                {
-                    if (!FlameOn)
-                    {
-                        FlameOn = true;
-                        thrower = Instantiate(flamethrower, throwTransform.transform.position, throwTransform.transform.rotation);
-                        thrower.Play();
+                //if (result.GetElementID() == 1)
+                //{
+                //    if (!FlameOn)
+                //    {
+                //        FlameOn = true;
+                //        thrower = Instantiate(flamethrower, throwTransform.transform.position, throwTransform.transform.rotation);
+                //        thrower.Play();
                        
                                            
-                    }
+                //    }
 
-                }
-                else if (result.GetElementID() == 3)
-                {
-                    if (!FlameOn)
-                    {
-                        FlameOn = true;
-                        thrower = Instantiate(watercanon, throwTransform.transform.position, throwTransform.transform.rotation);
-                        thrower.Play();
+                //}
+                //else if (result.GetElementID() == 3)
+                //{
+                //    if (!FlameOn)
+                //    {
+                //        FlameOn = true;
+                //        thrower = Instantiate(watercanon, throwTransform.transform.position, throwTransform.transform.rotation);
+                //        thrower.Play();
                        
 
-                    }
+                //    }
 
-                }
-                else if (result.GetElementID() == 6)
-                {
-                    if (!FlameOn)
-                    {
-                        FlameOn = true;
-                        thrower = Instantiate(steamblast, throwTransform.transform.position, throwTransform.transform.rotation);
-                        thrower.Play();
+                //}
+                //else if (result.GetElementID() == 6)
+                //{
+                //    if (!FlameOn)
+                //    {
+                //        FlameOn = true;
+                //        thrower = Instantiate(steamblast, throwTransform.transform.position, throwTransform.transform.rotation);
+                //        thrower.Play();
                      
 
-                    }
+                //    }
 
-                }
-                else
-                {
+                //}
+                //else
+                //{
                     //Instantiate element!!
-                    if(thrower != null)
-                        thrower.Stop();
-                    FlameOn = false;
+                    //if(thrower != null)
+                        //thrower.Stop();
+                    //FlameOn = false;
                     ProjectileSpawner p = GetComponent<ProjectileSpawner>();
                     p.GetComponent<ProjectileSpawner>().shootProjectile(result.GetElementID(), levelManager);
                     v.SetCombinationChambers();
-                }
+                //}
             }
         }
     }
@@ -139,15 +140,22 @@ public class VacuumController : MonoBehaviour {
     {
         Debug.Log(collision.tag);
 
-        if (collision.tag == "Walls" || collision.tag == "Player") return;
+        if (collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged") return;
 
         string cName = collision.tag.Split('-')[1];
         int id = int.Parse(collision.tag.Split('-')[0]);
-        v.AddToChamber(cName, id);
+
+        if (v == null){
+            return; //tempfix
+        }
+        int addedResult = v.AddToChamber(cName, id);
         //If the item was added to the chamber destroy, else spit it back out randomly
 
-        Destroy(collision.gameObject);
-        v.SetCombinationChambers();
+        if (addedResult != -1)
+        {
+            Destroy(collision.gameObject);
+            v.SetCombinationChambers();
+        }
 
         v.DebugVac();
     }

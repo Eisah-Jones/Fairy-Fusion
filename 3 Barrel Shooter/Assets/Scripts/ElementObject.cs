@@ -69,6 +69,9 @@ public class ElementObject : MonoBehaviour {
         // Get the ID of the element we collided with
         int ID2 = int.Parse(collision.tag[0].ToString());
 
+        if (elementCollisionModel == null)
+            return; //tempfix
+
         ElementCollisionModel.CollisionResult cr = elementCollisionModel.HandleInteraction(ID, ID2);
 
         //Debug.Log("Collision Results : " + cr.elementResults[0].ToString());

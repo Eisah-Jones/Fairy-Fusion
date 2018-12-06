@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     private bool facingRight = true;
     private bool flipped = false;
     [SerializeField]
-    private float speed =20f;
+    private float speed = 4.0f;
     public string inputHorizontal = "Horizontal";
     public string inputVertical = "Vertical";
     public string shootButton = "ShootButton_P1";

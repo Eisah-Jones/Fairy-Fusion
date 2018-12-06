@@ -222,7 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBody: {fileID: 0}
   player_animator: {fileID: 0}
-  speed: 2
+  speed: 4
   inputHorizontal: Horizontal
   inputVertical: Vertical
   shootButton: ShootButton_P1

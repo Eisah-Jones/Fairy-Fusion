@@ -23,7 +23,10 @@ public class LevelManager: MonoBehaviour {
     [SerializeField]
     public GameObject[] elemPrefabs = new GameObject[3];
 
+    public ParticleEmitter pe;
+
     public Text testHUD;
+    public Text testHUD2;
 
     // Use this for initialization
     void Start () {
@@ -67,6 +70,21 @@ public class LevelManager: MonoBehaviour {
         else
             v = "Chamber ";
         testHUD.text += "**CURRENT: " + v + pi.GetVacuum().GetCurrentChamberIndex();
+
+        pi = playerList[1].GetComponent<PlayerInfo>();
+        testHUD2.text = "Health: " + pi.GetPlayerHealth() + "\n";
+        testHUD2.text += "Chamber 0: " + pi.GetVacuum().GetChamberByIndex(0).GetElementNameByIndex(0) + " " + pi.GetVacuum().GetChamberByIndex(0).GetAmountByIndex(0) + "\n";
+        testHUD2.text += "  COMBO 0: " + pi.GetVacuum().GetCombinationByIndex(0).name + "\n";
+        testHUD2.text += "Chamber 1: " + pi.GetVacuum().GetChamberByIndex(1).GetElementNameByIndex(0) + " " + pi.GetVacuum().GetChamberByIndex(1).GetAmountByIndex(0) + "\n";
+        testHUD2.text += "  COMBO 1: " + pi.GetVacuum().GetCombinationByIndex(1).name + "\n";
+        testHUD2.text += "Chamber 2: " + pi.GetVacuum().GetChamberByIndex(2).GetElementNameByIndex(0) + " " + pi.GetVacuum().GetChamberByIndex(2).GetAmountByIndex(0) + "\n";
+        testHUD2.text += "  COMBO 2: " + pi.GetVacuum().GetCombinationByIndex(2).name + "\n";
+
+        if (pi.GetVacuum().GetIsCombiningElements())
+            v = "COMBO ";
+        else
+            v = "Chamber ";
+        testHUD2.text += "**CURRENT: " + v + pi.GetVacuum().GetCurrentChamberIndex();
     }
 
     private void SendControllerInputsToPlayer(List<ControllerInputs> i)
