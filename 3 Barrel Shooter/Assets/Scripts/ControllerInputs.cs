@@ -30,8 +30,8 @@ public class ControllerInputs
     public float Right_Stick_Horizontal;
     public float Left_Stick_Horizontal;
 
-    public float Right_Stick_Veritcal;
-    public float Left_Stick_Veritcal;
+    public float Right_Stick_Vertical;
+    public float Left_Stick_Vertical;
 
     public ControllerInputs RefreshInputs(Controller c)
     {
@@ -44,10 +44,10 @@ public class ControllerInputs
         Left_Stick_Click = Input.GetButtonDown(c.Left_Stick_Click);
 
         Left_Stick_Horizontal = Input.GetAxisRaw(c.Left_Stick_Horizontal);
-        Left_Stick_Veritcal = Input.GetAxisRaw(c.Left_Stick_Vertical);
+        Left_Stick_Vertical = Input.GetAxisRaw(c.Left_Stick_Vertical);
 
         Right_Stick_Horizontal = Input.GetAxisRaw(c.Right_Stick_Horizontal);
-        Right_Stick_Veritcal = Input.GetAxisRaw(c.Right_Stick_Vertical);
+        Right_Stick_Vertical = Input.GetAxisRaw(c.Right_Stick_Vertical);
 
         return this;
     }

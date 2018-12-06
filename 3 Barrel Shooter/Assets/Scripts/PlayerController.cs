@@ -62,9 +62,9 @@ public class PlayerController : MonoBehaviour
     {
         ////Change the position of the player
         horizontal = inputs.Left_Stick_Horizontal;
-        vertical = -inputs.Left_Stick_Veritcal;
+        vertical = -inputs.Left_Stick_Vertical;
 
-        float r_vertical = inputs.Right_Stick_Veritcal;
+        float r_vertical = inputs.Right_Stick_Vertical;
         float r_horizontal = inputs.Right_Stick_Horizontal;
         float heading = Mathf.Atan2(r_vertical, r_horizontal);
 
