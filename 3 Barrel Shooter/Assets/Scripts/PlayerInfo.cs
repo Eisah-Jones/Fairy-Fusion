@@ -111,13 +111,7 @@ public class PlayerInfo : MonoBehaviour
         //Will apply player effects later
     }
 
-
-    private void OnParticleCollision(GameObject other)
-    {
-        Debug.Log("PARTICLE: " + other.tag);
-    }
-
-    private Vector3 GetRandomVector(int x_range, int y_range){
+	private Vector3 GetRandomVector(int x_range, int y_range){
 		if (x_range >= 0f && y_range >= 0f)
 			return new Vector3(Random.Range(0f,x_range),Random.Range(0f,y_range),-2f);
 		else if(x_range < 0f && y_range >= 0f)
