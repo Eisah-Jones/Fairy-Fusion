@@ -48,22 +48,25 @@ public class ElementManager
     }
 
 
+    public string GetProjectileTypeByID(int id){
+        return elementDataList[id - 1].projectileType;
+    }
 
-    // TODO: FIX THESE FUNCTIONS BELOW!!!
 
-    // Doesn't work
+    // Does not work!
     //Gets the capacity of an element given its ID
-    public int GetCapacityByID(string name)
+    public int GetCapacityByName(string name)
     {
         // loadedElementInfo.Element.chamberCapacity
         return ExpressionEvaluator.Evaluate<int>(string.Format("loadedElementInfo.{0}.chamberCapacity", name));
     }
 
-    // This works!
-    public float GetDamageByID(string n)
+
+    public float GetDamageByName(string n)
     {
         foreach (elementData eD in elementDataList)
         {
+            if (eD == null) continue;
             if (eD.name == n)
             {
                 return eD.damage;
@@ -73,16 +76,14 @@ public class ElementManager
         return -1;
     }
 
-    // This works!
+
     public elementData GetElementDataByID(int id){
-        Debug.Log("id: " + id);
         if (id == -1) { return null; }
         return elementDataList[id - 1];
     }
 
-    // This now works
+
     public int GetElementIDByName(string n){
-        Debug.Log("GETTING ELEMENT ID");
         foreach (elementData eD in elementDataList){
             if (eD.name == n){
                 return eD.ID;
@@ -93,10 +94,11 @@ public class ElementManager
         return -1;
     }
 
-    // This works!
+
     public elementData GetElementDataByName(string n){
         foreach (elementData eD in elementDataList)
         {
+            // tempfix
             if (eD == null) { continue; }
             if (eD.name == n)
             {

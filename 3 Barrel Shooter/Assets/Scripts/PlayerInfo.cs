@@ -14,9 +14,10 @@ public class PlayerInfo : MonoBehaviour
     public int playerNum;
 
     private bool startedRespawn;
-	private string rearea = "";
+    private string rearea = "";
 
-    public void InitPlayerInfo(LevelManager lm, int pNum){
+    public void InitPlayerInfo(LevelManager lm, int pNum)
+    {
         levelManager = lm;
         vacuum = new Vacuum(levelManager);
 
@@ -28,13 +29,24 @@ public class PlayerInfo : MonoBehaviour
     }
 
 
-    public Vacuum GetVacuum(){
+    public Vacuum GetVacuum()
+    {
         return vacuum;
     }
 
 
-    public float GetPlayerHealth(){
+    public float GetPlayerHealth()
+    {
         return health;
+    }
+
+
+    public void RemovePlayerHealth(int hp){
+        health -= hp;
+    }
+
+    public string GetPlayerName(){
+        return "Player" + playerNum.ToString();
     }
 
 
@@ -95,8 +107,13 @@ public class PlayerInfo : MonoBehaviour
 			rearea = collision.name;
 			return;
 		}
+
+
         //Get the element script from the collision gameobject for reference
         ElementObject element = collision.gameObject.GetComponent<ElementObject>();
+
+        if (element.GetOwner() == ("Player" + playerNum.ToString())) return;
+
         bool isProjectile = element.GetIsProjectile();
 
         //If it is not a projectile, then there is no interaction (except maybe physics, so we don't care)
@@ -108,7 +125,7 @@ public class PlayerInfo : MonoBehaviour
         string elemName = element.GetName();
         PlayerCollisionModel.CollisionResult result = levelManager.playerCollisionModel.HandleCollision(health, elemName);
         health = result.health;
-        //Will apply player effects later
+        transform.gameObject.GetComponent<PlayerController>().HandleEffects(result.playerEffect, collision.gameObject.transform);
     }
 
 	private Vector3 GetRandomVector(int x_range, int y_range){

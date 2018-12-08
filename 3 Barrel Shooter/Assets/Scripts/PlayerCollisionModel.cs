@@ -13,9 +13,9 @@ public class PlayerCollisionModel {
 
         public float health;
         //Made into a list to accomodate multiple playerEffects from one element
-        public List<int> playerEffect;
+        public List<string> playerEffect;
 
-        public CollisionResult(float h, List<int> e){
+        public CollisionResult(float h, List<string> e){
             health = h;
             playerEffect = e;
         }
@@ -27,9 +27,9 @@ public class PlayerCollisionModel {
     }
 
     public CollisionResult HandleCollision(float playerHealth, string name){
-        float resultingHealth = playerHealth - em.GetDamageByID(name);
+        float resultingHealth = playerHealth - em.GetDamageByName(name);
         //Will get actual effect list once implemented in ElementInfo and elementManager
-        List<int> effectList = new List<int>();
+        List<string> effectList = em.GetElementDataByName(name).playerCollisionEffects;
         return new CollisionResult(resultingHealth, effectList);
     }
 }

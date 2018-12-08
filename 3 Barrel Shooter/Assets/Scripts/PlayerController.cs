@@ -10,8 +10,6 @@ public class PlayerController : MonoBehaviour
 	private Animator gun_animator;
 
 
-    private bool facingRight = true;
-    private bool flipped = false;
     [SerializeField]
     private float speed =20f;
     public string inputHorizontal = "Horizontal";
@@ -20,17 +18,16 @@ public class PlayerController : MonoBehaviour
     public string vacuumButton = "VacuumButton_P1";
     float horizontal;
     float vertical;
-    bool suck= false;
-    bool shoot= false;
+    bool suck = false;
+    bool shoot = false;
     bool combinationToggle = false; //If true then canshoot combination, else cannot
     float last_heading;
 
     private VacuumController vacControl;
 
-
-
     public void InitPlayerController(VacuumController vc){
         vacControl = vc;
+        playerBody = this.gameObject;
     }
 
     public void UpdatePlayerInputs(ControllerInputs inputs)
@@ -44,7 +41,7 @@ public class PlayerController : MonoBehaviour
         if (inputs.Right_Trigger == 1) { shoot = true; } else shoot = false;
 
         vacControl.HandleVacuumStateInput(suck);
-        vacControl.HandleShootStateInput(shoot);
+        vacControl.HandleShootStateInput(shoot, GetPlayerName());
 
         bool r_bumper = inputs.Right_Bumper;
         bool l_bumper = inputs.Left_Bumper;
@@ -54,6 +51,11 @@ public class PlayerController : MonoBehaviour
         if (r_bumper) { d = 1; } else if (l_bumper) { d = -1; }
 
         vacControl.HandleChamberStateInput(d);
+    }
+
+
+    public string GetPlayerName(){
+        return playerBody.GetComponent<PlayerInfo>().GetPlayerName();
     }
 
 
@@ -88,4 +90,45 @@ public class PlayerController : MonoBehaviour
 	{
 		gun_animator = GetComponentInChildren<Animator>();
 	}
+
+
+    // #### BELOW ARE PLAYER EFFECTS!! ####
+
+    public void HandleEffects(List<string> effects, Transform t){
+        foreach (string e in effects){
+            if (e == "Knockback"){
+                Knockback(t);
+            }
+
+            else if (e == "Burn")
+            {
+                Burn(t);
+            }
+        }
+    }
+
+
+    private void Knockback(Transform t){
+        Vector2 heading = playerBody.transform.position - t.position;
+        heading = heading.normalized;
+
+        playerBody.GetComponent<Rigidbody2D>().AddForce(heading * 500);
+    }
+
+
+    private void Burn(Transform t){
+        StartCoroutine("burnCoroutine");
+    }
+
+    private IEnumerator burnCoroutine(){
+
+        int burnHits = Random.Range(1, 5);
+        for (int i = 0; i < 5; i++ )
+        {
+            int hitPoints = Random.Range(1, 3);
+            gameObject.GetComponent<PlayerInfo>().RemovePlayerHealth(hitPoints);
+            float waitTime = Random.Range(0.5f, 2.0f);
+            yield return new WaitForSeconds(waitTime);
+        }
+    }
 }

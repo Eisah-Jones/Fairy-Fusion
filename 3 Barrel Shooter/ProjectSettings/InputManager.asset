@@ -476,8 +476,8 @@ InputManager:
     negativeButton: left
     positiveButton: right
     altNegativeButton: 
-    altPositiveButton: z
-    gravity: 1
+    altPositiveButton: 
+    gravity: 1000
     dead: 0.2
     sensitivity: 1
     snap: 0
@@ -563,7 +563,7 @@ InputManager:
     snap: 0
     invert: 1
     type: 2
-    axis: 4
+    axis: 3
     joyNum: 2
   - serializedVersion: 3
     m_Name: Right_Trigger 1

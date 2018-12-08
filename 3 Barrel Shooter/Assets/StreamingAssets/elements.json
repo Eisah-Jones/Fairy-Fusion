@@ -75,9 +75,9 @@
   "Fire": {
     "name": "Fire",
     "ID" : 1,
-    "damage": 25,
+    "damage": 2,
     "fireRate": 0,
-    "projectileType": "Floating",
+    "projectileType": "Fluid",
     "projectileLife": 10,
     "chamberCapacity": 100,
     "playerCollisionEffects": [
@@ -150,7 +150,7 @@
     "ID" : 2,
     "damage": 10,
     "fireRate": 1,
-    "projectileType": "Solid",
+    "projectileType": "Bullet",
     "projectileLife": 20,
     "chamberCapacity": 20,
     "playerCollisionEffects": [
@@ -296,7 +296,7 @@
     "ID" : 4,
     "damage": 5,
     "fireRate": 0,
-    "projectileType": "splinter",
+    "projectileType": "Splinter",
     "projectileLife": 4,
     "chamberCapacity": 100,
     "playerCollisionEffects": [
@@ -369,7 +369,7 @@
     "ID" : 5,
     "damage": 0,
     "fireRate": 2,
-    "projectileType": "gas",
+    "projectileType": "Fluid",
     "projectileLife": "1",
     "chamberCapacity": -1,
     "playerCollisionEffects": [
@@ -442,7 +442,7 @@
     "ID" : 7,
     "damage": 25,
     "fireRate": 10,
-    "projectileType": "ball",
+    "projectileType": "Bullet",
     "projectileLife": 25,
     "chamberCapacity": 10,
     "playerCollisionEffects": [

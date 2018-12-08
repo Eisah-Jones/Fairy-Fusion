@@ -7,22 +7,17 @@ public class VacuumController : MonoBehaviour {
     LevelManager levelManager;
     Vacuum v;
     BoxCollider2D vacuumArea;
-    [SerializeField]
-    public ParticleSystem flamethrower;
-    [SerializeField]
-    public ParticleSystem watercanon;
-    [SerializeField]
-    public ParticleSystem steamblast;
+    Transform projectileSpawner;
     public GameObject throwTransform;
     bool canShoot;
     int shootNum = 10;
     int tempShoot = 0;
-    bool FlameOn = false;
-    public ParticleSystem thrower;
+
     //Sets the vacuum for the player, should be called after player gameObject instantiation 
     public void SetVacuum(Vacuum vac, LevelManager lm){
         v = vac;
         vacuumArea = GetComponent<BoxCollider2D>();
+        projectileSpawner = transform.Find("ProjectileSpawn").transform;
         levelManager = lm;
         canShoot = true;
     }
@@ -34,13 +29,6 @@ public class VacuumController : MonoBehaviour {
     
     // Update is called once per frame
     void Update () {
-        if (FlameOn)
-        {
-            // GetComponentInParent<Transform>().rotation = throwTransform.transform.localRotation;
-            thrower.transform.position = throwTransform.transform.position;
-            thrower.transform.rotation = throwTransform.transform.rotation;
-            //thrower.transform.LookAt(throwTransform.transform.forward);
-        }
         tempShoot += 1;
         if (tempShoot > shootNum){
             canShoot = true;
@@ -68,87 +56,58 @@ public class VacuumController : MonoBehaviour {
     }
 
     // Sets the shoot staten based on controller input
-    public void HandleShootStateInput(bool isShooting){
+    public void HandleShootStateInput(bool isShooting, string playerName){
 
         if (!canShoot)
             return;
-        if (!isShooting)
+
+        canShoot = false; // temp fire rate setup
+
+        //Chamber is empty, puff air
+        if (v.GetCurrentChamber().GetAmountByIndex(0) == -1)
         {
-
-            FlameOn = false;
-            thrower.Stop();
+            
         }
-        canShoot = false;
 
-        if (isShooting && !v.GetVacuumOn()){
+        else if (isShooting && !v.GetVacuumOn()){
             Vacuum.Chamber.InventoryInfo result = v.Shoot();
-            //If element null, we could not shoot else can shoot
-            if (result != null)
+            int eID = result.GetElementID();
+            string eName = result.GetElementName();
+            string projectileType = levelManager.elementManager.GetProjectileTypeByID(eID);
+            ProjectileSpawner p = GetComponent<ProjectileSpawner>();
+            // Check to see if we are shooting a fluid
+            if (projectileType == "Fluid"){
+                int shotResult = p.ShootFluid(eID, levelManager, playerName, projectileSpawner);
+                if (shotResult != -1) // Something was shot, change chamber
+                {
+                    v.RemoveFromCurrentChamber(eName, shotResult);
+                }
+            }
+
+            else
             {
-                if (result.GetElementID() == 1)
-                {
-                    if (!FlameOn)
-                    {
-                        FlameOn = true;
-                        thrower = Instantiate(flamethrower, throwTransform.transform.position, throwTransform.transform.rotation);
-                        thrower.Play();
-                       
-                                           
-                    }
-
-                }
-                else if (result.GetElementID() == 3)
-                {
-                    if (!FlameOn)
-                    {
-                        FlameOn = true;
-                        thrower = Instantiate(watercanon, throwTransform.transform.position, throwTransform.transform.rotation);
-                        thrower.Play();
-                       
-
-                    }
-
-                }
-                else if (result.GetElementID() == 6)
-                {
-                    if (!FlameOn)
-                    {
-                        FlameOn = true;
-                        thrower = Instantiate(steamblast, throwTransform.transform.position, throwTransform.transform.rotation);
-                        thrower.Play();
-                     
-
-                    }
-
-                }
-                else
-                {
-                    //Instantiate element!!
-                    if(thrower != null)
-                        thrower.Stop();
-                    FlameOn = false;
-                    ProjectileSpawner p = GetComponent<ProjectileSpawner>();
-                    p.GetComponent<ProjectileSpawner>().shootProjectile(result.GetElementID(), levelManager);
-                    v.SetCombinationChambers();
-                }
+                p.ShootProjectile(eID, levelManager, playerName);
+                v.SetCombinationChambers();
             }
         }
     }
 
+
     void OnTriggerStay2D(Collider2D collision)
     {
-        Debug.Log(collision.tag);
 
         if (collision.tag == "Walls" || collision.tag == "Player") return;
 
         string cName = collision.tag.Split('-')[1];
         int id = int.Parse(collision.tag.Split('-')[0]);
-        v.AddToChamber(cName, id);
+        int result = v.AddToChamber(cName, id);
+
+        if (result == -1){
+            return;
+        }
         //If the item was added to the chamber destroy, else spit it back out randomly
 
         Destroy(collision.gameObject);
         v.SetCombinationChambers();
-
-        v.DebugVac();
     }
 }

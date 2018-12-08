@@ -20,8 +20,10 @@ public class LevelManager: MonoBehaviour {
     public List<GameObject> playerList;
 
     public bool processCollision;
-    [SerializeField]
+
     public GameObject[] elemPrefabs = new GameObject[3];
+
+    public ParticleSystem[] particles = new ParticleSystem[3];
 
     public Text testHUD;
 

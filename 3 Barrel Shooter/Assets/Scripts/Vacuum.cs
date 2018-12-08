@@ -113,7 +113,7 @@ public class Vacuum{
             //Return 0 if not
 
             //Check to see if the element is in the chamber, if not return 0
-            if (this.ContainsElement(elemName)){
+            if (ContainsElement(elemName)){
                 chamber = interactionModel.RemoveFromChamber(chamber, num);
                 //If removal makes chamber empty, return 2
                 //Else return 1
@@ -215,7 +215,6 @@ public class Vacuum{
                 combinationChambers[i] = result;
             }
         }
-        Debug.Log("Combo: " + combinationChambers);
     }
 
 
@@ -259,6 +258,10 @@ public class Vacuum{
 
     // Add an item to the chamber given id
     public int AddToChamber(string n, int id){
+        // If the item does not match what is in chamber, do nothing
+        if (chambers[currentChamber].GetElementIDByIndex(0) != id && chambers[currentChamber].GetNumElements() != 0){
+            return -1;
+        }
         chambers[currentChamber] = chambers[currentChamber].Add(n, id);
         return 1;
     }
@@ -294,6 +297,11 @@ public class Vacuum{
 
     public bool IsCombinationChamberEmpty(){
         return combinationChambers[currentChamber] == null;
+    }
+
+
+    public void RemoveFromCurrentChamber(string elemName, int i){
+        chambers[currentChamber].Remove(elemName, i);
     }
 
 
@@ -351,9 +359,9 @@ public class Vacuum{
         Chamber.InventoryInfo result = chambers[currentChamber].GetContents()[0];
 
         // Remove that element from the chamber
-        chambers[currentChamber].Remove(result.GetElementName(), 1);
+        //chambers[currentChamber].Remove(result.GetElementName(), 1);
 
-        // return eID to give approval for instantiating
+        // Returns what element was shot as InventoryInfo
         return result;
 
         //// NOTE: Element script on object will handle motion and collision of the element
