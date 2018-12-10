@@ -103,7 +103,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1467446196756536}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2}
+  m_LocalPosition: {x: 17.370245, y: 3.355511, z: -2}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 4810042843120258}
@@ -119,8 +119,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1011956784082828}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.162, y: 0.013, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 4496988601752736}
   m_RootOrder: 1
@@ -284,12 +284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f3fa78ae86ee4a5a953474e8e3a5ad3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flamethrower: {fileID: 198995448613787678, guid: 7a4269d6f51884673a5985320e948f0b,
-    type: 2}
-  watercanon: {fileID: 1542305470758320, guid: d8888e847d8ce4680af40caa35b9064f, type: 2}
-  steamblast: {fileID: 1871971613601534, guid: 328591a39ad934eeb8f7181d5e7949cc, type: 2}
   throwTransform: {fileID: 1503562570864324}
-  thrower: {fileID: 1503562570864324}
 --- !u!114 &114822568842177130
 MonoBehaviour:
   m_ObjectHideFlags: 1
