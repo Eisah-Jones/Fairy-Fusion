@@ -5,7 +5,7 @@ using UnityEngine;
 public class ProjectileSpawner : MonoBehaviour {
 
     private bool isShootingFluid;
-
+    public ParticleSystem p;
 
     public void ShootProjectile(int eID, LevelManager lm, string playerName){
         GameObject prefab = lm.elemPrefabs[eID - 1];
@@ -19,7 +19,7 @@ public class ProjectileSpawner : MonoBehaviour {
         if (eID == 1){
             //instantiates flamethrower
             ParticleSystem prefab = lm.particles[0];
-            ParticleSystem p = Instantiate(prefab, spawnPos.position, spawnPos.rotation);
+            p = Instantiate(prefab, spawnPos.position, spawnPos.rotation);
             p.transform.parent = spawnPos;
             p.Play();
             StartCoroutine(fluidReset(p));
@@ -29,7 +29,7 @@ public class ProjectileSpawner : MonoBehaviour {
         {
             //instantiates water blast
             ParticleSystem prefab = lm.particles[1];
-            ParticleSystem p = Instantiate(prefab, spawnPos.position, spawnPos.rotation);
+            p = Instantiate(prefab, spawnPos.position, spawnPos.rotation);
             p.transform.parent = spawnPos;
             p.Play();
             StartCoroutine(fluidReset(p));
@@ -39,7 +39,7 @@ public class ProjectileSpawner : MonoBehaviour {
         {
             //instantiates steam
             ParticleSystem prefab = lm.particles[2];
-            ParticleSystem p = Instantiate(prefab, spawnPos.position, spawnPos.rotation);
+            p = Instantiate(prefab, spawnPos.position, spawnPos.rotation);
             p.transform.parent = spawnPos;
             p.Play();
             StartCoroutine(fluidReset(p));

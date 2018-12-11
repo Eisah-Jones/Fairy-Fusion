@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4116067497092556}
   - component: {fileID: 198995448613787678}
   - component: {fileID: 199246458078751010}
-  - component: {fileID: 114751468123775188}
   m_Layer: 0
   m_Name: FlameThrower
   m_TagString: 1-Fire
@@ -35,24 +34,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1592020987960590}
-  m_LocalRotation: {x: 0.7070917, y: 0.0046316977, z: -0.0046316977, w: -0.7070917}
-  m_LocalPosition: {x: 5.315611, y: -4.058033, z: 6.0699997}
+  m_LocalRotation: {x: 0.70710677, y: 0, z: 0, w: -0.70710677}
+  m_LocalPosition: {x: 3.3569362, y: 1.33, z: 6.0699997}
   m_LocalScale: {x: 0.15, y: 0.4, z: 0.18}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90.74999, y: -270, z: -90}
---- !u!114 &114751468123775188
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1592020987960590}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fc7d1bb1f9d0466d8fc9a73304d8b3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_LocalEulerAnglesHint: {x: -90, y: -270, z: -90}
 --- !u!198 &198995448613787678
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -617,7 +605,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 1000
+    maxNumParticles: 30
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -3460,7 +3448,7 @@ ParticleSystem:
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0
     multiplyColliderForceByParticleSpeed: 0
-    multiplyColliderForceByCollisionAngle: 1
+    multiplyColliderForceByCollisionAngle: 0
     plane0: {fileID: 0}
     plane1: {fileID: 0}
     plane2: {fileID: 0}
@@ -3523,7 +3511,7 @@ ParticleSystem:
     m_Bounce:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.1
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -3628,14 +3616,14 @@ ParticleSystem:
         m_RotationOrder: 4
     minKillSpeed: 0
     maxKillSpeed: 10000
-    radiusScale: 1
+    radiusScale: 0.25
     collidesWith:
       serializedVersion: 2
-      m_Bits: 16
+      m_Bits: 1
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
-    collisionMessages: 0
+    collisionMessages: 1
     collidesWithDynamic: 1
     interiorCollisions: 0
   TriggerModule:
@@ -3648,9 +3636,9 @@ ParticleSystem:
     collisionShape5: {fileID: 0}
     inside: 1
     outside: 0
-    enter: 0
+    enter: 2
     exit: 0
-    radiusScale: 1
+    radiusScale: 0.3
   SubModule:
     serializedVersion: 2
     enabled: 0
