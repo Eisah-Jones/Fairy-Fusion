@@ -26,7 +26,10 @@ public class LevelManager: MonoBehaviour {
     public ParticleSystem[] particles = new ParticleSystem[3];
 
     public Text testHUD;
+	public GameObject endScreen;
+	public Text winText;
 
+	private List<PlayerInfo> pInfoList = new List<PlayerInfo>();
     // Use this for initialization
     void Start () {
         elementManager.initElementManager();
@@ -37,6 +40,9 @@ public class LevelManager: MonoBehaviour {
 
         int numPlayers = 2;
         playerList = levelGen.SpawnPlayers(player, GetComponent<LevelManager>(), numPlayers);
+		foreach (GameObject player in playerList) {
+			pInfoList.Add (player.GetComponent<PlayerInfo> ());
+		}
         //levelGen.SpawnResources(GetComponent<LevelManager>(), elementManager, elemPrefabs);
 
         processCollision = true;
@@ -52,6 +58,24 @@ public class LevelManager: MonoBehaviour {
         SendControllerInputsToPlayer(controllerInputs);
         UpdateGUI();
     }
+
+	//Checks for a winner each frame
+	private void Update(){
+		int alive_count = 0;
+		int winner = 0;
+		foreach (PlayerInfo info in pInfoList) {
+			if (info.lives <= 0)
+				alive_count += 1;
+			else
+				winner = info.playerNum;
+		}
+		if (alive_count == 1) {
+			endScreen.SetActive (true);
+			winText.text = string.Format ("Player {0} Wins!", winner);
+			Time.timeScale = 0f;
+		}
+			
+	}
 
 
     private void UpdateGUI(){
