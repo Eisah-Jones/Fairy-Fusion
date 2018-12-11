@@ -17,8 +17,29 @@ public class ProjectileSpawner : MonoBehaviour {
         if (isShootingFluid) return -1;
         isShootingFluid = true;
         if (eID == 1){
+            //instantiates flamethrower
             ParticleSystem prefab = lm.particles[0];
-            ParticleSystem p = Instantiate(prefab, spawnPos.position, transform.rotation);
+            ParticleSystem p = Instantiate(prefab, spawnPos.position, spawnPos.rotation);
+            p.transform.parent = spawnPos;
+            p.Play();
+            StartCoroutine(fluidReset(p));
+            return 1;
+        }
+        else if (eID == 3)
+        {
+            //instantiates water blast
+            ParticleSystem prefab = lm.particles[1];
+            ParticleSystem p = Instantiate(prefab, spawnPos.position, spawnPos.rotation);
+            p.transform.parent = spawnPos;
+            p.Play();
+            StartCoroutine(fluidReset(p));
+            return 1;
+        }
+        else if (eID == 6)
+        {
+            //instantiates steam
+            ParticleSystem prefab = lm.particles[2];
+            ParticleSystem p = Instantiate(prefab, spawnPos.position, spawnPos.rotation);
             p.transform.parent = spawnPos;
             p.Play();
             StartCoroutine(fluidReset(p));

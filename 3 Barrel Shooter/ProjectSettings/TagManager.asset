@@ -20,6 +20,7 @@ TagManager:
   - Water
   - Walls
   - HUD
+  - ProjectileSpawn
   layers:
   - Default
   - TransparentFX
