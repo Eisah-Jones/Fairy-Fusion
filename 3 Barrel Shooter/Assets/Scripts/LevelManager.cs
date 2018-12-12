@@ -25,7 +25,7 @@ public class LevelManager: MonoBehaviour {
 
     public ParticleSystem[] particles = new ParticleSystem[3];
 
-    public Text testHUD;
+    public List<Text> testHUD;
 	public GameObject endScreen;
 	public Text winText;
 
@@ -56,7 +56,8 @@ public class LevelManager: MonoBehaviour {
         List<ControllerInputs> controllerInputs = controllerManager.GetControllerInputs();
         // Send these inputs to the player
         SendControllerInputsToPlayer(controllerInputs);
-        UpdateGUI();
+		for (int i = 0; i<2; i++)
+        	UpdateGUI(i);
     }
 
 	//Checks for a winner each frame
@@ -78,21 +79,21 @@ public class LevelManager: MonoBehaviour {
 	}
 
 
-    private void UpdateGUI(){
-        PlayerInfo pi = playerList[0].GetComponent<PlayerInfo>();
-        testHUD.text = "Health: " + pi.GetPlayerHealth() + "\n";
-        testHUD.text += "Chamber 0: " +  pi.GetVacuum().GetChamberByIndex(0).GetElementNameByIndex(0) + " " + pi.GetVacuum().GetChamberByIndex(0).GetAmountByIndex(0) + "\n";
-        testHUD.text += "  COMBO 0: " + pi.GetVacuum().GetCombinationByIndex(0).name + "\n";
-        testHUD.text += "Chamber 1: " + pi.GetVacuum().GetChamberByIndex(1).GetElementNameByIndex(0) + " " + pi.GetVacuum().GetChamberByIndex(1).GetAmountByIndex(0) + "\n";
-        testHUD.text += "  COMBO 1: " + pi.GetVacuum().GetCombinationByIndex(1).name + "\n";
-        testHUD.text += "Chamber 2: " + pi.GetVacuum().GetChamberByIndex(2).GetElementNameByIndex(0) + " " + pi.GetVacuum().GetChamberByIndex(2).GetAmountByIndex(0) + "\n";
-        testHUD.text += "  COMBO 2: " + pi.GetVacuum().GetCombinationByIndex(2).name + "\n";
+	private void UpdateGUI(int index){
+        PlayerInfo pi = playerList[index].GetComponent<PlayerInfo>();
+        testHUD[index].text = "Health: " + pi.GetPlayerHealth() + "\n";
+		testHUD[index].text += "Chamber 0: " +  pi.GetVacuum().GetChamberByIndex(0).GetElementNameByIndex(0) + " " + pi.GetVacuum().GetChamberByIndex(0).GetAmountByIndex(0) + "\n";
+		testHUD[index].text += "  COMBO 0: " + pi.GetVacuum().GetCombinationByIndex(0).name + "\n";
+		testHUD[index].text += "Chamber 1: " + pi.GetVacuum().GetChamberByIndex(1).GetElementNameByIndex(0) + " " + pi.GetVacuum().GetChamberByIndex(1).GetAmountByIndex(0) + "\n";
+		testHUD[index].text += "  COMBO 1: " + pi.GetVacuum().GetCombinationByIndex(1).name + "\n";
+		testHUD[index].text += "Chamber 2: " + pi.GetVacuum().GetChamberByIndex(2).GetElementNameByIndex(0) + " " + pi.GetVacuum().GetChamberByIndex(2).GetAmountByIndex(0) + "\n";
+		testHUD[index].text += "  COMBO 2: " + pi.GetVacuum().GetCombinationByIndex(2).name + "\n";
         string v;
         if (pi.GetVacuum().GetIsCombiningElements())
             v = "COMBO ";
         else
             v = "Chamber ";
-        testHUD.text += "**CURRENT: " + v + pi.GetVacuum().GetCurrentChamberIndex();
+		testHUD[index].text += "**CURRENT: " + v + pi.GetVacuum().GetCurrentChamberIndex();
     }
 
     private void SendControllerInputsToPlayer(List<ControllerInputs> i)
