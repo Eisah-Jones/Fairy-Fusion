@@ -40,6 +40,7 @@ public class LevelGenerator : MonoBehaviour {
 
         for (int i = 0; i < numPlayers; i++){
             GameObject player = Instantiate(p); // Spawn player object
+			player.transform.position = new Vector3(Random.Range(-24f,24f),Random.Range(-24f,24f),-2f);
             player.AddComponent<PlayerInfo>(); // Add PlayerInfo script
             player.GetComponent<PlayerInfo>().InitPlayerInfo(lm, i+1); // Initialize player info script
             GameObject playerGun = player.transform.Find("Gun").gameObject; // Get a reference to the player's gun object
