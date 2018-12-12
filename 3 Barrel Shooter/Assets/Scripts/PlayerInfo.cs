@@ -11,6 +11,7 @@ public class PlayerInfo : MonoBehaviour
     BoxCollider2D vacuumArea;
 
     public float health;
+	public int lives = 1;
     public int playerNum;
 
     private bool startedRespawn;
@@ -86,6 +87,7 @@ public class PlayerInfo : MonoBehaviour
     }
 
     private IEnumerator respawn(){
+		lives += -1;
         yield return new WaitForSeconds(1.0f);
 		Vector3 respawn = new Vector3(0,0,0);
         //Can specify respawn location before Coroutine is started and save as a temporary class variable
