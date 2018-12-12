@@ -17,6 +17,8 @@ public class PlayerInfo : MonoBehaviour
     private bool startedRespawn;
     private string rearea = "";
 
+    List<ParticleSystem.Particle> enter = new List<ParticleSystem.Particle>();
+    List<ParticleSystem.Particle> exit = new List<ParticleSystem.Particle>();
     public void InitPlayerInfo(LevelManager lm, int pNum)
     {
         levelManager = lm;
@@ -26,6 +28,11 @@ public class PlayerInfo : MonoBehaviour
         playerNum = pNum;
 
         startedRespawn = false;
+
+    }
+    private void Start()
+    {
+  
 
     }
 
@@ -102,7 +109,42 @@ public class PlayerInfo : MonoBehaviour
         startedRespawn = !startedRespawn;
         health = 100.0f;
     }
+    private void OnParticleTrigger()
+    {
+        //ParticleSystem ps = GetComponent<ProjectileSpawner>().p;
+        //int numEnter = ps.GetTriggerParticles(ParticleSystemTriggerEventType.Enter, enter);
+        //int numExit = ps.GetTriggerParticles(ParticleSystemTriggerEventType.Exit, exit);
+        //if (collision.tag == "Walls" || collision.tag == "Untagged")
+        //{
+        //    rearea = collision.name;
+        //    return;
+        //}
+        //ElementObject element = collision.gameObject.GetComponent<ElementObject>();
 
+        //if (element.GetOwner() == ("Player" + playerNum.ToString())) return;
+
+        //int elemID = element.GetID();
+        //string elemName = element.GetName();
+        //PlayerCollisionModel.CollisionResult result = levelManager.playerCollisionModel.HandleCollision(health, elemName);
+        //health = result.health;
+        //transform.gameObject.GetComponent<PlayerController>().HandleEffects(result.playerEffect, collision.gameObject.transform);
+
+    }
+    private void OnParticleCollision(GameObject collision)
+    {
+        string elemName = "Fire";
+        Debug.Log("Collided with Particle");
+        if (collision.tag == "Walls" || collision.tag == "Untagged")
+        {
+            rearea = collision.name;
+            return;
+        }
+ 
+   
+        PlayerCollisionModel.CollisionResult result = levelManager.playerCollisionModel.HandleCollision(health, elemName);
+        health = result.health;
+        transform.gameObject.GetComponent<PlayerController>().HandleEffects(result.playerEffect, collision.gameObject.transform);
+    }
     public void OnTriggerEnter2D(Collider2D collision)
     {
 		if (collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged") {
@@ -125,12 +167,13 @@ public class PlayerInfo : MonoBehaviour
 
         int elemID = element.GetID();
         string elemName = element.GetName();
+        Debug.Log(elemName);
         PlayerCollisionModel.CollisionResult result = levelManager.playerCollisionModel.HandleCollision(health, elemName);
         health = result.health;
         transform.gameObject.GetComponent<PlayerController>().HandleEffects(result.playerEffect, collision.gameObject.transform);
     }
 
-	private Vector3 GetRandomVector(int x_range, int y_range){
+    private Vector3 GetRandomVector(int x_range, int y_range){
 		if (x_range >= 0f && y_range >= 0f)
 			return new Vector3(Random.Range(0f,x_range),Random.Range(0f,y_range),-2f);
 		else if(x_range < 0f && y_range >= 0f)

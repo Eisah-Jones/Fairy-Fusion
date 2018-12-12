@@ -110,4 +110,5 @@ public class VacuumController : MonoBehaviour {
         Destroy(collision.gameObject);
         v.SetCombinationChambers();
     }
+
 }
