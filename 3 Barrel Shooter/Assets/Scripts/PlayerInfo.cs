@@ -189,16 +189,16 @@ public class PlayerInfo : MonoBehaviour
 		Vector3 re = new Vector3(0,0,0);
 		switch(area){
 		case 1:
-			re = GetRandomVector(-9,4);
+			re = GetRandomVector(-24,24);
 			break;
 		case 2:
-			re = GetRandomVector(9,4);
+			re = GetRandomVector(24,24);
 			break;
 		case 3:
-			re = GetRandomVector(-9,-4);
+			re = GetRandomVector(-24,-24);
 			break;
 		case 4:
-			re = GetRandomVector(9,-4);
+			re = GetRandomVector(24,-24);
 			break;
 		}
 		return re;
