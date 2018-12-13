@@ -113,6 +113,14 @@ public class PlayerController : MonoBehaviour
         heading = heading.normalized;
 
         playerBody.GetComponent<Rigidbody2D>().AddForce(heading * 500);
+
+        StartCoroutine("ResetForces");
+    }
+
+    private IEnumerator ResetForces()
+    {
+        yield return new WaitForSeconds(0.1f);
+        playerBody.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
     }
 
 
