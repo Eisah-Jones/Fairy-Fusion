@@ -1939,11 +1939,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97cd6d910d62fad43b52a7a2f449aba1, type: 2}
   m_IsPrefabAsset: 0
---- !u!224 &250588440 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 224586319798063326, guid: 97cd6d910d62fad43b52a7a2f449aba1,
-    type: 2}
-  m_PrefabInternal: {fileID: 250588439}
 --- !u!1001 &252049092
 Prefab:
   m_ObjectHideFlags: 0
@@ -5960,86 +5955,12 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46cd56a2809f440a7bdbc47277552674, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &777653912
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 1872751250075352, guid: 97cd6d910d62fad43b52a7a2f449aba1,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 777653913}
-  - component: {fileID: 777653914}
-  - component: {fileID: 777653915}
-  m_Layer: 5
-  m_Name: PlayerHUD (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &777653913
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 224360549351516302, guid: 97cd6d910d62fad43b52a7a2f449aba1,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 777653912}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 250588440}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 122, y: 217}
-  m_SizeDelta: {x: 160, y: 30}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &777653914
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 222186168799693048, guid: 97cd6d910d62fad43b52a7a2f449aba1,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 777653912}
-  m_CullTransparentMesh: 0
---- !u!114 &777653915
+--- !u!114 &777653915 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 114474596827596598, guid: 97cd6d910d62fad43b52a7a2f449aba1,
     type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 777653912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
+  m_PrefabInternal: {fileID: 250588439}
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 20
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 0
-    m_MaxSize: 50
-    m_Alignment: 0
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 1
-    m_VerticalOverflow: 1
-    m_LineSpacing: 1
-  m_Text: "Health:\nChamber 0:\n   COMBO: elem\nChamber 1:\n   COMBO: elem\nChamber
-    2:\n   COMBO: elem"
 --- !u!1001 &792191726
 Prefab:
   m_ObjectHideFlags: 0
@@ -7885,7 +7806,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controllerManager: {fileID: 0}
-  player: {fileID: 1756415907752874, guid: 8343588b41ec64568a9283f3a4750900, type: 2}
+  player: {fileID: 1756415907752874, guid: eb4eb2fbad52e438788818fa14d3e4c6, type: 2}
   playerList: []
   processCollision: 0
   elemPrefabs:
@@ -11427,7 +11348,7 @@ Prefab:
   m_IsPrefabAsset: 0
 --- !u!114 &1446337755 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114474596827596598, guid: 97cd6d910d62fad43b52a7a2f449aba1,
+  m_CorrespondingSourceObject: {fileID: 114643944829437002, guid: 97cd6d910d62fad43b52a7a2f449aba1,
     type: 2}
   m_PrefabInternal: {fileID: 250588439}
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
