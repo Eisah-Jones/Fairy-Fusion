@@ -32,13 +32,13 @@ public class PlayerController : MonoBehaviour
 
     public void UpdatePlayerInputs(ControllerInputs inputs)
     {
-        if (inputs.Left_Stick_Click){
+        if (inputs.Left_Stick_Click || Input.GetKeyDown(KeyCode.C)){
             combinationToggle = !combinationToggle;
             vacControl.SetIsCombiningElements(combinationToggle);
         }
 
-        if (inputs.Left_Trigger == 1) { suck = true; } else suck = false;
-        if (inputs.Right_Trigger == 1) { shoot = true; } else shoot = false;
+        if (inputs.Left_Trigger == 1 || Input.GetKey(KeyCode.LeftShift)) { suck = true; } else suck = false;
+        if (inputs.Right_Trigger == 1 || Input.GetKey(KeyCode.Space)) { shoot = true; } else shoot = false;
 
         vacControl.HandleVacuumStateInput(suck);
         vacControl.HandleShootStateInput(shoot, GetPlayerName());
@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
 
         int d = 0;
 
-        if (r_bumper) { d = 1; } else if (l_bumper) { d = -1; }
+        if (r_bumper || Input.GetKeyDown(KeyCode.R)) { d = 1; } else if (l_bumper || Input.GetKeyDown(KeyCode.E)) { d = -1; }
 
         vacControl.HandleChamberStateInput(d);
     }
@@ -62,12 +62,20 @@ public class PlayerController : MonoBehaviour
     // This function is called every frame by the level manager, called in fixed update
     public void UpdatePlayerMovement(ControllerInputs inputs)
     {
+        // UNCOMMENT HERE FOR CONTROLLER INPUT
         ////Change the position of the player
-        horizontal = inputs.Left_Stick_Horizontal;
-        vertical = -inputs.Left_Stick_Vertical;
+        //horizontal = inputs.Left_Stick_Horizontal;
+        //vertical = -inputs.Left_Stick_Vertical;
+        //// gets rotation input from right stick 
+        //float r_vertical = inputs.Right_Stick_Vertical;
+        //float r_horizontal = inputs.Right_Stick_Horizontal;
+        //float heading = Mathf.Atan2(r_vertical, r_horizontal);
 
-        float r_vertical = inputs.Right_Stick_Vertical;
-        float r_horizontal = inputs.Right_Stick_Horizontal;
+        //COMMENT/UNCOMMENT HERE FOR Keyboard input
+        float r_vertical = Input.GetAxisRaw("Vertical");
+        float r_horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = r_vertical; 
+        float horizontal = r_horizontal;
         float heading = Mathf.Atan2(r_vertical, r_horizontal);
 
         //Change the position of the player
