@@ -21,6 +21,10 @@ TagManager:
   - Walls
   - HUD
   - ProjectileSpawn
+  - R-4-Wood
+  - R-3-Water
+  - R-1-Fire
+  - R-2-Rock
   layers:
   - Default
   - TransparentFX
