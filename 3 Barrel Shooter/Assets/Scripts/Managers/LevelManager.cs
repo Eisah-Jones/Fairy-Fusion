@@ -67,7 +67,8 @@ public class LevelManager: MonoBehaviour {
         InitializeCameras();
         UpdateCameras();
 
-        soundManager.PlaySoundsByID(playerList[0].GetComponent<AudioSource>(), 0);
+        // Sound testing
+        //soundManager.PlaySoundsByID(playerList[0].GetComponent<AudioSource>(), 0);
 
         levelGen.SpawnResources(resourceManager);
 
@@ -103,7 +104,7 @@ public class LevelManager: MonoBehaviour {
         {
             GameObject c = cameras[i];
             Vector3 playerPos = playerList[i].transform.position;
-            c.transform.position = new Vector3(playerPos.x, playerPos.y, -8f);
+            c.transform.position = new Vector3(playerPos.x, playerPos.y, -12f);
         }
     }
 

@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212647776684617476}
   - component: {fileID: 61309013558234724}
   - component: {fileID: 50177235274207518}
-  - component: {fileID: 114837558064404050}
+  - component: {fileID: 114204697043102532}
   m_Layer: 0
   m_Name: Wood
   m_TagString: 4-Wood
@@ -78,8 +78,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0.75, y: 0.25}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -88,7 +88,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114837558064404050
+--- !u!114 &114204697043102532
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,7 +96,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1363146396752148}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21c8bf13935094d11813e828ed9dbf28, type: 3}
+  m_Script: {fileID: 11500000, guid: fd5e79695d6b04ba599bcbcb5ec96475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212647776684617476
@@ -134,8 +134,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 110f47cba57464761901483ef268bbad, type: 3}
-  m_Color: {r: 0.509434, g: 0.38444102, b: 0.24750803, a: 1}
+  m_Sprite: {fileID: 21300022, guid: ab6d1f60db3a7bd46832e22ad084cd60, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

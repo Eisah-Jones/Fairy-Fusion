@@ -144,7 +144,7 @@ public class LevelGenerator : MonoBehaviour {
         {
             int[] spawnPoint = { UnityEngine.Random.Range(0, terrainMap.GetUpperBound(0)), 
                                  UnityEngine.Random.Range(0, terrainMap.GetUpperBound(1))};
-            GameObject f = Instantiate(rm.GetResourceGameObject("Fire"), new Vector3(spawnPoint[0], spawnPoint[1], 0f), Quaternion.identity);
+            GameObject f = Instantiate(rm.GetResourceGameObject("Fire"), new Vector3(spawnPoint[0], spawnPoint[1], 0.3f), Quaternion.identity);
             f.GetComponent<Resource>().InitResource(5);
         }
     }

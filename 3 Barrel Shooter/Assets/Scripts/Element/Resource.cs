@@ -18,7 +18,9 @@ public class Resource : MonoBehaviour {
         if (resourceAvailable != 0)
         {
             resourceAvailable -= 1;
-            StartCoroutine("CollectionReset");
+
+            if (resourceAvailable == 0) { Destroy(gameObject); }
+            else { StartCoroutine("CollectionReset"); }
         }
     }
 
