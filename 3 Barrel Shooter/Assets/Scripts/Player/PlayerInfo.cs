@@ -14,6 +14,7 @@ public class PlayerInfo : MonoBehaviour
 	public int lives = 1;
     public int playerNum;
 
+	private HealthBar HPbar;
     private bool startedRespawn;
     private string rearea = "";
 
@@ -36,8 +37,7 @@ public class PlayerInfo : MonoBehaviour
 
     private void Start()
     {
-  
-
+		HPbar = GetComponent<HealthBar> ();
     }
 
 
@@ -69,6 +69,8 @@ public class PlayerInfo : MonoBehaviour
 
     private void Update()
     {
+		//Sets Healthbar
+		HPbar.SetSize(health/100f);
         //Check to see if player is dead
         if(isDead()){
             //Destroy the player object and notify player of death!!
