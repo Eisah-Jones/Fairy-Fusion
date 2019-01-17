@@ -13,7 +13,8 @@ public class PlayerInfo : MonoBehaviour
     public float health;
 	public int lives = 1;
     public int playerNum;
-    public bool isRespawning = false;
+
+	private HealthBar HPbar;
     private bool startedRespawn;
     private string rearea = "";
 
@@ -36,8 +37,7 @@ public class PlayerInfo : MonoBehaviour
 
     private void Start()
     {
-  
-
+		HPbar = GetComponent<HealthBar> ();
     }
 
 
@@ -69,6 +69,8 @@ public class PlayerInfo : MonoBehaviour
 
     private void Update()
     {
+		//Sets Healthbar
+		HPbar.SetSize(health/100f);
         //Check to see if player is dead
         if(isDead()){
             //Destroy the player object and notify player of death!!
@@ -112,47 +114,22 @@ public class PlayerInfo : MonoBehaviour
 		transform.position = respawn;
         startedRespawn = !startedRespawn;
         health = 100.0f;
-        isRespawning = false;
     }
 
 
     private void OnParticleCollision(GameObject collision)
     {
         string elemName = collision.tag.Split('-')[1];
-       
         if (collision.tag == "Walls" || collision.tag == "Untagged")
         {
             rearea = collision.name;
             return;
         }
-        PlayerInfo pi = collision.gameObject.GetComponent<PlayerInfo>();
-       
-        Debug.Log("Player" + playerNum.ToString());
-        if ( pi != null &&pi.GetPlayerName() == ("Player" + playerNum.ToString()))
-        {
-            Debug.Log("Hurting Self");
-            return;
-        }
-
-        if (health <= 0)
-        {
-            health = 0;
-            isRespawning = true;
-        }
-        if (isRespawning)
-        {
-
-        }
-        else 
-        {
-      
-            PlayerCollisionModel.CollisionResult result = levelManager.playerCollisionModel.HandleCollision(health, elemName);
-            health = result.health;
-            transform.gameObject.GetComponent<PlayerController>().HandleEffects(result.playerEffect, collision.gameObject.transform);
-
-        }
-
-
+ 
+   
+        PlayerCollisionModel.CollisionResult result = levelManager.playerCollisionModel.HandleCollision(health, elemName);
+        health = result.health;
+        transform.gameObject.GetComponent<PlayerController>().HandleEffects(result.playerEffect, collision.gameObject.transform);
     }
 
 
