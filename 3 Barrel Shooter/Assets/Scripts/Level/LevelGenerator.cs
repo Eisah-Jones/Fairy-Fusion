@@ -125,7 +125,7 @@ public class LevelGenerator : MonoBehaviour {
             PlayerController pc = player.GetComponent<PlayerController>();
             pc.InitPlayerController(playerGun.GetComponent<VacuumController>());
             result.Add(player); //Add player to our player list
-			player.name = string.Format("Player{0}",i);
+			player.name = string.Format("Player{0}",i+1); // needs to be +1 since you add 1
         }
         return result;
     }
