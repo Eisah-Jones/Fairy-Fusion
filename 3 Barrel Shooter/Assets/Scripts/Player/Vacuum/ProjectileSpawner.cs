@@ -10,6 +10,7 @@ public class ProjectileSpawner : MonoBehaviour {
     public void ShootProjectile(int eID, LevelManager lm, string playerName){
         GameObject prefab = lm.elemPrefabs[eID - 1];
         GameObject e = Instantiate(prefab, transform.position, transform.rotation);
+        Debug.Log("e: " + e);
         e.GetComponent<ElementObject>().initElement(lm, lm.elementManager.GetElementDataByID(eID), true, playerName);
     }
 
