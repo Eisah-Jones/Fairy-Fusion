@@ -55,11 +55,11 @@ public class ElementManager
 
     // Does not work!
     //Gets the capacity of an element given its ID
-    public int GetCapacityByName(string name)
-    {
-        // loadedElementInfo.Element.chamberCapacity
-        return ExpressionEvaluator.Evaluate<int>(string.Format("loadedElementInfo.{0}.chamberCapacity", name));
-    }
+    //public int GetCapacityByName(string name)
+    //{
+    //    // loadedElementInfo.Element.chamberCapacity
+    //    return ExpressionEvaluator.Evaluate<int>(string.Format("loadedElementInfo.{0}.chamberCapacity", name));
+    //}
 
 
     public float GetDamageByName(string n)
