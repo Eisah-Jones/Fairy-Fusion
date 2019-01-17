@@ -125,7 +125,7 @@ public class LevelGenerator : MonoBehaviour {
             PlayerController pc = player.GetComponent<PlayerController>();
             pc.InitPlayerController(playerGun.GetComponent<VacuumController>());
             result.Add(player); //Add player to our player list
-			player.name = string.Format("Player{0}",i);
+			player.name = string.Format("Player{0}",i+1); // needs to be +1 since you add 1
         }
         return result;
     }
@@ -144,7 +144,7 @@ public class LevelGenerator : MonoBehaviour {
         {
             int[] spawnPoint = { UnityEngine.Random.Range(0, terrainMap.GetUpperBound(0)), 
                                  UnityEngine.Random.Range(0, terrainMap.GetUpperBound(1))};
-            GameObject f = Instantiate(rm.GetResourceGameObject("Fire"), new Vector3(spawnPoint[0], spawnPoint[1], 0f), Quaternion.identity);
+            GameObject f = Instantiate(rm.GetResourceGameObject("Fire"), new Vector3(spawnPoint[0], spawnPoint[1], 0.3f), Quaternion.identity);
             f.GetComponent<Resource>().InitResource(5);
         }
     }
