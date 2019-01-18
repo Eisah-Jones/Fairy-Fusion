@@ -28,6 +28,7 @@ TagManager:
   - Fairies
   - Main
   - Spawn
+  - SoundManager
   layers:
   - Default
   - TransparentFX

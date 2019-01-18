@@ -756,6 +756,48 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 710125795}
   m_CullTransparentMesh: 0
+--- !u!1001 &748408905
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4704251086086734, guid: c93b0b0dbb3764024ab51b28ce30cb51, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 55.437237
+      objectReference: {fileID: 0}
+    - target: {fileID: 4704251086086734, guid: c93b0b0dbb3764024ab51b28ce30cb51, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 51.14392
+      objectReference: {fileID: 0}
+    - target: {fileID: 4704251086086734, guid: c93b0b0dbb3764024ab51b28ce30cb51, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.030036008
+      objectReference: {fileID: 0}
+    - target: {fileID: 4704251086086734, guid: c93b0b0dbb3764024ab51b28ce30cb51, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4704251086086734, guid: c93b0b0dbb3764024ab51b28ce30cb51, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4704251086086734, guid: c93b0b0dbb3764024ab51b28ce30cb51, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4704251086086734, guid: c93b0b0dbb3764024ab51b28ce30cb51, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4704251086086734, guid: c93b0b0dbb3764024ab51b28ce30cb51, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c93b0b0dbb3764024ab51b28ce30cb51, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &954066119
 GameObject:
   m_ObjectHideFlags: 0
@@ -1203,7 +1245,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controllerManager: {fileID: 0}
   particleManager: {fileID: 0}
-  soundManager: {fileID: 0}
+  soundManager: {fileID: 114029297399747552, guid: c93b0b0dbb3764024ab51b28ce30cb51,
+    type: 2}
   player: {fileID: 1756415907752874, guid: 8343588b41ec64568a9283f3a4750900, type: 2}
   playerList: []
   camera: {fileID: 1324731120072202, guid: 3c0d88db374a64a499670d431801338e, type: 2}
