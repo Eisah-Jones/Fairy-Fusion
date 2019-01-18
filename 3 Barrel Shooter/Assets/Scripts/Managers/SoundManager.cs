@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour {
 
-    private List<AudioClip> sounds;
+    public List<AudioClip> sounds;
 
 
     public SoundManager()
     {
         sounds = new List<AudioClip>();
-        LoadSounds();
+       // LoadSounds();
     }
 
 
