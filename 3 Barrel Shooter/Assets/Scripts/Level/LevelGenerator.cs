@@ -118,7 +118,7 @@ public class LevelGenerator : MonoBehaviour {
             GameObject player = Instantiate(p, pos, Quaternion.identity); // Spawn player object
             player.AddComponent<PlayerInfo>(); // Add PlayerInfo script
             player.GetComponent<PlayerInfo>().InitPlayerInfo(lm, i+1); // Initialize player info script
-            GameObject playerGun = player.transform.Find("Gun").gameObject; // Get a reference to the player's gun object
+            GameObject playerGun = player.transform.Find("Fairies").gameObject; // Get a reference to the player's gun object
             playerGun.AddComponent<VacuumController>(); // Add vacuum controller
             playerGun.GetComponent<VacuumController>().SetVacuum(player.GetComponent<PlayerInfo>().GetVacuum(), lm);
             playerGun.AddComponent<ProjectileSpawner>(); // Add a projectile spawner script to the player gun

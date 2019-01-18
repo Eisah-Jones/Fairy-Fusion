@@ -14,10 +14,16 @@ public class VacuumController : MonoBehaviour {
     int tempShoot = 0;
 
     //Sets the vacuum for the player, should be called after player gameObject instantiation 
-    public void SetVacuum(Vacuum vac, LevelManager lm){
+    public void SetVacuum(Vacuum vac, LevelManager lm)
+    {
         v = vac;
+
+        foreach(Transform child in transform)
+        {
+            if (child.tag == "ProjectileSpawn") { projectileSpawner = child.GetChild(0); break; }
+        }
+
         vacuumArea = GetComponent<BoxCollider2D>();
-        projectileSpawner = transform.Find("ProjectileSpawn").transform;
         levelManager = lm;
         canShoot = true;
     }

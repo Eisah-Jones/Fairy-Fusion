@@ -33,7 +33,8 @@ public class ElementManager
         }
     }
 
-    private void InitElementDataList(){
+    private void InitElementDataList()
+    {
 
         elementDataList = new List<elementData>();
 
@@ -55,11 +56,11 @@ public class ElementManager
 
     // Does not work!
     //Gets the capacity of an element given its ID
-    public int GetCapacityByName(string name)
-    {
-        // loadedElementInfo.Element.chamberCapacity
-        return ExpressionEvaluator.Evaluate<int>(string.Format("loadedElementInfo.{0}.chamberCapacity", name));
-    }
+    //public int GetCapacityByName(string name)
+    //{
+    //    // loadedElementInfo.Element.chamberCapacity
+    //    return ExpressionEvaluator.Evaluate<int>(string.Format("loadedElementInfo.{0}.chamberCapacity", name));
+    //}
 
 
     public float GetDamageByName(string n)
@@ -95,7 +96,8 @@ public class ElementManager
     }
 
 
-    public elementData GetElementDataByName(string n){
+    public elementData GetElementDataByName(string n)
+    {
         foreach (elementData eD in elementDataList)
         {
             // tempfix

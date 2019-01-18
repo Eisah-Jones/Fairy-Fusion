@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
 
     public GameObject playerBody;
+    public GameObject fairies;
 	public Animator player_animator;
 	private Animator gun_animator;
 
@@ -29,6 +30,7 @@ public class PlayerController : MonoBehaviour
     public void InitPlayerController(VacuumController vc){
         vacControl = vc;
         playerBody = this.gameObject;
+        fairies = transform.Find("Fairies").gameObject;
     }
 
     public void UpdatePlayerInputs(ControllerInputs inputs)
@@ -91,18 +93,18 @@ public class PlayerController : MonoBehaviour
         if (heading != 0)
         {
             float last_heading = heading;
-            transform.rotation = Quaternion.Euler(0f, 0f, last_heading * Mathf.Rad2Deg);
+            fairies.transform.rotation = Quaternion.Euler(0f, 0f, last_heading * Mathf.Rad2Deg);
         }
     }
 
 	private void Update()
 	{
-		gun_animator.SetBool ("Sucking", suck);
+		//gun_animator.SetBool ("Sucking", suck);
 	}
 
 	void Start()
 	{
-		gun_animator = GetComponentInChildren<Animator>();
+		//gun_animator = GetComponentInChildren<Animator>();
 	}
 
 
