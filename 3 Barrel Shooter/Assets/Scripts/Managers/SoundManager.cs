@@ -37,7 +37,7 @@ public class SoundManager : MonoBehaviour {
 
     public void PlaySoundsByID(AudioSource s, int i)
     {
-        Debug.Log(i);
+        //Debug.Log(i);
         s.clip = sounds[i];
         s.Play();
     }

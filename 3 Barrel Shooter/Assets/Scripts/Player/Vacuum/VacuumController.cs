@@ -115,6 +115,7 @@ public class VacuumController : MonoBehaviour {
 
         if (collision.tag == "TEST") 
         {
+            Debug.Log("TITS");
             if (levelManager.GetTriggerTile((int)projectileSpawner.position.x, (int)projectileSpawner.position.y) == "Water")
             {
                 v.AddToChamber("Water", 3);

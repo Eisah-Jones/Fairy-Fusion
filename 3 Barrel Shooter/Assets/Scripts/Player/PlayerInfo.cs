@@ -122,7 +122,7 @@ public class PlayerInfo : MonoBehaviour
         string elemName = collision.tag.Split('-')[1];
         PlayerInfo pi = collision.gameObject.GetComponent<PlayerInfo>();
 
-        Debug.Log("Player" + playerNum.ToString());
+        //Debug.Log("Player" + playerNum.ToString());
         if (pi != null && pi.GetPlayerName() == ("Player" + playerNum.ToString()))
         {
             Debug.Log("Trying to burn self");

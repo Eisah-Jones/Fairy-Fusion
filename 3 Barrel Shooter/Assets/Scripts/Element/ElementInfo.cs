@@ -92,6 +92,7 @@ public class elementData
     public float damage;
     public float fireRate;
     public string projectileType;
+    public int projectileLife;
     public int chamberCapacity;
     public List<string> playerCollisionEffects;
     public ChamberInteractions chamberInteractions;

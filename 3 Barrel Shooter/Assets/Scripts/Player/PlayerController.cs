@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour
 
     public void HandleEffects(List<string> effects, Transform t){
         foreach (string e in effects){
-            Debug.Log("e: "+ e);
+            //Debug.Log("e: "+ e);
             if (e == "Knockback") { Knockback(t); }
             else if (e == "Burn") 
             {
@@ -128,7 +128,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.05f);
         Vector2 v = playerBody.GetComponent<Rigidbody2D>().velocity;
         playerBody.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        Debug.Log(playerBody.GetComponent<Rigidbody2D>().velocity);
+        //Debug.Log(playerBody.GetComponent<Rigidbody2D>().velocity);
     }
 
 

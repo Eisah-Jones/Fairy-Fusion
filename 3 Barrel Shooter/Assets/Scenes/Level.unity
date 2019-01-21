@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 243219673}
   m_Layer: 0
   m_Name: Tilemap_Trigger
-  m_TagString: Untagged
+  m_TagString: TEST
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1237,6 +1237,7 @@ Prefab:
         type: 2}
     m_RemovedComponents:
     - {fileID: 114732622078598018, guid: c2bdb53601d854d57acc06ca8c511127, type: 2}
+    - {fileID: 114026412050342392, guid: c2bdb53601d854d57acc06ca8c511127, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: c2bdb53601d854d57acc06ca8c511127, type: 2}
   m_IsPrefabAsset: 0
 --- !u!114 &1060561605 stripped
@@ -1350,6 +1351,7 @@ MonoBehaviour:
   winText: {fileID: 0}
   ground: {fileID: 954066122}
   groundCollider: {fileID: 607147646}
+  groundTrigger: {fileID: 243219675}
   wall: {fileID: 1836868240993968, guid: 90e0c1ccfca2f42ffae34f29355e69ac, type: 2}
 --- !u!1001 &1424795791
 Prefab:

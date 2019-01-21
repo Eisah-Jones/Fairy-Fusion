@@ -24,7 +24,7 @@ public class ElementObject : MonoBehaviour {
         ID = e.ID;
         name = e.name;
         damage = e.damage;
-        life = 20;
+        life = e.projectileLife;
         speed = 10.0f;
         isProjectile = isP;
         owner = o;

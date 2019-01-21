@@ -29,6 +29,7 @@ TagManager:
   - Main
   - Spawn
   - SoundManager
+  - TEST
   layers:
   - Default
   - TransparentFX
