@@ -4,27 +4,34 @@ using UnityEngine;
 
 public class ProjectileSpawner : MonoBehaviour {
 
+    private SoundManager sm;
     private bool isShootingFluid;
     public ParticleSystem p;
-    public SoundManager sm;
-    private void Awake()
+
+    public void Start()
     {
-        sm = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
+        sm = new SoundManager();
+        sm.InitSoundManager();
     }
-    public void ShootProjectile(int eID, LevelManager lm, string playerName){
+
+    public void ShootProjectile(int eID, LevelManager lm, string playerName)
+    {
         GameObject prefab = lm.elemPrefabs[eID - 1];
         GameObject e = Instantiate(prefab, transform.position, transform.rotation);
         Debug.Log("e: " + e);
         e.GetComponent<ElementObject>().initElement(lm, lm.elementManager.GetElementDataByID(eID), true, playerName);
     }
 
-    public int ShootFluid(int eID, LevelManager lm, string playerName, Transform spawnPos){
+    public int ShootFluid(int eID, LevelManager lm, string playerName, Transform spawnPos)
+    {
         if (isShootingFluid) return -1;
+
         isShootingFluid = true;
+
         if (eID == 1){
             //instantiates flamethrower
             ParticleSystem prefab = lm.particles[0];
-            sm.PlaySoundsByID(this.gameObject.GetComponentInParent<AudioSource>(), 0);
+            sm.PlaySoundsByID(gameObject.GetComponentInParent<AudioSource>(), 0);
             p = Instantiate(prefab, spawnPos.position, spawnPos.rotation);
             
             p.transform.parent = spawnPos;

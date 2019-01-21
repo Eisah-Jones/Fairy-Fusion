@@ -8,10 +8,10 @@ public class SoundManager : MonoBehaviour {
     public List<AudioClip> sounds;
 
 
-    public SoundManager()
+    public void InitSoundManager()
     {
         sounds = new List<AudioClip>();
-       // LoadSounds();
+        LoadSounds();
     }
 
 
@@ -36,6 +36,7 @@ public class SoundManager : MonoBehaviour {
 
     public void PlaySoundsByID(AudioSource s, int i)
     {
+        Debug.Log(i);
         s.clip = sounds[i];
         s.Play();
     }
