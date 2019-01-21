@@ -41,6 +41,7 @@ public class LevelManager: MonoBehaviour {
 
     public Tilemap ground;
     public Tilemap groundCollider;
+    public Tilemap groundTrigger;
     public GameObject wall;
 
     // Use this for initialization
@@ -54,8 +55,9 @@ public class LevelManager: MonoBehaviour {
         resourceManager = new ResourceManager();
         particleManager = new ParticleManager();
         soundManager = new SoundManager();
+        soundManager.InitSoundManager();
 
-        levelGen.GenerateLevel(ground, groundCollider, spriteManager, resourceManager, wall);
+        levelGen.GenerateLevel(ground, groundCollider, groundTrigger, spriteManager, resourceManager, wall);
 
         int numPlayers = 2;
         playerList = levelGen.SpawnPlayers(player, GetComponent<LevelManager>(), numPlayers);
@@ -74,6 +76,11 @@ public class LevelManager: MonoBehaviour {
 
         processCollision = true;
 	}
+
+
+    public string GetTriggerTile(int x, int y){
+        return levelGen.GetTerrainMap()[x, y];
+    }
 
 
     private void InitializeCameras()

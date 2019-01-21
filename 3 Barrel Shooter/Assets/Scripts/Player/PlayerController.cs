@@ -118,7 +118,6 @@ public class PlayerController : MonoBehaviour
             {
                 StartCoroutine("Burn");
                 Burning = false;
-
             } // Burn coroutine currently does not work
             else if (e == "Pushback") { Pushback(t); }
         }

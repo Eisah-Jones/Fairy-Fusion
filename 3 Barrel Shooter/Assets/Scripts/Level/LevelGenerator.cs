@@ -16,7 +16,7 @@ public class LevelGenerator : MonoBehaviour {
     private string[,] terrainMap; //Array for storing level floor map
     private SpriteManager spriteManager;
 
-    public void GenerateLevel(Tilemap tm, Tilemap cm, SpriteManager sm, ResourceManager rm, GameObject w){
+    public void GenerateLevel(Tilemap tm, Tilemap cm, Tilemap trigm, SpriteManager sm, ResourceManager rm, GameObject w){
 
         center = new Vector3(levelWidth / 2, levelHeight / 2, 0);
 
@@ -41,7 +41,7 @@ public class LevelGenerator : MonoBehaviour {
                 float sample = Mathf.PerlinNoise(xCoord, yCoord);
 
                 if (sample < 0.2)
-                    terrainMap[x, y] = "Mountain";
+                    terrainMap[x, y] = "Water";
                 else if (sample < 0.5)
                     terrainMap[x, y] = "Grass";
                 else if (sample < 0.9)
@@ -53,12 +53,17 @@ public class LevelGenerator : MonoBehaviour {
 
         spriteManager = sm;
 
-        RenderMap(tm, cm);
+        RenderMap(tm, cm, trigm);
         SpawnBoundaries(w);
     }
 
+    public string[,] GetTerrainMap()
+    {
+        return terrainMap;
+    }
 
-    public void RenderMap(Tilemap tilemap, Tilemap colliderMap)
+
+    public void RenderMap(Tilemap tilemap, Tilemap colliderMap, Tilemap triggerMap)
     {
         //Clear the map (ensures we dont overlap)
         tilemap.ClearAllTiles();
@@ -74,6 +79,7 @@ public class LevelGenerator : MonoBehaviour {
                 t = ti.tile;
                 t = RotateTile(t, ti.rotation);
                 if (terrainMap[x, y] == "Mountain") { colliderMap.SetTile(pos, t); }
+                else if (terrainMap[x, y] == "Water") { triggerMap.SetTile(pos, t); }
                 else { tilemap.SetTile(pos, t); }
             }
         }

@@ -102,9 +102,16 @@ public class VacuumController : MonoBehaviour {
 
     void OnTriggerStay2D(Collider2D collision)
     {
-
         if (collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged") return;
 
+        if (collision.tag == "TEST") 
+        {
+            if (levelManager.GetTriggerTile((int)projectileSpawner.position.x, (int)projectileSpawner.position.y) == "Water")
+            {
+                v.AddToChamber("Water", 3);
+            }
+            return;
+        }
 
         string[] collisionInfo = collision.tag.Split('-');
         int result = -1;

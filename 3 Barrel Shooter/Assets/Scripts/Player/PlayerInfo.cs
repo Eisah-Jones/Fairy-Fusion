@@ -133,27 +133,23 @@ public class PlayerInfo : MonoBehaviour
         {
             health = 0;
             isRespawning = true;
-
         }
 
         else
         {
-
             PlayerCollisionModel.CollisionResult result = levelManager.playerCollisionModel.HandleCollision(health, elemName);
             health = result.health;
             transform.gameObject.GetComponent<PlayerController>().HandleEffects(result.playerEffect, collision.gameObject.transform);
-
         }
     }
 
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-		if (collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged" || collision.tag[0] == 'R') {
+        if (collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged" || collision.tag[0] == 'R' || collision.tag == "TEST") {
 			rearea = collision.name;
 			return;
 		}
-
 
         ElementObject element = collision.gameObject.GetComponent<ElementObject>();
 
