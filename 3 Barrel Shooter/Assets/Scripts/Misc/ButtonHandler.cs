@@ -6,6 +6,10 @@ public class ButtonHandler : MonoBehaviour {
 
 
 	public void StartGame(){
-		SceneManager.LoadScene ("Main");
+		SceneManager.LoadScene ("Level");
+	}
+
+	public void Quit(){
+		Application.Quit ();
 	}
 }
