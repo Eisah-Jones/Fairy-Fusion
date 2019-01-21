@@ -48,9 +48,10 @@ public class SpriteManager
         public TileMap(string mapName)
         {
             // FOR TESTING!!!
-            if (mapName == "NULL") 
+            if (mapName == "Water" || mapName == "Mountain") 
             {
-                test = Resources.Load<Sprite>("TileMaps/Test");
+                if (mapName == "Water") { test = Resources.Load<Sprite>("TileMaps/Test"); }
+                if (mapName == "Mountain") { test = Resources.Load<Sprite>("TileMaps/Test2"); }
                 fill = test;
                 wall = test;
                 wallOneCorner = test;
@@ -916,8 +917,12 @@ public class SpriteManager
         {
             return tileMaps[1];
         }
+        else if (mapName == "Water")
+        {
+            return tileMaps[2];
+        }
 
-        return tileMaps[2];
+        return tileMaps[3];
     }
 
 
@@ -927,13 +932,14 @@ public class SpriteManager
         TextAsset txt = (TextAsset)Resources.Load("TileMaps/loadTileMaps", typeof(TextAsset));
         string[] lines = Regex.Split(txt.text, "\n|\r|\r\n");
 
-        tileMaps = new TileMap[lines.Length];
+        tileMaps = new TileMap[lines.Length+1];
         for (int i = 0; i < lines.Length; i++)
         {
             tileMaps[i] = new TileMap(lines[i]);
         }
 
         // FOR TESTING!!!
-        tileMaps[2] = new TileMap("NULL");
+        tileMaps[2] = new TileMap("Water");
+        tileMaps[3] = new TileMap("Mountain");
     }
 }

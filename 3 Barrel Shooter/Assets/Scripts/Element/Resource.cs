@@ -39,7 +39,7 @@ public class Resource : MonoBehaviour {
 
     private IEnumerator CollectionReset(){
         canBeCollected = false;
-        yield return new WaitForSeconds(0.75f);
+        yield return new WaitForSeconds(0.25f);
         canBeCollected = true;
     }
 }

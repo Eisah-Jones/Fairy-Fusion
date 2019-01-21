@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour {
 
-    private List<AudioClip> sounds;
+    public List<AudioClip> sounds;
 
 
-    public SoundManager()
+    public void InitSoundManager()
     {
         sounds = new List<AudioClip>();
         LoadSounds();
@@ -23,6 +23,7 @@ public class SoundManager : MonoBehaviour {
         foreach (string line in lines)
         {
             sounds.Add(Resources.Load<AudioClip>("Sounds/" + line));
+           
         }
     }
 
@@ -36,7 +37,12 @@ public class SoundManager : MonoBehaviour {
 
     public void PlaySoundsByID(AudioSource s, int i)
     {
+        //Debug.Log(i);
         s.clip = sounds[i];
         s.Play();
+    }
+    public void StopSound(AudioSource asource)
+    {
+        asource.Stop();
     }
 }

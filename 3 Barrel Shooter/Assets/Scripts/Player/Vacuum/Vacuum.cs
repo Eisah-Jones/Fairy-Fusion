@@ -248,7 +248,6 @@ public class Vacuum{
     // Change the chamber based on direction
     public int changeChamber(int direction){
         if (direction == 0) return currentChamber;
-        Debug.Log("Change Chamber " + direction);
         currentChamber = (currentChamber + direction)%3;
         if (currentChamber == -1)
             currentChamber = 2;

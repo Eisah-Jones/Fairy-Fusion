@@ -12,18 +12,25 @@ public class VacuumController : MonoBehaviour {
     bool canShoot;
     int shootNum = 10;
     int tempShoot = 0;
-
+    public AudioSource audioSource;
     //Sets the vacuum for the player, should be called after player gameObject instantiation 
-    public void SetVacuum(Vacuum vac, LevelManager lm){
+    public void SetVacuum(Vacuum vac, LevelManager lm)
+    {
         v = vac;
+
+        foreach(Transform child in transform)
+        {
+            if (child.tag == "ProjectileSpawn") { projectileSpawner = child.GetChild(0); break; }
+        }
+
         vacuumArea = GetComponent<BoxCollider2D>();
-        projectileSpawner = transform.Find("ProjectileSpawn").transform;
         levelManager = lm;
         canShoot = true;
     }
 
     // Use this for initialization
     void Start () {
+        audioSource = GetComponentInParent<AudioSource>();
 
     }
     
@@ -45,8 +52,16 @@ public class VacuumController : MonoBehaviour {
 
     // Sets the vacuum state based on controller input
     public void HandleVacuumStateInput(bool state){
-        v.SetVacuum(state);
-        vacuumArea.enabled = state;
+        if (state != vacuumArea.enabled)
+        {
+            v.SetVacuum(state);
+            vacuumArea.enabled = state;
+            levelManager.soundManager.PlaySoundsByID(audioSource, 1);
+            if (!state)
+            {
+                levelManager.soundManager.StopSound(audioSource);
+            }
+        }
     }
 
     // Sets the chamber based on controller input
@@ -86,7 +101,7 @@ public class VacuumController : MonoBehaviour {
 
             else
             {
-                p.ShootProjectile(eID, levelManager, playerName);
+                p.ShootProjectile(eID, levelManager, playerName, projectileSpawner);
                 v.RemoveFromCurrentChamber(eName, 1);
                 v.SetCombinationChambers();
             }
@@ -96,9 +111,16 @@ public class VacuumController : MonoBehaviour {
 
     void OnTriggerStay2D(Collider2D collision)
     {
-
         if (collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged") return;
 
+        if (collision.tag == "TEST") 
+        {
+            if (levelManager.GetTriggerTile((int)projectileSpawner.position.x, (int)projectileSpawner.position.y) == "Water")
+            {
+                v.AddToChamber("Water", 3);
+            }
+            return;
+        }
 
         string[] collisionInfo = collision.tag.Split('-');
         int result = -1;

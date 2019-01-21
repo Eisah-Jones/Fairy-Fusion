@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
 
     public GameObject playerBody;
+    public GameObject fairies;
 	public Animator player_animator;
 	private Animator gun_animator;
 
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
     float vertical;
     bool suck = false;
     bool shoot = false;
+    public bool Burning = false;
     bool combinationToggle = false; //If true then canshoot combination, else cannot
     float last_heading;
 
@@ -28,6 +30,7 @@ public class PlayerController : MonoBehaviour
     public void InitPlayerController(VacuumController vc){
         vacControl = vc;
         playerBody = this.gameObject;
+        fairies = transform.Find("Fairies").gameObject;
     }
 
     public void UpdatePlayerInputs(ControllerInputs inputs)
@@ -90,18 +93,18 @@ public class PlayerController : MonoBehaviour
         if (heading != 0)
         {
             float last_heading = heading;
-            transform.rotation = Quaternion.Euler(0f, 0f, last_heading * Mathf.Rad2Deg);
+            fairies.transform.rotation = Quaternion.Euler(0f, 0f, last_heading * Mathf.Rad2Deg);
         }
     }
 
 	private void Update()
 	{
-		gun_animator.SetBool ("Sucking", suck);
+		//gun_animator.SetBool ("Sucking", suck);
 	}
 
 	void Start()
 	{
-		gun_animator = GetComponentInChildren<Animator>();
+		//gun_animator = GetComponentInChildren<Animator>();
 	}
 
 
@@ -109,9 +112,13 @@ public class PlayerController : MonoBehaviour
 
     public void HandleEffects(List<string> effects, Transform t){
         foreach (string e in effects){
-            Debug.Log("e: "+ e);
+            //Debug.Log("e: "+ e);
             if (e == "Knockback") { Knockback(t); }
-            else if (e == "Burn") { StartCoroutine("Burn"); }
+            else if (e == "Burn") 
+            {
+                StartCoroutine("Burn");
+                Burning = false;
+            } // Burn coroutine currently does not work
             else if (e == "Pushback") { Pushback(t); }
         }
     }
@@ -121,7 +128,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.05f);
         Vector2 v = playerBody.GetComponent<Rigidbody2D>().velocity;
         playerBody.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        Debug.Log(playerBody.GetComponent<Rigidbody2D>().velocity);
+        //Debug.Log(playerBody.GetComponent<Rigidbody2D>().velocity);
     }
 
 
@@ -145,13 +152,24 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Burn(){
 
+       
         int burnHits = Random.Range(1, 5);
         for (int i = 0; i < burnHits; i++ )
         {
             int hitPoints = Random.Range(1, 3);
-            gameObject.GetComponent<PlayerInfo>().RemovePlayerHealth(hitPoints);
-            float waitTime = Random.Range(0.5f, 2.0f);
-            yield return new WaitForSeconds(waitTime);
+            if (gameObject.GetComponent<PlayerInfo>().health <= 0)
+            {
+                Burning = false;
+                yield return 0;
+
+            }
+
+            else if (Burning)
+            {
+                gameObject.GetComponent<PlayerInfo>().RemovePlayerHealth(hitPoints);
+                float waitTime = Random.Range(0.5f, 2.0f);
+                yield return new WaitForSeconds(waitTime);
+            }
         }
     }
 }

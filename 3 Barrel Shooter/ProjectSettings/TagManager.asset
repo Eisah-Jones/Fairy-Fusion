@@ -25,6 +25,11 @@ TagManager:
   - R-3-Water
   - R-1-Fire
   - R-2-Rock
+  - Fairies
+  - Main
+  - Spawn
+  - SoundManager
+  - TEST
   layers:
   - Default
   - TransparentFX

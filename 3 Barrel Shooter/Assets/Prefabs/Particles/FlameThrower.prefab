@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4116067497092556}
   - component: {fileID: 198995448613787678}
   - component: {fileID: 199246458078751010}
+  - component: {fileID: 114565885086622328}
+  - component: {fileID: 50208932913986262}
   m_Layer: 0
   m_Name: FlameThrower
   m_TagString: 1-Fire
@@ -41,6 +43,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: -270, z: -90}
+--- !u!50 &50208932913986262
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1592020987960590}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &114565885086622328
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1592020987960590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd5e79695d6b04ba599bcbcb5ec96475, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &198995448613787678
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -3627,7 +3660,7 @@ ParticleSystem:
     collidesWithDynamic: 1
     interiorCollisions: 0
   TriggerModule:
-    enabled: 1
+    enabled: 0
     collisionShape0: {fileID: 0}
     collisionShape1: {fileID: 0}
     collisionShape2: {fileID: 0}
