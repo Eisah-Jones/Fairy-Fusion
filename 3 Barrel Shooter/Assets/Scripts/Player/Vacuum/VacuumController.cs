@@ -101,7 +101,7 @@ public class VacuumController : MonoBehaviour {
 
             else
             {
-                p.ShootProjectile(eID, levelManager, playerName);
+                p.ShootProjectile(eID, levelManager, playerName, projectileSpawner);
                 v.RemoveFromCurrentChamber(eName, 1);
                 v.SetCombinationChambers();
             }
@@ -115,7 +115,6 @@ public class VacuumController : MonoBehaviour {
 
         if (collision.tag == "TEST") 
         {
-            Debug.Log("TITS");
             if (levelManager.GetTriggerTile((int)projectileSpawner.position.x, (int)projectileSpawner.position.y) == "Water")
             {
                 v.AddToChamber("Water", 3);
