@@ -12,7 +12,7 @@ public class VacuumController : MonoBehaviour {
     bool canShoot;
     int shootNum = 10;
     int tempShoot = 0;
-
+    public AudioSource audioSource;
     //Sets the vacuum for the player, should be called after player gameObject instantiation 
     public void SetVacuum(Vacuum vac, LevelManager lm)
     {
@@ -30,6 +30,7 @@ public class VacuumController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        audioSource = GetComponentInParent<AudioSource>();
 
     }
     
