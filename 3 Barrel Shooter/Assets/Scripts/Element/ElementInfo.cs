@@ -30,6 +30,8 @@ public class ChamberInteractions
 
         if (name == "Air") return Air;
 
+        if (name == "Steam") return Steam;
+
         if (name == "Fireball") return Fireball;
 
         return "None";
@@ -78,6 +80,8 @@ public class ElementCollisions
 
         if (name == "Air") return Air;
 
+        if (name == "Steam") return Steam;
+
         if (name == "Fireball") return Fireball;
 
         return new collisionPair();
@@ -109,5 +113,6 @@ public class ElementInfo
     public elementData Water;
     public elementData Wood;
     public elementData Air;
+    public elementData Steam;
     public elementData Fireball;
 }

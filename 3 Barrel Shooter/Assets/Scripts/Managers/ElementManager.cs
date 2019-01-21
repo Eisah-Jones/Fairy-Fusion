@@ -44,7 +44,7 @@ public class ElementManager
         elementDataList.Add(loadedElementInfo.Water);
         elementDataList.Add(loadedElementInfo.Wood);
         elementDataList.Add(loadedElementInfo.Air);
-        elementDataList.Add(null); //temporary
+        elementDataList.Add(loadedElementInfo.Steam);
         elementDataList.Add(loadedElementInfo.Fireball);
     }
 

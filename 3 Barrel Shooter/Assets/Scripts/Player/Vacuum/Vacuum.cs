@@ -314,6 +314,7 @@ public class Vacuum{
         //  in the combination chamber, if they are in combination chamber set
         if (IsCurrentChamberEmpty() || (IsCombinationChamberEmpty() && isCombiningElements))
         {
+            Debug.Log("NULL" + IsCurrentChamberEmpty() + ", " + IsCombinationChamberEmpty());
             return null; //There is nothing to shoot! Return null to disapprove instantiating anything
         }
 

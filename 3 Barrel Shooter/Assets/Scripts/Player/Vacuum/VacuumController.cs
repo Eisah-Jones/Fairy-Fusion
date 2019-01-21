@@ -119,6 +119,7 @@ public class VacuumController : MonoBehaviour {
             {
                 v.AddToChamber("Water", 3);
             }
+            v.SetCombinationChambers();
             return;
         }
 

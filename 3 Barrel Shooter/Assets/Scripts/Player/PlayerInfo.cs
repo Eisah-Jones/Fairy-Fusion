@@ -119,6 +119,8 @@ public class PlayerInfo : MonoBehaviour
 
     private void OnParticleCollision(GameObject collision)
     {
+        Debug.Log(collision.tag);
+
         string elemName = collision.tag.Split('-')[1];
         PlayerInfo pi = collision.gameObject.GetComponent<PlayerInfo>();
 

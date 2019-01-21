@@ -93,11 +93,9 @@ public class ChamberInteractionModel
 
         //If the number of elem1 and elem2 are enough to create an element return that element's data, else return null
         elementData e = em.GetElementDataByName(resultName);
-        if (e == null) return null;
+        if (e == null) { return null; }
 
         combinationRequirements combReq = e.combinationRequirements;
-
-        Debug.Log(combReq);
 
         string elem1ReqName = combReq.elem1;
         int elem1ReqNum = combReq.elem1Num;
