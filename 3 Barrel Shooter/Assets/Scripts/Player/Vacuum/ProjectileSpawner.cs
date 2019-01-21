@@ -7,19 +7,27 @@ public class ProjectileSpawner : MonoBehaviour {
     private SoundManager sm;
     private bool isShootingFluid;
     public ParticleSystem p;
-
+    public LevelManager lm;
+    public AudioSource audioSource;
     public void Start()
     {
-        sm = new SoundManager();
-        sm.InitSoundManager();
+        audioSource = gameObject.GetComponentInParent<AudioSource>();
+        lm = FindObjectOfType<LevelManager>();
+        sm = lm.soundManager;
+   
     }
 
     public void ShootProjectile(int eID, LevelManager lm, string playerName)
     {
         GameObject prefab = lm.elemPrefabs[eID - 1];
         GameObject e = Instantiate(prefab, transform.position, transform.rotation);
-        Debug.Log("e: " + e);
+        Debug.Log("e: " + e + eID);
         e.GetComponent<ElementObject>().initElement(lm, lm.elementManager.GetElementDataByID(eID), true, playerName);
+        if (eID == 4)
+        {
+            sm.PlaySoundsByID(audioSource, 2); // plays wood chip sound
+        }
+       
     }
 
     public int ShootFluid(int eID, LevelManager lm, string playerName, Transform spawnPos)
@@ -31,7 +39,7 @@ public class ProjectileSpawner : MonoBehaviour {
         if (eID == 1){
             //instantiates flamethrower
             ParticleSystem prefab = lm.particles[0];
-            sm.PlaySoundsByID(gameObject.GetComponentInParent<AudioSource>(), 0);
+            sm.PlaySoundsByID(audioSource, 0);
             p = Instantiate(prefab, spawnPos.position, spawnPos.rotation);
             
             p.transform.parent = spawnPos;

@@ -72,7 +72,7 @@ public class ElementObject : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // We don't care if we collide with these objects
-        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Untagged" || collision.gameObject.tag == "Walls") return;
+        if (collision == null  ||gameObject.tag == "Player" || collision.gameObject.tag == "Untagged" || collision.gameObject.tag == "Walls") return;
 
         // This happens when objects are not spawned by the levelGenerator
         if (elementCollisionModel == null) return;

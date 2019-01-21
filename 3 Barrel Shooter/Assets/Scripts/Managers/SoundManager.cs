@@ -23,6 +23,7 @@ public class SoundManager : MonoBehaviour {
         foreach (string line in lines)
         {
             sounds.Add(Resources.Load<AudioClip>("Sounds/" + line));
+           
         }
     }
 
@@ -39,5 +40,9 @@ public class SoundManager : MonoBehaviour {
         Debug.Log(i);
         s.clip = sounds[i];
         s.Play();
+    }
+    public void StopSound(AudioSource asource)
+    {
+        asource.Stop();
     }
 }
