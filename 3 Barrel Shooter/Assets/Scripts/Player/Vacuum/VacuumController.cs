@@ -51,8 +51,16 @@ public class VacuumController : MonoBehaviour {
 
     // Sets the vacuum state based on controller input
     public void HandleVacuumStateInput(bool state){
-        v.SetVacuum(state);
-        vacuumArea.enabled = state;
+        if (state != vacuumArea.enabled)
+        {
+            v.SetVacuum(state);
+            vacuumArea.enabled = state;
+            levelManager.soundManager.PlaySoundsByID(audioSource, 1);
+            if (!state)
+            {
+                levelManager.soundManager.StopSound(audioSource);
+            }
+        }
     }
 
     // Sets the chamber based on controller input
