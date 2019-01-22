@@ -14,12 +14,12 @@ public class ControllerManager : MonoBehaviour
     {
         lm = GetComponent<LevelManager>();
         controllers = new List<Controller>();
-
-        for (int i = 1; i < 3; i++)
+        for (int i = 1; i < 4; i++)
         {
             Controller c = new Controller();
             c.initController(i);
             controllers.Add(c);
+            Debug.Log(i);
         }
     }
 
@@ -28,7 +28,8 @@ public class ControllerManager : MonoBehaviour
         List<ControllerInputs> result = new List<ControllerInputs>();
 
         int i = 0;
-        foreach (Controller c in controllers){
+        foreach (Controller c in controllers)
+        {
             result.Add(c.GetInputs());
             i++;
         }

@@ -44,8 +44,11 @@ public class LevelManager: MonoBehaviour {
     public Tilemap groundTrigger;
     public GameObject wall;
 
+    private int numPlayers;
+
     // Use this for initialization
     void Start () {
+        numPlayers = 3;
         elementManager.initElementManager();
         chamberInteractionModel = new ChamberInteractionModel(elementManager);
         playerCollisionModel = new PlayerCollisionModel(elementManager);
@@ -59,9 +62,8 @@ public class LevelManager: MonoBehaviour {
 
         levelGen.GenerateLevel(ground, groundCollider, groundTrigger, spriteManager, resourceManager, wall);
 
-        int numPlayers = 3;
         playerList = levelGen.SpawnPlayers(player, GetComponent<LevelManager>(), numPlayers);
-		foreach (GameObject p in playerList) {
+        foreach (GameObject p in playerList) {
 			pInfoList.Add (p.GetComponent<PlayerInfo> ());
             GameObject cameraObject = Instantiate(camera, Vector3.zero, Quaternion.identity);
             cameras.Add(cameraObject);
@@ -122,7 +124,7 @@ public class LevelManager: MonoBehaviour {
         // Retrieve and send controller inputs to the player
         SendControllerInputsToPlayer(controllerManager.GetControllerInputs());
         UpdateCameras();
-        UpdateGUI();
+        //UpdateGUI();
     }
 
 	//Checks for a winner each frame

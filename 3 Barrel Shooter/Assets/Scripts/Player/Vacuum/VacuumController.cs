@@ -220,7 +220,7 @@ public class VacuumController : MonoBehaviour {
         {
             Resource r = collision.GetComponent<Resource>();
             Shaker s = collision.GetComponent<Shaker>();
-            if (r.CanCollect())
+            if (r.CanCollect() && (v.IsCurrentChamberEmpty() || v.GetCurrentChamber().GetElementNameByIndex(0) == collisionInfo[2]))
             {
                 s.beingSucked = true;
                 result = v.AddToChamber(collisionInfo[2], int.Parse(collisionInfo[1]));
@@ -228,12 +228,12 @@ public class VacuumController : MonoBehaviour {
             }
 
         } 
-        else // We are picking up some projectile from the ground
-        {
-            result = v.AddToChamber(collisionInfo[1], int.Parse(collisionInfo[0]));
-            if (result == -1) { return; } // TODO: Randomly launch projectile from character
-            Destroy(collision.gameObject);
-        }
+        //else // We are picking up some projectile from the ground
+        //{
+        //    result = v.AddToChamber(collisionInfo[1], int.Parse(collisionInfo[0]));
+        //    if (result == -1) { return; } // TODO: Randomly launch projectile from character
+        //    Destroy(collision.gameObject);
+        //}
 
         // Update chamber combinations
         v.SetCombinationChambers();
