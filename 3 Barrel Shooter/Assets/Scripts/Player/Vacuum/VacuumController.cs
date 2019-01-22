@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class VacuumController : MonoBehaviour {
@@ -13,6 +14,11 @@ public class VacuumController : MonoBehaviour {
     int shootNum = 10;
     int tempShoot = 0;
     public AudioSource audioSource;
+
+    public List<GameObject> fairies;
+    private GameObject[] currentFairies;
+    private GameObject[] fairyPositions;
+
     //Sets the vacuum for the player, should be called after player gameObject instantiation 
     public void SetVacuum(Vacuum vac, LevelManager lm)
     {
@@ -22,6 +28,29 @@ public class VacuumController : MonoBehaviour {
         {
             if (child.tag == "ProjectileSpawn") { projectileSpawner = child.GetChild(0); break; }
         }
+
+
+        TextAsset txt = (TextAsset)Resources.Load("Fairies/loadFairies", typeof(TextAsset));
+        string[] lines = Regex.Split(txt.text, "\n|\r|\r\n");
+
+        fairies = new List<GameObject>();
+
+        foreach(string line in lines)
+        {
+            fairies.Add(Resources.Load<GameObject>("Fairies/" + line));
+        }
+
+        currentFairies = new GameObject[3];
+        currentFairies[0] = Instantiate(fairies[0]);
+        currentFairies[1] = Instantiate(fairies[0]);
+        currentFairies[2] = Instantiate(fairies[0]);
+
+        fairyPositions = new GameObject[5];
+        fairyPositions[0] = transform.GetChild(0).gameObject;
+        fairyPositions[1] = transform.GetChild(1).gameObject;
+        fairyPositions[2] = transform.GetChild(2).gameObject;
+        fairyPositions[3] = transform.GetChild(3).gameObject;
+        fairyPositions[4] = transform.GetChild(4).gameObject;
 
         vacuumArea = GetComponent<BoxCollider2D>();
         levelManager = lm;
@@ -36,6 +65,8 @@ public class VacuumController : MonoBehaviour {
     
     // Update is called once per frame
     void Update () {
+        UpdateFairies();
+
         tempShoot += 1;
         if (tempShoot > shootNum){
             canShoot = true;
@@ -47,6 +78,65 @@ public class VacuumController : MonoBehaviour {
     public void SetIsCombiningElements(bool b)
     {
         v.SetIsCombiningElements(b);
+    }
+
+
+    private void UpdateFairyPos(){
+
+        int chamberIndex = v.GetCurrentChamberIndex();
+
+        if (!v.GetIsCombiningElements())
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                int j = (i + chamberIndex) % 3;
+                currentFairies[j].transform.position = fairyPositions[i].transform.position;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                int j = (i + chamberIndex) % 3;
+                if (i == 0)
+                {
+                    currentFairies[j].transform.position = fairyPositions[3].transform.position;
+                    currentFairies[(j + 1) % 3].transform.position = fairyPositions[4].transform.position;
+                }
+                else
+                {
+                    currentFairies[(j + 1) % 3].transform.position = fairyPositions[1].transform.position;
+                }
+            }
+        }
+    }
+
+    private void UpdateFairies(){
+        Vacuum.Chamber[] chambers = v.GetChambers();
+
+        for (int i = 0; i < 3; i++)
+        {
+            Vacuum.Chamber c = chambers[i];
+            if (c.GetAmountByIndex(0) == -1)
+            {
+                if (currentFairies[i].tag != fairies[0].tag)
+                {
+                    //Debug.Log("FFFF: " + currentFairies[i].name + ", " + fairies[0].name);
+                    Destroy(currentFairies[i]);
+                    currentFairies[i] = Instantiate(fairies[0]);
+                }
+            }
+            else
+            {
+                if (currentFairies[i].tag != fairies[c.GetContents()[0].GetElementID()].tag)
+                {
+                    Destroy(currentFairies[i]);
+                    currentFairies[i] = Instantiate(fairies[c.GetContents()[0].GetElementID()]);
+                }
+            }
+        }
+
+        UpdateFairyPos();
     }
 
 

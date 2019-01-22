@@ -30,6 +30,11 @@ TagManager:
   - Spawn
   - SoundManager
   - TEST
+  - NormalFairy
+  - FireFairy
+  - LeafFairy
+  - WaterFairy
+  - EarthFairy
   layers:
   - Default
   - TransparentFX

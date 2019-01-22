@@ -228,6 +228,11 @@ public class Vacuum{
         vacuumOn = b;
     }
 
+    public Chamber[] GetChambers()
+    {
+        return chambers;
+    }
+
 
     // Get a boolean determining whether or not the vacuum is set to on
     public bool GetVacuumOn(){
