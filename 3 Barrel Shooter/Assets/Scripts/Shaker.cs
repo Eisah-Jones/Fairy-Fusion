@@ -22,7 +22,6 @@ public class Shaker : MonoBehaviour {
         {
             this.transform.position = new Vector2(startingPos.x + Mathf.Sin(Time.time * speed) * amount, startingPos.y + (Mathf.Sin(Time.time * speed) * amount));
         }
-       
-
     }
+
 }

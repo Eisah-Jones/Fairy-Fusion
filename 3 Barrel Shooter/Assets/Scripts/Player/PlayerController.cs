@@ -94,7 +94,7 @@ public class PlayerController : MonoBehaviour
 
         //Change the position of the player
         Vector2 movement = new Vector2(horizontal * speed, vertical * speed);
- 
+
         transform.Translate(movement * Time.deltaTime, Space.World);
         if (!Mathf.Approximately(horizontal, 0f) || !Mathf.Approximately(vertical, 0f))
         {

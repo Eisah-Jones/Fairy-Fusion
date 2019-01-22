@@ -48,7 +48,7 @@ public class LevelManager: MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        numPlayers = 3;
+        numPlayers = 2;
         elementManager.initElementManager();
         chamberInteractionModel = new ChamberInteractionModel(elementManager);
         playerCollisionModel = new PlayerCollisionModel(elementManager);

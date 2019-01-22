@@ -222,10 +222,13 @@ public class VacuumController : MonoBehaviour {
             Shaker s = collision.GetComponent<Shaker>();
             if (r.CanCollect() && (v.IsCurrentChamberEmpty() || v.GetCurrentChamber().GetElementNameByIndex(0) == collisionInfo[2]))
             {
-                s.beingSucked = true;
+                s.beingSucked = true; // shakes the resource
+          
                 result = v.AddToChamber(collisionInfo[2], int.Parse(collisionInfo[1]));
                 r.DecrementResource();
             }
+       
+
 
         } 
         //else // We are picking up some projectile from the ground
@@ -238,5 +241,16 @@ public class VacuumController : MonoBehaviour {
         // Update chamber combinations
         v.SetCombinationChambers();
     }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        Shaker s = other.GetComponent<Shaker>();
+
+        if (!v.GetVacuumOn())
+        {
+            s.beingSucked = false;
+        }
+  
+    }
+
 
 }
