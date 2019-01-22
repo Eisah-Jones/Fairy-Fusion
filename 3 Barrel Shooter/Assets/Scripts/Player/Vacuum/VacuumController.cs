@@ -219,8 +219,10 @@ public class VacuumController : MonoBehaviour {
         if (collisionInfo[0] == "R") // The player is harvesting some resource
         {
             Resource r = collision.GetComponent<Resource>();
+            Shaker s = collision.GetComponent<Shaker>();
             if (r.CanCollect())
             {
+                s.beingSucked = true;
                 result = v.AddToChamber(collisionInfo[2], int.Parse(collisionInfo[1]));
                 r.DecrementResource();
             }

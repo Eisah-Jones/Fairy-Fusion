@@ -41,7 +41,7 @@ public class SoundManager : MonoBehaviour {
         if (!s.isPlaying)
         {
             s.clip = sounds[i];
-            s.loop = true;
+            //s.loop = true;
             s.Play();
         }
     }
