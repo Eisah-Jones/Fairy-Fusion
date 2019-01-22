@@ -330,7 +330,7 @@ public class Vacuum{
             int nextChamber = (currentChamber + 1) % 3;
 
             // Get the combinationRequirements of elements needed for each chamber
-            Debug.Log(cim.GetElementCombination(chambers[currentChamber], chambers[nextChamber]));
+            //Debug.Log(cim.GetElementCombination(chambers[currentChamber], chambers[nextChamber]));
             combinationRequirements combReq = cim.GetElementCombination(chambers[currentChamber], chambers[nextChamber]).combinationRequirements;
 
             // Make sure we are taking away from the correct chambers

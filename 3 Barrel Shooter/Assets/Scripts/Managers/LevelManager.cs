@@ -59,7 +59,7 @@ public class LevelManager: MonoBehaviour {
 
         levelGen.GenerateLevel(ground, groundCollider, groundTrigger, spriteManager, resourceManager, wall);
 
-        int numPlayers = 2;
+        int numPlayers = 3;
         playerList = levelGen.SpawnPlayers(player, GetComponent<LevelManager>(), numPlayers);
 		foreach (GameObject p in playerList) {
 			pInfoList.Add (p.GetComponent<PlayerInfo> ());
