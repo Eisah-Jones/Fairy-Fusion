@@ -11,7 +11,7 @@ public class ProjectileSpawner : MonoBehaviour {
     public AudioSource audioSource;
     public void Start()
     {
-        audioSource = gameObject.GetComponentInParent<AudioSource>();
+        audioSource = gameObject.AddComponent<AudioSource>();
         lm = FindObjectOfType<LevelManager>();
         sm = lm.soundManager;
    
@@ -39,9 +39,11 @@ public class ProjectileSpawner : MonoBehaviour {
         if (eID == 1){
             //instantiates flamethrower
             ParticleSystem prefab = lm.particles[0];
+           
             sm.PlaySoundsByID(audioSource, 0);
+           
             p = Instantiate(prefab, spawnPos.position, spawnPos.rotation);
-            
+
             p.transform.parent = spawnPos;
             p.Play();
             StartCoroutine(fluidReset(p));

@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
 	public Animator player_animator;
 	private Animator gun_animator;
 
-
+    private bool isMoving = false;
     [SerializeField]
     private float speed = 2f;
     public string inputHorizontal = "Horizontal";
@@ -24,9 +24,15 @@ public class PlayerController : MonoBehaviour
     public bool Burning = false;
     bool combinationToggle = false; //If true then canshoot combination, else cannot
     float last_heading;
-
+    public LevelManager lm;
+    public AudioSource audioSource;
     private VacuumController vacControl;
 
+    void Start()
+    {
+        lm = FindObjectOfType<LevelManager>();
+        audioSource = gameObject.AddComponent<AudioSource>();
+    }
     public void InitPlayerController(VacuumController vc){
         vacControl = vc;
         playerBody = this.gameObject;
@@ -88,7 +94,19 @@ public class PlayerController : MonoBehaviour
 
         //Change the position of the player
         Vector2 movement = new Vector2(horizontal * speed, vertical * speed);
+ 
         transform.Translate(movement * Time.deltaTime, Space.World);
+        if (!Mathf.Approximately(horizontal, 0f) || !Mathf.Approximately(vertical, 0f))
+        {
+            isMoving = true;
+            lm.soundManager.PlaySoundsByID(audioSource, 3);
+           
+        }
+        else if (Mathf.Approximately(horizontal, 0f) && Mathf.Approximately(vertical, 0f))
+        {
+            lm.soundManager.StopSound(audioSource);
+        }
+
         //change rotation of pplayer if no input received keeps same rotation as last time it got input prevents snapping back to 0,0 heading
         if (heading != 0)
         {
@@ -102,10 +120,7 @@ public class PlayerController : MonoBehaviour
 		//gun_animator.SetBool ("Sucking", suck);
 	}
 
-	void Start()
-	{
-		//gun_animator = GetComponentInChildren<Animator>();
-	}
+
 
 
     // #### BELOW ARE PLAYER EFFECTS!! ####

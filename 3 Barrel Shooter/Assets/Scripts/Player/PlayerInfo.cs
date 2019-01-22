@@ -13,7 +13,7 @@ public class PlayerInfo : MonoBehaviour
     public float health;
 	public int lives = 1;
     public int playerNum;
-
+    public AudioSource[] audioSources = new AudioSource[3];
 	private HealthBar HPbar;
     private bool startedRespawn;
     private string rearea = "";
@@ -26,7 +26,9 @@ public class PlayerInfo : MonoBehaviour
     {
         levelManager = lm;
         vacuum = new Vacuum(levelManager);
-
+        audioSources[0] = gameObject.AddComponent<AudioSource>();
+        audioSources[1] = gameObject.AddComponent<AudioSource>();
+        audioSources[2] = gameObject.AddComponent<AudioSource>();
         health = 100.0f;
         playerNum = pNum;
       
@@ -119,7 +121,7 @@ public class PlayerInfo : MonoBehaviour
 
     private void OnParticleCollision(GameObject collision)
     {
-        Debug.Log(collision.tag);
+       
 
         string elemName = collision.tag.Split('-')[1];
         PlayerInfo pi = collision.gameObject.GetComponent<PlayerInfo>();
