@@ -9,7 +9,7 @@ public class PlayerInfo : MonoBehaviour
     LevelManager levelManager;
     Vacuum vacuum;
     BoxCollider2D vacuumArea;
-
+    public ParticleSystem deathParticles;
     public float health;
 	public int lives = 1;
     public int playerNum;
@@ -31,7 +31,7 @@ public class PlayerInfo : MonoBehaviour
         audioSources[2] = gameObject.AddComponent<AudioSource>();
         health = 100.0f;
         playerNum = pNum;
-      
+
         startedRespawn = false;
 
     }
@@ -40,6 +40,7 @@ public class PlayerInfo : MonoBehaviour
     private void Start()
     {
 		HPbar = GetComponent<HealthBar> ();
+        //deathParticles = new ParticleSystem();
     }
 
 
@@ -72,7 +73,12 @@ public class PlayerInfo : MonoBehaviour
     private void Update()
     {
 		//Sets Healthbar
-		HPbar.SetSize(health/100f);
+        if (health <= 0)
+        {
+            HPbar.SetSize(0.0f);
+        }
+        else { HPbar.SetSize(health / 100f); }
+
         //Check to see if player is dead
         if(isDead()){
             //Destroy the player object and notify player of death!!
@@ -88,7 +94,9 @@ public class PlayerInfo : MonoBehaviour
             if (!startedRespawn)
             {
                 startedRespawn = !startedRespawn;
+             
                 StartCoroutine("respawn");
+               
             }
 
         }
@@ -96,7 +104,9 @@ public class PlayerInfo : MonoBehaviour
 
     private IEnumerator respawn(){
 		lives += -1;
-        yield return new WaitForSeconds(1.0f);
+        //deathParticles = Instantiate(levelManager.particles[3], transform.position, transform.rotation);
+        levelManager.SpawnParticleEffectAtPosition(transform.position, 3);
+        yield return new WaitForSeconds(.1f);
 		Vector3 respawn = new Vector3(0,0,0);
         //Can specify respawn location before Coroutine is started and save as a temporary class variable
 		switch (rearea) {
@@ -113,21 +123,38 @@ public class PlayerInfo : MonoBehaviour
 			respawn = GetVector(1);
 			break;
 		}
-		transform.position = respawn;
+        transform.position = respawn;
+      
         startedRespawn = !startedRespawn;
         health = 100.0f;
+   
     }
 
 
-    private void OnParticleCollision(GameObject collision)
+    private void OnParticleCollision(Collider2D collision)
     {
+        if (collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged" || collision.tag[0] == 'R' || collision.tag == "TEST")
+        {
+            rearea = collision.name;
+            return;
+        }
+        ElementObject element = collision.gameObject.GetComponent<ElementObject>();
+        if (element.GetOwner() == ("Player" + playerNum.ToString())) return;
+        string elemName = collision.tag.Split('-')[1];
+        bool isPlayer = false;
+        PlayerInfo pi = null;
+        Debug.Log(element.GetOwner());
+        if (collision.gameObject.tag == "Player")
+        {
+            pi = collision.gameObject.GetComponent<PlayerInfo>();
+            isPlayer = true;
+            Debug.Log("HERE: " + pi.GetPlayerName());
+        }
        
 
-        string elemName = collision.tag.Split('-')[1];
-        PlayerInfo pi = collision.gameObject.GetComponent<PlayerInfo>();
+        Debug.Log("Player" + playerNum.ToString());
 
-        //Debug.Log("Player" + playerNum.ToString());
-        if (pi != null && pi.GetPlayerName() == ("Player" + playerNum.ToString()))
+        if (isPlayer && pi != null && pi.GetPlayerName() == ("Player" + playerNum.ToString()))
         {
             Debug.Log("Trying to burn self");
             return;

@@ -7,8 +7,12 @@ public class Resource : MonoBehaviour {
     private int maxResource = 5;
     private int resourceAvailable = 5;
     private bool canBeCollected = true;
-
-
+    public ParticleSystem smoke;
+    private LevelManager lm;
+    private void Start()
+    {
+        lm = FindObjectOfType<LevelManager>();
+    }
     public void InitResource(int max){
         maxResource = max;
         resourceAvailable = max;
@@ -19,7 +23,13 @@ public class Resource : MonoBehaviour {
         {
             resourceAvailable -= 1;
 
-            if (resourceAvailable == 0) { Destroy(gameObject); }
+            if (resourceAvailable == 0) 
+            {
+               
+
+                lm.SpawnParticleEffectAtPosition(gameObject.transform.position, 4);
+                Destroy(gameObject); 
+            }
             else { StartCoroutine("CollectionReset"); }
         }
     }

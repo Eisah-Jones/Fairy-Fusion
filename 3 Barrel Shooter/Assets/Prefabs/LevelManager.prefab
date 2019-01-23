@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4238025219574134}
   - component: {fileID: 114652423321762040}
-  - component: {fileID: 114026412050342392}
+  - component: {fileID: 114174851702189666}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -41,7 +41,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114026412050342392
+--- !u!114 &114174851702189666
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -74,8 +74,10 @@ MonoBehaviour:
   - {fileID: 198995448613787678, guid: 7a4269d6f51884673a5985320e948f0b, type: 2}
   - {fileID: 198936952285669722, guid: d8888e847d8ce4680af40caa35b9064f, type: 2}
   - {fileID: 198700791753399106, guid: 328591a39ad934eeb8f7181d5e7949cc, type: 2}
+  - {fileID: 198717262418065186, guid: e8d7b4fc1e6e9492eb800a40a62b2b23, type: 2}
+  - {fileID: 198581448367261904, guid: c6c05402edbb347729bcb03e8bb07ddd, type: 2}
   testHUD: {fileID: 0}
-  endScreen: {fileID: 1836868240993968, guid: 90e0c1ccfca2f42ffae34f29355e69ac, type: 2}
+  endScreen: {fileID: 0}
   winText: {fileID: 0}
   ground: {fileID: 0}
   groundCollider: {fileID: 0}

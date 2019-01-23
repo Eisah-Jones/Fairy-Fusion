@@ -38,7 +38,8 @@ public class SoundManager : MonoBehaviour {
     public void PlaySoundsByID(AudioSource s, int i)
     {
         //Debug.Log(i);
-        if (!s.isPlaying)
+
+        if (s != null && !s.isPlaying)
         {
             s.clip = sounds[i];
             //s.loop = true;
@@ -47,6 +48,7 @@ public class SoundManager : MonoBehaviour {
     }
     public void StopSound(AudioSource asource)
     {
+        if (asource != null)
         asource.Stop();
     }
 

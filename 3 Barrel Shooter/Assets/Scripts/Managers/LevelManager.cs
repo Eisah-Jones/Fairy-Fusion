@@ -31,7 +31,7 @@ public class LevelManager: MonoBehaviour {
 
     public GameObject[] elemPrefabs = new GameObject[3];
 
-    public ParticleSystem[] particles = new ParticleSystem[3];
+    public ParticleSystem[] particles = new ParticleSystem[5];
 
     public Text testHUD;
 	public GameObject endScreen;
@@ -79,7 +79,10 @@ public class LevelManager: MonoBehaviour {
         processCollision = true;
 	}
 
-
+    public void SpawnParticleEffectAtPosition(Vector3 pos, int particleIndex)
+    {
+        Instantiate(particles[particleIndex], pos, transform.rotation);
+    }
     public string GetTriggerTile(int x, int y){
         return levelGen.GetTerrainMap()[x, y];
     }
@@ -129,19 +132,19 @@ public class LevelManager: MonoBehaviour {
 
 	//Checks for a winner each frame
 	private void Update(){
-		int alive_count = 0;
-		int winner = 0;
-		foreach (PlayerInfo info in pInfoList) {
-			if (info.lives <= 0)
-				alive_count += 1;
-			else
-				winner = info.playerNum;
-		}
-		if (alive_count == 1) {
-			endScreen.SetActive (true);
-			winText.text = string.Format ("Player {0} Wins!", winner);
-			Time.timeScale = 0f;
-		}
+//		int alive_count = 0;
+//		int winner = 0;
+//		foreach (PlayerInfo info in pInfoList) {
+//			if (info.lives <= 0)
+//				alive_count += 1;
+//			else
+//				winner = info.playerNum;
+//		}
+//		if (alive_count == 1) {
+//			endScreen.SetActive (true);
+////			winText.text = string.Format ("Player {0} Wins!", winner);
+		//	Time.timeScale = 0f;
+		//}
 			
 	}
 

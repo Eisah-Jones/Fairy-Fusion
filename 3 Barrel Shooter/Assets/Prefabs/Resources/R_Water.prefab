@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212774883567489150}
   - component: {fileID: 114519014754934106}
   - component: {fileID: 61988495349265380}
+  - component: {fileID: 114664197173743788}
   m_Layer: 0
   m_Name: R_Water
   m_TagString: R-3-Water
@@ -78,6 +79,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a34b83732016f4d7fbefaf3c68bdf9a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114664197173743788
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1488955407516774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15280d372e50342edaa236ee1751d455, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 100
+  amount: 0.05
+  beingSucked: 0
 --- !u!212 &212774883567489150
 SpriteRenderer:
   m_ObjectHideFlags: 1

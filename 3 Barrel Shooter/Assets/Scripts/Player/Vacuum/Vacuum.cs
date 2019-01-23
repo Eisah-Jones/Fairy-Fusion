@@ -331,7 +331,9 @@ public class Vacuum{
 
             // Get the combinationRequirements of elements needed for each chamber
             //Debug.Log(cim.GetElementCombination(chambers[currentChamber], chambers[nextChamber]));
+  
             combinationRequirements combReq = cim.GetElementCombination(chambers[currentChamber], chambers[nextChamber]).combinationRequirements;
+
 
             // Make sure we are taking away from the correct chambers
             if (chambers[currentChamber].GetContents()[0].GetElementName() == combReq.elem1)
@@ -341,8 +343,8 @@ public class Vacuum{
 
                 chambers[currentChamber].Remove(combReq.elem1, e1Num);
                 chambers[nextChamber].Remove(combReq.elem2, e2Num);
-            } 
-            else  
+            }
+            else
             {
                 int e1Num = combReq.elem2Num;
                 int e2Num = combReq.elem1Num;
@@ -353,7 +355,7 @@ public class Vacuum{
 
             elementData ed = combinationChambers[currentChamber];
             return new Chamber.InventoryInfo(ed.name, ed.ID, 1);
-        }
+            }
 
         // If we are not combining elements
 

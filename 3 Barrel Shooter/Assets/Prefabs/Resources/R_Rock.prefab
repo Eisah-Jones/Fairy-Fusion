@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 212797178337817644}
   - component: {fileID: 50443004067749644}
   - component: {fileID: 61125611212891152}
-  - component: {fileID: 114916669427256038}
   m_Layer: 0
   m_Name: R_Rock
   m_TagString: Untagged
@@ -88,17 +87,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.0439482, y: 0.5646162}
   m_EdgeRadius: 0
---- !u!114 &114916669427256038
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1557930516914342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21c8bf13935094d11813e828ed9dbf28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &212797178337817644
 SpriteRenderer:
   m_ObjectHideFlags: 1
