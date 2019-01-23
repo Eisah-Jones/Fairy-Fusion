@@ -30,6 +30,7 @@ public class PlayerCollisionModel {
         float resultingHealth = playerHealth - em.GetDamageByName(name);
         //Will get actual effect list once implemented in ElementInfo and elementManager
         List<string> effectList = em.GetElementDataByName(name).playerCollisionEffects;
+        Debug.Log(effectList);
         return new CollisionResult(resultingHealth, effectList);
     }
 }

@@ -131,48 +131,50 @@ public class PlayerInfo : MonoBehaviour
     }
 
 
-    private void OnParticleCollision(Collider2D collision)
-    {
-        if (collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged" || collision.tag[0] == 'R' || collision.tag == "TEST")
-        {
-            rearea = collision.name;
-            return;
-        }
-        ElementObject element = collision.gameObject.GetComponent<ElementObject>();
-        if (element.GetOwner() == ("Player" + playerNum.ToString())) return;
-        string elemName = collision.tag.Split('-')[1];
-        bool isPlayer = false;
-        PlayerInfo pi = null;
-        Debug.Log(element.GetOwner());
-        if (collision.gameObject.tag == "Player")
-        {
-            pi = collision.gameObject.GetComponent<PlayerInfo>();
-            isPlayer = true;
-            Debug.Log("HERE: " + pi.GetPlayerName());
-        }
+    //private void OnParticleCollision(GameObject collision)
+    //{
+    //    if (collision.tag == "Walls" || collision.tag == "Untagged" || collision.tag[0] == 'R' || collision.tag == "TEST")
+    //    {
+    //        rearea = collision.name;
+    //        return;
+    //    }
+       
+    //    ElementObject element = collision.gameObject.GetComponent<ElementObject>();
+    //    Debug.Log("elem:"+ element.GetOwner());
+    //    if (element.GetOwner() == ("Player" + playerNum.ToString())) return;
+    //    string elemName = collision.tag.Split('-')[1];
+    //    bool isPlayer = false;
+    //    PlayerInfo pi = null;
+
+    //    if (collision.tag == "Player")
+    //    {
+    //        pi = collision.gameObject.GetComponent<PlayerInfo>();
+    //        isPlayer = true;
+    //        Debug.Log("HERE: " + pi.GetPlayerName());
+    //    }
        
 
-        Debug.Log("Player" + playerNum.ToString());
+    //    Debug.Log(collision);
 
-        if (isPlayer && pi != null && pi.GetPlayerName() == ("Player" + playerNum.ToString()))
-        {
-            Debug.Log("Trying to burn self");
-            return;
-        }
+    //    if (isPlayer && pi != null && pi.GetPlayerName() == ("Player" + playerNum.ToString()))
+    //    {
+    //        Debug.Log("Trying to burn self");
+    //        return;
+    //    }
 
-        if (health <= 0 || isRespawning)
-        {
-            health = 0;
-            isRespawning = true;
-        }
+    //    if (health <= 0 || isRespawning)
+    //    {
+    //        health = 0;
+    //        isRespawning = true;
+    //    }
 
-        else
-        {
-            PlayerCollisionModel.CollisionResult result = levelManager.playerCollisionModel.HandleCollision(health, elemName);
-            health = result.health;
-            transform.gameObject.GetComponent<PlayerController>().HandleEffects(result.playerEffect, collision.gameObject.transform);
-        }
-    }
+    //    else
+    //    {
+    //        PlayerCollisionModel.CollisionResult result = levelManager.playerCollisionModel.HandleCollision(health, elemName);
+    //        health = result.health;
+    //        transform.gameObject.GetComponent<PlayerController>().HandleEffects(result.playerEffect, collision.gameObject.transform);
+    //    }
+    //}
 
 
     public void OnTriggerEnter2D(Collider2D collision)

@@ -78,7 +78,7 @@
     "damage": 0.2,
     "fireRate": 0,
     "projectileType": "Fluid",
-    "projectileLife": 15,
+    "projectileLife": 10,
     "chamberCapacity": 100,
     "playerCollisionEffects": [
       "Burn"

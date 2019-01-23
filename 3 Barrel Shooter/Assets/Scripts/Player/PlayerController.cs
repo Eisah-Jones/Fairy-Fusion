@@ -111,13 +111,15 @@ public class PlayerController : MonoBehaviour
         if (!Mathf.Approximately(horizontal, 0f) || !Mathf.Approximately(vertical, 0f))
         {
             isMoving = true;
-            lm.soundManager.PlaySoundsByID(audioSource, 3);
+            if (audioSource!=null)
+                lm.soundManager.PlaySoundsByID(audioSource, 3);
 			player_animator.SetBool ("Moving", true);
            
         }
         else if (Mathf.Approximately(horizontal, 0f) && Mathf.Approximately(vertical, 0f))
         {
-            lm.soundManager.StopSound(audioSource);
+            if (audioSource != null)
+                lm.soundManager.StopSound(audioSource);
 			player_animator.SetBool ("Moving", false);
         }
 

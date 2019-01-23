@@ -9,14 +9,18 @@ public class ElementObject : MonoBehaviour {
     ElementCollisionModel elementCollisionModel;
 
 
-    private string owner; //player who shoots the object
+    public string owner; //player who shoots the object
     private int ID; //The id of the element
     private float damage; //The damage that the object does to a player
     private float life; //The time that an object remains a projectile
     private float speed; //The speed of the elementObject
     private bool isProjectile; //Dictates whether or not an element does damage to a player
     private Vector2 direction;
+    public string particleOwner;
+    private void Awake()
+    {
 
+    }
     public void initElement(LevelManager lm, elementData e, bool isP, string o){
         levelManager = lm;
         elementCollisionModel = lm.elementCollisionModel;
@@ -67,7 +71,68 @@ public class ElementObject : MonoBehaviour {
     public bool GetIsProjectile(){
         return isProjectile;
     }
+    private void OnParticleCollision(GameObject collision)
+    {
+        if (collision.tag == "Walls" || collision.tag == "Untagged" || collision.tag[0] == 'R' || collision.tag == "TEST")
+        {
+          
+            return;
+        }
+        PlayerInfo pi = null;
+        string elemName = this.tag.Split('-')[1];
+        if (collision.tag == "Player")
+        {
+            pi = collision.gameObject.GetComponent<PlayerInfo>();
+   
+        }
+        //ElementObject element = collision.gameObject.GetComponent<ElementObject>();
+        Debug.Log(elemName);
+        if (elemName == "Fire" || elemName == "Water" || elemName == "Steam") // checks if element is colliding with player and does damage if its enemy
+        {
+            particleOwner = "Player" + GetComponentInParent<PlayerInfo>().playerNum;
+            if (particleOwner == ("Player" + pi.playerNum.ToString()))
+            {
+                return;
+            }
+            if (pi.health <= 0 || pi.isRespawning)
+            {
+                pi.health = 0;
+                pi.isRespawning = true;
+            }
+            float damage = 0;
+           // List<string> peffect = new List<string>()[2];
+            if (elemName == "Fire")
+            {
+                damage = .3f;
+                //peffect[0] = "Burn";
+            }
+            else if (elemName == "Steam")
+            {
+                damage = .4f;
+                //peffect = "Pushback";
+            }
+            if (pi == null) return;
+            Debug.Log(particleOwner+ "Health: " + pi.health);
+            //PlayerCollisionModel.CollisionResult result = levelManager.playerCollisionModel.HandleCollision(pi.health, elemName);
+           // Debug.Log(result.health);
+            pi.health -= damage;
+            //pi.gameObject.GetComponent<PlayerController>().HandleEffects(result.effect, collision.gameObject.transform);
+            Debug.Log("New PlayerHealth: " + pi.health);
 
+        }
+            
+
+
+
+       
+
+
+
+
+       
+
+
+    }
     // When an element collides with something else
     private void OnTriggerEnter2D(Collider2D collision)
     {

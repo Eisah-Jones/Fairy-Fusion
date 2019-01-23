@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 199246458078751010}
   - component: {fileID: 114565885086622328}
   - component: {fileID: 50208932913986262}
+  - component: {fileID: 61825018777626788}
   m_Layer: 0
   m_Name: FlameThrower
   m_TagString: 1-Fire
@@ -37,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1592020987960590}
   m_LocalRotation: {x: 0.70710677, y: 0, z: 0, w: -0.70710677}
-  m_LocalPosition: {x: 4.32034, y: -1.9277083, z: 6.0699997}
+  m_LocalPosition: {x: 15.458828, y: 43.976017, z: 6.0699997}
   m_LocalScale: {x: 0.15, y: 0.4, z: 0.18}
   m_Children: []
   m_Father: {fileID: 0}
@@ -61,8 +62,33 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!61 &61825018777626788
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1592020987960590}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!114 &114565885086622328
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -74,6 +100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd5e79695d6b04ba599bcbcb5ec96475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  owner: 
+  particleOwner: 
 --- !u!198 &198995448613787678
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -81,7 +109,7 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1592020987960590}
   serializedVersion: 5
-  lengthInSec: 10
+  lengthInSec: 4
   simulationSpeed: 1
   stopAction: 0
   looping: 1
@@ -206,7 +234,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 35
+      scalar: 30
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -322,7 +350,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 50
+      scalar: 5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -3649,10 +3677,10 @@ ParticleSystem:
         m_RotationOrder: 4
     minKillSpeed: 0
     maxKillSpeed: 10000
-    radiusScale: 0.25
+    radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 1
+      m_Bits: 4294967295
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5

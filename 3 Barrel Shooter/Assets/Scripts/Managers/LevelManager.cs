@@ -56,7 +56,7 @@ public class LevelManager: MonoBehaviour {
         controllerManager = GetComponent<ControllerManager>();
         spriteManager = new SpriteManager();
         resourceManager = new ResourceManager();
-        particleManager = new ParticleManager();
+        //particleManager = new ParticleManager();
         soundManager = new SoundManager();
         soundManager.InitSoundManager();
 
