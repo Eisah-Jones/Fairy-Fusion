@@ -7,6 +7,7 @@ public class SoundManager : MonoBehaviour {
 
     public List<AudioClip> sounds;
 
+    public AudioSource audioSource = new AudioSource();
 
     public void InitSoundManager()
     {
@@ -33,7 +34,18 @@ public class SoundManager : MonoBehaviour {
     {
 
     }
+    public void PlaySound(int i)
+    {
+        //Debug.Log(i);
 
+        if (audioSource != null && !audioSource.isPlaying)
+        {
+            audioSource.clip = sounds[i];
+            //s.loop = true;
+            audioSource.Play();
+        }
+        // else { s.Stop(); }
+    }
 
     public void PlaySoundsByID(AudioSource s, int i)
     {
@@ -45,6 +57,7 @@ public class SoundManager : MonoBehaviour {
             //s.loop = true;
             s.Play();
         }
+       // else { s.Stop(); }
     }
     public void StopSound(AudioSource asource)
     {

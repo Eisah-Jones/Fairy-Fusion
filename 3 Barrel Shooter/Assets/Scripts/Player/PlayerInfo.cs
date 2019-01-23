@@ -13,7 +13,7 @@ public class PlayerInfo : MonoBehaviour
     public float health;
 	public int lives = 1;
     public int playerNum;
-    public AudioSource[] audioSources = new AudioSource[3];
+    public AudioSource[] audioSources = new AudioSource[4];
 	private HealthBar HPbar;
     private bool startedRespawn;
     private string rearea = "";
@@ -106,6 +106,8 @@ public class PlayerInfo : MonoBehaviour
 		lives += -1;
         //deathParticles = Instantiate(levelManager.particles[3], transform.position, transform.rotation);
         levelManager.SpawnParticleEffectAtPosition(transform.position, 3);
+        levelManager.soundManager.PlaySoundsByID(audioSources[3], 9); // plays death sound
+
         yield return new WaitForSeconds(.1f);
 		Vector3 respawn = new Vector3(0,0,0);
         //Can specify respawn location before Coroutine is started and save as a temporary class variable

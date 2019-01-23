@@ -2,3 +2,9 @@ flamethrower
 sucky
 WoodChips
 GrassWalk
+rockshot
+Resource Pickup
+flame
+steam
+Fireball
+death

@@ -9,6 +9,7 @@ public class Resource : MonoBehaviour {
     private bool canBeCollected = true;
     public ParticleSystem smoke;
     private LevelManager lm;
+    public AudioSource audiosource = new AudioSource();
     private void Start()
     {
         lm = FindObjectOfType<LevelManager>();
@@ -25,9 +26,10 @@ public class Resource : MonoBehaviour {
 
             if (resourceAvailable == 0) 
             {
-               
 
+                lm.soundManager.PlaySound(5);
                 lm.SpawnParticleEffectAtPosition(gameObject.transform.position, 4);
+               
                 Destroy(gameObject); 
             }
             else { StartCoroutine("CollectionReset"); }
