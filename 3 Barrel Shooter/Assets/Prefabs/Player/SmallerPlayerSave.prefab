@@ -180,6 +180,7 @@ GameObject:
   - component: {fileID: 82740394919979018}
   - component: {fileID: 114246437559196926}
   - component: {fileID: 114414126025001452}
+  - component: {fileID: 95240320108734042}
   m_Layer: 0
   m_Name: SmallerPlayerSave
   m_TagString: Player
@@ -279,7 +280,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1756415907752874}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.692944, y: 44.941673, z: -2}
+  m_LocalPosition: {x: 16.96, y: 0.22, z: -2}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 4417153405036298}
@@ -355,7 +356,7 @@ Transform:
   m_GameObject: {fileID: 1060580644556392}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.030029297, y: -2, z: 0.68359375}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 0}
   m_Children:
   - {fileID: 4209539744351978}
   - {fileID: 4580719386204138}
@@ -489,7 +490,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 3}
+    oldSize: {x: 3.2, y: 3.2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -593,6 +594,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &95240320108734042
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1756415907752874}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a86363661cdd55246b0a86563f8a8504, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114246437559196926
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -606,13 +625,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBody: {fileID: 0}
   fairies: {fileID: 0}
-  player_animator: {fileID: 0}
+  player_animator: {fileID: 95240320108734042}
   speed: 2
   inputHorizontal: Horizontal
   inputVertical: Vertical
   shootButton: ShootButton_P1
   vacuumButton: VacuumButton_P1
   Burning: 0
+  lm: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!114 &114414126025001452
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -810,7 +831,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300002, guid: f82e5415affe12e40bcbac590af4dc50, type: 3}
+  m_Sprite: {fileID: 21300016, guid: 7c4060e373d17b14f887f3345bca2d3a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
     public GameObject playerBody;
     public GameObject fairies;
 	public Animator player_animator;
-	private Animator gun_animator;
 
     private bool isMoving = false;
     [SerializeField]
@@ -27,9 +26,11 @@ public class PlayerController : MonoBehaviour
     public LevelManager lm;
     public AudioSource audioSource;
     private VacuumController vacControl;
+	private SpriteRenderer spriteR;
 
     void Start()
     {
+		spriteR = gameObject.GetComponent<SpriteRenderer>();
         lm = FindObjectOfType<LevelManager>();
         audioSource = gameObject.AddComponent<AudioSource>();
     }
@@ -86,25 +87,38 @@ public class PlayerController : MonoBehaviour
         float heading = Mathf.Atan2(r_vertical, r_horizontal);
 
         //COMMENT/UNCOMMENT HERE FOR Keyboard input
-        //float r_vertical = Input.GetAxisRaw("Vertical");
-        //float r_horizontal = Input.GetAxisRaw("Horizontal");
-        //float vertical = r_vertical; 
-        //float horizontal = r_horizontal;
-        //float heading = Mathf.Atan2(r_vertical, r_horizontal);
+//        float r_vertical = Input.GetAxisRaw("Vertical");
+//        float r_horizontal = Input.GetAxisRaw("Horizontal");
+//        float vertical = r_vertical; 
+//        float horizontal = r_horizontal;
+//        float heading = Mathf.Atan2(r_vertical, r_horizontal);
 
         //Change the position of the player
         Vector2 movement = new Vector2(horizontal * speed, vertical * speed);
+
+		//changes the characters direction it faces
+		if (horizontal < 0) {
+			spriteR.flipX = true;
+		}
+		else if (horizontal > 0){
+			spriteR.flipX = false;
+		}
+
+
+
 
         transform.Translate(movement * Time.deltaTime, Space.World);
         if (!Mathf.Approximately(horizontal, 0f) || !Mathf.Approximately(vertical, 0f))
         {
             isMoving = true;
             lm.soundManager.PlaySoundsByID(audioSource, 3);
+			player_animator.SetBool ("Moving", true);
            
         }
         else if (Mathf.Approximately(horizontal, 0f) && Mathf.Approximately(vertical, 0f))
         {
             lm.soundManager.StopSound(audioSource);
+			player_animator.SetBool ("Moving", false);
         }
 
         //change rotation of pplayer if no input received keeps same rotation as last time it got input prevents snapping back to 0,0 heading
@@ -117,7 +131,7 @@ public class PlayerController : MonoBehaviour
 
 	private void Update()
 	{
-		//gun_animator.SetBool ("Sucking", suck);
+		
 	}
 
 
