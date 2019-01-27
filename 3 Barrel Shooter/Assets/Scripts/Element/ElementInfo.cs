@@ -34,6 +34,10 @@ public class ChamberInteractions
 
         if (name == "Fireball") return Fireball;
 
+        if (name == "Mud") return Mud;
+
+        if (name == "Stakes") return Stakes;
+
         return "None";
     }
 }
@@ -84,6 +88,10 @@ public class ElementCollisions
 
         if (name == "Fireball") return Fireball;
 
+        if (name == "Mud") return Mud;
+
+        if (name == "Stakes") return Stakes;
+
         return new collisionPair();
     }
 }
@@ -115,4 +123,6 @@ public class ElementInfo
     public elementData Air;
     public elementData Steam;
     public elementData Fireball;
+    public elementData Mud;
+    public elementData Stakes;
 }

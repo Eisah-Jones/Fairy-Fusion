@@ -8,8 +8,9 @@ public class ControllerInputs
     // Button inputs
     public float Left_Trigger;
     public float Right_Trigger;
-    public bool Xbox_X;
-    public bool Xbox_Y;
+
+    public bool X_Button;
+    public bool B_Button;
 
     public bool Right_Bumper;
     public bool Left_Bumper;
@@ -38,8 +39,8 @@ public class ControllerInputs
         Left_Trigger = Input.GetAxisRaw(c.Left_Trigger);
         Right_Trigger = Input.GetAxisRaw(c.Right_Trigger);
 
-        Right_Bumper = Input.GetButtonDown(c.Right_Bumper);
-        Left_Bumper = Input.GetButtonDown(c.Left_Bumper);
+        Right_Bumper = Input.GetButton(c.Right_Bumper);
+        Left_Bumper = Input.GetButton(c.Left_Bumper);
 
         Left_Stick_Click = Input.GetButtonDown(c.Left_Stick_Click);
 
@@ -48,6 +49,9 @@ public class ControllerInputs
 
         Right_Stick_Horizontal = Input.GetAxisRaw(c.Right_Stick_Horizontal);
         Right_Stick_Vertical = Input.GetAxisRaw(c.Right_Stick_Vertical);
+
+        X_Button = Input.GetButtonDown(c.X_Button);
+        B_Button = Input.GetButtonDown(c.B_Button);
 
         return this;
     }

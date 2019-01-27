@@ -15,6 +15,9 @@ public class VacuumController : MonoBehaviour {
     int tempShoot = 0;
     public AudioSource audioSource;
 
+    bool suckLeft;
+    bool suckRight;
+
     public List<GameObject> fairies;
     private GameObject[] currentFairies;
     private GameObject[] fairyPositions;
@@ -52,6 +55,10 @@ public class VacuumController : MonoBehaviour {
         fairyPositions[3] = transform.GetChild(3).gameObject;
         fairyPositions[4] = transform.GetChild(4).gameObject;
 
+        currentFairies[0].transform.position = fairyPositions[0].transform.position;
+        currentFairies[1].transform.position = fairyPositions[1].transform.position;
+        currentFairies[2].transform.position = fairyPositions[2].transform.position;
+
         vacuumArea = GetComponent<BoxCollider2D>();
         levelManager = lm;
         canShoot = true;
@@ -68,45 +75,35 @@ public class VacuumController : MonoBehaviour {
         UpdateFairies();
 
         tempShoot += 1;
-        if (tempShoot > shootNum){
+        if (tempShoot > shootNum && !canShoot)
+        {
             canShoot = true;
             tempShoot = 0;
         }
 
     }
 
-    public void SetIsCombiningElements(bool b)
-    {
-        v.SetIsCombiningElements(b);
-    }
+    //public void SetIsCombiningElements(bool b)
+    //{
+    //    v.SetIsCombiningElements(b);
+    //}
 
 
     private void UpdateFairyPos(){
 
         int chamberIndex = v.GetCurrentChamberIndex();
 
-        if (!v.GetIsCombiningElements())
+        for (int i = 0; i < 2; i++)
         {
-            for (int i = 0; i < 3; i++)
+            int j = (i + chamberIndex) % 3;
+            if (i == 0)
             {
-                int j = (i + chamberIndex) % 3;
-                currentFairies[j].transform.position = fairyPositions[i].transform.position;
+                currentFairies[j].transform.position = Vector2.MoveTowards(currentFairies[j].transform.position, fairyPositions[3].transform.position, 10f * Time.deltaTime);
+                currentFairies[(j + 1) % 3].transform.position = Vector2.MoveTowards(currentFairies[(j + 1) % 3].transform.position, fairyPositions[4].transform.position, 10f * Time.deltaTime);
             }
-        }
-        else
-        {
-            for (int i = 0; i < 2; i++)
+            else
             {
-                int j = (i + chamberIndex) % 3;
-                if (i == 0)
-                {
-                    currentFairies[j].transform.position = fairyPositions[3].transform.position;
-                    currentFairies[(j + 1) % 3].transform.position = fairyPositions[4].transform.position;
-                }
-                else
-                {
-                    currentFairies[(j + 1) % 3].transform.position = fairyPositions[1].transform.position;
-                }
+                currentFairies[(j + 1) % 3].transform.position = Vector2.MoveTowards(currentFairies[(j + 1) % 3].transform.position, fairyPositions[1].transform.position, 10f * Time.deltaTime);
             }
         }
     }
@@ -121,9 +118,9 @@ public class VacuumController : MonoBehaviour {
             {
                 if (currentFairies[i].tag != fairies[0].tag)
                 {
-                    //Debug.Log("FFFF: " + currentFairies[i].name + ", " + fairies[0].name);
                     Destroy(currentFairies[i]);
                     currentFairies[i] = Instantiate(fairies[0]);
+                    currentFairies[i].transform.position = fairyPositions[i+3].transform.position;
                 }
             }
             else
@@ -132,6 +129,7 @@ public class VacuumController : MonoBehaviour {
                 {
                     Destroy(currentFairies[i]);
                     currentFairies[i] = Instantiate(fairies[c.GetContents()[0].GetElementID()]);
+                    currentFairies[i].transform.position = fairyPositions[i+3].transform.position;
                 }
             }
         }
@@ -141,13 +139,17 @@ public class VacuumController : MonoBehaviour {
 
 
     // Sets the vacuum state based on controller input
-    public void HandleVacuumStateInput(bool state){
-        if (state != vacuumArea.enabled)
+    public void HandleVacuumStateInput(bool stateLeft, bool stateRight){
+
+        suckLeft = stateLeft;
+        suckRight = stateRight;
+
+        if ((stateLeft || stateRight) != vacuumArea.enabled)
         {
-            v.SetVacuum(state);
-            vacuumArea.enabled = state;
+            v.SetVacuum(stateLeft, stateRight);
+            vacuumArea.enabled = stateLeft || stateRight;
             levelManager.soundManager.PlaySoundsByID(audioSource, 1);
-            if (!state)
+            if (!(stateLeft || stateRight))
             {
                 levelManager.soundManager.StopSound(audioSource);
             }
@@ -161,40 +163,55 @@ public class VacuumController : MonoBehaviour {
     }
 
     // Sets the shoot staten based on controller input
-    public void HandleShootStateInput(bool isShooting, string playerName){
+    public void HandleShootStateInput(bool shootingLeft, bool shootingRight, string playerName)
+    {
+        v.SetShootingBools(shootingLeft, shootingRight);
 
-        if (!canShoot)
+        if (!canShoot || v.GetVacuumOn() || (!shootingLeft && !shootingRight))
+        {
+            //Debug.Log("NOTHING: " + !canShoot + ", " + v.GetVacuumOn()+ ", " + (!shootingLeft && !shootingRight));
             return;
+        }
 
         canShoot = false; // temp fire rate setup
 
-        // Chamber is empty, TODO: puff air
-        if (v.GetCurrentChamber().GetAmountByIndex(0) == -1)
+        Vacuum.Chamber.InventoryInfo result = null;
+
+        if (shootingLeft && shootingRight)
         {
-            
+            //Shoot a combination of the two chambers
+            result = v.Shoot(true, -1);
+        }
+        else if (shootingLeft)
+        {
+            //Shoot the first chamber
+            result = v.Shoot(false, 0);
+        }
+        else
+        {
+            //Shoot the second chamber
+            result = v.Shoot(false, 1);
         }
 
-        else if (isShooting && !v.GetVacuumOn()){
-            Vacuum.Chamber.InventoryInfo result = v.Shoot();
-            int eID = result.GetElementID();
-            string eName = result.GetElementName();
-            string projectileType = levelManager.elementManager.GetProjectileTypeByID(eID);
-            ProjectileSpawner p = GetComponent<ProjectileSpawner>();
-            // Check to see if we are shooting a fluid
-            if (projectileType == "Fluid"){
-                int shotResult = p.ShootFluid(eID, levelManager, playerName, projectileSpawner);
-                if (shotResult != -1) // Something was shot, update chamber
-                {
-                    v.RemoveFromCurrentChamber(eName, shotResult);
-                }
-            }
+        if (result == null) { return; }
 
-            else
+        int eID = result.GetElementID();
+        string eName = result.GetElementName();
+        string projectileType = levelManager.elementManager.GetProjectileTypeByID(eID);
+        ProjectileSpawner p = GetComponent<ProjectileSpawner>();
+        if (projectileType == "Fluid")
+        {
+            int shotResult = p.ShootFluid(eID, levelManager, playerName, projectileSpawner);
+            if (shotResult != -1) // Something was shot, update chamber
             {
-                p.ShootProjectile(eID, levelManager, playerName, projectileSpawner);
-                v.RemoveFromCurrentChamber(eName, 1);
-                v.SetCombinationChambers();
+                v.RemoveFromCurrentChamber(eName, shotResult);
             }
+        }
+        else
+        {
+            p.ShootProjectile(eID, levelManager, playerName, projectileSpawner);
+            v.RemoveFromCurrentChamber(eName, 1);
+            v.SetCombinationChambers();
         }
     }
 
@@ -207,7 +224,7 @@ public class VacuumController : MonoBehaviour {
         {
             if (levelManager.GetTriggerTile((int)projectileSpawner.position.x, (int)projectileSpawner.position.y) == "Water")
             {
-                v.AddToChamber("Water", 3);
+                v.AddToChamber("Water", 3, suckLeft);
             }
             v.SetCombinationChambers();
             return;
@@ -220,16 +237,13 @@ public class VacuumController : MonoBehaviour {
         {
             Resource r = collision.GetComponent<Resource>();
             Shaker s = collision.GetComponent<Shaker>();
-            if (r.CanCollect() && (v.IsCurrentChamberEmpty() || v.GetCurrentChamber().GetElementNameByIndex(0) == collisionInfo[2]))
+            if (r.CanCollect() && (v.IsCurrentChamberEmpty(true) || v.GetCurrentChamber(true).GetElementNameByIndex(0) == collisionInfo[2]))
             {
                 s.beingSucked = true; // shakes the resource
           
-                result = v.AddToChamber(collisionInfo[2], int.Parse(collisionInfo[1]));
+                result = v.AddToChamber(collisionInfo[2], int.Parse(collisionInfo[1]), suckLeft);
                 r.DecrementResource();
             }
-       
-
-
         } 
         //else // We are picking up some projectile from the ground
         //{
@@ -245,7 +259,7 @@ public class VacuumController : MonoBehaviour {
     {
         Shaker s = other.GetComponent<Shaker>();
 
-        if (!v.GetVacuumOn())
+        if (!v.GetVacuumOn() && s != null)
         {
             s.beingSucked = false;
         }

@@ -183,7 +183,10 @@ public class Vacuum{
     private Chamber[] chambers;
     private elementData[] combinationChambers;
     private int currentChamber;
-    private bool vacuumOn; //True = ON, False = OFF
+    private bool vacuumOn1; //True = ON, False = OFF
+    private bool vacuumOn2; // Tells whether or not we are sucking
+    private bool shootingLeft;
+    private bool shootingRight;
     private bool isCombiningElements; //True = combinationChambers, False = normalChambers
 
     // Vacuum constructor
@@ -197,8 +200,9 @@ public class Vacuum{
         chambers = new Chamber[3];
         combinationChambers = new elementData[3];
         currentChamber = 0;
-        vacuumOn = false;
-        isCombiningElements = false;
+        vacuumOn1 = false;
+        vacuumOn2 = false;
+        isCombiningElements = true; //false for original control scheme
 
         for (int i = 0; i < 3; i++)
             chambers[i] = new Chamber(levelManager);
@@ -224,8 +228,9 @@ public class Vacuum{
 
 
     //Switch for turning on and off vacuum
-    public void SetVacuum(bool b){
-        vacuumOn = b;
+    public void SetVacuum(bool b1, bool b2){
+        vacuumOn1 = b1;
+        vacuumOn2 = b2;
     }
 
     public Chamber[] GetChambers()
@@ -236,13 +241,9 @@ public class Vacuum{
 
     // Get a boolean determining whether or not the vacuum is set to on
     public bool GetVacuumOn(){
-        return vacuumOn;
+        return vacuumOn1 || vacuumOn2;
     }
 
-
-    public bool GetIsCombiningElements(){
-        return isCombiningElements;
-    }
 
     //Get the current element id from a chamber
 	public int GetCurrentChamberElement(){
@@ -261,20 +262,36 @@ public class Vacuum{
 
 
     // Add an item to the chamber given id
-    public int AddToChamber(string n, int id){
+    public int AddToChamber(string n, int id, bool left){
         // If the item does not match what is in chamber, do nothing
-        if (chambers[currentChamber].GetElementIDByIndex(0) != id && chambers[currentChamber].GetNumElements() != 0){
+        int selectedChamber;
+        if (left) selectedChamber = currentChamber; 
+        else selectedChamber = (currentChamber + 1) % 3;
+
+        if (chambers[selectedChamber].GetElementIDByIndex(0) != id && chambers[selectedChamber].GetNumElements() != 0){
             return -1;
         }
-        chambers[currentChamber] = chambers[currentChamber].Add(n, id);
+        chambers[selectedChamber] = chambers[selectedChamber].Add(n, id);
         return 1;
     }
-     
+
+    public void SetShootingBools(bool left, bool right)
+    {
+        shootingLeft = left;
+        shootingRight = right;
+    }
 
     // Returns the current chamber
-    public Chamber GetCurrentChamber(){
-        return chambers[currentChamber];
+    public Chamber GetCurrentChamber(bool sucking){
+        int selectedChamber;
+        bool b;
+        if (sucking) { b = vacuumOn1; } else { b = shootingLeft; }
+        if (b) selectedChamber = currentChamber;
+        else selectedChamber = (currentChamber + 1) % 3;
+
+        return chambers[selectedChamber];
     }
+
 
     public int GetCurrentChamberIndex(){
         return currentChamber;
@@ -288,52 +305,62 @@ public class Vacuum{
     }
 
 
-    public elementData GetCombinationByIndex(int i){
+    public elementData GetCombinationByIndex(int i)
+    {
         if (combinationChambers[i] == null) return new elementData();
         return combinationChambers[i];
     }
 
 
-    public bool IsCurrentChamberEmpty(){
-        return chambers[currentChamber].GetContents().Count == 0;
+    public bool IsCurrentChamberEmpty(bool sucking)
+    {
+        int selectedChamber;
+        bool b;
+        if (sucking) { b = vacuumOn1; } else { b = shootingLeft; }
+        if (b) selectedChamber = currentChamber;
+        else selectedChamber = (currentChamber + 1) % 3;
+
+        return chambers[selectedChamber].GetContents().Count == 0;
     }
 
 
-    public bool IsCombinationChamberEmpty(){
+    public bool IsCombinationChamberEmpty()
+    {
         return combinationChambers[currentChamber] == null;
     }
 
 
-    public void RemoveFromCurrentChamber(string elemName, int i){
+    public void RemoveFromCurrentChamber(string elemName, int i)
+    {
         chambers[currentChamber].Remove(elemName, i);
     }
 
 
     // Shooting scripts
-    public Chamber.InventoryInfo Shoot(){
+    public Chamber.InventoryInfo Shoot(bool combo, int chamberNum)
+    {
 
         // Check to make sure that we can shoot
         // if the chamber is not empty; if there is nothing in the current chamber, 
         //  there can also be nothing in the current combination chamber
         // if there is something in the current chamber we must check to see if there is anything 
         //  in the combination chamber, if they are in combination chamber set
-        if (IsCurrentChamberEmpty() || (IsCombinationChamberEmpty() && isCombiningElements))
+        if (IsCurrentChamberEmpty(false) || (IsCombinationChamberEmpty() && combo))
         {
-            Debug.Log("NULL" + IsCurrentChamberEmpty() + ", " + IsCombinationChamberEmpty());
+            //Debug.Log("NULL" + IsCurrentChamberEmpty() + ", " + IsCombinationChamberEmpty());
             return null; //There is nothing to shoot! Return null to disapprove instantiating anything
         }
 
 
         // If we are combining elements, we need to take an element out num of elements from currentChamber and currentChamber+1
-        if (isCombiningElements){
-
+        if (combo)
+        {
             int nextChamber = (currentChamber + 1) % 3;
 
             // Get the combinationRequirements of elements needed for each chamber
-            //Debug.Log(cim.GetElementCombination(chambers[currentChamber], chambers[nextChamber]));
-  
-            combinationRequirements combReq = cim.GetElementCombination(chambers[currentChamber], chambers[nextChamber]).combinationRequirements;
-
+            elementData elemData = cim.GetElementCombination(chambers[currentChamber], chambers[nextChamber]);
+            if (elemData == null) { return null; }
+            combinationRequirements combReq = elemData.combinationRequirements;
 
             // Make sure we are taking away from the correct chambers
             if (chambers[currentChamber].GetContents()[0].GetElementName() == combReq.elem1)
@@ -355,18 +382,18 @@ public class Vacuum{
 
             elementData ed = combinationChambers[currentChamber];
             return new Chamber.InventoryInfo(ed.name, ed.ID, 1);
-            }
+        }
 
         // If we are not combining elements
-
         // Get the elementID of element in the chamber
-        string name = chambers[currentChamber].GetContents()[0].GetElementName();
-        int id = chambers[currentChamber].GetContents()[0].GetElementID();
+        int selectedChamber = (currentChamber + chamberNum) % 3;
+        string name = chambers[selectedChamber].GetContents()[0].GetElementName();
+        int id = chambers[selectedChamber].GetContents()[0].GetElementID();
 
-        Chamber.InventoryInfo result = chambers[currentChamber].GetContents()[0];
+        Chamber.InventoryInfo result = chambers[selectedChamber].GetContents()[0];
 
         // Remove that element from the chamber
-        //chambers[currentChamber].Remove(result.GetElementName(), 1);
+        chambers[selectedChamber].Remove(result.GetElementName(), 1);
 
         // Returns what element was shot as InventoryInfo
         return result;

@@ -19,7 +19,6 @@ public class ControllerManager : MonoBehaviour
             Controller c = new Controller();
             c.initController(i);
             controllers.Add(c);
-            Debug.Log(i);
         }
     }
 

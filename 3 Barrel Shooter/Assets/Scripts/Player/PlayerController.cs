@@ -18,10 +18,14 @@ public class PlayerController : MonoBehaviour
     public string vacuumButton = "VacuumButton_P1";
     float horizontal;
     float vertical;
-    bool suck = false;
-    bool shoot = false;
+
+    bool suckLeft;
+    bool shootLeft;
+
+    bool suckRight;
+    bool shootRight;
+
     public bool Burning = false;
-    bool combinationToggle = false; //If true then canshoot combination, else cannot
     float last_heading;
     public LevelManager lm;
     public AudioSource audioSource;
@@ -34,38 +38,38 @@ public class PlayerController : MonoBehaviour
         lm = FindObjectOfType<LevelManager>();
         audioSource = gameObject.AddComponent<AudioSource>();
     }
+
+
     public void InitPlayerController(VacuumController vc){
         vacControl = vc;
         playerBody = this.gameObject;
         fairies = transform.Find("Fairies").gameObject;
     }
 
+
     public void UpdatePlayerInputs(ControllerInputs inputs)
     {
-        if (inputs.Left_Stick_Click || Input.GetKeyDown(KeyCode.C))
-        {
-            combinationToggle = !combinationToggle;
-            vacControl.SetIsCombiningElements(combinationToggle);
-        }
+        // For new controller scheme, bumpers are suck and triggers are shoot
 
-        if (inputs.Left_Trigger == 1 || Input.GetKey(KeyCode.LeftShift)) { suck = true; } else suck = false;
-        if (inputs.Right_Trigger == 1 || Input.GetKey(KeyCode.Space)) { shoot = true; } else shoot = false;
+        // Vacuum Sucking
+        suckLeft = inputs.Left_Bumper;
+        suckRight = inputs.Right_Bumper;
+        vacControl.HandleVacuumStateInput(suckLeft, suckRight);
 
-        vacControl.HandleVacuumStateInput(suck);
-        vacControl.HandleShootStateInput(shoot, GetPlayerName());
+        // Vacuum Shooting
+        if (inputs.Left_Trigger > 0.75f || Input.GetKey(KeyCode.LeftShift)) { shootLeft = true; } else shootLeft = false;
+        if (inputs.Right_Trigger > 0.75f || Input.GetKey(KeyCode.Space)) { shootRight = true; } else shootRight = false;
+        vacControl.HandleShootStateInput(shootLeft, shootRight, GetPlayerName());
 
-        if (suck || shoot) { speed = 4f; }
+        // Change player speed based on action
+        if (suckLeft || suckRight || shootLeft || shootRight) { speed = 4f; }
         else { speed = 6f; }
 
-
-        bool r_bumper = inputs.Right_Bumper;
-        bool l_bumper = inputs.Left_Bumper;
-
-        int d = 0;
-
-        if (r_bumper || Input.GetKeyDown(KeyCode.R)) { d = 1; } else if (l_bumper || Input.GetKeyDown(KeyCode.E)) { d = -1; }
-
-        vacControl.HandleChamberStateInput(d);
+        //Chamber changing
+        int direction = 0;
+        if (inputs.X_Button) { direction = 1; }
+        else if (inputs.B_Button) { direction = -1; }
+        vacControl.HandleChamberStateInput(direction);
     }
 
 
@@ -97,15 +101,12 @@ public class PlayerController : MonoBehaviour
         Vector2 movement = new Vector2(horizontal * speed, vertical * speed);
 
 		//changes the characters direction it faces
-		if (horizontal < 0) {
+		if (r_horizontal < 0) {
 			spriteR.flipX = true;
 		}
-		else if (horizontal > 0){
+		else if (r_horizontal > 0){
 			spriteR.flipX = false;
 		}
-
-
-
 
         transform.Translate(movement * Time.deltaTime, Space.World);
         if (!Mathf.Approximately(horizontal, 0f) || !Mathf.Approximately(vertical, 0f))
@@ -177,7 +178,7 @@ public class PlayerController : MonoBehaviour
         Vector2 heading = playerBody.transform.position - t.position;
         heading = heading.normalized;
 
-        playerBody.GetComponent<Rigidbody2D>().AddForce(heading * 80);
+        playerBody.GetComponent<Rigidbody2D>().AddForce(heading * 800);
         StartCoroutine("ResetForces");
     }
 

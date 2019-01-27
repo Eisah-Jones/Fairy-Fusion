@@ -46,6 +46,8 @@ public class ElementManager
         elementDataList.Add(loadedElementInfo.Air);
         elementDataList.Add(loadedElementInfo.Steam);
         elementDataList.Add(loadedElementInfo.Fireball);
+        elementDataList.Add(loadedElementInfo.Mud);
+        elementDataList.Add(loadedElementInfo.Stakes);
     }
 
 

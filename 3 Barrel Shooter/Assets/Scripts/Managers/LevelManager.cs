@@ -48,7 +48,7 @@ public class LevelManager: MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        numPlayers = 2;
+        numPlayers = 1;
         elementManager.initElementManager();
         chamberInteractionModel = new ChamberInteractionModel(elementManager);
         playerCollisionModel = new PlayerCollisionModel(elementManager);
@@ -60,7 +60,7 @@ public class LevelManager: MonoBehaviour {
         soundManager = new SoundManager();
         soundManager.InitSoundManager();
 
-        levelGen.GenerateLevel(ground, groundCollider, groundTrigger, spriteManager, resourceManager, wall);
+        levelGen.GenerateLevel(ground, groundCollider, groundTrigger, spriteManager, resourceManager);
 
         playerList = levelGen.SpawnPlayers(player, GetComponent<LevelManager>(), numPlayers);
         foreach (GameObject p in playerList) {
@@ -71,19 +71,20 @@ public class LevelManager: MonoBehaviour {
         InitializeCameras();
         UpdateCameras();
 
-        // Sound testing
-        //soundManager.PlaySoundsByID(playerList[0].GetComponent<AudioSource>(), 0);
-
         levelGen.SpawnResources(resourceManager);
 
         processCollision = true;
 	}
 
+
     public void SpawnParticleEffectAtPosition(Vector3 pos, int particleIndex)
     {
         Instantiate(particles[particleIndex], pos, transform.rotation);
     }
-    public string GetTriggerTile(int x, int y){
+
+
+    public string GetTriggerTile(int x, int y)
+    {
         return levelGen.GetTerrainMap()[x, y];
     }
 
@@ -110,6 +111,7 @@ public class LevelManager: MonoBehaviour {
         }
     }
 
+
     private void UpdateCameras()
     {
         for (int i = 0; i < cameras.Count; i++)
@@ -120,6 +122,7 @@ public class LevelManager: MonoBehaviour {
         }
     }
 
+
     //Continually check to see if game is over, track player states, log information, etc.
     //Fixed update because of physics calculations
     private void FixedUpdate()
@@ -127,44 +130,27 @@ public class LevelManager: MonoBehaviour {
         // Retrieve and send controller inputs to the player
         SendControllerInputsToPlayer(controllerManager.GetControllerInputs());
         UpdateCameras();
-        //UpdateGUI();
     }
+
 
 	//Checks for a winner each frame
 	private void Update(){
-//		int alive_count = 0;
-//		int winner = 0;
-//		foreach (PlayerInfo info in pInfoList) {
-//			if (info.lives <= 0)
-//				alive_count += 1;
-//			else
-//				winner = info.playerNum;
-//		}
-//		if (alive_count == 1) {
-//			endScreen.SetActive (true);
-////			winText.text = string.Format ("Player {0} Wins!", winner);
-		//	Time.timeScale = 0f;
-		//}
+		int alive_count = 0;
+		int winner = 0;
+		foreach (PlayerInfo info in pInfoList) {
+			if (info.lives <= 0)
+				alive_count += 1;
+			else
+				winner = info.playerNum;
+		}
+		if (alive_count == 1) {
+			endScreen.SetActive (true);
+			winText.text = string.Format ("Player {0} Wins!", winner);
+			//Time.timeScale = 0f;
+		}
 			
 	}
 
-    //Temp GUI
-    private void UpdateGUI(){
-        PlayerInfo pi = playerList[0].GetComponent<PlayerInfo>();
-        testHUD.text = "Health: " + pi.GetPlayerHealth() + "\n";
-        testHUD.text += "Chamber 0: " +  pi.GetVacuum().GetChamberByIndex(0).GetElementNameByIndex(0) + " " + pi.GetVacuum().GetChamberByIndex(0).GetAmountByIndex(0) + "\n";
-        testHUD.text += "  COMBO 0: " + pi.GetVacuum().GetCombinationByIndex(0).name + "\n";
-        testHUD.text += "Chamber 1: " + pi.GetVacuum().GetChamberByIndex(1).GetElementNameByIndex(0) + " " + pi.GetVacuum().GetChamberByIndex(1).GetAmountByIndex(0) + "\n";
-        testHUD.text += "  COMBO 1: " + pi.GetVacuum().GetCombinationByIndex(1).name + "\n";
-        testHUD.text += "Chamber 2: " + pi.GetVacuum().GetChamberByIndex(2).GetElementNameByIndex(0) + " " + pi.GetVacuum().GetChamberByIndex(2).GetAmountByIndex(0) + "\n";
-        testHUD.text += "  COMBO 2: " + pi.GetVacuum().GetCombinationByIndex(2).name + "\n";
-        string v;
-        if (pi.GetVacuum().GetIsCombiningElements())
-            v = "COMBO ";
-        else
-            v = "Chamber ";
-        testHUD.text += "**CURRENT: " + v + pi.GetVacuum().GetCurrentChamberIndex();
-    }
 
     private void SendControllerInputsToPlayer(List<ControllerInputs> i)
     {
@@ -176,10 +162,12 @@ public class LevelManager: MonoBehaviour {
         }
     }
 
+
     public void SetProcessCollision(bool b){
         Debug.Log("Set Process Collision " + b.ToString());
         processCollision = b;
     }
+
 
     public int GetNumPlayers(){
         return playerList.Count;

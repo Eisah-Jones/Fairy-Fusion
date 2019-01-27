@@ -1,12 +1,14 @@
 {
   "Null": {
     "name": null,
-    "ID" : null,
+    "ID": null,
     "damage": null,
     "fireRate": null,
     "projectileType": null,
     "projectileLife": null,
     "chamberCapacity": null,
+    "speed": 0,
+    "yield": 0,
     "playerCollisionEffects": [
       null
     ],
@@ -22,7 +24,7 @@
       "Stakes": null,
       "Birdshot": null
     },
-    "combinationRequirements":{
+    "combinationRequirements": {
       "elem1": null,
       "elem1Num": null,
       "elem2": null,
@@ -71,10 +73,10 @@
       }
     }
   },
-  
+
   "Fire": {
     "name": "Fire",
-    "ID" : 1,
+    "ID": 1,
     "damage": 0.2,
     "fireRate": 0,
     "projectileType": "Fluid",
@@ -95,7 +97,7 @@
       "Stakes": null,
       "Birdshot": null
     },
-    "combinationRequirements":{
+    "combinationRequirements": {
       "elem1": null,
       "elem1Num": null,
       "elem2": null,
@@ -144,15 +146,15 @@
       }
     }
   },
-  
+
   "Rock": {
     "name": "Rock",
-    "ID" : 2,
+    "ID": 2,
     "damage": 10,
     "fireRate": 1,
     "projectileType": "Bullet",
-    "projectileLife": 40,
-    "chamberCapacity": 40,
+    "projectileLife": 20,
+    "chamberCapacity": 10,
     "playerCollisionEffects": [
       "Knockback"
     ],
@@ -168,7 +170,7 @@
       "Stakes": null,
       "Birdshot": null
     },
-    "combinationRequirements":{
+    "combinationRequirements": {
       "elem1": null,
       "elem1Num": null,
       "elem2": null,
@@ -217,10 +219,10 @@
       }
     }
   },
-  
+
   "Water": {
     "name": "Water",
-    "ID" : 3,
+    "ID": 3,
     "damage": 0,
     "fireRate": 0,
     "projectileType": "Fluid",
@@ -241,7 +243,7 @@
       "Stakes": null,
       "Birdshot": null
     },
-    "combinationRequirements":{
+    "combinationRequirements": {
       "elem1": null,
       "elem1Num": null,
       "elem2": null,
@@ -290,14 +292,14 @@
       }
     }
   },
-  
+
   "Wood": {
     "name": "Wood",
-    "ID" : 4,
-    "damage": 10,
+    "ID": 4,
+    "damage": 5,
     "fireRate": 0,
     "projectileType": "Splinter",
-    "projectileLife": 40,
+    "projectileLife": 15,
     "chamberCapacity": 100,
     "playerCollisionEffects": [
       "sting"
@@ -314,7 +316,7 @@
       "Stakes": null,
       "Birdshot": null
     },
-    "combinationRequirements":{
+    "combinationRequirements": {
       "elem1": null,
       "elem1Num": null,
       "elem2": null,
@@ -363,10 +365,10 @@
       }
     }
   },
-  
+
   "Air": {
     "name": "Air",
-    "ID" : 5,
+    "ID": 5,
     "damage": 0,
     "fireRate": 2,
     "projectileType": "Fluid",
@@ -387,7 +389,7 @@
       "Stakes": null,
       "Birdshot": null
     },
-    "combinationRequirements":{
+    "combinationRequirements": {
       "elem1": null,
       "elem1Num": null,
       "elem2": null,
@@ -436,17 +438,18 @@
       }
     }
   },
-  
+
   "Fireball": {
     "name": "Fireball",
-    "ID" : 7,
+    "ID": 7,
     "damage": 25,
     "fireRate": 10,
     "projectileType": "Bullet",
-    "projectileLife": 40,
+    "projectileLife": 25,
     "chamberCapacity": 10,
     "playerCollisionEffects": [
-      "burn", "flinch"
+      "burn",
+      "flinch"
     ],
     "chamberInteractions": {
       "Fire": null,
@@ -460,7 +463,7 @@
       "Stakes": null,
       "Birdshot": null
     },
-    "combinationRequirements":{
+    "combinationRequirements": {
       "elem1": "Fire",
       "elem1Num": 2,
       "elem2": "Rock",
@@ -508,19 +511,19 @@
         "c2": null
       }
     }
-  }
-    ,
+  },
 
   "Steam": {
     "name": "Steam",
-    "ID" : 6,
+    "ID": 6,
     "damage": 0.3,
     "fireRate": 0,
     "projectileType": "Fluid",
-    "projectileLife": 40,
+    "projectileLife": 10,
     "chamberCapacity": 100,
     "playerCollisionEffects": [
-      "Burn", "Pushback"
+      "Burn",
+      "Pushback"
     ],
     "chamberInteractions": {
       "Fire": "Ammo",
@@ -534,7 +537,7 @@
       "Stakes": null,
       "Birdshot": null
     },
-    "combinationRequirements":{
+    "combinationRequirements": {
       "elem1": "Water",
       "elem1Num": 1,
       "elem2": "Fire",
@@ -582,6 +585,152 @@
         "c2": null
       }
     }
+  },
+
+  "Mud": {
+    "name": "Mud",
+    "ID": 8,
+    "damage": 0,
+    "fireRate": 10,
+    "projectileType": "Bullet",
+    "projectileLife": 25,
+    "chamberCapacity": 10,
+    "playerCollisionEffects": [
+      "slow"
+    ],
+    "chamberInteractions": {
+      "Fire": null,
+      "Rock": null,
+      "Water": null,
+      "Wood": null,
+      "Air": null,
+      "Steam": null,
+      "Fireball": null,
+      "Mud": null,
+      "Stakes": null,
+      "Birdshot": null
+    },
+    "combinationRequirements": {
+      "elem1": "Water",
+      "elem1Num": 3,
+      "elem2": "Rock",
+      "elem2Num": 1
+    },
+    "elementCollisions": {
+      "Fire": {
+        "c1": null,
+        "c2": null
+      },
+      "Rock": {
+        "c1": "Rock",
+        "c2": null
+      },
+      "Water": {
+        "c1": "Destroy",
+        "c2": null
+      },
+      "Wood": {
+        "c1": "Stop",
+        "c2": "Destroy"
+      },
+      "Air": {
+        "c1": "Reflect",
+        "c2": null
+      },
+      "Steam": {
+        "c1": "Reflect",
+        "c2": null
+      },
+      "Fireball": {
+        "c1": "Destroy",
+        "c2": "Destroy"
+      },
+      "Mud": {
+        "c1": "Stop",
+        "c2": "Stop"
+      },
+      "Stakes": {
+        "c1": "Stop",
+        "c2": null
+      },
+      "Birdshot": {
+        "c1": null,
+        "c2": null
+      }
+    }
+  },
+
+  "Stakes": {
+    "name": "Stakes",
+    "ID": 9,
+    "damage": 15,
+    "fireRate": 7,
+    "projectileType": "Bullet",
+    "projectileLife": 25,
+    "chamberCapacity": 10,
+    "playerCollisionEffects": [
+      "knockback"
+    ],
+    "chamberInteractions": {
+      "Fire": null,
+      "Rock": null,
+      "Water": null,
+      "Wood": null,
+      "Air": null,
+      "Steam": null,
+      "Fireball": null,
+      "Mud": null,
+      "Stakes": null,
+      "Birdshot": null
+    },
+    "combinationRequirements": {
+      "elem1": "Wood",
+      "elem1Num": 4,
+      "elem2": "Water",
+      "elem2Num": 3
+    },
+    "elementCollisions": {
+      "Fire": {
+        "c1": null,
+        "c2": null
+      },
+      "Rock": {
+        "c1": "Destroy",
+        "c2": "Destroy"
+      },
+      "Water": {
+        "c1": null,
+        "c2": "Destroy"
+      },
+      "Wood": {
+        "c1": null,
+        "c2": "Destroy"
+      },
+      "Air": {
+        "c1": "Reflect",
+        "c2": null
+      },
+      "Steam": {
+        "c1": "Reflect",
+        "c2": null
+      },
+      "Fireball": {
+        "c1": "Destroy",
+        "c2": null
+      },
+      "Mud": {
+        "c1": null,
+        "c2": "Stop"
+      },
+      "Stakes": {
+        "c1": "Destroy",
+        "c2": "Destroy"
+      },
+      "Birdshot": {
+        "c1": null,
+        "c2": null
+      }
+    }
   }
-  
+
 }

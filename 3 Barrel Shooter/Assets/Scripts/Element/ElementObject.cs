@@ -86,7 +86,7 @@ public class ElementObject : MonoBehaviour {
    
         }
         //ElementObject element = collision.gameObject.GetComponent<ElementObject>();
-        Debug.Log(elemName);
+        //Debug.Log(elemName);
         if (elemName == "Fire" || elemName == "Water" || elemName == "Steam") // checks if element is colliding with player and does damage if its enemy
         {
             particleOwner = "Player" + GetComponentInParent<PlayerInfo>().playerNum;
@@ -100,7 +100,7 @@ public class ElementObject : MonoBehaviour {
                 pi.isRespawning = true;
             }
             float damage = 0;
-           // List<string> peffect = new List<string>()[2];
+            // List<string> peffect = new List<string>()[2];
             if (elemName == "Fire")
             {
                 damage = .3f;
@@ -112,26 +112,14 @@ public class ElementObject : MonoBehaviour {
                 //peffect = "Pushback";
             }
             if (pi == null) return;
-            Debug.Log(particleOwner+ "Health: " + pi.health);
+            //Debug.Log(particleOwner+ "Health: " + pi.health);
             //PlayerCollisionModel.CollisionResult result = levelManager.playerCollisionModel.HandleCollision(pi.health, elemName);
-           // Debug.Log(result.health);
+            // Debug.Log(result.health);
             pi.health -= damage;
             //pi.gameObject.GetComponent<PlayerController>().HandleEffects(result.effect, collision.gameObject.transform);
-            Debug.Log("New PlayerHealth: " + pi.health);
+            //Debug.Log("New PlayerHealth: " + pi.health);
 
         }
-            
-
-
-
-       
-
-
-
-
-       
-
-
     }
     // When an element collides with something else
     private void OnTriggerEnter2D(Collider2D collision)
@@ -142,11 +130,12 @@ public class ElementObject : MonoBehaviour {
         // This happens when objects are not spawned by the levelGenerator
         if (elementCollisionModel == null) return;
 
-
-        //Debug.Log(tag + " : " + collision.tag);
-
         // Get the ID of the element we collided with
-        int ID2 = int.Parse(collision.tag[0].ToString());
+        int ID2;
+        if (!int.TryParse(collision.tag[0].ToString(), out ID2))
+        {
+            return;
+        }
 
         ElementCollisionModel.CollisionResult cr = elementCollisionModel.HandleInteraction(ID, ID2);
 

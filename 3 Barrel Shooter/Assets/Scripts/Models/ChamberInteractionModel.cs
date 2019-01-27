@@ -117,7 +117,7 @@ public class ChamberInteractionModel
                 return em.GetElementDataByName(resultName);
         }
 
-        Debug.Log("NOT ENOUGH");
+        //Debug.Log("NOT ENOUGH");
         return null;
     }
 }

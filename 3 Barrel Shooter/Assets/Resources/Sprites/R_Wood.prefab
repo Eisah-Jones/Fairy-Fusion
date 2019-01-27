@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 61938689410018502}
   - component: {fileID: 68303951920207698}
   - component: {fileID: 114513897688844298}
-  - component: {fileID: 114611651506119386}
+  - component: {fileID: 114168026426302896}
   m_Layer: 0
   m_Name: R_Wood
   m_TagString: R-4-Wood
@@ -148,6 +148,20 @@ EdgeCollider2D:
   - {x: 0.96798706, y: 0.9010372}
   - {x: 1.4948826, y: 0.90468407}
   - {x: 1.7318077, y: 0.40207577}
+--- !u!114 &114168026426302896
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1334962350310056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ce1374c04e6648c3b11a1f28c29e523, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 100
+  amount: 0.05
+  beingSucked: 0
 --- !u!114 &114513897688844298
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -159,20 +173,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f877cf7181e90429fa0c047fa1fae3e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114611651506119386
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1334962350310056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15280d372e50342edaa236ee1751d455, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 100
-  amount: 0.05
-  beingSucked: 0
+  smoke: {fileID: 0}
+  audiosource: {fileID: 0}
 --- !u!212 &212436748660738166
 SpriteRenderer:
   m_ObjectHideFlags: 1

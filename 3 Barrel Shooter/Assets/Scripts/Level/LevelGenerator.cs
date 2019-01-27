@@ -9,14 +9,14 @@ using UnityEngine.Tilemaps;
 // Spawns in resources and players
 public class LevelGenerator : MonoBehaviour {
 
-    private int levelWidth  = 70;
-    private int levelHeight = 70;
+    private int levelWidth  = 45;
+    private int levelHeight = 45;
     private Vector3 center;
     private List<Vector3> spawnPos;
     private string[,] terrainMap; //Array for storing level floor map
     private SpriteManager spriteManager;
 
-    public void GenerateLevel(Tilemap tm, Tilemap cm, Tilemap trigm, SpriteManager sm, ResourceManager rm, GameObject w){
+    public void GenerateLevel(Tilemap tm, Tilemap cm, Tilemap trigm, SpriteManager sm, ResourceManager rm){
 
         center = new Vector3(levelWidth / 2, levelHeight / 2, 0);
 
@@ -25,7 +25,7 @@ public class LevelGenerator : MonoBehaviour {
                                      new Vector3(-levelWidth/4, -levelHeight/4, 0),
                                      new Vector3(levelWidth/4,-levelHeight/4, 0)};
 
-        float scale = 10.0f;
+        float scale = 5.0f;
         float xOffset = UnityEngine.Random.Range(0f, 99999f);
         float yOffset = UnityEngine.Random.Range(0f, 99999f);
 
@@ -54,7 +54,6 @@ public class LevelGenerator : MonoBehaviour {
         spriteManager = sm;
 
         RenderMap(tm, cm, trigm);
-        SpawnBoundaries(w);
     }
 
     public string[,] GetTerrainMap()
@@ -83,6 +82,47 @@ public class LevelGenerator : MonoBehaviour {
                 else { tilemap.SetTile(pos, t); }
             }
         }
+
+        // Borders around the level
+        for (int i = 0; i < levelWidth; i++)
+        {
+            Vector3Int pos = new Vector3Int(i, -1, 0);
+            Tile t = new Tile();
+            SpriteManager.TileMap.TileInfo ti = spriteManager.GetTileSprite(t, terrainMap, tilemap, 0, -1);
+            t = ti.tile;
+            t = RotateTile(t, ti.rotation);
+            colliderMap.SetTile(pos, t);
+        }
+
+        for (int i = 0; i < levelHeight; i++)
+        {
+            Vector3Int pos = new Vector3Int(levelWidth-1, i, 0);
+            Tile t = new Tile();
+            SpriteManager.TileMap.TileInfo ti = spriteManager.GetTileSprite(t, terrainMap, tilemap, 0, -1);
+            t = ti.tile;
+            t = RotateTile(t, ti.rotation);
+            colliderMap.SetTile(pos, t);
+        }
+
+        for (int i = 0; i < levelWidth; i++)
+        {
+            Vector3Int pos = new Vector3Int(i, levelHeight-1, 0);
+            Tile t = new Tile();
+            SpriteManager.TileMap.TileInfo ti = spriteManager.GetTileSprite(t, terrainMap, tilemap, 0, -1);
+            t = ti.tile;
+            t = RotateTile(t, ti.rotation);
+            colliderMap.SetTile(pos, t);
+        }
+
+        for (int i = 0; i < levelHeight; i++)
+        {
+            Vector3Int pos = new Vector3Int(0, i, 0);
+            Tile t = new Tile();
+            SpriteManager.TileMap.TileInfo ti = spriteManager.GetTileSprite(t, terrainMap, tilemap, 0, -1);
+            t = ti.tile;
+            t = RotateTile(t, ti.rotation);
+            colliderMap.SetTile(pos, t);
+        }
     }
 
 
@@ -91,29 +131,6 @@ public class LevelGenerator : MonoBehaviour {
         t.transform = matrix;
         return t;
     }
-
-
-    public void SpawnBoundaries(GameObject w){
-        GameObject borders = new GameObject();
-        borders.name = "Boundaries";
-        GameObject w1 = Instantiate(w);
-        w1.transform.SetParent(borders.transform);
-        w1.transform.localScale += new Vector3(0.0f, levelHeight, 0.0f);
-        w1.transform.position = new Vector3(levelWidth, levelHeight / 2, 2);
-        GameObject w2 = Instantiate(w);
-        w2.transform.SetParent(borders.transform);
-        w2.transform.localScale += new Vector3(0.0f, levelHeight, 0.0f);
-        w2.transform.position = new Vector3(0, levelHeight / 2, 2);
-        GameObject w3 = Instantiate(w);
-        w3.transform.SetParent(borders.transform);
-        w3.transform.localScale += new Vector3(levelWidth, 0.0f, 0.0f);
-        w3.transform.position = new Vector3(levelWidth / 2, 0, 2);
-        GameObject w4 = Instantiate(w);
-        w4.transform.SetParent(borders.transform);
-        w4.transform.localScale += new Vector3(levelWidth, 0.0f, 0.0f);
-        w4.transform.position = new Vector3(levelWidth / 2, levelHeight, 2f);
-    }
-
 
     public List<GameObject> SpawnPlayers(GameObject p, LevelManager lm, int numPlayers){
 
@@ -165,7 +182,7 @@ public class LevelGenerator : MonoBehaviour {
             int i = UnityEngine.Random.Range(0, rockSpawnPoints.Count);
             int[] spawnPoint = rockSpawnPoints[i];
             GameObject r = Instantiate(rm.GetResourceGameObject("Rock"), new Vector3(spawnPoint[0] - 0.05f, spawnPoint[1] + 0.25f, 0f), Quaternion.identity);
-            r.GetComponent<Resource>().InitResource(1);
+            r.GetComponent<Resource>().InitResource(2);
         }
     }
 

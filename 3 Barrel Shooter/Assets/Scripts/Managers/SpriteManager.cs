@@ -90,7 +90,6 @@ public class SpriteManager
             test               = Resources.Load<Sprite>(prefix + "/Test");
         }
 
-
         // Given the level array and coord (x, y), returns sprite of what should be placed
         public TileInfo GetTileSprite(Tile tile, string[,] map, Tilemap tm, int x, int y)
         {
@@ -106,7 +105,10 @@ public class SpriteManager
             return result;
         }
 
-
+        public Sprite GetFill()
+        {
+            return fill;
+        }
 
         private SpriteInfo GetSprite(int[] neighbors)
         {
@@ -903,9 +905,16 @@ public class SpriteManager
     // Get the tilemap for the given square
     public TileMap.TileInfo GetTileSprite(Tile tile, string[,] map, Tilemap tm, int x, int y)
     {
+        if (x < 0 || y < 0 || x > map.GetUpperBound(0) || y > map.GetUpperBound(1))
+        {
+            TileMap.TileInfo result = new TileMap.TileInfo();
+            result.tile = new Tile();
+            result.tile.sprite = tileMaps[3].GetFill();
+            return result;
+        }
+
         return GetTileMap(map[x, y]).GetTileSprite(tile, map, tm, x, y);
     }
-
 
     private TileMap GetTileMap(string mapName)
     {

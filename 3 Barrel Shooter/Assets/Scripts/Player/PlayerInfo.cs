@@ -200,7 +200,7 @@ public class PlayerInfo : MonoBehaviour
 
         int elemID = element.GetID();
         string elemName = element.GetName();
-        Debug.Log(elemName);
+        //Debug.Log(elemName);
         PlayerCollisionModel.CollisionResult result = levelManager.playerCollisionModel.HandleCollision(health, elemName);
         health = result.health;
         transform.gameObject.GetComponent<PlayerController>().HandleEffects(result.playerEffect, collision.gameObject.transform);

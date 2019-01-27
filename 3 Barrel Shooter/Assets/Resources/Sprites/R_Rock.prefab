@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 50443004067749644}
   - component: {fileID: 61125611212891152}
   - component: {fileID: 114871867515554600}
-  - component: {fileID: 114028567377970300}
+  - component: {fileID: 114863902576195396}
   m_Layer: 0
   m_Name: R_Rock
   m_TagString: R-2-Rock
@@ -89,7 +89,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.0439482, y: 0.5646162}
   m_EdgeRadius: 0
---- !u!114 &114028567377970300
+--- !u!114 &114863902576195396
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1557930516914342}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15280d372e50342edaa236ee1751d455, type: 3}
+  m_Script: {fileID: 11500000, guid: 4ce1374c04e6648c3b11a1f28c29e523, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 100
@@ -114,6 +114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f877cf7181e90429fa0c047fa1fae3e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  smoke: {fileID: 0}
+  audiosource: {fileID: 0}
 --- !u!212 &212797178337817644
 SpriteRenderer:
   m_ObjectHideFlags: 1

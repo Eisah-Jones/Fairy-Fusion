@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212613512073356854}
   - component: {fileID: 61584466406997740}
   - component: {fileID: 114256658796914220}
-  - component: {fileID: 114395010913722134}
+  - component: {fileID: 114704736223202646}
   m_Layer: 0
   m_Name: R_Fire
   m_TagString: R-1-Fire
@@ -79,7 +79,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f877cf7181e90429fa0c047fa1fae3e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114395010913722134
+  smoke: {fileID: 0}
+  audiosource: {fileID: 0}
+--- !u!114 &114704736223202646
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -87,7 +89,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1056276094995426}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15280d372e50342edaa236ee1751d455, type: 3}
+  m_Script: {fileID: 11500000, guid: 4ce1374c04e6648c3b11a1f28c29e523, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 100
