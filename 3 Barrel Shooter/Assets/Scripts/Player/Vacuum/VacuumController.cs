@@ -129,7 +129,7 @@ public class VacuumController : MonoBehaviour {
                 {
                     Destroy(currentFairies[i]);
                     currentFairies[i] = Instantiate(fairies[c.GetContents()[0].GetElementID()]);
-                    currentFairies[i].transform.position = fairyPositions[i+3].transform.position;
+                    currentFairies[i].transform.position = fairyPositions[i+2].transform.position;
                 }
             }
         }
