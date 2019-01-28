@@ -17,12 +17,10 @@ public class ElementObject : MonoBehaviour {
     private bool isProjectile; //Dictates whether or not an element does damage to a player
     private Vector2 direction;
     public string particleOwner;
-    private void Awake()
-    {
 
-    }
     public void initElement(LevelManager lm, elementData e, bool isP, string o){
         levelManager = lm;
+        Debug.Log("INIT LM: " + levelManager);
         elementCollisionModel = lm.elementCollisionModel;
 
         ID = e.ID;
@@ -99,22 +97,12 @@ public class ElementObject : MonoBehaviour {
                 pi.health = 0;
                 pi.isRespawning = true;
             }
-            float damage = 0;
-            // List<string> peffect = new List<string>()[2];
-            if (elemName == "Fire")
-            {
-                damage = .3f;
-                //peffect[0] = "Burn";
-            }
-            else if (elemName == "Steam")
-            {
-                damage = .4f;
-                //peffect = "Pushback";
-            }
+
             if (pi == null) return;
-            //Debug.Log(particleOwner+ "Health: " + pi.health);
-            //PlayerCollisionModel.CollisionResult result = levelManager.playerCollisionModel.HandleCollision(pi.health, elemName);
-            // Debug.Log(result.health);
+            Debug.Log(particleOwner+ "Health: " + pi.health);
+    
+            PlayerCollisionModel.CollisionResult result = levelManager.playerCollisionModel.HandleCollision(pi.health, elemName);
+            Debug.Log(result);
             pi.health -= damage;
             //pi.gameObject.GetComponent<PlayerController>().HandleEffects(result.effect, collision.gameObject.transform);
             //Debug.Log("New PlayerHealth: " + pi.health);

@@ -54,6 +54,7 @@ public class ProjectileSpawner : MonoBehaviour {
             sm.PlaySoundsByID(audioSource, 6);
            
             p = Instantiate(prefab, spawnPos.position, spawnPos.rotation);
+            p.GetComponent<ElementObject>().initElement(lm, lm.elementManager.GetElementDataByID(1), false, playerName);
 
             p.transform.parent = spawnPos;
             p.Play();
@@ -66,6 +67,8 @@ public class ProjectileSpawner : MonoBehaviour {
             ParticleSystem prefab = lm.particles[1];
             sm.PlaySoundsByID(audioSource, 0);
             p = Instantiate(prefab, spawnPos.position, spawnPos.rotation);
+            p.GetComponent<ElementObject>().initElement(lm, lm.elementManager.GetElementDataByID(3), false, playerName);
+
             p.transform.parent = spawnPos;
             p.Play();
             StartCoroutine(fluidReset(p));
@@ -77,6 +80,8 @@ public class ProjectileSpawner : MonoBehaviour {
             ParticleSystem prefab = lm.particles[2];
             sm.PlaySoundsByID(audioSource, 7);
             p = Instantiate(prefab, spawnPos.position, spawnPos.rotation);
+            p.GetComponent<ElementObject>().initElement(lm, lm.elementManager.GetElementDataByID(6), false, playerName);
+
             p.transform.parent = spawnPos;
             p.Play();
             StartCoroutine(fluidReset(p));
