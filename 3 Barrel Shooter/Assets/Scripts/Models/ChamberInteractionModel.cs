@@ -34,8 +34,10 @@ public class ChamberInteractionModel
 
         // Unit value will vary per element, how much ammo is added per 1 element unit?
         int unitValue = 1;
-        result.Add(new Vacuum.Chamber.InventoryInfo(name, id, unitValue));
-
+        if (c.Count <= em.GetElementDataByID(id).chamberCapacity ) // checks if element is at maxcapacity
+        {
+            result.Add(new Vacuum.Chamber.InventoryInfo(name, id, unitValue));
+        }
         return result;
     }
 

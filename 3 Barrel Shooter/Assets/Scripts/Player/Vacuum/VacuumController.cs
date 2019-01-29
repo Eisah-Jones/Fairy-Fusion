@@ -14,7 +14,8 @@ public class VacuumController : MonoBehaviour {
     int shootNum = 10;
     int tempShoot = 0;
     public AudioSource audioSource;
-
+    public float maxFairyScale;
+    private Vector3 originalFairyScale;
     bool suckLeft;
     bool suckRight;
 
@@ -73,7 +74,7 @@ public class VacuumController : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         UpdateFairies();
-
+     
         tempShoot += 1;
         if (tempShoot > shootNum && !canShoot)
         {
@@ -108,12 +109,65 @@ public class VacuumController : MonoBehaviour {
         }
     }
 
+
+    public float GetScaleSize( float scalePercent)
+    {
+        return scalePercent * (0.35f);
+    }
+
+
+    private void UpdateFairySize()
+    {
+        Vacuum.Chamber[] chambers = v.GetChambers();
+        for (int i = 0; i < 3; i++)
+        {
+            Vacuum.Chamber c = chambers[i];
+            Transform[] fairyTs = currentFairies[i].GetComponentsInChildren<Transform>();
+            elementData ed = levelManager.elementManager.GetElementDataByID(c.GetElementIDByIndex(0)) ;
+            if (ed != null && c.GetAmountByIndex(0) == 0)
+            {
+                fairyTs[1].localScale = new Vector3(.3f,.3f,.3f);
+                fairyTs[2].localScale = new Vector3(.8f, .8f, .8f);
+                fairyTs[3].localScale = new Vector3(.3f,.3f,.3f);
+            }
+            else if (ed != null)
+            {
+                float scalePercent = (float)c.GetAmountByIndex(0) / ed.chamberCapacity;
+                //Debug.Log("SP:" + scalePercent);
+                //Debug.Log("GetAmountIndex: " + c.GetAmountByIndex(0));
+                //Debug.Log("Cap: " + ed.chamberCapacity);
+                maxFairyScale = 1 * scalePercent+.3f;
+                float scale = GetScaleSize(scalePercent) + .3f;
+                Debug.Log(scale); // .3f is the original fairy scale
+                //Debug.Log(maxFairyScale);
+                if (scale >=.65f)
+                {
+                    fairyTs[1].localScale = new Vector3(.65f, .65f, .65f);
+
+                    //fairyTs[2].localScale += new Vector3(1 * scalePercent, 1 * scalePercent, 1 * scalePercent);
+                    fairyTs[3].localScale = new Vector3(.65f, .65f, .65f);
+                }
+                else{
+                    //fairyTs[0].localScale += new Vector3(1 * scalePercent, 1 * scalePercent, 1 * scalePercent);
+                    fairyTs[1].localScale = new Vector3(scale,scale, scale);
+
+                    //fairyTs[2].localScale += new Vector3(1 * scalePercent, 1 * scalePercent, 1 * scalePercent);
+                    fairyTs[3].localScale = new Vector3(scale, scale,scale);
+                }
+
+
+
+            }
+        }
+
+    }
     private void UpdateFairies(){
         Vacuum.Chamber[] chambers = v.GetChambers();
 
         for (int i = 0; i < 3; i++)
         {
             Vacuum.Chamber c = chambers[i];
+
             if (c.GetAmountByIndex(0) == -1)
             {
                 if (currentFairies[i].tag != fairies[0].tag)
@@ -132,11 +186,12 @@ public class VacuumController : MonoBehaviour {
                 {
                     Destroy(currentFairies[i]);
                     currentFairies[i] = Instantiate(fairies[c.GetContents()[0].GetElementID()]);
+
                     currentFairies[i].transform.position = fairyPositions[i+2].transform.position;
                 }
             }
         }
-
+        UpdateFairySize();
         UpdateFairyPos();
     }
 

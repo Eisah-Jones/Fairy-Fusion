@@ -8,7 +8,7 @@ public class Vacuum{
     //Chamber represents one slot in the vacuum
     public class Chamber
     {
-
+      
         // #######  INVENTORY PAIR CODE  #######
 
         //InventoryPair only used in the chamber, keeps track of element occurence in a vacuum chamber
@@ -17,18 +17,24 @@ public class Vacuum{
             private string elementName;
             private int elementID;
             private int count;
-
+            private int maxCount;
             //Constructor
             public InventoryInfo(string n, int id, int c)
             {
                 elementName = n;
                 elementID = id;
                 count = c;
+
             }
 
             //Increases count by amount i
             public void IncreaseCount(int i){
-                count += i;
+                if (count < maxCount)
+                {
+                    count += i;
+                }
+               
+        
             }
 
             //Decreases count by amount i
@@ -96,6 +102,7 @@ public class Vacuum{
             //Check to see if the element is already in the chamber
             if (this.ContainsElement(name)){
                 // **RUN CHAMBER INTERACTION SCRIPT**
+               
                 chamber = interactionModel.IncreaseElement(chamber, elemID);
                 return this;
             }
@@ -270,7 +277,8 @@ public class Vacuum{
 
         if (chambers[selectedChamber].GetElementIDByIndex(0) != id && chambers[selectedChamber].GetNumElements() != 0){
             return -1;
-        }
+        } 
+       
         chambers[selectedChamber] = chambers[selectedChamber].Add(n, id);
         return 1;
     }
@@ -394,7 +402,8 @@ public class Vacuum{
 
         // Remove that element from the chamber
         chambers[selectedChamber].Remove(result.GetElementName(), 1);
-
+        
+        
         // Returns what element was shot as InventoryInfo
         return result;
 
