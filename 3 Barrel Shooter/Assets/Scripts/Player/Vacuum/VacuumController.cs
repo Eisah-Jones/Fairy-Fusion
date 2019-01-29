@@ -120,7 +120,10 @@ public class VacuumController : MonoBehaviour {
                 {
                     Destroy(currentFairies[i]);
                     currentFairies[i] = Instantiate(fairies[0]);
-                    currentFairies[i].transform.position = fairyPositions[i+3].transform.position;
+                    int ind = i + 3;
+                    //if (i + 3 == 5) { ind = 1; }
+                    //else { ind = i + 3; }
+                    currentFairies[i].transform.position = fairyPositions[ind].transform.position;
                 }
             }
             else
