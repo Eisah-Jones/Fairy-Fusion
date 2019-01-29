@@ -6,12 +6,12 @@ using UnityEngine;
 public class ParticleManager : MonoBehaviour {
 
 
-    private List<ParticleSystem> particles;
+    private List<GameObject> particles;
 
 
 	public ParticleManager()
     {
-        particles = new List<ParticleSystem>();
+        particles = new List<GameObject>();
         LoadParticles();
     }
 
@@ -23,9 +23,16 @@ public class ParticleManager : MonoBehaviour {
 
         foreach(string line in lines)
         {
-            particles.Add(Resources.Load<ParticleSystem>("Particles/" + line));
+            particles.Add(Resources.Load<GameObject>("Particles/" + line));
         }
     }
+
+
+    public GameObject GetParticleByID(int i)
+    {
+        return particles[i-1];
+    }
+
 
     // TODO: Implement if needed
     public void SpawnParticleAtPointByName(Vector3 pos, string name)
@@ -35,15 +42,15 @@ public class ParticleManager : MonoBehaviour {
 
     public void SpawnParticleAtPointByID(Vector3 pos, int i)
     {
-        ParticleSystem p = Instantiate(particles[i], pos, Quaternion.identity);
+        GameObject p = Instantiate(particles[i], pos, Quaternion.identity);
         IEnumerator c = HandleParticleSpawn(p);
         StartCoroutine(c);
     }
 
 
-    public IEnumerator HandleParticleSpawn(ParticleSystem p)
+    public IEnumerator HandleParticleSpawn(GameObject p)
     {
-        yield return new WaitForSeconds(p.main.duration);
+        yield return new WaitForSeconds(10);
         Destroy(p);
     }
 }
