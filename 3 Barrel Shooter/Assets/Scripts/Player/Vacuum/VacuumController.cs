@@ -138,7 +138,7 @@ public class VacuumController : MonoBehaviour {
                 //Debug.Log("Cap: " + ed.chamberCapacity);
                 maxFairyScale = 1 * scalePercent+.3f;
                 float scale = GetScaleSize(scalePercent) + .3f;
-                Debug.Log(scale); // .3f is the original fairy scale
+                //Debug.Log(scale); // .3f is the original fairy scale
                 //Debug.Log(maxFairyScale);
                 if (scale >=.65f)
                 {

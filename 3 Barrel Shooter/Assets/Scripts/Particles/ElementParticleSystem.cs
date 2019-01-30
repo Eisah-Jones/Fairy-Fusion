@@ -53,7 +53,7 @@ public class ElementParticleSystem : MonoBehaviour {
             yield return new WaitForSeconds(emissionDelay);
             GameObject p = Instantiate(particle, transform.position, Quaternion.identity);
             p.transform.SetParent(transform);
-            Debug.Log(particleLife);
+            //Debug.Log(particleLife);
             p.GetComponent<ElementParticle>().InitElementParticle(particleManager, 1, particleLife, particleForce);
             if (!infinite) { i++; }
         }

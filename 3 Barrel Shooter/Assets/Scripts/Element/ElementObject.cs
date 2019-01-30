@@ -20,7 +20,6 @@ public class ElementObject : MonoBehaviour {
 
     public void initElement(LevelManager lm, elementData e, bool isP, string o){
         levelManager = lm;
-        Debug.Log("INIT LM: " + levelManager);
         elementCollisionModel = lm.elementCollisionModel;
 
         ID = e.ID;
