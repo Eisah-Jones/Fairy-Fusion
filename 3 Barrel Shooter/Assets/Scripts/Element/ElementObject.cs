@@ -20,7 +20,6 @@ public class ElementObject : MonoBehaviour {
 
     public void initElement(LevelManager lm, elementData e, bool isP, string o){
         levelManager = lm;
-        Debug.Log("INIT LM: " + levelManager);
         elementCollisionModel = lm.elementCollisionModel;
 
         ID = e.ID;
@@ -99,16 +98,18 @@ public class ElementObject : MonoBehaviour {
             }
 
             if (pi == null) return;
-            Debug.Log(particleOwner+ "Health: " + pi.health);
+            //Debug.Log(particleOwner+ "Health: " + pi.health);
     
             PlayerCollisionModel.CollisionResult result = levelManager.playerCollisionModel.HandleCollision(pi.health, elemName);
-            Debug.Log(result);
+            //Debug.Log(result);
             pi.health -= damage;
             //pi.gameObject.GetComponent<PlayerController>().HandleEffects(result.effect, collision.gameObject.transform);
             //Debug.Log("New PlayerHealth: " + pi.health);
 
         }
     }
+
+
     // When an element collides with something else
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -137,10 +138,12 @@ public class ElementObject : MonoBehaviour {
                 else // We are evaluating outcome of COLLISION element object
                     Destroy(collision.gameObject);
             }
-            else if (result == "Stop"){
+            else if (result == "Stop")
+            {
                 direction = Vector2.zero;
             }
-            else if (result == "Reflect"){
+            else if (result == "Reflect")
+            {
                 direction = -transform.right;
                 owner = null;
             }

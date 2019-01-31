@@ -44,31 +44,35 @@ public class Controller : MonoBehaviour {
 
         // These are Mac OS mappings, we can also add options for windows and linux mappings
         string pNum = playerNum.ToString();
+        string platform;
 
-        Left_Trigger = "Left_Trigger " + pNum;
-        Right_Trigger = "Right_Trigger " + pNum;
+        if (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) platform = "Win_";
+        else platform = "Mac_";
 
-        X_Button = "X_Button " + pNum;
-        B_Button = "B_Button " + pNum;
+        Left_Trigger = platform + "Left_Trigger " + pNum;
+        Right_Trigger = platform + "Right_Trigger " + pNum;
 
-        Right_Bumper = "Right_Bumper " + pNum;
-        Left_Bumper = "Left_Bumper " + pNum;
+        X_Button = platform + "X_Button " + pNum;
+        B_Button = platform + "B_Button " + pNum;
 
-        Back_Button = "Back_Button " + pNum;
-        Start_Button = "Start_Button " + pNum;
+        Right_Bumper = platform + "Right_Bumper " + pNum;
+        Left_Bumper = platform + "Left_Bumper " + pNum;
 
-        Left_Stick_Click = "Left_Stick_Click " + pNum;
-        Right_Stick_Click = "Right_Stick_Click " + pNum;
+        Back_Button = platform + "Back_Button " + pNum;
+        Start_Button = platform + "Start_Button " + pNum;
 
-        Dpad_Up = "Dpad_Up " + pNum;
-        Dpad_Down = "Dpad_Down " + pNum;
-        Dpad_Left = "Dpad_Left " + pNum;
-        Dpad_Right = "Dpad_Right " + pNum;
+        Left_Stick_Click = platform + "Left_Stick_Click " + pNum;
+        Right_Stick_Click = platform + "Right_Stick_Click " + pNum;
 
-        Left_Stick_Vertical = "Left_Stick_Vertical " + pNum;
-        Left_Stick_Horizontal = "Left_Stick_Horizontal " + pNum;
-        Right_Stick_Vertical = "Right_Stick_Vertical " + pNum;
-        Right_Stick_Horizontal = "Right_Stick_Horizontal " + pNum;
+        Dpad_Up = platform + "Dpad_Up " + pNum;
+        Dpad_Down = platform + "Dpad_Down " + pNum;
+        Dpad_Left = platform + "Dpad_Left " + pNum;
+        Dpad_Right = platform + "Dpad_Right " + pNum;
+
+        Left_Stick_Vertical = platform + "Left_Stick_Vertical " + pNum;
+        Left_Stick_Horizontal = platform + "Left_Stick_Horizontal " + pNum;
+        Right_Stick_Vertical = platform + "Right_Stick_Vertical " + pNum;
+        Right_Stick_Horizontal = platform + "Right_Stick_Horizontal " + pNum;
     }
 
     public ControllerInputs GetInputs(){

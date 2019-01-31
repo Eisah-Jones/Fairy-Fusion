@@ -80,15 +80,19 @@ public class ElementManager
     }
 
 
-    public elementData GetElementDataByID(int id){
+    public elementData GetElementDataByID(int id)
+    {
         if (id == -1) { return null; }
         return elementDataList[id - 1];
     }
 
 
-    public int GetElementIDByName(string n){
-        foreach (elementData eD in elementDataList){
-            if (eD.name == n){
+    public int GetElementIDByName(string n)
+    {
+        foreach (elementData eD in elementDataList)
+        {
+            if (eD.name == n)
+            {
                 return eD.ID;
             }
         }
