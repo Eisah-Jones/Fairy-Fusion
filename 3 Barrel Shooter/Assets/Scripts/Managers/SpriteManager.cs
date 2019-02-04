@@ -895,11 +895,13 @@ public class SpriteManager
 
     private Sprite[] resourceSprites;
     private TileMap[] tileMaps;
+    private Sprite[] elementFluidSprites;
 
 
     public SpriteManager()
     {
         LoadTileMaps();
+        LoadElementFluidSprites();
     }
 
     // Get the tilemap for the given square
@@ -914,6 +916,11 @@ public class SpriteManager
         }
 
         return GetTileMap(map[x, y]).GetTileSprite(tile, map, tm, x, y);
+    }
+
+    public Sprite GetElementParticleSpriteByID(int id)
+    {
+        return elementFluidSprites[id-1];
     }
 
     private TileMap GetTileMap(string mapName)
@@ -950,5 +957,19 @@ public class SpriteManager
         // FOR TESTING!!!
         tileMaps[2] = new TileMap("Water");
         tileMaps[3] = new TileMap("Mountain");
+    }
+
+
+    private void LoadElementFluidSprites()
+    {
+        // Load Sprites from resources folders
+        TextAsset txt = (TextAsset)Resources.Load("Fluids/Fluid Sprites/loadFluidSprites", typeof(TextAsset));
+        string[] lines = Regex.Split(txt.text, "\n|\r|\r\n");
+
+        elementFluidSprites = new Sprite[lines.Length + 1];
+        for (int i = 0; i < lines.Length; i++)
+        {
+            elementFluidSprites[i] = (Sprite)Resources.Load("Fluids/Fluid Sprites/" + lines[i]);
+        }
     }
 }

@@ -8,7 +8,8 @@ public class ElementParticleSystem : MonoBehaviour {
     int particleCount;
     GameObject particle;
     ParticleManager particleManager;
-    bool infinite;
+    bool isEmitting;
+    Sprite particleSprite;
 
     [Range(0f, 2f)]
     public float particleLife;
@@ -23,39 +24,43 @@ public class ElementParticleSystem : MonoBehaviour {
     public float emissionRange;
 
 
-	// Use this for initialization
-	void Start () 
+    public void InitElementParticleSystem(LevelManager lm, int id)
     {
-
-        InitElementParticleSystem(new ParticleManager(), 1);
-	}
-
-
-    public void InitElementParticleSystem(ParticleManager pm, int id)
-    {
-        infinite = true;
+        isEmitting = true;
         particleCount = 50;
-        particleManager = pm;
         particleLife = 1f;
         particleForce = 500f;
         emissionRangeStart = 0.001f;
         emissionRange = 0.001f;
-        particle = pm.GetParticleByID(id);
+        particleSprite = lm.spriteManager.GetElementParticleSpriteByID(id);
+        particle = Resources.Load<GameObject>("Fluids/Fluid Particle");
         StartCoroutine("SpawnParticles");
     }
+
+
+    public void SetEmissionState(bool state)
+    {
+        isEmitting = state;
+    }
+
+
+    public void DestroyParticleSystem()
+    {
+        Destroy(gameObject);
+    }
+
 
     private IEnumerator SpawnParticles()
     {
         float emissionDelay;
-        for (int i = 0; i < particleCount;)
+        while (isEmitting)
         {
             emissionDelay = Random.Range(emissionRangeStart, emissionRangeStart + emissionRange);
             yield return new WaitForSeconds(emissionDelay);
             GameObject p = Instantiate(particle, transform.position, Quaternion.identity);
             p.transform.SetParent(transform);
-            //Debug.Log(particleLife);
+            p.GetComponent<SpriteRenderer>().sprite = particleSprite;
             p.GetComponent<ElementParticle>().InitElementParticle(particleManager, 1, particleLife, particleForce);
-            if (!infinite) { i++; }
         }
     }
 }

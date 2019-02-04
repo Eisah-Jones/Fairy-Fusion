@@ -6,7 +6,7 @@ public class ProjectileSpawner : MonoBehaviour {
 
     private SoundManager sm;
     private bool isShootingFluid;
-    public ParticleSystem p;
+    public GameObject p;
     public LevelManager lm;
     public AudioSource audioSource;
     public void Start()
@@ -49,41 +49,41 @@ public class ProjectileSpawner : MonoBehaviour {
 
         if (eID == 1){
             //instantiates flamethrower
-            ParticleSystem prefab = lm.particles[0];
-           
+
+            Debug.Log("YO");
             sm.PlaySoundsByID(audioSource, 6);
-           
+
+            GameObject prefab = lm.fluidManager.GetFluidByID(eID);
             p = Instantiate(prefab, spawnPos.position, spawnPos.rotation);
-            p.GetComponent<ElementObject>().initElement(lm, lm.elementManager.GetElementDataByID(1), false, playerName);
+            p.GetComponent<ElementParticleSystem>().InitElementParticleSystem(lm, eID);
 
             p.transform.parent = spawnPos;
-            p.Play();
             StartCoroutine(fluidReset(p));
             return 1;
         }
         else if (eID == 3)
         {
             //instantiates water blast
-            ParticleSystem prefab = lm.particles[1];
             sm.PlaySoundsByID(audioSource, 0);
+
+            GameObject prefab = lm.fluidManager.GetFluidByID(eID);
             p = Instantiate(prefab, spawnPos.position, spawnPos.rotation);
-            p.GetComponent<ElementObject>().initElement(lm, lm.elementManager.GetElementDataByID(3), false, playerName);
+            p.GetComponent<ElementParticleSystem>().InitElementParticleSystem(lm, eID);
 
             p.transform.parent = spawnPos;
-            p.Play();
             StartCoroutine(fluidReset(p));
             return 1;
         }
         else if (eID == 6)
         {
             //instantiates steam
-            ParticleSystem prefab = lm.particles[2];
             sm.PlaySoundsByID(audioSource, 7);
+
+            GameObject prefab = lm.fluidManager.GetFluidByID(eID);
             p = Instantiate(prefab, spawnPos.position, spawnPos.rotation);
-            p.GetComponent<ElementObject>().initElement(lm, lm.elementManager.GetElementDataByID(6), false, playerName);
+            p.GetComponent<ElementParticleSystem>().InitElementParticleSystem(lm, eID);
 
             p.transform.parent = spawnPos;
-            p.Play();
             StartCoroutine(fluidReset(p));
             return 1;
         }
@@ -91,14 +91,13 @@ public class ProjectileSpawner : MonoBehaviour {
         return -1;
     }
 
-    private IEnumerator fluidReset(ParticleSystem p){
+
+    private IEnumerator fluidReset(GameObject ps){
         yield return new WaitForSeconds(1);
         isShootingFluid = false;
-        p.Stop();
         sm.StopSound(audioSource);
-        yield return new WaitForSeconds(1f);
-        Destroy(p.gameObject);
-
+        yield return new WaitForSeconds(1);
+        ps.GetComponent<ElementParticleSystem>().DestroyParticleSystem();
     }
 
 }

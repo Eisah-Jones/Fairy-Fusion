@@ -17,6 +17,7 @@ public class LevelManager: MonoBehaviour {
     public SpriteManager spriteManager;
     public ResourceManager resourceManager;
     public ParticleManager particleManager;
+    public FluidManager fluidManager;
     public SoundManager soundManager;
 
     private LevelGenerator levelGen = new LevelGenerator();
@@ -24,7 +25,7 @@ public class LevelManager: MonoBehaviour {
     public GameObject player;
     public List<GameObject> playerList;
 
-    public GameObject camera;
+    public GameObject cam;
     public List<GameObject> cameras;
 
     public bool processCollision;
@@ -56,6 +57,7 @@ public class LevelManager: MonoBehaviour {
         controllerManager = GetComponent<ControllerManager>();
         spriteManager = new SpriteManager();
         resourceManager = new ResourceManager();
+        fluidManager = new FluidManager();
         //particleManager = new ParticleManager();
         soundManager = new SoundManager();
         soundManager.InitSoundManager();
@@ -65,7 +67,7 @@ public class LevelManager: MonoBehaviour {
         playerList = levelGen.SpawnPlayers(player, GetComponent<LevelManager>(), numPlayers);
         foreach (GameObject p in playerList) {
 			pInfoList.Add (p.GetComponent<PlayerInfo> ());
-            GameObject cameraObject = Instantiate(camera, Vector3.zero, Quaternion.identity);
+            GameObject cameraObject = Instantiate(cam, Vector3.zero, Quaternion.identity);
             cameras.Add(cameraObject);
 		}
         InitializeCameras();
