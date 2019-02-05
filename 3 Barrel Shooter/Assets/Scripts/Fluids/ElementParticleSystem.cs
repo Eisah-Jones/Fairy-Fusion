@@ -7,9 +7,15 @@ public class ElementParticleSystem : MonoBehaviour {
 
     int particleCount;
     GameObject particle;
+    int particleID;
+    string particleName;
     ParticleManager particleManager;
     bool isEmitting;
     Sprite particleSprite;
+    LevelManager levelManager;
+    string owner;
+
+    Transform rotation;
 
     [Range(0f, 2f)]
     public float particleLife;
@@ -24,16 +30,27 @@ public class ElementParticleSystem : MonoBehaviour {
     public float emissionRange;
 
 
-    public void InitElementParticleSystem(LevelManager lm, int id)
+    //private void Start()
+    //{
+    //    InitElementParticleSystem(new LevelManager(), 1, new GameObject());
+    //}
+
+    public void InitElementParticleSystem(LevelManager lm, int id, Transform t, string o)
     {
+        levelManager = lm;
+        owner = o;
         isEmitting = true;
+        particleID = id;
         particleCount = 50;
         particleLife = 1f;
         particleForce = 500f;
         emissionRangeStart = 0.001f;
         emissionRange = 0.001f;
         particleSprite = lm.spriteManager.GetElementParticleSpriteByID(id);
+        particleName = particleSprite.name;
         particle = Resources.Load<GameObject>("Fluids/Fluid Particle");
+        particle.GetComponent<SpriteRenderer>().sprite = particleSprite;
+        rotation = t;
         StartCoroutine("SpawnParticles");
     }
 
@@ -57,10 +74,8 @@ public class ElementParticleSystem : MonoBehaviour {
         {
             emissionDelay = Random.Range(emissionRangeStart, emissionRangeStart + emissionRange);
             yield return new WaitForSeconds(emissionDelay);
-            GameObject p = Instantiate(particle, transform.position, Quaternion.identity);
-            p.transform.SetParent(transform);
-            p.GetComponent<SpriteRenderer>().sprite = particleSprite;
-            p.GetComponent<ElementParticle>().InitElementParticle(particleManager, 1, particleLife, particleForce);
+            GameObject p = Instantiate(particle, transform.position, rotation.rotation);
+            p.GetComponent<ElementParticle>().InitElementParticle(particleManager, particleID, particleLife, particleForce, rotation, owner, levelManager, particleName);
         }
     }
 }

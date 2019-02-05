@@ -49,8 +49,6 @@ public class PlayerController : MonoBehaviour
 
     public void UpdatePlayerInputs(ControllerInputs inputs)
     {
-        // For new controller scheme, bumpers are suck and triggers are shoot
-
         // Vacuum Sucking
         suckLeft = inputs.Left_Bumper;
         suckRight = inputs.Right_Bumper;
@@ -59,7 +57,7 @@ public class PlayerController : MonoBehaviour
         // Vacuum Shooting
         if (inputs.Left_Trigger > 0.75f || Input.GetKey(KeyCode.LeftShift)) { shootLeft = true; } else shootLeft = false;
         if (inputs.Right_Trigger > 0.75f || Input.GetKey(KeyCode.Space)) { shootRight = true; } else shootRight = false;
-        vacControl.HandleShootStateInput(shootLeft, shootRight, GetPlayerName());
+        vacControl.HandleShootStateInput(shootLeft, shootRight, GetPlayerName(), fairies);
 
         // Change player speed based on action
         if (suckLeft || suckRight || shootLeft || shootRight) { speed = 4f; }
@@ -81,21 +79,14 @@ public class PlayerController : MonoBehaviour
     // This function is called every frame by the level manager, called in fixed update
     public void UpdatePlayerMovement(ControllerInputs inputs)
     {
-        // UNCOMMENT HERE FOR CONTROLLER INPUT
         ////Change the position of the player
         horizontal = inputs.Left_Stick_Horizontal;
         vertical = -inputs.Left_Stick_Vertical;
+
         // gets rotation input from right stick 
         float r_vertical = inputs.Right_Stick_Vertical;
         float r_horizontal = inputs.Right_Stick_Horizontal;
         float heading = Mathf.Atan2(r_vertical, r_horizontal);
-
-        //COMMENT/UNCOMMENT HERE FOR Keyboard input
-//        float r_vertical = Input.GetAxisRaw("Vertical");
-//        float r_horizontal = Input.GetAxisRaw("Horizontal");
-//        float vertical = r_vertical; 
-//        float horizontal = r_horizontal;
-//        float heading = Mathf.Atan2(r_vertical, r_horizontal);
 
         //Change the position of the player
         Vector2 movement = new Vector2(horizontal * speed, vertical * speed);
@@ -131,13 +122,6 @@ public class PlayerController : MonoBehaviour
             fairies.transform.rotation = Quaternion.Euler(0f, 0f, last_heading * Mathf.Rad2Deg);
         }
     }
-
-	private void Update()
-	{
-		
-	}
-
-
 
 
     // #### BELOW ARE PLAYER EFFECTS!! ####
@@ -181,6 +165,7 @@ public class PlayerController : MonoBehaviour
         playerBody.GetComponent<Rigidbody2D>().AddForce(heading * 800);
         StartCoroutine("ResetForces");
     }
+
 
     private IEnumerator Burn(){
 

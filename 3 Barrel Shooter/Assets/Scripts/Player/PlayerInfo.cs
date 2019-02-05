@@ -40,7 +40,6 @@ public class PlayerInfo : MonoBehaviour
     private void Start()
     {
 		HPbar = GetComponent<HealthBar> ();
-        //deathParticles = new ParticleSystem();
     }
 
 
@@ -133,52 +132,6 @@ public class PlayerInfo : MonoBehaviour
     }
 
 
-    //private void OnParticleCollision(GameObject collision)
-    //{
-    //    if (collision.tag == "Walls" || collision.tag == "Untagged" || collision.tag[0] == 'R' || collision.tag == "TEST")
-    //    {
-    //        rearea = collision.name;
-    //        return;
-    //    }
-       
-    //    ElementObject element = collision.gameObject.GetComponent<ElementObject>();
-    //    Debug.Log("elem:"+ element.GetOwner());
-    //    if (element.GetOwner() == ("Player" + playerNum.ToString())) return;
-    //    string elemName = collision.tag.Split('-')[1];
-    //    bool isPlayer = false;
-    //    PlayerInfo pi = null;
-
-    //    if (collision.tag == "Player")
-    //    {
-    //        pi = collision.gameObject.GetComponent<PlayerInfo>();
-    //        isPlayer = true;
-    //        Debug.Log("HERE: " + pi.GetPlayerName());
-    //    }
-       
-
-    //    Debug.Log(collision);
-
-    //    if (isPlayer && pi != null && pi.GetPlayerName() == ("Player" + playerNum.ToString()))
-    //    {
-    //        Debug.Log("Trying to burn self");
-    //        return;
-    //    }
-
-    //    if (health <= 0 || isRespawning)
-    //    {
-    //        health = 0;
-    //        isRespawning = true;
-    //    }
-
-    //    else
-    //    {
-    //        PlayerCollisionModel.CollisionResult result = levelManager.playerCollisionModel.HandleCollision(health, elemName);
-    //        health = result.health;
-    //        transform.gameObject.GetComponent<PlayerController>().HandleEffects(result.playerEffect, collision.gameObject.transform);
-    //    }
-    //}
-
-
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged" || collision.tag[0] == 'R' || collision.tag == "TEST") {
@@ -186,26 +139,36 @@ public class PlayerInfo : MonoBehaviour
 			return;
 		}
 
-        ElementObject element = collision.gameObject.GetComponent<ElementObject>();
+        ElementObject elementObj = collision.gameObject.GetComponent<ElementObject>();
+        ElementParticle elementPart = collision.gameObject.GetComponent<ElementParticle>();
 
-        if (element.GetOwner() == ("Player" + playerNum.ToString())) return;
+        int elemID;
+        string elemName;
 
-        bool isProjectile = element.GetIsProjectile();
-
-        //If it is not a projectile, then there is no interaction (except maybe physics, so we don't care)
-        if (!isProjectile)
+        if (elementObj != null && elementObj.GetOwner() == ("Player" + playerNum.ToString())) return;
+        else if (elementObj != null)
         {
-            return;
+            elemID = elementObj.GetID();
+            elemName = elementObj.GetName();
+
+            bool isProjectile = elementObj.GetIsProjectile();
+
+            //If it is not a projectile, then there is no interaction (except maybe physics, so we don't care)
+            if (!isProjectile)
+            {
+                return;
+            }
+        }
+        else if (elementPart != null && elementPart.GetOwner() == ("Player" + playerNum.ToString())) return;
+        else
+        {
+            elemID = elementPart.GetParticleID();
+            elemName = elementPart.GetParticleName();
         }
 
-        int elemID = element.GetID();
-        string elemName = element.GetName();
-        //Debug.Log(elemName);
         PlayerCollisionModel.CollisionResult result = levelManager.playerCollisionModel.HandleCollision(health, elemName);
         health = result.health;
         transform.gameObject.GetComponent<PlayerController>().HandleEffects(result.playerEffect, collision.gameObject.transform);
-    
-   
     }
 
     private Vector3 GetRandomVector(int x_range, int y_range){

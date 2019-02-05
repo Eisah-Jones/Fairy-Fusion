@@ -28,11 +28,7 @@ public class VacuumController : MonoBehaviour {
     {
         v = vac;
 
-        foreach(Transform child in transform)
-        {
-            if (child.tag == "ProjectileSpawn") { projectileSpawner = child.GetChild(0); break; }
-        }
-
+        projectileSpawner = transform.GetChild(0);
 
         TextAsset txt = (TextAsset)Resources.Load("Fairies/loadFairies", typeof(TextAsset));
         string[] lines = Regex.Split(txt.text, "\n|\r|\r\n");
@@ -50,11 +46,9 @@ public class VacuumController : MonoBehaviour {
         currentFairies[2] = Instantiate(fairies[0]);
 
         fairyPositions = new GameObject[5];
-        fairyPositions[0] = transform.GetChild(0).gameObject;
-        fairyPositions[1] = transform.GetChild(1).gameObject;
-        fairyPositions[2] = transform.GetChild(2).gameObject;
-        fairyPositions[3] = transform.GetChild(3).gameObject;
-        fairyPositions[4] = transform.GetChild(4).gameObject;
+        fairyPositions[0] = transform.GetChild(1).gameObject;
+        fairyPositions[1] = transform.GetChild(2).gameObject;
+        fairyPositions[2] = transform.GetChild(3).gameObject;
 
         currentFairies[0].transform.position = fairyPositions[0].transform.position;
         currentFairies[1].transform.position = fairyPositions[1].transform.position;
@@ -65,12 +59,14 @@ public class VacuumController : MonoBehaviour {
         canShoot = true;
     }
 
+
     // Use this for initialization
     void Start () {
         audioSource = GetComponentInParent<AudioSource>();
 
     }
     
+
     // Update is called once per frame
     void Update () {
         UpdateFairies();
@@ -84,29 +80,28 @@ public class VacuumController : MonoBehaviour {
 
     }
 
-    //public void SetIsCombiningElements(bool b)
-    //{
-    //    v.SetIsCombiningElements(b);
-    //}
+
+    private void SetFairyPos()
+    {
+        int chamberIndex1 = v.GetCurrentChamberIndex();
+        int chamberIndex2 = (chamberIndex1 + 1) % 3;
+        int chamberIndex3 = (chamberIndex2 + 1) % 3;
+
+        currentFairies[chamberIndex1].transform.position = fairyPositions[0].transform.position;
+        currentFairies[chamberIndex2].transform.position = fairyPositions[1].transform.position;
+        currentFairies[chamberIndex3].transform.position = fairyPositions[2].transform.position;
+    }
 
 
-    private void UpdateFairyPos(){
+    private void UpdateFairyPos()
+    {
+        int chamberIndex1 = v.GetCurrentChamberIndex();
+        int chamberIndex2 = (chamberIndex1 + 1) % 3;
+        int chamberIndex3 = (chamberIndex2 + 1) % 3;
 
-        int chamberIndex = v.GetCurrentChamberIndex();
-
-        for (int i = 0; i < 2; i++)
-        {
-            int j = (i + chamberIndex) % 3;
-            if (i == 0)
-            {
-                currentFairies[j].transform.position = Vector2.MoveTowards(currentFairies[j].transform.position, fairyPositions[3].transform.position, 10f * Time.deltaTime);
-                currentFairies[(j + 1) % 3].transform.position = Vector2.MoveTowards(currentFairies[(j + 1) % 3].transform.position, fairyPositions[4].transform.position, 10f * Time.deltaTime);
-            }
-            else
-            {
-                currentFairies[(j + 1) % 3].transform.position = Vector2.MoveTowards(currentFairies[(j + 1) % 3].transform.position, fairyPositions[1].transform.position, 10f * Time.deltaTime);
-            }
-        }
+        currentFairies[chamberIndex1].transform.position = Vector2.MoveTowards(currentFairies[chamberIndex1].transform.position, fairyPositions[0].transform.position, 10f * Time.deltaTime);
+        currentFairies[chamberIndex2].transform.position = Vector2.MoveTowards(currentFairies[chamberIndex2].transform.position, fairyPositions[1].transform.position, 10f * Time.deltaTime);
+        currentFairies[chamberIndex3].transform.position = Vector2.MoveTowards(currentFairies[chamberIndex3].transform.position, fairyPositions[2].transform.position, 10f * Time.deltaTime);
     }
 
 
@@ -133,37 +128,25 @@ public class VacuumController : MonoBehaviour {
             else if (ed != null)
             {
                 float scalePercent = (float)c.GetAmountByIndex(0) / ed.chamberCapacity;
-                //Debug.Log("SP:" + scalePercent);
-                //Debug.Log("GetAmountIndex: " + c.GetAmountByIndex(0));
-                //Debug.Log("Cap: " + ed.chamberCapacity);
                 maxFairyScale = 1 * scalePercent+.3f;
                 float scale = GetScaleSize(scalePercent) + .3f;
-                //Debug.Log(scale); // .3f is the original fairy scale
-                //Debug.Log(maxFairyScale);
                 if (scale >=.65f)
                 {
                     fairyTs[1].localScale = new Vector3(.65f, .65f, .65f);
-
-                    //fairyTs[2].localScale += new Vector3(1 * scalePercent, 1 * scalePercent, 1 * scalePercent);
                     fairyTs[3].localScale = new Vector3(.65f, .65f, .65f);
                 }
-                else{
-                    //fairyTs[0].localScale += new Vector3(1 * scalePercent, 1 * scalePercent, 1 * scalePercent);
-                    fairyTs[1].localScale = new Vector3(scale,scale, scale);
-
-                    //fairyTs[2].localScale += new Vector3(1 * scalePercent, 1 * scalePercent, 1 * scalePercent);
-                    fairyTs[3].localScale = new Vector3(scale, scale,scale);
+                else
+                {
+                    fairyTs[1].localScale = new Vector3(scale, scale, scale);
+                    fairyTs[3].localScale = new Vector3(scale, scale, scale);
                 }
-
-
-
             }
         }
-
     }
+
+
     private void UpdateFairies(){
         Vacuum.Chamber[] chambers = v.GetChambers();
-
         for (int i = 0; i < 3; i++)
         {
             Vacuum.Chamber c = chambers[i];
@@ -174,10 +157,7 @@ public class VacuumController : MonoBehaviour {
                 {
                     Destroy(currentFairies[i]);
                     currentFairies[i] = Instantiate(fairies[0]);
-                    int ind = i + 3;
-                    //if (i + 3 == 5) { ind = 1; }
-                    //else { ind = i + 3; }
-                    currentFairies[i].transform.position = fairyPositions[ind].transform.position;
+                    SetFairyPos();
                 }
             }
             else
@@ -186,8 +166,7 @@ public class VacuumController : MonoBehaviour {
                 {
                     Destroy(currentFairies[i]);
                     currentFairies[i] = Instantiate(fairies[c.GetContents()[0].GetElementID()]);
-
-                    currentFairies[i].transform.position = fairyPositions[i+2].transform.position;
+                    SetFairyPos();
                 }
             }
         }
@@ -214,22 +193,20 @@ public class VacuumController : MonoBehaviour {
         }
     }
 
+
     // Sets the chamber based on controller input
     public void HandleChamberStateInput(int direction){
         if (!v.GetVacuumOn())
             v.changeChamber(direction);
     }
 
+
     // Sets the shoot staten based on controller input
-    public void HandleShootStateInput(bool shootingLeft, bool shootingRight, string playerName)
+    public void HandleShootStateInput(bool shootingLeft, bool shootingRight, string playerName, GameObject f)
     {
         v.SetShootingBools(shootingLeft, shootingRight);
 
-        if (!canShoot || v.GetVacuumOn() || (!shootingLeft && !shootingRight))
-        {
-            //Debug.Log("NOTHING: " + !canShoot + ", " + v.GetVacuumOn()+ ", " + (!shootingLeft && !shootingRight));
-            return;
-        }
+        if (!canShoot || v.GetVacuumOn() || (!shootingLeft && !shootingRight)) { return; }
 
         canShoot = false; // temp fire rate setup
 
@@ -259,7 +236,8 @@ public class VacuumController : MonoBehaviour {
         ProjectileSpawner p = GetComponent<ProjectileSpawner>();
         if (projectileType == "Fluid")
         {
-            int shotResult = p.ShootFluid(eID, levelManager, playerName, projectileSpawner);
+            string o = projectileSpawner.parent.parent.GetComponent<PlayerInfo>().GetPlayerName();
+            int shotResult = p.ShootFluid(eID, levelManager, playerName, projectileSpawner, o);
             if (shotResult != -1) // Something was shot, update chamber
             {
                 v.RemoveFromCurrentChamber(eName, shotResult);
@@ -302,17 +280,11 @@ public class VacuumController : MonoBehaviour {
                 result = v.AddToChamber(collisionInfo[2], int.Parse(collisionInfo[1]), suckLeft);
                 r.DecrementResource();
             }
-        } 
-        //else // We are picking up some projectile from the ground
-        //{
-        //    result = v.AddToChamber(collisionInfo[1], int.Parse(collisionInfo[0]));
-        //    if (result == -1) { return; } // TODO: Randomly launch projectile from character
-        //    Destroy(collision.gameObject);
-        //}
-
-        // Update chamber combinations
+        }
         v.SetCombinationChambers();
     }
+
+
     private void OnTriggerExit2D(Collider2D other)
     {
         Shaker s = other.GetComponent<Shaker>();

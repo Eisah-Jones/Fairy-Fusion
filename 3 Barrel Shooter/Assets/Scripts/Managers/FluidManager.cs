@@ -21,12 +21,22 @@ public class FluidManager
 
         foreach (string line in lines)
         {
-            elementFluids.Add(Resources.Load<GameObject>("Fluids/Fluid Systems/" + line));
+            if (line != "")
+                elementFluids.Add(Resources.Load<GameObject>("Fluids/Fluid Systems/" + line));
         }
     }
 
     public GameObject GetFluidByID(int i)
     {
+        if (i == 3)
+        {
+            return elementFluids[1];
+        }
+        else if (i == 6)
+        {
+            return elementFluids[2];
+        }
+
         return elementFluids[i-1];
     }
 }

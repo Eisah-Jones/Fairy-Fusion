@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1763475589}
   m_Layer: 0
   m_Name: Fluid Particle
-  m_TagString: Untagged
+  m_TagString: 1-Fire
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1763475588}
   m_LocalRotation: {x: 0, y: 0, z: -0.70153135, w: 0.71263856}
-  m_LocalPosition: {x: 0.51595616, y: -1.7676458, z: 0}
+  m_LocalPosition: {x: 0.619, y: -1.827, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -71,15 +71,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300008, guid: 062e21b2a29f58e4c98d95d3208a87a5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.85, y: 0.85}
+  m_Size: {x: 1, y: 0.89}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!58 &1763475591
@@ -95,7 +95,7 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.43, y: 0.42}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.42876983
 --- !u!114 &1763475590

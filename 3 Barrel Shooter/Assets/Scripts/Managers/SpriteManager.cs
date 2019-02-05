@@ -920,6 +920,16 @@ public class SpriteManager
 
     public Sprite GetElementParticleSpriteByID(int id)
     {
+        Debug.Log(id);
+        if (id == 3) //Water
+        {
+            return elementFluidSprites[1];
+        }
+        else if (id == 6)
+        {
+            return elementFluidSprites[2];
+        }
+
         return elementFluidSprites[id-1];
     }
 
@@ -967,9 +977,13 @@ public class SpriteManager
         string[] lines = Regex.Split(txt.text, "\n|\r|\r\n");
 
         elementFluidSprites = new Sprite[lines.Length + 1];
+        int j = 0;
         for (int i = 0; i < lines.Length; i++)
         {
-            elementFluidSprites[i] = (Sprite)Resources.Load("Fluids/Fluid Sprites/" + lines[i]);
+            if (lines[i] != "")
+                elementFluidSprites[j++] = (Sprite)Resources.Load("Fluids/Fluid Sprites/" + lines[i]);
+
+            i++;
         }
     }
 }
