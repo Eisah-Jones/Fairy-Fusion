@@ -920,7 +920,6 @@ public class SpriteManager
 
     public Sprite GetElementParticleSpriteByID(int id)
     {
-        Debug.Log(id);
         if (id == 3) //Water
         {
             return elementFluidSprites[1];

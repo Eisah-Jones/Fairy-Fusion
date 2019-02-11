@@ -6,7 +6,7 @@ Sprite:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Bullets_8
+  m_Name: Steam
   m_Rect:
     serializedVersion: 2
     x: 331
@@ -102,7 +102,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: c3f528bfc3f5283f00000000c3f5283fc3f5283f00000000c3f528bfc3f528bf00000000c3f5283fc3f528bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: c3f528bfc3f5283f00000000c3f5283fc3f5283f00000000c3f528bfc3f528bf00000000c3f5283fc3f528bf000000008988303fcdccec3eefee763fcdccec3e8988303f3333833eefee763f3333833e
     m_Bindpose: []
     textureRect:
       serializedVersion: 2

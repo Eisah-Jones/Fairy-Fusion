@@ -27,7 +27,7 @@ public class ElementParticle : MonoBehaviour {
         particleOwner = pO;
         levelManager = lm;
 
-        StartCoroutine("DestroyParticle");
+        //StartCoroutine("DestroyParticle");
     }
 
 
@@ -99,7 +99,6 @@ public class ElementParticle : MonoBehaviour {
             pi.health = result.health;
             //pi.gameObject.GetComponent<PlayerController>().HandleEffects(result.effect, collision.gameObject.transform);
             //Debug.Log("New PlayerHealth: " + pi.health);
-
         }
     }
 }
