@@ -142,11 +142,11 @@ public class LevelGenerator : MonoBehaviour {
             player.AddComponent<PlayerInfo>(); // Add PlayerInfo script
             player.GetComponent<PlayerInfo>().InitPlayerInfo(lm, i+1); // Initialize player info script
             GameObject playerGun = player.transform.Find("Fairies").gameObject; // Get a reference to the player's gun object
-            playerGun.AddComponent<VacuumController>(); // Add vacuum controller
-            playerGun.GetComponent<VacuumController>().SetVacuum(player.GetComponent<PlayerInfo>().GetVacuum(), lm);
+            playerGun.AddComponent<FairyController>(); // Add vacuum controller
+            playerGun.GetComponent<FairyController>().SetVacuum(player.GetComponent<PlayerInfo>().GetVacuum(), lm);
             playerGun.AddComponent<ProjectileSpawner>(); // Add a projectile spawner script to the player gun
             PlayerController pc = player.GetComponent<PlayerController>();
-            pc.InitPlayerController(playerGun.GetComponent<VacuumController>());
+            pc.InitPlayerController(playerGun.GetComponent<FairyController>());
             result.Add(player); //Add player to our player list
 			player.name = string.Format("Player{0}",i+1); // needs to be +1 since you add 1
         }

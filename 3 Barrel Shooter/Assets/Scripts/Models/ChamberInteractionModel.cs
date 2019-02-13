@@ -15,9 +15,9 @@ public class ChamberInteractionModel
 
 
     // Increases the amount of an element in a chamber
-    public List<Vacuum.Chamber.InventoryInfo> IncreaseElement(List<Vacuum.Chamber.InventoryInfo> c, int id){
+    public List<Fairies.Fairy.InventoryInfo> IncreaseElement(List<Fairies.Fairy.InventoryInfo> c, int id){
 
-        List<Vacuum.Chamber.InventoryInfo> result = c;
+        List<Fairies.Fairy.InventoryInfo> result = c;
 
         // Unit value will vary per element, how much ammo is added per 1 element unit?
         int unitValue = 1;
@@ -28,23 +28,23 @@ public class ChamberInteractionModel
 
 
     // Adds an element to a chamber
-    public List<Vacuum.Chamber.InventoryInfo> AddToChamber(List<Vacuum.Chamber.InventoryInfo> c, string name, int id)
+    public List<Fairies.Fairy.InventoryInfo> AddToChamber(List<Fairies.Fairy.InventoryInfo> c, string name, int id)
     {
-        List<Vacuum.Chamber.InventoryInfo> result = c;
+        List<Fairies.Fairy.InventoryInfo> result = c;
 
         // Unit value will vary per element, how much ammo is added per 1 element unit?
         int unitValue = 1;
         if (c.Count <= em.GetElementDataByID(id).chamberCapacity ) // checks if element is at maxcapacity
         {
-            result.Add(new Vacuum.Chamber.InventoryInfo(name, id, unitValue));
+            result.Add(new Fairies.Fairy.InventoryInfo(name, id, unitValue));
         }
         return result;
     }
 
 
     // Removes an element from the chamber
-    public List<Vacuum.Chamber.InventoryInfo> RemoveFromChamber(List<Vacuum.Chamber.InventoryInfo> c, int num){
-        List<Vacuum.Chamber.InventoryInfo> result = c;
+    public List<Fairies.Fairy.InventoryInfo> RemoveFromChamber(List<Fairies.Fairy.InventoryInfo> c, int num){
+        List<Fairies.Fairy.InventoryInfo> result = c;
 
         result[0].DecreaseCount(num);
 
@@ -58,8 +58,8 @@ public class ChamberInteractionModel
 
     //General function for combining elements in chamber
     //Assuming always 2 objects in the chamber
-    public List<Vacuum.Chamber.InventoryInfo> NormalizeChamber(List<Vacuum.Chamber.InventoryInfo> c){
-        List<Vacuum.Chamber.InventoryInfo> newChamber = c;
+    public List<Fairies.Fairy.InventoryInfo> NormalizeChamber(List<Fairies.Fairy.InventoryInfo> c){
+        List<Fairies.Fairy.InventoryInfo> newChamber = c;
         if (c.Count == 2)
         {
             int n1 = c[0].GetElementID();
@@ -68,17 +68,17 @@ public class ChamberInteractionModel
             string result = em.GetElementDataByID(n1).chamberInteractions.GetChamberResult(n2);
 
             if (result == "") // There was no reaction with the added element, remove and return
-                return new List<Vacuum.Chamber.InventoryInfo>(){c[0]};
+                return new List<Fairies.Fairy.InventoryInfo>(){c[0]};
 
             //This will be a mapped function for normalization conversion
             int count = 1;
-            newChamber = new List<Vacuum.Chamber.InventoryInfo> { new Vacuum.Chamber.InventoryInfo(result, em.GetElementIDByName(result), count) };
+            newChamber = new List<Fairies.Fairy.InventoryInfo> { new Fairies.Fairy.InventoryInfo(result, em.GetElementIDByName(result), count) };
         }
         return newChamber;
     }
 
 
-    public elementData GetElementCombination(Vacuum.Chamber c1, Vacuum.Chamber c2){
+    public elementData GetElementCombination(Fairies.Fairy c1, Fairies.Fairy c2){
         elementData elem1 = em.GetElementDataByID(c1.GetElementIDByIndex(0));
         elementData elem2 = em.GetElementDataByID(c2.GetElementIDByIndex(0));
 

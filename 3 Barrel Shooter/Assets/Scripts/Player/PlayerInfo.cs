@@ -7,7 +7,7 @@ public class PlayerInfo : MonoBehaviour
 
     //Level manager should be passed to player when instantiated
     LevelManager levelManager;
-    Vacuum vacuum;
+    Fairies vacuum;
     BoxCollider2D vacuumArea;
     public ParticleSystem deathParticles;
     public float health;
@@ -25,7 +25,7 @@ public class PlayerInfo : MonoBehaviour
     public void InitPlayerInfo(LevelManager lm, int pNum)
     {
         levelManager = lm;
-        vacuum = new Vacuum(levelManager);
+        vacuum = new Fairies(levelManager);
         audioSources[0] = gameObject.AddComponent<AudioSource>();
         audioSources[1] = gameObject.AddComponent<AudioSource>();
         audioSources[2] = gameObject.AddComponent<AudioSource>();
@@ -43,7 +43,7 @@ public class PlayerInfo : MonoBehaviour
     }
 
 
-    public Vacuum GetVacuum()
+    public Fairies GetVacuum()
     {
         return vacuum;
     }

@@ -27,7 +27,7 @@ public class ElementParticle : MonoBehaviour {
         particleOwner = pO;
         levelManager = lm;
 
-        //StartCoroutine("DestroyParticle");
+        StartCoroutine("DestroyParticle");
     }
 
 

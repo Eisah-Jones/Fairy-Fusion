@@ -86,7 +86,7 @@
     "fireRate": 0,
     "projectileType": "Fluid",
     "projectileLife": 10,
-    "chamberCapacity": 100,
+    "chamberCapacity": 10,
     "playerCollisionEffects": [
       "Burn"
     ],
@@ -161,7 +161,7 @@
     "name": "Rock",
     "ID": 2,
     "damage": 10,
-    "fireRate": 1,
+    "fireRate": 20,
     "projectileType": "Bullet",
     "projectileLife": 40,
     "chamberCapacity": 10,

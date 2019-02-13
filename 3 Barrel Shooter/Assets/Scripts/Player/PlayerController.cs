@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     float last_heading;
     public LevelManager lm;
     public AudioSource audioSource;
-    private VacuumController vacControl;
+    private FairyController vacControl;
 	private SpriteRenderer spriteR;
 
     void Start()
@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void InitPlayerController(VacuumController vc){
+    public void InitPlayerController(FairyController vc){
         vacControl = vc;
         playerBody = this.gameObject;
         fairies = transform.Find("Fairies").gameObject;

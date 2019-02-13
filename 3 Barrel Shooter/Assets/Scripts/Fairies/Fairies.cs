@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // The Vacuum class is used to represent all of the information stored in a player's vacuum
-public class Vacuum{
+public class Fairies{
 
     //Chamber represents one slot in the vacuum
-    public class Chamber
+    public class Fairy
     {
       
         // #######  INVENTORY PAIR CODE  #######
@@ -18,6 +18,7 @@ public class Vacuum{
             private int elementID;
             private int count;
             private int maxCount;
+
             //Constructor
             public InventoryInfo(string n, int id, int c)
             {
@@ -75,7 +76,7 @@ public class Vacuum{
 
 
 
-        // #######  CHAMBER CODE  #######
+        // #######  FAIRY CODE  #######
 
 
         LevelManager levelManager;
@@ -86,7 +87,7 @@ public class Vacuum{
 
 
         //Constructor
-        public Chamber(LevelManager lm)
+        public Fairy(LevelManager lm)
         {
             levelManager = lm;
             interactionModel = lm.chamberInteractionModel;
@@ -97,7 +98,7 @@ public class Vacuum{
 
 
         //Adds given element to the chamber
-        public Vacuum.Chamber Add(string name, int elemID)
+        public Fairies.Fairy Add(string name, int elemID)
         {
             //Check to see if the element is already in the chamber
             if (this.ContainsElement(name)){
@@ -180,14 +181,14 @@ public class Vacuum{
 
 
 
-    // #######  VACUUM CODE  #######
+    // #######  Fairies CODE  #######
 
     // NOTE: CIM MAY NOT BE NECESSARY IN VACUUM, JUST IN CHAMBER
 
     //declare vacuum chamber array
     LevelManager levelManager;
     ChamberInteractionModel cim;
-    private Chamber[] chambers;
+    private Fairy[] chambers;
     private elementData[] combinationChambers;
     private int currentChamber;
     private bool vacuumOn1; //True = ON, False = OFF
@@ -197,14 +198,14 @@ public class Vacuum{
     private bool isCombiningElements; //True = combinationChambers, False = normalChambers
 
     // Vacuum constructor
-    public Vacuum(LevelManager lm){
+    public Fairies(LevelManager lm){
 
         levelManager = lm;
 
         cim = levelManager.chamberInteractionModel;
 
         //assign and populate chamber array
-        chambers = new Chamber[3];
+        chambers = new Fairy[3];
         combinationChambers = new elementData[3];
         currentChamber = 0;
         vacuumOn1 = false;
@@ -212,7 +213,7 @@ public class Vacuum{
         isCombiningElements = true; //false for original control scheme
 
         for (int i = 0; i < 3; i++)
-            chambers[i] = new Chamber(levelManager);
+            chambers[i] = new Fairy(levelManager);
     }
 
     // Sets the combination chambers based on normal chambers
@@ -240,7 +241,7 @@ public class Vacuum{
         vacuumOn2 = b2;
     }
 
-    public Chamber[] GetChambers()
+    public Fairy[] GetChambers()
     {
         return chambers;
     }
@@ -290,7 +291,7 @@ public class Vacuum{
     }
 
     // Returns the current chamber
-    public Chamber GetCurrentChamber(bool sucking){
+    public Fairy GetCurrentChamber(bool sucking){
         int selectedChamber;
         bool b;
         if (sucking) { b = vacuumOn1; } else { b = shootingLeft; }
@@ -307,7 +308,7 @@ public class Vacuum{
 
 
     // Returns the chamber given the index
-    public Chamber GetChamberByIndex(int i)
+    public Fairy GetChamberByIndex(int i)
     {
         return chambers[i];
     }
@@ -345,7 +346,7 @@ public class Vacuum{
 
 
     // Shooting scripts
-    public Chamber.InventoryInfo Shoot(bool combo, int chamberNum)
+    public Fairy.InventoryInfo Shoot(bool combo, int chamberNum)
     {
 
         // Check to make sure that we can shoot
@@ -389,7 +390,7 @@ public class Vacuum{
             }
 
             elementData ed = combinationChambers[currentChamber];
-            return new Chamber.InventoryInfo(ed.name, ed.ID, 1);
+            return new Fairy.InventoryInfo(ed.name, ed.ID, 1);
         }
 
         // If we are not combining elements
@@ -398,7 +399,7 @@ public class Vacuum{
         string name = chambers[selectedChamber].GetContents()[0].GetElementName();
         int id = chambers[selectedChamber].GetContents()[0].GetElementID();
 
-        Chamber.InventoryInfo result = chambers[selectedChamber].GetContents()[0];
+        Fairy.InventoryInfo result = chambers[selectedChamber].GetContents()[0];
 
         // Remove that element from the chamber
         chambers[selectedChamber].Remove(result.GetElementName(), 1);
@@ -416,7 +417,7 @@ public class Vacuum{
 
         for (int i = 0; i < 3; i++){
             s += "Chamber " + i.ToString() + ":\n";
-            foreach(Chamber.InventoryInfo elem in chambers[i].GetContents()){
+            foreach(Fairy.InventoryInfo elem in chambers[i].GetContents()){
                 s += "  " + elem.GetElementName() + ": " + elem.GetCount().ToString() + "\n";
             }
         }
