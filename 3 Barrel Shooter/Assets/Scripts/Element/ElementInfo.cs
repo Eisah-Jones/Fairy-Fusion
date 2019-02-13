@@ -10,13 +10,14 @@ public class ChamberInteractions
     public string Fire;
     public string Rock;
     public string Water;
-    public string Wood;
+    public string Leaf;
     public string Air;
     public string Steam;
     public string Fireball;
     public string Mud;
-    public string Stakes;
-    public string Birdshot;
+    public string Sniper;
+    public string SpikeShot;
+    public string Laser;
 
     public string GetChamberResult(string name){
 
@@ -26,7 +27,7 @@ public class ChamberInteractions
 
         if (name == "Water") return Water;
 
-        if (name == "Wood") return Wood;
+        if (name == "Leaf") return Leaf;
 
         if (name == "Air") return Air;
 
@@ -36,7 +37,11 @@ public class ChamberInteractions
 
         if (name == "Mud") return Mud;
 
-        if (name == "Stakes") return Stakes;
+        if (name == "Sniper") return Sniper;
+
+        if (name == "SpikeShot") return SpikeShot;
+
+        if (name == "Laser") return Laser;
 
         return "None";
     }
@@ -65,13 +70,14 @@ public class ElementCollisions
     public collisionPair Fire;
     public collisionPair Rock;
     public collisionPair Water;
-    public collisionPair Wood;
+    public collisionPair Leaf;
     public collisionPair Air;
     public collisionPair Steam;
     public collisionPair Fireball;
     public collisionPair Mud;
-    public collisionPair Stakes;
-    public collisionPair Birdshot;
+    public collisionPair Sniper;
+    public collisionPair SpikeShot;
+    public collisionPair Laser;
 
     public collisionPair GetCollisionResult(string name){
         if (name == "Fire") return Fire;
@@ -80,7 +86,7 @@ public class ElementCollisions
 
         if (name == "Water") return Water;
 
-        if (name == "Wood") return Wood;
+        if (name == "Leaf") return Leaf;
 
         if (name == "Air") return Air;
 
@@ -90,7 +96,11 @@ public class ElementCollisions
 
         if (name == "Mud") return Mud;
 
-        if (name == "Stakes") return Stakes;
+        if (name == "Sniper") return Sniper;
+
+        if (name == "SpikeShot") return SpikeShot;
+
+        if (name == "Laser") return Laser;
 
         return new collisionPair();
     }
@@ -119,10 +129,12 @@ public class ElementInfo
     public elementData Fire;
     public elementData Rock;
     public elementData Water;
-    public elementData Wood;
+    public elementData Leaf;
     public elementData Air;
     public elementData Steam;
     public elementData Fireball;
     public elementData Mud;
-    public elementData Stakes;
+    public elementData Sniper;
+    public elementData SpikeShot;
+    public elementData Laser;
 }

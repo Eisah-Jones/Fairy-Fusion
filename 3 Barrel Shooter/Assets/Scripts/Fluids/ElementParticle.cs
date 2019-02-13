@@ -77,7 +77,7 @@ public class ElementParticle : MonoBehaviour {
 
         }
         //ElementObject element = collision.gameObject.GetComponent<ElementObject>();
-        //Debug.Log(elemName);
+        //Debug.Log("PI: " + pi);
         if (elemName == "Fire" || elemName == "Water" || elemName == "Steam") // checks if element is colliding with player and does damage if its enemy
         {
             //particleOwner = "Player" + GetComponentInParent<PlayerInfo>().playerNum;

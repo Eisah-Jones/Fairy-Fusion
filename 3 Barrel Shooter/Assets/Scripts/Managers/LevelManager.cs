@@ -9,17 +9,23 @@ using UnityEngine.Tilemaps;
 // Stores references to scripts that can be accessed by the player
 public class LevelManager: MonoBehaviour {
 
-    public ElementManager elementManager = new ElementManager();
-    public ChamberInteractionModel chamberInteractionModel;
-    public PlayerCollisionModel playerCollisionModel;
-    public ElementCollisionModel elementCollisionModel;
+    // Managers
+    public ElementManager elementManager;
     public ControllerManager controllerManager;
     public SpriteManager spriteManager;
     public ResourceManager resourceManager;
     public ParticleManager particleManager;
     public FluidManager fluidManager;
     public SoundManager soundManager;
+    public CameraManager cameraManager;
+
+    // Models
+    public ChamberInteractionModel chamberInteractionModel;
+    public PlayerCollisionModel playerCollisionModel;
+    public ElementCollisionModel elementCollisionModel;
+
     public Countdown countdown;
+
     private LevelGenerator levelGen = new LevelGenerator();
 
     public GameObject player;
@@ -30,7 +36,7 @@ public class LevelManager: MonoBehaviour {
 
     public bool processCollision;
 
-    public GameObject[] elemPrefabs = new GameObject[3];
+    public GameObject[] elemPrefabs;
 
     public ParticleSystem[] particles = new ParticleSystem[5];
 
@@ -49,90 +55,68 @@ public class LevelManager: MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        numPlayers = 2;
+        numPlayers = 2; // will eventually be given by player selection menu
+
+        // Init/Create Manager References
+        elementManager = new ElementManager();
         elementManager.initElementManager();
-        chamberInteractionModel = new ChamberInteractionModel(elementManager);
-        playerCollisionModel = new PlayerCollisionModel(elementManager);
-        elementCollisionModel = new ElementCollisionModel(elementManager);
-        controllerManager = GetComponent<ControllerManager>();
+
+        controllerManager = new ControllerManager();
+        controllerManager.InitControllerManager(this);
+
         spriteManager = new SpriteManager();
+
         resourceManager = new ResourceManager();
+
         fluidManager = new FluidManager();
+
         //particleManager = new ParticleManager();
+
+        cameraManager = new CameraManager();
+        cameraManager.InitCameraManager(numPlayers);
+
         soundManager = new SoundManager();
         soundManager.InitSoundManager();
+
+        // Create Model References
+        chamberInteractionModel = new ChamberInteractionModel(elementManager);
+
+        playerCollisionModel = new PlayerCollisionModel(elementManager);
+
+        elementCollisionModel = new ElementCollisionModel(elementManager);
+
         countdown = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Countdown>();
         countdown.InitStart();
+
+        // Load element prefabs
+        elemPrefabs = elementManager.LoadElementPrefabs();
+
+        // Generate the level map
         levelGen.GenerateLevel(ground, groundCollider, groundTrigger, spriteManager, resourceManager);
 
+        // Spawn and setup players and cameras
         playerList = levelGen.SpawnPlayers(player, GetComponent<LevelManager>(), numPlayers);
         foreach (GameObject p in playerList) {
 			pInfoList.Add (p.GetComponent<PlayerInfo> ());
-            GameObject cameraObject = Instantiate(cam, Vector3.zero, Quaternion.identity);
-            cameras.Add(cameraObject);
+            cameraManager.AddCamera();
 		}
-        InitializeCameras();
-        UpdateCameras();
+        cameraManager.SetCameraRatio();
+        cameraManager.UpdateCameraPosition(playerList);
 
+        // Spawn Resources
         levelGen.SpawnResources(resourceManager);
+
         countdown.startPreCountDown();
-        processCollision = true;
 	}
 
 
-    public void SpawnParticleEffectAtPosition(Vector3 pos, int particleIndex)
-    {
-        Instantiate(particles[particleIndex], pos, transform.rotation);
-    }
-
-
-    public string GetTriggerTile(int x, int y)
-    {
-        return levelGen.GetTerrainMap()[x, y];
-    }
-
-
-    private void InitializeCameras()
-    {
-        if (cameras.Count == 2)
-        {
-            cameras[0].GetComponent<Camera>().rect = new Rect(0.0f, 0.0f, 0.5f, 1.0f);
-            cameras[1].GetComponent<Camera>().rect = new Rect(0.5f, 0.0f, 0.5f, 1.0f);
-        }
-        else if (cameras.Count == 3)
-        {
-            cameras[0].GetComponent<Camera>().rect = new Rect(0.0f, 0.5f, 0.5f, 0.5f);
-            cameras[1].GetComponent<Camera>().rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f);
-            cameras[2].GetComponent<Camera>().rect = new Rect(0.25f, 0.0f, 0.5f, 0.5f);
-        }
-        else if (cameras.Count == 4)
-        {
-            cameras[0].GetComponent<Camera>().rect = new Rect(0.0f, 0.5f, 0.5f, 0.5f);
-            cameras[1].GetComponent<Camera>().rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f);
-            cameras[2].GetComponent<Camera>().rect = new Rect(0.0f, 0.0f, 0.5f, 0.5f);
-            cameras[3].GetComponent<Camera>().rect = new Rect(0.5f, 0.0f, 0.5f, 0.5f);
-        }
-    }
-
-
-    private void UpdateCameras()
-    {
-        for (int i = 0; i < cameras.Count; i++)
-        {
-            GameObject c = cameras[i];
-            Vector3 playerPos = playerList[i].transform.position;
-            c.transform.position = new Vector3(playerPos.x, playerPos.y, -12f);
-        }
-    }
-
-
-    //Continually check to see if game is over, track player states, log information, etc.
+    //Continually track player states, log information, etc.
     //Fixed update because of physics calculations
     private void FixedUpdate()
     {
         // Retrieve and send controller inputs to the player
         SendControllerInputsToPlayer(controllerManager.GetControllerInputs());
-        UpdateCameras();
+        cameraManager.UpdateCameraPosition(playerList);
     }
 
 
@@ -140,16 +124,17 @@ public class LevelManager: MonoBehaviour {
 	private void Update(){
 		int alive_count = 0;
 		int winner = 0;
+
 		foreach (PlayerInfo info in pInfoList) {
 			if (info.lives <= 0)
 				alive_count += 1;
 			else
 				winner = info.playerNum;
 		}
+
 		if (alive_count == 1) {
 			endScreen.SetActive (true);
 			winText.text = string.Format ("Player {0} Wins!", winner);
-			//Time.timeScale = 0f;
 		}
 			
 	}
@@ -166,13 +151,20 @@ public class LevelManager: MonoBehaviour {
     }
 
 
-    public void SetProcessCollision(bool b){
-        Debug.Log("Set Process Collision " + b.ToString());
-        processCollision = b;
+    public int GetNumPlayers(){
+        return numPlayers;
     }
 
 
-    public int GetNumPlayers(){
-        return playerList.Count;
+    // These function need to be moved to sensical
+    public void SpawnParticleEffectAtPosition(Vector3 pos, int particleIndex)
+    {
+        Instantiate(particles[particleIndex], pos, transform.rotation);
+    }
+
+
+    public string GetTriggerTile(int x, int y)
+    {
+        return levelGen.GetTerrainMap()[x, y];
     }
 }

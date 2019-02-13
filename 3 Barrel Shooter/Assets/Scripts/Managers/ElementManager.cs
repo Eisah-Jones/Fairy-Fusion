@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using System.IO;
 using UnityEditor;
@@ -27,27 +28,41 @@ public class ElementManager
             //NEED TO PUT ALL ELEMENTS INTO AN ARRAY
             InitElementDataList();
         }
-        else
-        {
-            Debug.LogError("Cannot load element data!");
-        }
+        else{ Debug.LogError("Cannot load element data!"); }
     }
 
     private void InitElementDataList()
     {
 
         elementDataList = new List<elementData>();
-
         // Must be added in order by ID!
         elementDataList.Add(loadedElementInfo.Fire);
         elementDataList.Add(loadedElementInfo.Rock);
         elementDataList.Add(loadedElementInfo.Water);
-        elementDataList.Add(loadedElementInfo.Wood);
+        elementDataList.Add(loadedElementInfo.Leaf);
         elementDataList.Add(loadedElementInfo.Air);
         elementDataList.Add(loadedElementInfo.Steam);
         elementDataList.Add(loadedElementInfo.Fireball);
         elementDataList.Add(loadedElementInfo.Mud);
-        elementDataList.Add(loadedElementInfo.Stakes);
+        elementDataList.Add(loadedElementInfo.Sniper);
+        elementDataList.Add(loadedElementInfo.SpikeShot);
+        elementDataList.Add(loadedElementInfo.Laser);
+    }
+
+    public GameObject[] LoadElementPrefabs()
+    {
+        // Load Sprites from resources folders
+        TextAsset txt = (TextAsset)Resources.Load("Elements/loadElements", typeof(TextAsset));
+        string[] lines = Regex.Split(txt.text, "\n|\r|\r\n");
+
+        GameObject[] result = new GameObject[lines.Length + 1];
+        int j = 0;
+        for (int i = 0; i < lines.Length; i++)
+        {
+            if (lines[i] != "")
+                result[j++] = (GameObject)Resources.Load("Elements/" + lines[i]);
+        }
+        return result;
     }
 
 
@@ -55,27 +70,25 @@ public class ElementManager
         return elementDataList[id - 1].projectileType;
     }
 
-
-    // Does not work!
     //Gets the capacity of an element given its ID
-    //public int GetCapacityByName(string name)
-    //{
-    //    // loadedElementInfo.Element.chamberCapacity
-    //    return ExpressionEvaluator.Evaluate<int>(string.Format("loadedElementInfo.{0}.chamberCapacity", name));
-    //}
+    public int GetCapacityByName(string name)
+    {
+        foreach(elementData eD in elementDataList)
+        {
+            if (eD.name == name)
+                return eD.chamberCapacity;
+        }
+        return -1;
+    }
 
 
-    public float GetDamageByName(string n)
+    public float GetDamageByName(string name)
     {
         foreach (elementData eD in elementDataList)
         {
-            if (eD == null) continue;
-            if (eD.name == n)
-            {
+            if (eD.name == name)
                 return eD.damage;
-            }
         }
-
         return -1;
     }
 
@@ -95,9 +108,8 @@ public class ElementManager
             {
                 return eD.ID;
             }
-        }
 
-        // If no element is found
+        }
         return -1;
     }
 
@@ -106,15 +118,11 @@ public class ElementManager
     {
         foreach (elementData eD in elementDataList)
         {
-            // tempfix
-            if (eD == null) { continue; }
             if (eD.name == n)
             {
                 return eD;
             }
         }
-
-        // No element found
         return null;
     }
 

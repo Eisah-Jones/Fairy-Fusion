@@ -1,0 +1,11 @@
+Fire
+Rock
+Water
+Leaf
+Air
+Fireball
+Steam
+Sniper
+Mud
+SpikeShot
+Laser

@@ -16,13 +16,14 @@
       "Fire": null,
       "Rock": null,
       "Water": null,
-      "Wood": null,
+      "Leaf": null,
       "Air": null,
       "Steam": null,
       "Fireball": null,
       "Mud": null,
-      "Stakes": null,
-      "Birdshot": null
+      "Sniper": null,
+      "SpikeShot": null,
+      "Laser": null
     },
     "combinationRequirements": {
       "elem1": null,
@@ -43,7 +44,7 @@
         "c1": null,
         "c2": null
       },
-      "Wood": {
+      "Leaf": {
         "c1": null,
         "c2": null
       },
@@ -63,11 +64,15 @@
         "c1": null,
         "c2": null
       },
-      "Stakes": {
+      "Sniper": {
         "c1": null,
         "c2": null
       },
-      "Birdshot": {
+      "SpikeShot": {
+        "c1": null,
+        "c2": null
+      },
+      "Laser": {
         "c1": null,
         "c2": null
       }
@@ -89,13 +94,14 @@
       "Fire": "Ammo",
       "Rock": "Fireball",
       "Water": "Steam",
-      "Wood": "Ammo",
+      "Leaf": "Ammo",
       "Air": null,
       "Steam": null,
       "Fireball": null,
       "Mud": null,
-      "Stakes": null,
-      "Birdshot": null
+      "Sniper": null,
+      "SpikeShot": null,
+      "Laser": null
     },
     "combinationRequirements": {
       "elem1": null,
@@ -116,7 +122,7 @@
         "c1": "Destroy",
         "c2": null
       },
-      "Wood": {
+      "Leaf": {
         "c1": null,
         "c2": "Destroy"
       },
@@ -136,11 +142,15 @@
         "c1": "Destroy",
         "c2": "Rock"
       },
-      "Stakes": {
+      "Sniper": {
         "c1": null,
-        "c2": "Wood"
+        "c2": "Leaf"
       },
-      "Birdshot": {
+      "SpikeShot": {
+        "c1": null,
+        "c2": null
+      },
+      "Laser": {
         "c1": null,
         "c2": null
       }
@@ -162,13 +172,14 @@
       "Fire": "Fireball",
       "Rock": "Ammo",
       "Water": "Mud",
-      "Wood": "Birdshot",
+      "Leaf": "SpikeShot",
       "Air": null,
       "Steam": null,
       "Fireball": null,
       "Mud": null,
-      "Stakes": null,
-      "Birdshot": null
+      "Sniper": null,
+      "SpikeShot": null,
+      "Laser": null
     },
     "combinationRequirements": {
       "elem1": null,
@@ -189,7 +200,7 @@
         "c1": "Destroy",
         "c2": null
       },
-      "Wood": {
+      "Leaf": {
         "c1": null,
         "c2": "Destroy"
       },
@@ -209,11 +220,15 @@
         "c1": null,
         "c2": "Stop"
       },
-      "Stakes": {
+      "Sniper": {
         "c1": "Destroy",
         "c2": "Destroy"
       },
-      "Birdshot": {
+      "SpikeShot": {
+        "c1": null,
+        "c2": null
+      },
+      "Laser": {
         "c1": null,
         "c2": null
       }
@@ -235,13 +250,14 @@
       "Fire": "Steam",
       "Rock": "Mud",
       "Water": "Ammo",
-      "Wood": "Stakes",
+      "Leaf": "Sniper",
       "Air": null,
       "Steam": null,
       "Fireball": null,
       "Mud": null,
-      "Stakes": null,
-      "Birdshot": null
+      "Sniper": null,
+      "SpikeShot": null,
+      "Laser": null
     },
     "combinationRequirements": {
       "elem1": null,
@@ -262,7 +278,7 @@
         "c1": "Stop",
         "c2": "Stop"
       },
-      "Wood": {
+      "Leaf": {
         "c1": null,
         "c2": "Stop"
       },
@@ -282,19 +298,23 @@
         "c1": null,
         "c2": "Stop"
       },
-      "Stakes": {
+      "Sniper": {
         "c1": null,
         "c2": "Destroy"
       },
-      "Birdshot": {
+      "SpikeShot": {
+        "c1": null,
+        "c2": null
+      },
+      "Laser": {
         "c1": null,
         "c2": null
       }
     }
   },
 
-  "Wood": {
-    "name": "Wood",
+  "Leaf": {
+    "name": "Leaf",
     "ID": 4,
     "damage": 5,
     "fireRate": 0,
@@ -307,14 +327,15 @@
     "chamberInteractions": {
       "Fire": "Fire",
       "Rock": "Ammo",
-      "Water": "Stakes",
-      "Wood": "Ammo",
+      "Water": "Sniper",
+      "Leaf": "Ammo",
       "Air": null,
       "Steam": null,
       "Fireball": null,
       "Mud": null,
-      "Stakes": null,
-      "Birdshot": null
+      "Sniper": null,
+      "SpikeShot": null,
+      "Laser": null
     },
     "combinationRequirements": {
       "elem1": null,
@@ -335,7 +356,7 @@
         "c1": null,
         "c2": null
       },
-      "Wood": {
+      "Leaf": {
         "c1": "Destroy",
         "c2": "Destroy"
       },
@@ -355,11 +376,15 @@
         "c1": "Destroy",
         "c2": "Stop"
       },
-      "Stakes": {
+      "Sniper": {
         "c1": "Destroy",
         "c2": null
       },
-      "Birdshot": {
+      "SpikeShot": {
+        "c1": null,
+        "c2": null
+      },
+      "Laser": {
         "c1": null,
         "c2": null
       }
@@ -381,13 +406,14 @@
       "Fire": null,
       "Rock": null,
       "Water": null,
-      "Wood": null,
+      "Leaf": null,
       "Air": null,
       "Steam": null,
       "Fireball": null,
       "Mud": null,
-      "Stakes": null,
-      "Birdshot": null
+      "Sniper": null,
+      "SpikeShot": null,
+      "Laser": null
     },
     "combinationRequirements": {
       "elem1": null,
@@ -408,7 +434,7 @@
         "c1": null,
         "c2": null
       },
-      "Wood": {
+      "Leaf": {
         "c1": null,
         "c2": null
       },
@@ -428,13 +454,17 @@
         "c1": null,
         "c2": "Reflect"
       },
-      "Stakes": {
+      "Sniper": {
         "c1": null,
         "c2": "Reflect"
       },
-      "Birdshot": {
+      "SpikeShot": {
         "c1": null,
         "c2": "Reflect"
+      },
+      "Laser": {
+        "c1": null,
+        "c2": null
       }
     }
   },
@@ -455,13 +485,14 @@
       "Fire": null,
       "Rock": null,
       "Water": null,
-      "Wood": null,
+      "Leaf": null,
       "Air": null,
       "Steam": null,
       "Fireball": null,
       "Mud": null,
-      "Stakes": null,
-      "Birdshot": null
+      "Sniper": null,
+      "SpikeShot": null,
+      "Laser": null
     },
     "combinationRequirements": {
       "elem1": "Fire",
@@ -482,7 +513,7 @@
         "c1": "Rock",
         "c2": "Destroy"
       },
-      "Wood": {
+      "Leaf": {
         "c1": null,
         "c2": "Destroy"
       },
@@ -502,11 +533,15 @@
         "c1": "Destroy",
         "c2": "Destroy"
       },
-      "Stakes": {
+      "Sniper": {
         "c1": null,
         "c2": "Destroy"
       },
-      "Birdshot": {
+      "SpikeShot": {
+        "c1": null,
+        "c2": null
+      },
+      "Laser": {
         "c1": null,
         "c2": null
       }
@@ -529,13 +564,14 @@
       "Fire": "Ammo",
       "Rock": "Fireball",
       "Water": "Steam",
-      "Wood": "Ammo",
+      "Leaf": "Ammo",
       "Air": null,
       "Steam": null,
       "Fireball": null,
       "Mud": null,
-      "Stakes": null,
-      "Birdshot": null
+      "Sniper": null,
+      "SpikeShot": null,
+      "Laser": null
     },
     "combinationRequirements": {
       "elem1": "Water",
@@ -556,7 +592,7 @@
         "c1": null,
         "c2": "Destroy"
       },
-      "Wood": {
+      "Leaf": {
         "c1": null,
         "c2": "Reflect"
       },
@@ -576,11 +612,15 @@
         "c1": null,
         "c2": null
       },
-      "Stakes": {
+      "Sniper": {
         "c1": null,
-        "c2": "Wood"
+        "c2": "Leaf"
       },
-      "Birdshot": {
+      "SpikeShot": {
+        "c1": null,
+        "c2": null
+      },
+      "Laser": {
         "c1": null,
         "c2": null
       }
@@ -602,13 +642,14 @@
       "Fire": null,
       "Rock": null,
       "Water": null,
-      "Wood": null,
+      "Leaf": null,
       "Air": null,
       "Steam": null,
       "Fireball": null,
       "Mud": null,
-      "Stakes": null,
-      "Birdshot": null
+      "Sniper": null,
+      "SpikeShot": null,
+      "Laser": null
     },
     "combinationRequirements": {
       "elem1": "Water",
@@ -629,7 +670,7 @@
         "c1": "Destroy",
         "c2": null
       },
-      "Wood": {
+      "Leaf": {
         "c1": "Stop",
         "c2": "Destroy"
       },
@@ -649,19 +690,23 @@
         "c1": "Stop",
         "c2": "Stop"
       },
-      "Stakes": {
+      "Sniper": {
         "c1": "Stop",
         "c2": null
       },
-      "Birdshot": {
+      "SpikeShot": {
+        "c1": null,
+        "c2": null
+      },
+      "Laser": {
         "c1": null,
         "c2": null
       }
     }
   },
 
-  "Stakes": {
-    "name": "Stakes",
+  "Sniper": {
+    "name": "Sniper",
     "ID": 9,
     "damage": 15,
     "fireRate": 7,
@@ -675,16 +720,17 @@
       "Fire": null,
       "Rock": null,
       "Water": null,
-      "Wood": null,
+      "Leaf": null,
       "Air": null,
       "Steam": null,
       "Fireball": null,
       "Mud": null,
-      "Stakes": null,
-      "Birdshot": null
+      "Sniper": null,
+      "SpikeShot": null,
+      "Laser": null
     },
     "combinationRequirements": {
-      "elem1": "Wood",
+      "elem1": "Leaf",
       "elem1Num": 4,
       "elem2": "Water",
       "elem2Num": 3
@@ -702,7 +748,7 @@
         "c1": null,
         "c2": "Destroy"
       },
-      "Wood": {
+      "Leaf": {
         "c1": null,
         "c2": "Destroy"
       },
@@ -722,11 +768,175 @@
         "c1": null,
         "c2": "Stop"
       },
-      "Stakes": {
+      "Sniper": {
         "c1": "Destroy",
         "c2": "Destroy"
       },
-      "Birdshot": {
+      "SpikeShot": {
+        "c1": null,
+        "c2": null
+      },
+      "Laser": {
+        "c1": null,
+        "c2": null
+      }
+    }
+  },
+
+  "SpikeShot": {
+    "name": null,
+    "ID": null,
+    "damage": null,
+    "fireRate": null,
+    "projectileType": null,
+    "projectileLife": null,
+    "chamberCapacity": null,
+    "speed": 0,
+    "yield": 0,
+    "playerCollisionEffects": [
+      null
+    ],
+    "chamberInteractions": {
+      "Fire": null,
+      "Rock": null,
+      "Water": null,
+      "Leaf": null,
+      "Air": null,
+      "Steam": null,
+      "Fireball": null,
+      "Mud": null,
+      "Sniper": null,
+      "SpikeShot": null,
+      "Laser": null
+    },
+    "combinationRequirements": {
+      "elem1": null,
+      "elem1Num": null,
+      "elem2": null,
+      "elem2Num": null
+    },
+    "elementCollisions": {
+      "Fire": {
+        "c1": null,
+        "c2": null
+      },
+      "Rock": {
+        "c1": null,
+        "c2": null
+      },
+      "Water": {
+        "c1": null,
+        "c2": null
+      },
+      "Leaf": {
+        "c1": null,
+        "c2": null
+      },
+      "Air": {
+        "c1": null,
+        "c2": null
+      },
+      "Steam": {
+        "c1": null,
+        "c2": null
+      },
+      "Fireball": {
+        "c1": null,
+        "c2": null
+      },
+      "Mud": {
+        "c1": null,
+        "c2": null
+      },
+      "Sniper": {
+        "c1": null,
+        "c2": null
+      },
+      "SpikeShot": {
+        "c1": null,
+        "c2": null
+      },
+      "Laser": {
+        "c1": null,
+        "c2": null
+      }
+    }
+  },
+
+  "Laser": {
+    "name": null,
+    "ID": null,
+    "damage": null,
+    "fireRate": null,
+    "projectileType": null,
+    "projectileLife": null,
+    "chamberCapacity": null,
+    "speed": 0,
+    "yield": 0,
+    "playerCollisionEffects": [
+      null
+    ],
+    "chamberInteractions": {
+      "Fire": null,
+      "Rock": null,
+      "Water": null,
+      "Leaf": null,
+      "Air": null,
+      "Steam": null,
+      "Fireball": null,
+      "Mud": null,
+      "Sniper": null,
+      "SpikeShot": null,
+      "Laser": null
+    },
+    "combinationRequirements": {
+      "elem1": null,
+      "elem1Num": null,
+      "elem2": null,
+      "elem2Num": null
+    },
+    "elementCollisions": {
+      "Fire": {
+        "c1": null,
+        "c2": null
+      },
+      "Rock": {
+        "c1": null,
+        "c2": null
+      },
+      "Water": {
+        "c1": null,
+        "c2": null
+      },
+      "Leaf": {
+        "c1": null,
+        "c2": null
+      },
+      "Air": {
+        "c1": null,
+        "c2": null
+      },
+      "Steam": {
+        "c1": null,
+        "c2": null
+      },
+      "Fireball": {
+        "c1": null,
+        "c2": null
+      },
+      "Mud": {
+        "c1": null,
+        "c2": null
+      },
+      "Sniper": {
+        "c1": null,
+        "c2": null
+      },
+      "SpikeShot": {
+        "c1": null,
+        "c2": null
+      },
+      "Laser": {
         "c1": null,
         "c2": null
       }

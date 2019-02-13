@@ -982,7 +982,7 @@ public class SpriteManager
             if (lines[i] != "")
                 elementFluidSprites[j++] = (Sprite)Resources.Load("Fluids/Fluid Sprites/" + lines[i]);
 
-            i++;
+            //i++;
         }
     }
 }

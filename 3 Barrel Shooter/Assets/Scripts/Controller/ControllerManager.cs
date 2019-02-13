@@ -5,14 +5,12 @@ using UnityEngine;
 public class ControllerManager : MonoBehaviour
 {
 
-    LevelManager lm;
+    LevelManager levelManager;
 
     private List<Controller> controllers;
 
-    // Use this for initialization
-    void Start () 
+    public void InitControllerManager(LevelManager lm)
     {
-        lm = GetComponent<LevelManager>();
         controllers = new List<Controller>();
         for (int i = 1; i < 4; i++)
         {
