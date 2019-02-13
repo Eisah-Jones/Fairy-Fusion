@@ -12,6 +12,7 @@ public class FairyController : MonoBehaviour {
     public GameObject throwTransform; // Is this needed?
     bool canShootRight;
     bool canShootLeft;
+    bool canShootCombo;
     public AudioSource audioSource;
     public float maxFairyScale;
     private Vector3 originalFairyScale;
@@ -38,6 +39,7 @@ public class FairyController : MonoBehaviour {
         levelManager = lm;
         canShootRight = true;
         canShootLeft = true;
+        canShootCombo = true;
 
         isDelayingFrame = true;
         frameDelayNum = 2;
@@ -53,9 +55,6 @@ public class FairyController : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         UpdateFairies();
-     
-        //Check for shot
-        
     }
 
 
@@ -233,8 +232,16 @@ public class FairyController : MonoBehaviour {
 
         if (shootingLeft && shootingRight)
         {
+            if (!canShootCombo) return;
             //Shoot a combination of the two chambers
             result = fairies.Shoot(true, -1);
+            if (result != null)
+            {
+                canShootCombo = false;
+                result.GetElementName();
+                IEnumerator c = ShootReset(true, true, (int)levelManager.elementManager.GetElementDataByID(result.GetElementID()).fireRate);
+                StartCoroutine(c);
+            }
         }
         else if (shootingLeft)
         {
@@ -245,7 +252,7 @@ public class FairyController : MonoBehaviour {
             {
                 canShootLeft = false;
                 result.GetElementName();
-                IEnumerator c = ShootReset(true, (int)levelManager.elementManager.GetElementDataByID(result.GetElementID()).fireRate);
+                IEnumerator c = ShootReset(true, false, (int)levelManager.elementManager.GetElementDataByID(result.GetElementID()).fireRate);
                 StartCoroutine(c);
             }
         }
@@ -258,7 +265,7 @@ public class FairyController : MonoBehaviour {
             {
                 canShootRight = false;
                 result.GetElementName();
-                IEnumerator c = ShootReset(false, (int)levelManager.elementManager.GetElementDataByID(result.GetElementID()).fireRate);
+                IEnumerator c = ShootReset(false, false, (int)levelManager.elementManager.GetElementDataByID(result.GetElementID()).fireRate);
                 StartCoroutine(c);
             }
         }
@@ -287,16 +294,16 @@ public class FairyController : MonoBehaviour {
     }
 
 
-    public IEnumerator ShootReset(bool isLeft, int resetFrames)
+    public IEnumerator ShootReset(bool isLeft, bool isCombo, int resetFrames)
     {
-        Debug.Log("RF: " + resetFrames);
         for (int i = 0; i < resetFrames; i++)
         {
             yield return new WaitForFixedUpdate();
         }
 
-        if (isLeft) canShootLeft = true;
-        else canShootRight = false;
+        if (isCombo) canShootCombo = true;
+        else if (isLeft) canShootLeft = true;
+        else canShootRight = true;
     }
 
 

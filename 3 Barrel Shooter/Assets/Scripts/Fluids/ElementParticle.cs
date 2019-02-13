@@ -76,6 +76,8 @@ public class ElementParticle : MonoBehaviour {
             pi = collision.gameObject.GetComponent<PlayerInfo>();
 
         }
+
+        if (pi == null) return;
         //ElementObject element = collision.gameObject.GetComponent<ElementObject>();
         //Debug.Log("PI: " + pi);
         if (elemName == "Fire" || elemName == "Water" || elemName == "Steam") // checks if element is colliding with player and does damage if its enemy

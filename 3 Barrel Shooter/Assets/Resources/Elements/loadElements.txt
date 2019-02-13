@@ -3,8 +3,8 @@ Rock
 Water
 Leaf
 Air
-Fireball
 Steam
+Fireball
 Sniper
 Mud
 SpikeShot
