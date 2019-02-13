@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     public GameObject fairies;
 	public Animator player_animator;
 
-    private bool isMoving = false;
     [SerializeField]
     private float speed = 2f;
     public string inputHorizontal = "Horizontal";
@@ -75,6 +74,13 @@ public class PlayerController : MonoBehaviour
         return playerBody.GetComponent<PlayerInfo>().GetPlayerName();
     }
 
+	private void SetAnimsFalse(){
+		player_animator.SetBool ("Up", false);
+		player_animator.SetBool ("Down", false);
+		player_animator.SetBool ("Side", false);
+		spriteR.flipX = false;
+	}
+
 
     // This function is called every frame by the level manager, called in fixed update
     public void UpdatePlayerMovement(ControllerInputs inputs)
@@ -92,17 +98,34 @@ public class PlayerController : MonoBehaviour
         Vector2 movement = new Vector2(horizontal * speed, vertical * speed);
 
 		//changes the characters direction it faces
-		if (r_horizontal < 0) {
-			spriteR.flipX = true;
+		//changes orientation to face side
+		if (r_horizontal == -1 || r_horizontal == 1) {
+			SetAnimsFalse ();
+			player_animator.SetBool ("Side", true);
 		}
-		else if (r_horizontal > 0){
-			spriteR.flipX = false;
+		if (player_animator.GetBool ("Side") == true) {
+			if (r_horizontal < 0) {
+				spriteR.flipX = true;
+			}
+			else if (r_horizontal > 0){
+				spriteR.flipX = false;
+			}
+		}
+
+		//changes orientation to face up
+		if (r_vertical == 1) {
+			SetAnimsFalse ();
+			player_animator.SetBool ("Up", true);
+		}
+		//changes orientation to face down
+		if (r_vertical == -1) {
+			SetAnimsFalse ();
+			player_animator.SetBool ("Down", true);
 		}
 
         transform.Translate(movement * Time.deltaTime, Space.World);
         if (!Mathf.Approximately(horizontal, 0f) || !Mathf.Approximately(vertical, 0f))
         {
-            isMoving = true;
             if (audioSource!=null)
                 lm.soundManager.PlaySoundsByID(audioSource, 3);
 			player_animator.SetBool ("Moving", true);
