@@ -24,6 +24,7 @@ public class ProjectileSpawner : MonoBehaviour {
         GameObject prefab = lm.elemPrefabs[eID - 1];
         GameObject e = Instantiate(prefab, spawn.position, transform.rotation);
         e.GetComponent<ElementObject>().initElement(lm, lm.elementManager.GetElementDataByID(eID), true, playerName);
+        Debug.Log("Starting Projectile Sound: EID: " + eID);
         if (eID == 4)
         {
             sm.PlaySoundsByID(audioSource, 2); // plays wood chip sound
@@ -48,8 +49,9 @@ public class ProjectileSpawner : MonoBehaviour {
         if (isShootingFluid) return -1;
 
         isShootingFluid = true;
-        
+
         //instantiates flamethrower
+        Debug.Log("Starting Flame Sound: EID: " + eID);
         sm.PlaySoundsByID(audioSource, 6);
 
         GameObject prefab = lm.fluidManager.GetFluidByID(eID);

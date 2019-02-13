@@ -36,6 +36,8 @@ TagManager:
   - WaterFairy
   - EarthFairy
   - DeathParticles
+  - CountText
+  - Canvas
   layers:
   - Default
   - TransparentFX

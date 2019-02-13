@@ -19,7 +19,7 @@ public class LevelManager: MonoBehaviour {
     public ParticleManager particleManager;
     public FluidManager fluidManager;
     public SoundManager soundManager;
-
+    public Countdown countdown;
     private LevelGenerator levelGen = new LevelGenerator();
 
     public GameObject player;
@@ -61,7 +61,8 @@ public class LevelManager: MonoBehaviour {
         //particleManager = new ParticleManager();
         soundManager = new SoundManager();
         soundManager.InitSoundManager();
-
+        countdown = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Countdown>();
+        countdown.InitStart();
         levelGen.GenerateLevel(ground, groundCollider, groundTrigger, spriteManager, resourceManager);
 
         playerList = levelGen.SpawnPlayers(player, GetComponent<LevelManager>(), numPlayers);
@@ -74,7 +75,7 @@ public class LevelManager: MonoBehaviour {
         UpdateCameras();
 
         levelGen.SpawnResources(resourceManager);
-
+        countdown.startPreCountDown();
         processCollision = true;
 	}
 
