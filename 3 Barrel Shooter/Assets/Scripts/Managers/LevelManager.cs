@@ -54,7 +54,7 @@ public class LevelManager: MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        numPlayers = 2; // will eventually be given by player selection menu
+        numPlayers = 4; // will eventually be given by player selection menu
 
         // Init/Create Manager References
         elementManager = new ElementManager();
@@ -147,8 +147,7 @@ public class LevelManager: MonoBehaviour {
         int mapping = 0;
         foreach( GameObject p in playerList ){
             p.GetComponent<PlayerController>().UpdatePlayerMovement(i[mapping]);
-            p.GetComponent<PlayerController>().UpdatePlayerInputs(i[mapping]);
-            mapping++;
+            p.GetComponent<PlayerController>().UpdatePlayerInputs(i[mapping++]);
         }
     }
 

@@ -12,10 +12,10 @@ public class ControllerManager : MonoBehaviour
     public void InitControllerManager(LevelManager lm)
     {
         controllers = new List<Controller>();
-        for (int i = 1; i < 4; i++)
+        for (int i = 0; i < lm.GetNumPlayers(); i++)
         {
             Controller c = new Controller();
-            c.initController(i);
+            c.initController(i+1);
             controllers.Add(c);
         }
     }

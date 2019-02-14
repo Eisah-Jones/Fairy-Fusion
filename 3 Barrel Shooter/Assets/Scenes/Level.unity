@@ -1555,6 +1555,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114174851702189666, guid: c2bdb53601d854d57acc06ca8c511127,
         type: 3}
+      propertyPath: elemPrefabs.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114174851702189666, guid: c2bdb53601d854d57acc06ca8c511127,
+        type: 3}
       propertyPath: endScreen
       value: 
       objectReference: {fileID: 1964309712}
@@ -2002,7 +2007,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.8, y: -17.6}
+  m_AnchoredPosition: {x: 2.8, y: 42}
   m_SizeDelta: {x: 216.53, y: 87.44}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1614306493
@@ -2203,7 +2208,7 @@ GameObject:
   - component: {fileID: 1666135536}
   m_Layer: 5
   m_Name: MiniMap
-  m_TagString: Untagged
+  m_TagString: Minimap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

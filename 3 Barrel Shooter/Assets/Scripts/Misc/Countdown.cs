@@ -18,11 +18,15 @@ public class Countdown : MonoBehaviour
     {
         roundNum++;
     }
+
+
     public void InitStart()
     {
         timerLeft = startTime;
         countText = GameObject.FindGameObjectWithTag("CountText").GetComponent<Text>();
     }
+
+
     public void startCountDown()
     {
 
@@ -30,11 +34,15 @@ public class Countdown : MonoBehaviour
         canTime = true;
         StartCoroutine("LoseTime");
     }
+
+
     public void startPreCountDown()
     {
         //canTime = true;
         StartCoroutine("PreCount");
     }
+
+
     public void pause()
     {
         canTime = false;
@@ -50,6 +58,8 @@ public class Countdown : MonoBehaviour
         startTime = n;
         timerLeft = n;
     }
+
+
     IEnumerator LoseTime()
     {
       
@@ -59,6 +69,8 @@ public class Countdown : MonoBehaviour
             timerLeft--;
         }
     }
+
+
     IEnumerator PreCount()
     {
 
@@ -78,6 +90,7 @@ public class Countdown : MonoBehaviour
         }
     }
 
+
     IEnumerator EndRound()
     {
         while (true)
@@ -96,6 +109,8 @@ public class Countdown : MonoBehaviour
 
         }
     }
+
+
     // Update is called once per frame
     void Update()
     {
@@ -125,6 +140,5 @@ public class Countdown : MonoBehaviour
         {
             countText.text = ("" + preGameCounter);
         }
-        
     }
 }
