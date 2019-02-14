@@ -27,18 +27,18 @@ public class SceneLoader : MonoBehaviour {
 		}
 
 		//Adds dots to the end of text after a set amount of frames to let user know computer is working. After 3 it resets to 1
-		if (frame_count == frame_count_to) {
-			if (dot_count < 3) {
-				loadingText.text += ".";
-				dot_count += 1;
-			} else {
-				loadingText.text = "Loading.";
-				dot_count = 1;
-			}
-		} else if( frame_count > frame_count_to){
-			frame_count = 0;
-		}
-		frame_count += 1;
+//		if (frame_count == frame_count_to) {
+//			if (dot_count < 3) {
+//				loadingText.text += ".";
+//				dot_count += 1;
+//			} else {
+//				loadingText.text = "Loading.";
+//				dot_count = 1;
+//			}
+//		} else if( frame_count > frame_count_to){
+//			frame_count = 0;
+//		}
+//		frame_count += 1;
 		
 
 	}
@@ -46,8 +46,8 @@ public class SceneLoader : MonoBehaviour {
 
 	// The coroutine runs on its own at the same time as Update() and takes an integer indicating which scene to load.
 	IEnumerator LoadNewScene() {
-		//Simulates a load, meant for debugging purposes, left in because the scene loads so fast there's no feedback to the player
-		yield return new WaitForSeconds(3);
+		//Simulates a load, meant for debugging purposes
+		//yield return new WaitForSeconds(3);
 
 		// Start an asynchronous operation to load the scene that was passed to the LoadNewScene coroutine.
 		AsyncOperation async = Application.LoadLevelAsync(scene);
