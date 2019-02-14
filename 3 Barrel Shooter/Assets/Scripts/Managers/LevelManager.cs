@@ -49,7 +49,6 @@ public class LevelManager: MonoBehaviour {
     public Tilemap ground;
     public Tilemap groundCollider;
     public Tilemap groundTrigger;
-    public GameObject wall;
 
     private int numPlayers;
 
@@ -156,7 +155,7 @@ public class LevelManager: MonoBehaviour {
     }
 
 
-    // These function need to be moved to sensical
+    // These functions may need to be moved to sensical script
     public void SpawnParticleEffectAtPosition(Vector3 pos, int particleIndex)
     {
         Instantiate(particles[particleIndex], pos, transform.rotation);

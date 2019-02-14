@@ -38,6 +38,7 @@ TagManager:
   - DeathParticles
   - CountText
   - Canvas
+  - Level Manager
   layers:
   - Default
   - TransparentFX

@@ -12,17 +12,21 @@ public class ElementParticle : MonoBehaviour {
     LevelManager levelManager;
 
 
-    public void InitElementParticle(ParticleManager pm, int id, float pLife, float pForce, Transform t, string pO, LevelManager lm, string pName)
+    public void InitElementParticle(ParticleManager pm, int id, float pLife, float pForce, Transform t, string pO, LevelManager lm, string pName, float rotationRange, float lifeRange, float forceRange)
     {
+        tag = id + "-" + pName;
         particleID = id;
         particleName = pName;
-        particleLife = pLife;
+        float lR = Random.Range(-lifeRange, lifeRange);
+        particleLife = pLife + lR;
+        if (particleLife < 0) particleLife = 0.25f;
 
         gameObject.transform.rotation = t.rotation;
-        gameObject.transform.Rotate(new Vector3(0f, 0f, Random.Range(-45f, 45f)));
+        gameObject.transform.Rotate(new Vector3(0f, 0f, Random.Range(-rotationRange, rotationRange)));
 
         body = GetComponent<Rigidbody2D>();
-        body.AddForce(transform.right * pForce);
+        float fR = Random.Range(-forceRange, forceRange);
+        body.AddForce(transform.right * (pForce + fR));
 
         particleOwner = pO;
         levelManager = lm;

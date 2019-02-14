@@ -17,11 +17,17 @@ public class ElementParticleSystem : MonoBehaviour {
 
     Transform rotation;
 
-    [Range(0f, 2f)]
+    [Range(0f, 5f)]
     public float particleLife;
+
+    [Range(0f, 2f)]
+    public float lifeRange;
 
     [Range(0f, 5000f)]
     public float particleForce;
+
+    [Range(0f, 5000f)]
+    public float forceRange;
 
     [Range(0.0f, 0.01f)]
     public float emissionRangeStart;
@@ -29,10 +35,20 @@ public class ElementParticleSystem : MonoBehaviour {
     [Range(0.0f, 1.00f)]
     public float emissionRange;
 
+    [Range(0f, 360f)]
+    public float spread;
+
 
     //private void Start()
     //{
-    //    InitElementParticleSystem(new LevelManager(), 1, new GameObject());
+    //    StartCoroutine("TESTING");
+    //}
+
+    //private IEnumerator TESTING()
+    //{
+    //    yield return new WaitForSeconds(5);
+    //    LevelManager lm = GameObject.FindGameObjectWithTag("Level Manager").GetComponent<LevelManager>();
+    //    InitElementParticleSystem(lm, 6, transform, "TEST");
     //}
 
     public void InitElementParticleSystem(LevelManager lm, int id, Transform t, string o)
@@ -41,11 +57,14 @@ public class ElementParticleSystem : MonoBehaviour {
         owner = o;
         isEmitting = true;
         particleID = id;
-        particleCount = 50;
-        particleLife = 1f;
-        particleForce = 500f;
-        emissionRangeStart = 0.001f;
-        emissionRange = 0.001f;
+        //particleCount = 50;
+        //particleLife = 1f;
+        //lifeRange = 0f;
+        //particleForce = 500f;
+        //forceRange = 0f;
+        //emissionRangeStart = 0.001f;
+        //emissionRange = 0.001f;
+        //spread = 45f;
         particleSprite = lm.spriteManager.GetElementParticleSpriteByID(id);
         particleName = particleSprite.name;
         particle = Resources.Load<GameObject>("Fluids/Fluid Particle");
@@ -75,7 +94,7 @@ public class ElementParticleSystem : MonoBehaviour {
             emissionDelay = Random.Range(emissionRangeStart, emissionRangeStart + emissionRange);
             yield return new WaitForSeconds(emissionDelay);
             GameObject p = Instantiate(particle, transform.position, rotation.rotation);
-            p.GetComponent<ElementParticle>().InitElementParticle(particleManager, particleID, particleLife, particleForce, rotation, owner, levelManager, particleName);
+            p.GetComponent<ElementParticle>().InitElementParticle(particleManager, particleID, particleLife, particleForce, rotation, owner, levelManager, particleName, spread, lifeRange, forceRange);
         }
     }
 }

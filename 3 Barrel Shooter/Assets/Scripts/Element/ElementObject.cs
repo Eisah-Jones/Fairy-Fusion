@@ -9,14 +9,14 @@ public class ElementObject : MonoBehaviour {
     ElementCollisionModel elementCollisionModel;
 
 
-    public string owner; //player who shoots the object
+    private string owner; //player who shoots the object
     private int ID; //The id of the element
     private float damage; //The damage that the object does to a player
     private float life; //The time that an object remains a projectile
     private float speed; //The speed of the elementObject
     private bool isProjectile; //Dictates whether or not an element does damage to a player
     private Vector2 direction;
-    public string particleOwner;
+    private string particleOwner;
 
     public void initElement(LevelManager lm, elementData e, bool isP, string o){
         levelManager = lm;

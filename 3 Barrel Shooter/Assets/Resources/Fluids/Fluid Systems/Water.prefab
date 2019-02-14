@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1465474705338753452}
   - component: {fileID: 1465474705338753453}
   m_Layer: 0
-  m_Name: Fire
+  m_Name: Water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,7 +43,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 725aea9e605c541d1a732114033056fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particleLife: 0
-  particleForce: 0
-  emissionRangeStart: 0
-  emissionRange: 0
+  particleLife: 0.745
+  lifeRange: 0.431
+  particleForce: 1160
+  forceRange: 0
+  emissionRangeStart: 0.001
+  emissionRange: 0.001
+  spread: 20

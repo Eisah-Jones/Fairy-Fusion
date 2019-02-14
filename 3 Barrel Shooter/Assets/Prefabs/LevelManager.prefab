@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 114174851702189666}
   m_Layer: 0
   m_Name: LevelManager
-  m_TagString: Untagged
+  m_TagString: Level Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75,4 +75,3 @@ MonoBehaviour:
   ground: {fileID: 0}
   groundCollider: {fileID: 0}
   groundTrigger: {fileID: 0}
-  wall: {fileID: 1836868240993968, guid: 90e0c1ccfca2f42ffae34f29355e69ac, type: 3}
