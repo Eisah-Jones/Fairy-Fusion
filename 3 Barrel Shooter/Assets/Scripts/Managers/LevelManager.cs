@@ -120,11 +120,13 @@ public class LevelManager: MonoBehaviour {
 
 
 	//Checks for a winner each frame
-	private void Update(){
+	private void Update()
+    {
 		int alive_count = 0;
 		int winner = 0;
 
-		foreach (PlayerInfo info in pInfoList) {
+		foreach (PlayerInfo info in pInfoList)
+        {
 			if (info.lives <= 0)
 				alive_count += 1;
 			else
@@ -132,10 +134,11 @@ public class LevelManager: MonoBehaviour {
 		}
 
 		if (alive_count == 1) {
-			endScreen.SetActive (true);
+            GameObject.FindGameObjectWithTag("CountText").SetActive(false);
+            GameObject.FindGameObjectWithTag("Minimap").SetActive(false);
+            endScreen.SetActive (true);
 			winText.text = string.Format ("Player {0} Wins!", winner);
 		}
-			
 	}
 
 
