@@ -12,6 +12,7 @@ public class Controller : MonoBehaviour {
     // Face Buttons
     public string X_Button;
     public string B_Button;
+    public string A_Button;
 
 
     // Bumpers
@@ -54,6 +55,7 @@ public class Controller : MonoBehaviour {
 
         X_Button = platform + "X_Button " + pNum;
         B_Button = platform + "B_Button " + pNum;
+        A_Button = platform + "A_Button " + pNum;
 
         Right_Bumper = platform + "Right_Bumper " + pNum;
         Left_Bumper = platform + "Left_Bumper " + pNum;

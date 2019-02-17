@@ -20,6 +20,19 @@ public class ControllerManager : MonoBehaviour
         }
     }
 
+
+    public void InitControllerManagerMenus(int numPlayers)
+    {
+        controllers = new List<Controller>();
+        for (int i = 0; i < numPlayers; i++)
+        {
+            Controller c = new Controller();
+            c.initController(i + 1);
+            controllers.Add(c);
+        }
+    }
+
+
     public List<ControllerInputs> GetControllerInputs()
     {
         List<ControllerInputs> result = new List<ControllerInputs>();

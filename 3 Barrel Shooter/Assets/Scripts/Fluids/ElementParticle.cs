@@ -10,6 +10,7 @@ public class ElementParticle : MonoBehaviour {
     string particleOwner;
     Rigidbody2D body;
     LevelManager levelManager;
+    Light light;
 
 
     public void InitElementParticle(ParticleManager pm, int id, float pLife, float pForce, Transform t, string pO, LevelManager lm, string pName, float rotationRange, float lifeRange, float forceRange)
@@ -31,7 +32,28 @@ public class ElementParticle : MonoBehaviour {
         particleOwner = pO;
         levelManager = lm;
 
+        light = transform.GetChild(0).GetComponent<Light>();
+        SetLight();
+
         StartCoroutine("DestroyParticle");
+    }
+
+
+    private void SetLight()
+    {
+        int i = Random.Range(0, 1);
+        Debug.Log(i);
+        if (i == 1)
+        {
+            light.enabled = false;
+        }
+
+
+        if (particleID == 3)
+            light.color = Color.blue;
+        else if (particleID == 6)
+            light.color = Color.gray;
+
     }
 
 

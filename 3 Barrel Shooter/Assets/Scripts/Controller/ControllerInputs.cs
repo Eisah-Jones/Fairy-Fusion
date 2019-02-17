@@ -11,6 +11,7 @@ public class ControllerInputs
 
     public bool X_Button;
     public bool B_Button;
+    public bool A_Button;
 
     public bool Right_Bumper;
     public bool Left_Bumper;
@@ -52,6 +53,7 @@ public class ControllerInputs
 
         X_Button = Input.GetButtonDown(c.X_Button);
         B_Button = Input.GetButtonDown(c.B_Button);
+        A_Button = Input.GetButtonDown(c.A_Button);
 
         return this;
     }

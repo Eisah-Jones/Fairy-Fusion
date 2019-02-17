@@ -151,7 +151,7 @@ public class PlayerController : MonoBehaviour
 
     public void HandleEffects(List<string> effects, Transform t){
         foreach (string e in effects){
-            Debug.Log("e: "+ e);
+            //Debug.Log("e: "+ e);
             if (e == "Knockback")
             {
                 IEnumerator c = Knockback(t);
