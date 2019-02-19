@@ -39,6 +39,7 @@ TagManager:
   - CountText
   - Canvas
   - Level Manager
+  - TilemapTrigger
   layers:
   - Default
   - TransparentFX

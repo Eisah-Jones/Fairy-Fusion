@@ -10,12 +10,18 @@ public class ProjectileSpawner : MonoBehaviour {
     public LevelManager lm;
     public AudioSource audioSource;
 
+    private LineRenderer lineRenderer;
+
 
     public void Start()
     {
         audioSource = gameObject.AddComponent<AudioSource>();
         lm = FindObjectOfType<LevelManager>();
         sm = lm.soundManager;
+
+        lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.enabled = false;
+        lineRenderer.useWorldSpace = true;
     }
 
 
@@ -64,6 +70,23 @@ public class ProjectileSpawner : MonoBehaviour {
         return 1;
     }
 
+
+    public GameObject ShootLaser(string playerName, Transform spawnPos)
+    {
+        if (lineRenderer == null) return null;
+        lineRenderer.enabled = true;
+        RaycastHit2D hit = Physics2D.Raycast(spawnPos.position, transform.right);
+        lineRenderer.SetPosition(0, spawnPos.position);
+        lineRenderer.SetPosition(1, hit.point);
+        StartCoroutine("laserReset");
+        return hit.transform.gameObject;
+    }
+
+    private IEnumerator laserReset()
+    {
+        yield return new WaitForSeconds(1);
+        lineRenderer.enabled = false;
+    }
 
     private IEnumerator fluidReset(GameObject ps){
         yield return new WaitForSeconds(1);

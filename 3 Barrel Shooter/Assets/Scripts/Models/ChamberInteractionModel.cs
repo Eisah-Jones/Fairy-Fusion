@@ -20,9 +20,15 @@ public class ChamberInteractionModel
         List<Fairies.Fairy.InventoryInfo> result = c;
 
         // Unit value will vary per element, how much ammo is added per 1 element unit?
-        int unitValue = 1;
-        result[0].SetCount(result[0].GetCount() + unitValue);
-
+        int capacity = em.GetElementDataByID(id).chamberCapacity;
+        if (c[0].GetCount() < capacity) // checks if element is at maxcapacity
+        {
+            result[0].SetCount(result[0].GetCount() + 1);
+        }
+        else
+        {
+            result[0].SetCount(capacity);
+        }
         return result;
     }
 
@@ -87,7 +93,7 @@ public class ChamberInteractionModel
         }
 
         //This returns the resulting name of the element of the chamber interaction
-        string resultName = elem1.chamberInteractions.GetChamberResult(c2.GetElementNameByIndex(0));
+        string resultName = elem1.chamberInteractions.GetChamberResult(elem2.name);
 
         //Filter out results, call function to perform other actions
         if (resultName == "Ammo") return null;

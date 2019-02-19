@@ -478,7 +478,7 @@ GameObject:
   - component: {fileID: 243219673}
   m_Layer: 0
   m_Name: Tilemap_Trigger
-  m_TagString: TEST
+  m_TagString: TilemapTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

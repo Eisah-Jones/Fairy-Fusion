@@ -285,6 +285,15 @@ public class FairyController : MonoBehaviour {
                 fairies.RemoveFromCurrentChamber(eName, shotResult);
             }
         }
+        else if (projectileType == "Beam")
+        {
+            GameObject coll = p.ShootLaser(playerName, projectileSpawner);
+            if (coll.name.StartsWith("Player"))
+            {
+                levelManager.playerList[int.Parse(coll.name.Substring(coll.name.Length - 1)) - 1].GetComponent<PlayerInfo>().RemovePlayerHealth((int)levelManager.elementManager.GetDamageByName("Laser"));
+            }
+
+        }
         else
         {
             p.ShootProjectile(eID, levelManager, playerName, projectileSpawner);
@@ -321,7 +330,7 @@ public class FairyController : MonoBehaviour {
     {
         if (collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged") return;
 
-        if (collision.tag == "TEST") 
+        if (collision.tag == "TilemapTrigger") 
         {
             if (levelManager.GetTriggerTile((int)projectileSpawner.position.x, (int)projectileSpawner.position.y) == "Water")
             {

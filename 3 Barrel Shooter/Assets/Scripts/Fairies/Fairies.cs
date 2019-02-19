@@ -101,13 +101,11 @@ public class Fairies{
         public Fairies.Fairy Add(string name, int elemID)
         {
             //Check to see if the element is already in the chamber
-            if (this.ContainsElement(name)){
-                // **RUN CHAMBER INTERACTION SCRIPT**
-               
+            if (this.ContainsElement(name))
+            {
                 chamber = interactionModel.IncreaseElement(chamber, elemID);
                 return this;
             }
-
             //If not in chamber, then we will add it, assuming it can be added
             chamber = interactionModel.AddToChamber(chamber, name, elemID);
             return this;
@@ -119,7 +117,7 @@ public class Fairies{
             //Return 2 if element is successfully removed and chamber is now empty
             //Return 1 if element is successfully removed
             //Return 0 if not
-
+            
             //Check to see if the element is in the chamber, if not return 0
             if (ContainsElement(elemName)){
                 chamber = interactionModel.RemoveFromChamber(chamber, num);
@@ -275,8 +273,9 @@ public class Fairies{
         int selectedChamber;
         if (left) selectedChamber = currentChamber; 
         else selectedChamber = (currentChamber + 1) % 3;
-
-        if (chambers[selectedChamber].GetElementIDByIndex(0) != id && chambers[selectedChamber].GetNumElements() != 0){
+        
+        if (chambers[selectedChamber].GetElementIDByIndex(0) != id && chambers[selectedChamber].GetNumElements() != 0)
+        {
             return -1;
         } 
        
@@ -341,7 +340,24 @@ public class Fairies{
 
     public void RemoveFromCurrentChamber(string elemName, int i)
     {
-        chambers[currentChamber].Remove(elemName, i);
+        if (IsCombo(elemName))
+        {
+            combinationRequirements cr = levelManager.elementManager.GetElementDataByName(elemName).combinationRequirements;
+            chambers[currentChamber].Remove(cr.elem1, i);
+            chambers[currentChamber].Remove(cr.elem2, i);
+            chambers[(currentChamber + 1) % 3].Remove(cr.elem1, i);
+            chambers[(currentChamber + 1) % 3].Remove(cr.elem2, i);
+        }
+        else
+        {
+            chambers[currentChamber].Remove(elemName, i);
+        }
+    }
+
+
+    private bool IsCombo(string name)
+    {
+        return levelManager.elementManager.GetElementDataByName(name).combinationRequirements.elem1 == null;
     }
 
 
@@ -356,7 +372,7 @@ public class Fairies{
         //  in the combination chamber, if they are in combination chamber set
         if (IsCurrentChamberEmpty(false) || (IsCombinationChamberEmpty() && combo))
         {
-            //Debug.Log("NULL" + IsCurrentChamberEmpty() + ", " + IsCombinationChamberEmpty());
+            //Debug.Log("NULL" + IsCurrentChamberEmpty(false) + ", " + IsCombinationChamberEmpty());
             return null; //There is nothing to shoot! Return null to disapprove instantiating anything
         }
 

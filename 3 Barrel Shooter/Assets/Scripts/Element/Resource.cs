@@ -29,8 +29,8 @@ public class Resource : MonoBehaviour {
 
                 lm.soundManager.PlaySound(5);
                 lm.SpawnParticleEffectAtPosition(gameObject.transform.position, 4);
-               
-                Destroy(gameObject); 
+
+                StartCoroutine("DestroyResource");
             }
             else { StartCoroutine("CollectionReset"); }
         }
@@ -48,6 +48,14 @@ public class Resource : MonoBehaviour {
     public bool CanCollect(){
         return resourceAvailable > 0 && canBeCollected;
     }
+
+
+    private IEnumerator DestroyResource()
+    {
+        yield return new WaitForFixedUpdate();
+        Destroy(gameObject);
+    }
+
 
     private IEnumerator CollectionReset(){
         canBeCollected = false;

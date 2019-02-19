@@ -94,7 +94,7 @@
       "Fire": "Ammo",
       "Rock": "Fireball",
       "Water": "Steam",
-      "Leaf": "Ammo",
+      "Leaf": "Laser",
       "Air": null,
       "Steam": null,
       "Fireball": null,
@@ -242,7 +242,7 @@
     "fireRate": 0,
     "projectileType": "Fluid",
     "projectileLife": 10,
-    "chamberCapacity": 100,
+    "chamberCapacity": 10,
     "playerCollisionEffects": [
       "Pushback"
     ],
@@ -325,7 +325,7 @@
       "Sting"
     ],
     "chamberInteractions": {
-      "Fire": "Fire",
+      "Fire": "Laser",
       "Rock": "Ammo",
       "Water": "Sniper",
       "Leaf": "Ammo",

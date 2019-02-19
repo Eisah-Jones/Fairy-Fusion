@@ -95,7 +95,6 @@ public class MainMenuManager : MonoBehaviour
                 if (optionsIndex < 0) { optionsIndex = 1; }
                 else if (optionsIndex == 0) { currentButton = null; currentSlider = options.volume; }
                 else if (optionsIndex == 1) { currentButton = options.back; currentSlider = null; }
-                Debug.Log(optionsIndex);
             }
             else if (currentMenu == "TutorialButton")
             {
@@ -116,7 +115,7 @@ public class MainMenuManager : MonoBehaviour
                 float leftHorizontal = GetLeftStickHorizontal(ci);
                 if (leftHorizontal != 0)
                 {
-                    isDetecingVerticalInput = false;
+                    isDetecingHorizontalInput = false;
                     StartCoroutine("DelayInputHorizontal");
                 }
 
@@ -157,8 +156,8 @@ public class MainMenuManager : MonoBehaviour
         int dir = 0;
         float leftStickHorizontal = ci[0].Left_Stick_Horizontal;
 
-        if (leftStickHorizontal < 0) dir = -1;
-        else if (leftStickHorizontal > 0) dir = 1;
+        if (leftStickHorizontal < -buttonDeadZone) dir = -1;
+        else if (leftStickHorizontal > buttonDeadZone) dir = 1;
         return dir;
     }
 
@@ -171,7 +170,7 @@ public class MainMenuManager : MonoBehaviour
 
     public IEnumerator DelayInputHorizontal()
     {
-        yield return new WaitForSeconds(inputDelayTime);
+        yield return new WaitForSeconds(inputDelayTime/16);
         isDetecingHorizontalInput = true;
     }
 }

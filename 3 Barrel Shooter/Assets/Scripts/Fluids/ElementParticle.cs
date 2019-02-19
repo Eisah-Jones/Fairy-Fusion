@@ -42,7 +42,6 @@ public class ElementParticle : MonoBehaviour {
     private void SetLight()
     {
         int i = Random.Range(0, 1);
-        Debug.Log(i);
         if (i == 1)
         {
             light.enabled = false;

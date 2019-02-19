@@ -152,7 +152,8 @@ public class LevelManager: MonoBehaviour {
     }
 
 
-    public int GetNumPlayers(){
+    public int GetNumPlayers()
+    {
         return numPlayers;
     }
 
