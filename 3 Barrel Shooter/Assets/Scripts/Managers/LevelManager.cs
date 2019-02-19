@@ -113,7 +113,6 @@ public class LevelManager: MonoBehaviour {
     //Fixed update because of physics calculations
     private void FixedUpdate()
     {
-        // Retrieve and send controller inputs to the player
         SendControllerInputsToPlayer(controllerManager.GetControllerInputs());
         cameraManager.UpdateCameraPosition(playerList);
     }

@@ -356,7 +356,7 @@ public class Fairies{
 
 
     private bool IsCombo(string name)
-    {
+    {   
         return levelManager.elementManager.GetElementDataByName(name).combinationRequirements.elem1 == null;
     }
 

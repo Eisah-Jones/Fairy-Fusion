@@ -29,7 +29,6 @@ public class ElementObject : MonoBehaviour {
         speed = 10.0f;
         isProjectile = isP;
         owner = o;
-
         direction = transform.right;
     }
 
@@ -41,6 +40,8 @@ public class ElementObject : MonoBehaviour {
             transform.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
             owner = null;
             direction = transform.right;
+            if (name == "SpikeShot") { StartCoroutine("Explode"); }
+            else Destroy(gameObject);
         }
 
 
@@ -68,53 +69,22 @@ public class ElementObject : MonoBehaviour {
     public bool GetIsProjectile(){
         return isProjectile;
     }
-    private void OnParticleCollision(GameObject collision)
-    {
-        if (collision.tag == "Walls" || collision.tag == "Untagged" || collision.tag[0] == 'R' || collision.tag == "TEST")
-        {
-          
-            return;
-        }
-        PlayerInfo pi = null;
-        string elemName = this.tag.Split('-')[1];
-        if (collision.tag == "Player")
-        {
-            pi = collision.gameObject.GetComponent<PlayerInfo>();
-   
-        }
-        //ElementObject element = collision.gameObject.GetComponent<ElementObject>();
-        //Debug.Log(elemName);
-        if (elemName == "Fire" || elemName == "Water" || elemName == "Steam") // checks if element is colliding with player and does damage if its enemy
-        {
-            particleOwner = "Player" + GetComponentInParent<PlayerInfo>().playerNum;
-            if (particleOwner == ("Player" + pi.playerNum.ToString()))
-            {
-                return;
-            }
-            if (pi.health <= 0 || pi.isRespawning)
-            {
-                pi.health = 0;
-                pi.isRespawning = true;
-            }
-
-            if (pi == null) return;
-            //Debug.Log(particleOwner+ "Health: " + pi.health);
-    
-            PlayerCollisionModel.CollisionResult result = levelManager.playerCollisionModel.HandleCollision(pi.health, elemName);
-            //Debug.Log(result);
-            pi.health -= damage;
-            //pi.gameObject.GetComponent<PlayerController>().HandleEffects(result.effect, collision.gameObject.transform);
-            //Debug.Log("New PlayerHealth: " + pi.health);
-
-        }
-    }
 
 
     // When an element collides with something else
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // We don't care if we collide with these objects
-        if (collision == null  ||gameObject.tag == "Player" || collision.gameObject.tag == "Untagged" || collision.gameObject.tag == "Walls") return;
+        if (collision == null || collision.gameObject.tag == "Untagged" || collision.gameObject.tag == "Walls" ) return;
+
+        if (collision.gameObject.tag == "Player")
+        {
+            if (name == "SpikeShot") StartCoroutine("Explode");
+            else Destroy(gameObject);
+        }
+
+        ElementObject other = collision.gameObject.GetComponent<ElementObject>();
+        if (other != null && other.owner == owner) return;
 
         // This happens when objects are not spawned by the levelGenerator
         if (elementCollisionModel == null) return;
@@ -149,5 +119,24 @@ public class ElementObject : MonoBehaviour {
             }
             i++;
         }
+    }
+
+
+    //For the SpikeShot
+    private IEnumerator Explode()
+    {
+        // Spawn leaves travelling in different directions
+        Quaternion currentRotation = transform.rotation;
+        string spawnElement = "Leaf";
+        int spawnID = levelManager.elementManager.GetElementDataByName(spawnElement).ID;
+        GameObject spawnObject = levelManager.elemPrefabs[spawnID - 1];
+        for (int i = 0; i < 16; i++)
+        {
+            GameObject o = Instantiate(spawnObject, transform.position, transform.rotation);
+            o.transform.rotation *= Quaternion.Euler(0, 0, 22.5f*i);
+            o.GetComponent<ElementObject>().initElement(levelManager, levelManager.elementManager.GetElementDataByID(spawnID), true, owner);
+        }
+        Destroy(gameObject);
+        yield return new WaitForEndOfFrame();
     }
 }

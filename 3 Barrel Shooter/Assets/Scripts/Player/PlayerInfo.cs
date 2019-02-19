@@ -142,8 +142,8 @@ public class PlayerInfo : MonoBehaviour
         ElementObject elementObj = collision.gameObject.GetComponent<ElementObject>();
         ElementParticle elementPart = collision.gameObject.GetComponent<ElementParticle>();
 
-        int elemID;
-        string elemName;
+        int elemID = 0;
+        string elemName = "";
 
         if (elementObj != null && elementObj.GetOwner() == ("Player" + playerNum.ToString())) return;
         else if (elementObj != null)
@@ -160,11 +160,13 @@ public class PlayerInfo : MonoBehaviour
             }
         }
         else if (elementPart != null && elementPart.GetOwner() == ("Player" + playerNum.ToString())) return;
-        else
+        else if (elementPart != null)
         {
             elemID = elementPart.GetParticleID();
             elemName = elementPart.GetParticleName();
         }
+
+        if (elemName == "") return;
 
         PlayerCollisionModel.CollisionResult result = levelManager.playerCollisionModel.HandleCollision(health, elemName);
         health = result.health;
