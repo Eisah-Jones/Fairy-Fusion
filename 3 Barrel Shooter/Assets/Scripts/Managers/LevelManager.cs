@@ -28,7 +28,7 @@ public class LevelManager: MonoBehaviour {
     public GameObject canvas;
     public GameObject pause;
     public GameObject win;
-    public GameObject minimap;
+    //public GameObject minimap;
     public GameObject cdown;
 
     public Button resumeButtonPause;
@@ -112,7 +112,7 @@ public class LevelManager: MonoBehaviour {
         pause = canvas.transform.GetChild(0).gameObject;
         win = canvas.transform.GetChild(1).gameObject;
         cdown = canvas.transform.GetChild(2).gameObject;
-        minimap = canvas.transform.GetChild(4).gameObject;
+        //minimap = canvas.transform.GetChild(4).gameObject;
 
         resumeButtonPause = pause.transform.GetChild(0).GetComponent<Button>();
         menuButtonPause = pause.transform.GetChild(1).GetComponent<Button>();
@@ -172,7 +172,7 @@ public class LevelManager: MonoBehaviour {
 
 		if (alive_count == 1) {
             cdown.SetActive(false);
-            minimap.SetActive(false);
+            //minimap.SetActive(false);
             endScreen.SetActive (true);
 			winText.text = string.Format ("Player {0} Wins!", winner);
             isOver = true;
@@ -206,7 +206,7 @@ public class LevelManager: MonoBehaviour {
                 if (currentButton == resumeButtonPause && !isOver && checkingPauseInput)
                 {
                     pause.SetActive(isPaused);
-                    minimap.SetActive(!isPaused);
+                    //minimap.SetActive(!isPaused);
                     cdown.SetActive(!isPaused);
                     if (isPaused)
                     {
@@ -311,7 +311,7 @@ public class LevelManager: MonoBehaviour {
                 if (!isOver && checkingPauseInput)
                 {
                     pause.SetActive(isPaused);
-                    minimap.SetActive(!isPaused);
+                    //minimap.SetActive(!isPaused);
                     cdown.SetActive(!isPaused);
                     currentButton = resumeButtonPause;
                     currentButton.Select();
