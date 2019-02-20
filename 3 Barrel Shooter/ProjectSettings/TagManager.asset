@@ -40,6 +40,8 @@ TagManager:
   - Canvas
   - Level Manager
   - TilemapTrigger
+  - PauseMenu
+  - WinMenu
   layers:
   - Default
   - TransparentFX

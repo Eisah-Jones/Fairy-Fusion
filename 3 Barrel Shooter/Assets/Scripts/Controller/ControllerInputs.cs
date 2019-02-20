@@ -55,6 +55,8 @@ public class ControllerInputs
         B_Button = Input.GetButtonDown(c.B_Button);
         A_Button = Input.GetButtonDown(c.A_Button);
 
+        Start_Button = Input.GetButtonUp(c.Start_Button);
+
         return this;
     }
 }

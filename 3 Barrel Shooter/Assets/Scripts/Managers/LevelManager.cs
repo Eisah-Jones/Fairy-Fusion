@@ -23,6 +23,22 @@ public class LevelManager: MonoBehaviour {
     public ChamberInteractionModel chamberInteractionModel;
     public PlayerCollisionModel playerCollisionModel;
     public ElementCollisionModel elementCollisionModel;
+    
+    // UI Elements
+    public GameObject canvas;
+    public GameObject pause;
+    public GameObject win;
+    public GameObject minimap;
+    public GameObject cdown;
+
+    public Button resumeButtonPause;
+    public Button menuButtonPause;
+    public Button quitButtonPause;
+
+    public Button menuButtonWin;
+    public Button quitButtonWin;
+
+    public Button currentButton;
 
     public Countdown countdown;
 
@@ -51,6 +67,13 @@ public class LevelManager: MonoBehaviour {
     public Tilemap groundTrigger;
 
     private int numPlayers;
+
+    private bool isPaused = false;
+    private bool isOver = false;
+    private bool checkingPauseInput = true;
+
+    float inputDelayTime = 0.2f;
+    bool isDetecingVerticalInput = true;
 
     // Use this for initialization
     void Start () {
@@ -84,7 +107,21 @@ public class LevelManager: MonoBehaviour {
 
         elementCollisionModel = new ElementCollisionModel(elementManager);
 
-        countdown = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Countdown>();
+        // Create UI References
+        canvas = GameObject.FindGameObjectWithTag("Canvas");
+        pause = canvas.transform.GetChild(0).gameObject;
+        win = canvas.transform.GetChild(1).gameObject;
+        cdown = canvas.transform.GetChild(2).gameObject;
+        minimap = canvas.transform.GetChild(4).gameObject;
+
+        resumeButtonPause = pause.transform.GetChild(0).GetComponent<Button>();
+        menuButtonPause = pause.transform.GetChild(1).GetComponent<Button>();
+        quitButtonPause = pause.transform.GetChild(2).GetComponent<Button>();
+
+        menuButtonWin = win.transform.GetChild(1).GetComponent<Button>();
+        quitButtonWin = win.transform.GetChild(2).GetComponent<Button>();
+
+        countdown = canvas.GetComponent<Countdown>();
         countdown.InitStart();
 
         // Load element prefabs
@@ -113,7 +150,8 @@ public class LevelManager: MonoBehaviour {
     //Fixed update because of physics calculations
     private void FixedUpdate()
     {
-        SendControllerInputsToPlayer(controllerManager.GetControllerInputs());
+        if (!isPaused && !isOver)
+            SendControllerInputsToPlayer(controllerManager.GetControllerInputs());
         cameraManager.UpdateCameraPosition(playerList);
     }
 
@@ -133,12 +171,155 @@ public class LevelManager: MonoBehaviour {
 		}
 
 		if (alive_count == 1) {
-            GameObject.FindGameObjectWithTag("CountText").SetActive(false);
-            GameObject.FindGameObjectWithTag("Minimap").SetActive(false);
+            cdown.SetActive(false);
+            minimap.SetActive(false);
             endScreen.SetActive (true);
 			winText.text = string.Format ("Player {0} Wins!", winner);
+            isOver = true;
 		}
+
+        if (!isOver)
+        {
+            CheckForPauseButton();
+            if (isPaused)
+            {
+                CheckForVerticalInputPause();
+                CheckForChooseInput();
+            }
+        }
+        else
+        {
+            CheckForVerticalInputEnd();
+            CheckForChooseInput();
+        }
 	}
+
+
+    private void CheckForChooseInput()
+    {
+        foreach (ControllerInputs c in controllerManager.GetControllerInputs())
+        {
+            if (!isOver && c.A_Button)
+            {
+                currentButton.onClick.Invoke();
+                isPaused = false;
+                if (currentButton == resumeButtonPause && !isOver && checkingPauseInput)
+                {
+                    pause.SetActive(isPaused);
+                    minimap.SetActive(!isPaused);
+                    cdown.SetActive(!isPaused);
+                    if (isPaused)
+                    {
+                        currentButton = resumeButtonPause;
+                        currentButton.Select();
+                    }
+                    return;
+                }
+                return;
+            }
+        }
+    }
+
+
+    public IEnumerator DelayInputVertical()
+    {
+        isDetecingVerticalInput = false;
+        yield return new WaitForSeconds(inputDelayTime);
+        isDetecingVerticalInput = true;
+    }
+
+
+    private void CheckForVerticalInputEnd()
+    {
+        if (isDetecingVerticalInput)
+        {
+            StartCoroutine("DelayInputVertical");
+            foreach (ControllerInputs c in controllerManager.GetControllerInputs())
+            {
+                if (c.Left_Stick_Vertical != 0)
+                {
+                    if (currentButton == menuButtonWin)
+                    {
+                        currentButton = quitButtonWin;
+                    }
+                    else
+                    {
+                        currentButton = menuButtonWin;
+                    }
+                    currentButton.Select();
+                    return;
+                }
+            }
+        }
+    }
+
+
+    // Used for detecting input in menus
+    private void CheckForVerticalInputPause()
+    {
+        if (isDetecingVerticalInput)
+        {
+            StartCoroutine("DelayInputVertical");
+            foreach (ControllerInputs c in controllerManager.GetControllerInputs())
+            {
+                if (!isOver && c.Left_Stick_Vertical < 0)
+                {
+                    if (currentButton == resumeButtonPause)
+                    {
+                        currentButton = quitButtonPause;
+                    }
+                    else if (currentButton == menuButtonPause)
+                    {
+                        currentButton = resumeButtonPause;
+                    }
+                    else
+                    {
+                        currentButton = menuButtonPause;
+                    }
+                    currentButton.Select();
+                    return;
+                }
+                else if (!isOver && c.Left_Stick_Vertical > 0)
+                {
+                    if (currentButton == resumeButtonPause)
+                    {
+                        currentButton = menuButtonPause;
+                    }
+                    else if (currentButton == menuButtonPause)
+                    {
+                        currentButton = quitButtonPause;
+                    }
+                    else
+                    {
+                        currentButton = resumeButtonPause;
+                    }
+                    currentButton.Select();
+                    return;
+                }
+            }
+        }
+    }
+
+
+    private void CheckForPauseButton()
+    {
+        foreach (ControllerInputs c in controllerManager.GetControllerInputs())
+        {
+            if(c.Start_Button)
+            {
+                isPaused = !pause.activeSelf;
+                if (!isOver && checkingPauseInput)
+                {
+                    pause.SetActive(isPaused);
+                    minimap.SetActive(!isPaused);
+                    cdown.SetActive(!isPaused);
+                    currentButton = resumeButtonPause;
+                    currentButton.Select();
+                }
+                return;
+            }
+        }
+    }
 
 
     private void SendControllerInputsToPlayer(List<ControllerInputs> i)
