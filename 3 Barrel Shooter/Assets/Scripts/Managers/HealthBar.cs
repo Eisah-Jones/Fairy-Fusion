@@ -24,7 +24,7 @@ public class HealthBar : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if ('R' == collision.tag[0] ||collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged") return;
+        if ('R' == collision.tag[0] ||collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged" || collision.tag == "Water") return;
         hb.gameObject.SetActive(true);
     }
 

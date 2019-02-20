@@ -43,6 +43,7 @@ TagManager:
   - PauseMenu
   - WinMenu
   - HealthBar
+  - KillFeed
   layers:
   - Default
   - TransparentFX

@@ -112,8 +112,9 @@ public class ElementParticle : MonoBehaviour {
             {
                 return;
             }
-            if (pi.health <= 0 || pi.isRespawning)
+            if (pi.health <= 0 )
             {
+                levelManager.addKill(pi.GetPlayerName(), particleOwner);
                 pi.health = 0;
                 pi.isRespawning = true;
             }
