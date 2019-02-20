@@ -17,7 +17,7 @@ public class Countdown : MonoBehaviour
     public Transform LoadingBar;
     public Text TextIndicator;
     [SerializeField] private float currentTime;
-    [SerializeField] private float speed;
+    [SerializeField] private float speed = 1;
 
     // Start is called before the first frame update
     void Start()
