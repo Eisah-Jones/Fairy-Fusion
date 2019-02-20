@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private float speed = 2f;
+    private float speedMultiplier = 1f;
     public string inputHorizontal = "Horizontal";
     public string inputVertical = "Vertical";
     public string shootButton = "ShootButton_P1";
@@ -95,7 +96,7 @@ public class PlayerController : MonoBehaviour
         float heading = Mathf.Atan2(r_vertical, r_horizontal);
 
         //Change the position of the player
-        Vector2 movement = new Vector2(horizontal * speed, vertical * speed);
+        Vector2 movement = new Vector2(horizontal * speed * speedMultiplier, vertical * speed * speedMultiplier);
 
 		//changes the characters direction it faces
 		//changes orientation to face side
@@ -167,6 +168,10 @@ public class PlayerController : MonoBehaviour
                 IEnumerator c = Pushback(t);
                 StartCoroutine(c);
             }
+            else if (e == "Slow")
+            {
+                StartCoroutine(e);
+            }
         }
     }
 
@@ -220,5 +225,13 @@ public class PlayerController : MonoBehaviour
         }
         Burning = false;
         yield return new WaitForFixedUpdate();
+    }
+
+
+    private IEnumerator Slow()
+    {
+        speedMultiplier = 0.5f;
+        yield return new WaitForSeconds(3f);
+        speedMultiplier = 1f;
     }
 }

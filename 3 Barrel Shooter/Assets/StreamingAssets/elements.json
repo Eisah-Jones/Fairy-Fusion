@@ -322,7 +322,7 @@
     "projectileLife": 40,
     "chamberCapacity": 100,
     "playerCollisionEffects": [
-      "Sting"
+      "Burn"
     ],
     "chamberInteractions": {
       "Fire": "Laser",
@@ -479,7 +479,7 @@
     "chamberCapacity": 10,
     "playerCollisionEffects": [
       "Burn",
-      "Flinch"
+      "Knockback"
     ],
     "chamberInteractions": {
       "Fire": null,
@@ -794,7 +794,7 @@
     "speed": 5,
     "yield": 1,
     "playerCollisionEffects": [
-      "Flinch"
+      "Knockback"
     ],
     "chamberInteractions": {
       "Fire": null,
@@ -874,7 +874,7 @@
     "speed": 0,
     "yield": 0,
     "playerCollisionEffects": [
-      "Sting"
+      "Burn"
     ],
     "chamberInteractions": {
       "Fire": null,
