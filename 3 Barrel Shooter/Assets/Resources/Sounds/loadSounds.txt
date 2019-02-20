@@ -1,10 +1,10 @@
-flamethrower
-sucky
-WoodChips
-GrassWalk
-rockshot
-Resource Pickup
-flame
-steam
+Water
+Vacuum
+Woodchips
+Grasswalk
+Rockshot
+ResourcePickup
+Flamethrower
+Steam
 Fireball
-death
+Death

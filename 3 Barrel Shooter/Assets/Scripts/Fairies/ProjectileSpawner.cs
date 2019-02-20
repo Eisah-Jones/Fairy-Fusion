@@ -33,20 +33,20 @@ public class ProjectileSpawner : MonoBehaviour {
         //Debug.Log("Starting Projectile Sound: EID: " + eID);
         if (eID == 4)
         {
-            sm.PlaySoundsByID(audioSource, 2); // plays wood chip sound
+            sm.PlaySoundsByName(audioSource, "Woodchips"); // plays wood chip sound
         }
         else if (eID == 2)
         {
-            sm.PlaySoundsByID(audioSource, 4); // plays rock shot sound
+            sm.PlaySoundsByName(audioSource, "Rockshot"); // plays rock shot sound
         }
         else if (eID == 7)
         {
-            sm.PlaySoundsByID(audioSource, 8); // plays fireball sound
+            sm.PlaySoundsByName(audioSource, "Fireball"); // plays fireball sound
         }
-        else if (eID == 2)
-        {
-            sm.PlaySoundsByID(audioSource, 4); // plays rock shot sound
-        }
+        //else if (eID == 8)
+        //{
+        //    sm.PlaySoundsByID(audioSource, 9); // plays rock shot sound
+        //}
     }
 
 
@@ -58,7 +58,19 @@ public class ProjectileSpawner : MonoBehaviour {
 
         //instantiates flamethrower
         //Debug.Log("Starting Flame Sound: EID: " + eID);
-        sm.PlaySoundsByID(audioSource, 6);
+        if (eID == 1)
+        {
+            sm.PlaySoundsByName(audioSource, "Flamethrower");
+        }
+        else if (eID == 3)
+        {
+            sm.PlaySoundsByName(audioSource, "Water");
+        }
+        else if (eID == 6)
+        {
+            sm.PlaySoundsByName(audioSource, "Steam");
+        }
+        //sm.PlaySoundsByID(audioSource, 0);
 
         GameObject prefab = lm.fluidManager.GetFluidByID(eID);
         p = Instantiate(prefab, spawnPos.position, spawnPos.rotation);

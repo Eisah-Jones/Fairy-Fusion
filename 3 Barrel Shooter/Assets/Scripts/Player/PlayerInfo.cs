@@ -105,7 +105,7 @@ public class PlayerInfo : MonoBehaviour
 		lives += -1;
         //deathParticles = Instantiate(levelManager.particles[3], transform.position, transform.rotation);
         levelManager.SpawnParticleEffectAtPosition(transform.position, 3);
-        levelManager.soundManager.PlaySoundsByID(audioSources[3], 9); // plays death sound
+        levelManager.soundManager.PlaySoundsByName(audioSources[3], "Death"); // plays death sound
 
         yield return new WaitForSeconds(.1f);
 		Vector3 respawn = new Vector3(0,0,0);
