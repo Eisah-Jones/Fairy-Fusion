@@ -40,7 +40,7 @@ public class LevelManager: MonoBehaviour {
 
     public Button currentButton;
 
-    public Countdown countdown;
+   // public Countdown countdown;
 
     private LevelGenerator levelGen = new LevelGenerator();
 
@@ -121,8 +121,8 @@ public class LevelManager: MonoBehaviour {
         menuButtonWin = win.transform.GetChild(1).GetComponent<Button>();
         quitButtonWin = win.transform.GetChild(2).GetComponent<Button>();
 
-        countdown = canvas.GetComponent<Countdown>();
-        countdown.InitStart();
+        //countdown = canvas.GetComponent<Countdown>();
+        //countdown.InitStart();
 
         // Load element prefabs
         elemPrefabs = elementManager.LoadElementPrefabs();
@@ -142,7 +142,7 @@ public class LevelManager: MonoBehaviour {
         // Spawn Resources
         levelGen.SpawnResources(resourceManager);
 
-        countdown.startPreCountDown();
+        //countdown.startPreCountDown();
 	}
 
 
