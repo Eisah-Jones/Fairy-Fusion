@@ -42,6 +42,8 @@ TagManager:
   - TilemapTrigger
   - PauseMenu
   - WinMenu
+  - HealthBar
+  - KillFeed
   layers:
   - Default
   - TransparentFX

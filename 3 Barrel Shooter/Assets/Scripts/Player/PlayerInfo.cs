@@ -20,7 +20,7 @@ public class PlayerInfo : MonoBehaviour
     public bool isRespawning=false;
     List<ParticleSystem.Particle> enter = new List<ParticleSystem.Particle>();
     List<ParticleSystem.Particle> exit = new List<ParticleSystem.Particle>();
-
+    private string elementOwnerName ="";
 
     public void InitPlayerInfo(LevelManager lm, int pNum)
     {
@@ -105,7 +105,7 @@ public class PlayerInfo : MonoBehaviour
 		lives += -1;
         //deathParticles = Instantiate(levelManager.particles[3], transform.position, transform.rotation);
         levelManager.SpawnParticleEffectAtPosition(transform.position, 3);
-        levelManager.soundManager.PlaySoundsByID(audioSources[3], 9); // plays death sound
+        levelManager.soundManager.PlaySoundsByName(audioSources[3], "Death"); // plays death sound
 
         yield return new WaitForSeconds(.1f);
 		Vector3 respawn = new Vector3(0,0,0);
@@ -138,7 +138,7 @@ public class PlayerInfo : MonoBehaviour
 			rearea = collision.name;
 			return;
 		}
-
+        
         ElementObject elementObj = collision.gameObject.GetComponent<ElementObject>();
         ElementParticle elementPart = collision.gameObject.GetComponent<ElementParticle>();
 
@@ -150,7 +150,7 @@ public class PlayerInfo : MonoBehaviour
         {
             elemID = elementObj.GetID();
             elemName = elementObj.GetName();
-
+            elementOwnerName = elementObj.GetOwner();
             bool isProjectile = elementObj.GetIsProjectile();
 
             //If it is not a projectile, then there is no interaction (except maybe physics, so we don't care)
@@ -164,12 +164,17 @@ public class PlayerInfo : MonoBehaviour
         {
             elemID = elementPart.GetParticleID();
             elemName = elementPart.GetParticleName();
+            elementOwnerName = elementPart.GetOwner();
         }
 
         if (elemName == "") return;
 
         PlayerCollisionModel.CollisionResult result = levelManager.playerCollisionModel.HandleCollision(health, elemName);
         health = result.health;
+        if (isDead())
+        {
+            levelManager.addKill(GetPlayerName(), elementOwnerName);
+        }
         transform.gameObject.GetComponent<PlayerController>().HandleEffects(result.playerEffect, collision.gameObject.transform);
     }
 

@@ -18,7 +18,7 @@ public class LevelManager: MonoBehaviour {
     public FluidManager fluidManager;
     public SoundManager soundManager;
     public CameraManager cameraManager;
-
+    
     // Models
     public ChamberInteractionModel chamberInteractionModel;
     public PlayerCollisionModel playerCollisionModel;
@@ -40,6 +40,7 @@ public class LevelManager: MonoBehaviour {
 
     public Button currentButton;
 
+    public Image skullIcon;
    // public Countdown countdown;
 
     private LevelGenerator levelGen = new LevelGenerator();
@@ -66,8 +67,8 @@ public class LevelManager: MonoBehaviour {
     public Tilemap groundCollider;
     public Tilemap groundTrigger;
 
-    private int numPlayers;
-
+    public int numPlayers;
+    public int numberOfLives = 3;
     private bool isPaused = false;
     private bool isOver = false;
     private bool checkingPauseInput = true;
@@ -75,6 +76,8 @@ public class LevelManager: MonoBehaviour {
     float inputDelayTime = 0.2f;
     bool isDetecingVerticalInput = true;
 
+    public Dictionary<string, int> killDict = new Dictionary<string, int>();
+    public Text killfeed;
     // Use this for initialization
     void Start () {
         numPlayers = 2; // will eventually be given by player selection menu
@@ -113,6 +116,9 @@ public class LevelManager: MonoBehaviour {
         win = canvas.transform.GetChild(1).gameObject;
         cdown = canvas.transform.GetChild(2).gameObject;
         //minimap = canvas.transform.GetChild(4).gameObject;
+        killfeed = canvas.transform.GetChild(3).gameObject.GetComponent<Text>();
+        //minimap = canvas.transform.GetChild(4).gameObject;
+        
 
         resumeButtonPause = pause.transform.GetChild(0).GetComponent<Button>();
         menuButtonPause = pause.transform.GetChild(1).GetComponent<Button>();
@@ -127,6 +133,8 @@ public class LevelManager: MonoBehaviour {
         // Load element prefabs
         elemPrefabs = elementManager.LoadElementPrefabs();
 
+
+   
         // Generate the level map
         levelGen.GenerateLevel(ground, groundCollider, groundTrigger, spriteManager, resourceManager);
 
@@ -141,11 +149,33 @@ public class LevelManager: MonoBehaviour {
 
         // Spawn Resources
         levelGen.SpawnResources(resourceManager);
-
+        //initialize kill dict
+        
+        InitKillDict();
+        CreateScoreCounters();
+      //  killfeed = GameObject.FindGameObjectWithTag("KillFeed").GetComponent<Text>();
+        
         //countdown.startPreCountDown();
-	}
+    }
 
+    private void InitKillDict()
+    {
+        foreach (var player in playerList)
+        {
+            killDict[player.GetComponent<PlayerInfo>().GetPlayerName()] = 0;
+ 
+        }
+    }
 
+    public Dictionary<string, int> GetKillDict()
+    {
+        return killDict;
+    }
+
+    private void CreateScoreCounters()
+    {
+
+    }
     //Continually track player states, log information, etc.
     //Fixed update because of physics calculations
     private void FixedUpdate()
@@ -170,7 +200,7 @@ public class LevelManager: MonoBehaviour {
 				winner = info.playerNum;
 		}
 
-		if (alive_count == 1) {
+		if (alive_count == numberOfLives) {
             cdown.SetActive(false);
             //minimap.SetActive(false);
             endScreen.SetActive (true);
@@ -337,7 +367,32 @@ public class LevelManager: MonoBehaviour {
         return numPlayers;
     }
 
+    public void addKill(string killed, string killedBy)
+    {
+        Debug.Log("adding... " + killed + ";" + killedBy);
+        killDict[killedBy] += 1;
+        Debug.Log(killDict);
+        updateKillFeed(killed, killedBy);
+        canvas.GetComponent<KillTracker>().updateCanvasElements(killDict);
+       
 
+
+
+    }
+
+    private void updateKillFeed(string killed, string killedBy)
+    {
+        Debug.Log(killedBy + " utterly destroyed " + killed);
+        killfeed.text = killedBy + " utterly destroyed " + killed;
+        StartCoroutine("WaitTilNextKill",5);
+     
+    }
+
+    IEnumerator WaitTilNextKill(int n)
+    {
+        yield return new WaitForSeconds(n);
+        killfeed.text = "";
+    }
     // These functions may need to be moved to sensical script
     public void SpawnParticleEffectAtPosition(Vector3 pos, int particleIndex)
     {

@@ -46,7 +46,60 @@ public class PlayerController : MonoBehaviour
         fairies = transform.Find("Fairies").gameObject;
     }
 
-
+    private void Update()
+    {
+        //    if (Input.GetKeyDown(KeyCode.Q))
+        //    {
+        //        AudioSource AS = new AudioSource();
+        //        lm.soundManager.PlaySoundsByID(AS,0);
+        //    }
+        //    if (Input.GetKeyDown(KeyCode.W))
+        //    {
+        //        AudioSource AS = new AudioSource();
+        //        lm.soundManager.PlaySoundsByID(AS, 1);
+        //    }
+        //    if (Input.GetKeyDown(KeyCode.E))
+        //    {
+        //        AudioSource AS = new AudioSource();
+        //        lm.soundManager.PlaySoundsByID(AS, 2);
+        //    }
+        //    if (Input.GetKeyDown(KeyCode.R))
+        //    {
+        //        AudioSource AS = new AudioSource();
+        //        lm.soundManager.PlaySoundsByID(AS, 3);
+        //    }
+        //    if (Input.GetKeyDown(KeyCode.T))
+        //    {
+        //        AudioSource AS = new AudioSource();
+        //        lm.soundManager.PlaySoundsByID(AS, 4);
+        //    }
+        //    if (Input.GetKeyDown(KeyCode.Y))
+        //    {
+        //        AudioSource AS = new AudioSource();
+        //        lm.soundManager.PlaySoundsByID(AS, 5);
+        //    }
+        //    if (Input.GetKeyDown(KeyCode.U))
+        //    {
+        //        AudioSource AS = new AudioSource();
+        //        lm.soundManager.PlaySoundsByID(AS, 6);
+        //    }
+        //    if (Input.GetKeyDown(KeyCode.I))
+        //    {
+        //        AudioSource AS = new AudioSource();
+        //        lm.soundManager.PlaySoundsByID(AS, 7);
+        //    }
+        //    if (Input.GetKeyDown(KeyCode.O))
+        //    {
+        //        AudioSource AS = new AudioSource();
+        //        lm.soundManager.PlaySoundsByID(AS, 8);
+        //    }
+        //    if (Input.GetKeyDown(KeyCode.P))
+        //    {
+        //        AudioSource AS = new AudioSource();
+        //        lm.soundManager.PlaySoundsByID(AS, 9 );
+        //    }
+        //}
+    }
     public void UpdatePlayerInputs(ControllerInputs inputs)
     {
         // Vacuum Sucking
@@ -128,7 +181,7 @@ public class PlayerController : MonoBehaviour
         if (!Mathf.Approximately(horizontal, 0f) || !Mathf.Approximately(vertical, 0f))
         {
             if (audioSource!=null)
-                lm.soundManager.PlaySoundsByID(audioSource, 3);
+                lm.soundManager.PlaySoundsByName(audioSource, "Grasswalk");
 			player_animator.SetBool ("Moving", true);
            
         }
