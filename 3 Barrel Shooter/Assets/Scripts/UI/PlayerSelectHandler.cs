@@ -39,6 +39,7 @@ public class PlayerSelectHandler : MonoBehaviour
             {
                 //// Maybe do a short countdown to allow for cancelling?
                 GameObject levelManagerInitializer = Instantiate(new GameObject());
+                levelManagerInitializer.name = "Level Manager Initializer";
                 levelManagerInitializer.AddComponent<LevelManagerInit>();
                 levelManagerInitializer.GetComponent<LevelManagerInit>().SetNumPlayers(numPlayersReady);
                 DontDestroyOnLoad(levelManagerInitializer);

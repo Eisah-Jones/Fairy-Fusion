@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class UIManager : MonoBehaviour
 
     private bool isDetectingVerticalInput;
     private bool isDetectingHorizontalInput;
+    private bool isPaused = false;
 
     private float buttonDeadZone = 0.65f;
     private float inputDelayTimeVertical = 0.2f;
@@ -68,7 +70,13 @@ public class UIManager : MonoBehaviour
             }
         }
         
-        if (ci[0].A_Button && activeMenu.GetName() != "PlayerSelect")
+        if (GetStartButton(ci) && SceneManager.GetActiveScene().name == "Level")
+        {
+            menus[0].GetMenu().SetActive(!menus[0].GetMenu().activeSelf);
+            isPaused = menus[0].GetMenu().activeSelf;
+            SetActiveMenu();
+        }
+        else if (ci[0].A_Button && activeMenu.GetName() != "PlayerSelect")
         {
             activeMenu.GetActiveElement().Interact(0);
             SetActiveMenu();
@@ -79,13 +87,18 @@ public class UIManager : MonoBehaviour
             {
                 activeMenu.ResetMenu();
                 SetActiveMenu();
-                Debug.Log("BACK");
             }
             else
             {
                 activeMenu.GetPlayerSelectHandler().HandleInput(ci);
             }
         }
+    }
+
+
+    public bool GetPaused()
+    {
+        return isPaused;
     }
 
 
@@ -97,15 +110,19 @@ public class UIManager : MonoBehaviour
             {
                 activeMenu.ResetMenu();
                 activeMenu = menus[i];
-                activeMenu.SetActiveElement(0);
+                activeMenu.SetActiveElement(1);
+                activeMenu.SetActiveElement(-1);
                 return;
             }
         }
-        activeMenu.ResetMenu();
-        activeMenu = menus[0];
-        activeMenu.GetMenu().SetActive(true);
-        activeMenu.SetActiveElement(1); // Unity is dumb
-        activeMenu.SetActiveElement(-1);
+        if (SceneManager.GetActiveScene().name != "Level")
+        {
+            activeMenu.ResetMenu();
+            activeMenu = menus[0];
+            activeMenu.GetMenu().SetActive(true);
+            activeMenu.SetActiveElement(1); // Unity is dumb
+            activeMenu.SetActiveElement(-1);
+        }
     }
 
 
@@ -130,6 +147,16 @@ public class UIManager : MonoBehaviour
         return dir;
     }
 
+    
+    private bool GetStartButton(List<ControllerInputs> ci)
+    {
+        foreach (ControllerInputs i in ci)
+        {
+            if (i.Start_Button)
+                return true;
+        }
+        return false;
+    }
 
 
     private IEnumerator DelayInputVertical()

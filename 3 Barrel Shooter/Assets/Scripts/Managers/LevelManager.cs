@@ -18,6 +18,7 @@ public class LevelManager: MonoBehaviour {
     public FluidManager fluidManager;
     public SoundManager soundManager;
     public CameraManager cameraManager;
+    public UIManager uiManager;
     
     // Models
     public ChamberInteractionModel chamberInteractionModel;
@@ -40,6 +41,7 @@ public class LevelManager: MonoBehaviour {
 
     public Button currentButton;
 
+    // Move this to another script
     public Image skullIcon;
    // public Countdown countdown;
 
@@ -56,8 +58,7 @@ public class LevelManager: MonoBehaviour {
     public GameObject[] elemPrefabs;
 
     public ParticleSystem[] particles = new ParticleSystem[5];
-
-    public Text testHUD;
+    
 	public GameObject endScreen;
 	public Text winText;
 
@@ -73,14 +74,17 @@ public class LevelManager: MonoBehaviour {
     private bool isOver = false;
     private bool checkingPauseInput = true;
 
-    float inputDelayTime = 0.2f;
-    bool isDetecingVerticalInput = true;
+    private bool isInitialized = false;
 
+    // Move these to another script
     public Dictionary<string, int> killDict = new Dictionary<string, int>();
     public Text killfeed;
+
+
+
     // Use this for initialization
-    void Start () {
-        numPlayers = 2; // will eventually be given by player selection menu
+    public void InitLevelManager (int num) {
+        numPlayers = num; // will eventually be given by player selection menu
 
         // Init/Create Manager References
         elementManager = new ElementManager();
@@ -90,9 +94,7 @@ public class LevelManager: MonoBehaviour {
         controllerManager.InitControllerManager(this);
 
         spriteManager = new SpriteManager();
-
         resourceManager = new ResourceManager();
-
         fluidManager = new FluidManager();
 
         //particleManager = new ParticleManager();
@@ -105,13 +107,15 @@ public class LevelManager: MonoBehaviour {
 
         // Create Model References
         chamberInteractionModel = new ChamberInteractionModel(elementManager);
-
         playerCollisionModel = new PlayerCollisionModel(elementManager);
-
         elementCollisionModel = new ElementCollisionModel(elementManager);
 
         // Create UI References
         canvas = GameObject.FindGameObjectWithTag("Canvas");
+
+        // Set UI manager after getting canvas reference
+        uiManager = canvas.GetComponent<UIManager>();
+
         pause = canvas.transform.GetChild(0).gameObject;
         win = canvas.transform.GetChild(1).gameObject;
         cdown = canvas.transform.GetChild(2).gameObject;
@@ -132,8 +136,6 @@ public class LevelManager: MonoBehaviour {
         // Load element prefabs
         elemPrefabs = elementManager.LoadElementPrefabs();
 
-
-   
         // Generate the level map
         levelGen.GenerateLevel(ground, groundCollider, groundTrigger, spriteManager, resourceManager);
 
@@ -148,37 +150,24 @@ public class LevelManager: MonoBehaviour {
 
         // Spawn Resources
         levelGen.SpawnResources(resourceManager);
+
         //initialize kill dict
-        
         InitKillDict();
         CreateScoreCounters();
-      //  killfeed = GameObject.FindGameObjectWithTag("KillFeed").GetComponent<Text>();
-        
+        //  killfeed = GameObject.FindGameObjectWithTag("KillFeed").GetComponent<Text>();
+
         //countdown.startPreCountDown();
+
+        isInitialized = true;
     }
 
-    private void InitKillDict()
-    {
-        foreach (var player in playerList)
-        {
-            killDict[player.GetComponent<PlayerInfo>().GetPlayerName()] = 0;
- 
-        }
-    }
 
-    public Dictionary<string, int> GetKillDict()
-    {
-        return killDict;
-    }
-
-    private void CreateScoreCounters()
-    {
-
-    }
     //Continually track player states, log information, etc.
     //Fixed update because of physics calculations
     private void FixedUpdate()
     {
+        if (!isInitialized) return;
+
         if (!isPaused && !isOver)
             SendControllerInputsToPlayer(controllerManager.GetControllerInputs());
         cameraManager.UpdateCameraPosition(playerList);
@@ -188,8 +177,14 @@ public class LevelManager: MonoBehaviour {
 	//Checks for a winner each frame
 	private void Update()
     {
-		int alive_count = 0;
+        if (!isInitialized) return;
+
+        int alive_count = 0;
 		int winner = 0;
+
+        isPaused = uiManager.GetPaused();
+        if (cdown.activeSelf != !isPaused)
+            cdown.SetActive(!isPaused);
 
 		foreach (PlayerInfo info in pInfoList)
         {
@@ -206,149 +201,7 @@ public class LevelManager: MonoBehaviour {
 			winText.text = string.Format ("Player {0} Wins!", winner);
             isOver = true;
 		}
-
-        if (!isOver)
-        {
-            CheckForPauseButton();
-            if (isPaused)
-            {
-                CheckForVerticalInputPause();
-                CheckForChooseInput();
-            }
-        }
-        else
-        {
-            CheckForVerticalInputEnd();
-            CheckForChooseInput();
-        }
 	}
-
-
-    private void CheckForChooseInput()
-    {
-        foreach (ControllerInputs c in controllerManager.GetControllerInputs())
-        {
-            if (!isOver && c.A_Button)
-            {
-                currentButton.onClick.Invoke();
-                isPaused = false;
-                if (currentButton == resumeButtonPause && !isOver && checkingPauseInput)
-                {
-                    pause.SetActive(isPaused);
-                    minimap.SetActive(!isPaused);
-                    cdown.SetActive(!isPaused);
-                    if (isPaused)
-                    {
-                        currentButton = resumeButtonPause;
-                        currentButton.Select();
-                    }
-                    return;
-                }
-                return;
-            }
-        }
-    }
-
-
-    public IEnumerator DelayInputVertical()
-    {
-        isDetecingVerticalInput = false;
-        yield return new WaitForSeconds(inputDelayTime);
-        isDetecingVerticalInput = true;
-    }
-
-
-    private void CheckForVerticalInputEnd()
-    {
-        if (isDetecingVerticalInput)
-        {
-            StartCoroutine("DelayInputVertical");
-            foreach (ControllerInputs c in controllerManager.GetControllerInputs())
-            {
-                if (c.Left_Stick_Vertical != 0)
-                {
-                    if (currentButton == menuButtonWin)
-                    {
-                        currentButton = quitButtonWin;
-                    }
-                    else
-                    {
-                        currentButton = menuButtonWin;
-                    }
-                    currentButton.Select();
-                    return;
-                }
-            }
-        }
-    }
-
-
-    // Used for detecting input in menus
-    private void CheckForVerticalInputPause()
-    {
-        if (isDetecingVerticalInput)
-        {
-            StartCoroutine("DelayInputVertical");
-            foreach (ControllerInputs c in controllerManager.GetControllerInputs())
-            {
-                if (!isOver && c.Left_Stick_Vertical < 0)
-                {
-                    if (currentButton == resumeButtonPause)
-                    {
-                        currentButton = quitButtonPause;
-                    }
-                    else if (currentButton == menuButtonPause)
-                    {
-                        currentButton = resumeButtonPause;
-                    }
-                    else
-                    {
-                        currentButton = menuButtonPause;
-                    }
-                    currentButton.Select();
-                    return;
-                }
-                else if (!isOver && c.Left_Stick_Vertical > 0)
-                {
-                    if (currentButton == resumeButtonPause)
-                    {
-                        currentButton = menuButtonPause;
-                    }
-                    else if (currentButton == menuButtonPause)
-                    {
-                        currentButton = quitButtonPause;
-                    }
-                    else
-                    {
-                        currentButton = resumeButtonPause;
-                    }
-                    currentButton.Select();
-                    return;
-                }
-            }
-        }
-    }
-
-
-    private void CheckForPauseButton()
-    {
-        foreach (ControllerInputs c in controllerManager.GetControllerInputs())
-        {
-            if(c.Start_Button)
-            {
-                isPaused = !pause.activeSelf;
-                if (!isOver && checkingPauseInput)
-                {
-                    pause.SetActive(isPaused);
-                    minimap.SetActive(!isPaused);
-                    cdown.SetActive(!isPaused);
-                    currentButton = resumeButtonPause;
-                    currentButton.Select();
-                }
-                return;
-            }
-        }
-    }
 
 
     private void SendControllerInputsToPlayer(List<ControllerInputs> i)
@@ -366,33 +219,7 @@ public class LevelManager: MonoBehaviour {
         return numPlayers;
     }
 
-    public void addKill(string killed, string killedBy)
-    {
-        Debug.Log("adding... " + killed + ";" + killedBy);
-        killDict[killedBy] += 1;
-        Debug.Log(killDict);
-        updateKillFeed(killed, killedBy);
-        canvas.GetComponent<KillTracker>().updateCanvasElements(killDict);
-       
-
-
-
-    }
-
-    private void updateKillFeed(string killed, string killedBy)
-    {
-        Debug.Log(killedBy + " utterly destroyed " + killed);
-        killfeed.text = killedBy + " utterly destroyed " + killed;
-        StartCoroutine("WaitTilNextKill",5);
-     
-    }
-
-    IEnumerator WaitTilNextKill(int n)
-    {
-        yield return new WaitForSeconds(n);
-        killfeed.text = "";
-    }
-    // These functions may need to be moved to sensical script
+    // #### These functions below need to be moved to sensical script ####
     public void SpawnParticleEffectAtPosition(Vector3 pos, int particleIndex)
     {
         Instantiate(particles[particleIndex], pos, transform.rotation);
@@ -402,5 +229,52 @@ public class LevelManager: MonoBehaviour {
     public string GetTriggerTile(int x, int y)
     {
         return levelGen.GetTerrainMap()[x, y];
+    }
+
+    private void InitKillDict()
+    {
+        foreach (var player in playerList)
+        {
+            killDict[player.GetComponent<PlayerInfo>().GetPlayerName()] = 0;
+
+        }
+    }
+
+
+    public Dictionary<string, int> GetKillDict()
+    {
+        return killDict;
+    }
+
+
+    private void CreateScoreCounters()
+    {
+
+    }
+
+
+    public void addKill(string killed, string killedBy)
+    {
+        Debug.Log("adding... " + killed + ";" + killedBy);
+        killDict[killedBy] += 1;
+        Debug.Log(killDict);
+        updateKillFeed(killed, killedBy);
+        canvas.GetComponent<KillTracker>().updateCanvasElements(killDict);
+    }
+
+
+    private void updateKillFeed(string killed, string killedBy)
+    {
+        Debug.Log(killedBy + " utterly destroyed " + killed);
+        killfeed.text = killedBy + " utterly destroyed " + killed;
+        StartCoroutine("WaitTilNextKill", 5);
+
+    }
+
+
+    IEnumerator WaitTilNextKill(int n)
+    {
+        yield return new WaitForSeconds(n);
+        killfeed.text = "";
     }
 }

@@ -51,6 +51,7 @@ public class Menu : MonoBehaviour
     {
         if (menuUIElements.Count == 0) return;
         activeElementIndex = (activeElementIndex + dir) % menuUIElements.Count;
+        if (activeElementIndex < 0) activeElementIndex = menuUIElements.Count - 1;
         activeElement = menuUIElements[activeElementIndex];
         SelectElement();
     }
@@ -59,7 +60,6 @@ public class Menu : MonoBehaviour
     public void SelectElement()
     {
         activeElement.Select();
-        Debug.Log(activeElement.GetElementName());
     }
 
 

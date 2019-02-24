@@ -16,7 +16,6 @@ public class KillTracker : MonoBehaviour
         numPlayers = lm.numPlayers;
         canvas = GameObject.FindGameObjectWithTag("Canvas");
         killcounts[0] = canvas.transform.GetChild(5).gameObject;
-        Debug.Log(canvas.transform.GetChild(5).gameObject.name);
         killcounts[1] = canvas.transform.GetChild(6).gameObject;
         killcounts[2] = canvas.transform.GetChild(7).gameObject;
         killcounts[3] = canvas.transform.GetChild(8).gameObject;
