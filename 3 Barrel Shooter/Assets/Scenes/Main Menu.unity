@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 79005516}
   m_Layer: 5
   m_Name: OptionsButton
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -266,7 +266,7 @@ GameObject:
   - component: {fileID: 118526262}
   m_Layer: 5
   m_Name: TutorialButton
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -564,7 +564,7 @@ GameObject:
   - component: {fileID: 174712143}
   m_Layer: 5
   m_Name: TutorialMenu
-  m_TagString: Untagged
+  m_TagString: Menu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1038,7 +1038,7 @@ GameObject:
   - component: {fileID: 383734004}
   m_Layer: 5
   m_Name: BackButton
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1779,7 +1779,7 @@ GameObject:
   - component: {fileID: 777669970}
   m_Layer: 5
   m_Name: BackButton
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1919,7 +1919,7 @@ GameObject:
   - component: {fileID: 817667545}
   m_Layer: 5
   m_Name: PlayButton
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2207,7 +2207,7 @@ GameObject:
   - component: {fileID: 935111454}
   m_Layer: 5
   m_Name: MainMenu
-  m_TagString: Untagged
+  m_TagString: Menu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2483,7 +2483,7 @@ GameObject:
   - component: {fileID: 1065473725}
   m_Layer: 5
   m_Name: OptionsMenu
-  m_TagString: Untagged
+  m_TagString: Menu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2525,7 +2525,7 @@ GameObject:
   - component: {fileID: 1071125322}
   m_Layer: 5
   m_Name: QuitButton
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2654,6 +2654,7 @@ GameObject:
   - component: {fileID: 1202986671}
   - component: {fileID: 1202986675}
   - component: {fileID: 1202986676}
+  - component: {fileID: 1202986677}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2763,9 +2764,45 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1202986670}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba7f986fb179b41c8811841186d20ba2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainIndex: 0
+  optionsIndex: 0
+  inputDelayTime: 0.2
+  buttonDeadZone: 0.65
+  controllerManager: {fileID: 0}
+  menus:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  mainButtons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  tutorialBack: {fileID: 0}
+  currentMenu: 
+  currentButton: {fileID: 0}
+  currentSlider: {fileID: 0}
+  isDetecingVerticalInput: 0
+  isDetecingHorizontalInput: 0
+--- !u!114 &1202986677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202986670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a40ec08130bfe419501e92e3760de5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1203840272
@@ -3006,8 +3043,8 @@ GameObject:
   - component: {fileID: 1685448882}
   - component: {fileID: 1685448883}
   m_Layer: 5
-  m_Name: Slider
-  m_TagString: Untagged
+  m_Name: Volume Slider
+  m_TagString: Slider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

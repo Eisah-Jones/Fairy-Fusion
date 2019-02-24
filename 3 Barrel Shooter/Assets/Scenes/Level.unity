@@ -3335,11 +3335,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7510260885860611774, guid: 8c821ce54ff81c14eab4daeedede9edf,
-        type: 3}
-      propertyPath: m_PreserveAspect
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7510260886599790785, guid: 8c821ce54ff81c14eab4daeedede9edf,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -3359,6 +3354,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7510260885860611774, guid: 8c821ce54ff81c14eab4daeedede9edf,
+        type: 3}
+      propertyPath: m_PreserveAspect
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c821ce54ff81c14eab4daeedede9edf, type: 3}

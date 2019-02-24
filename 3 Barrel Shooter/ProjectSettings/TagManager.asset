@@ -18,7 +18,6 @@ TagManager:
   - Rock
   - Fire
   - Water
-  - Walls
   - HUD
   - ProjectileSpawn
   - R-4-Wood
@@ -44,6 +43,9 @@ TagManager:
   - WinMenu
   - HealthBar
   - KillFeed
+  - Menu
+  - Button
+  - Slider
   layers:
   - Default
   - TransparentFX
