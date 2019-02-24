@@ -13,11 +13,19 @@ public class Menu : MonoBehaviour
     private UIElement activeElement;
     private int activeElementIndex;
 
+    private PlayerSelectHandler playerSelectHandler = null;
+
     public void InitMenu(GameObject m)
     {
         menu = m;
         menuName = m.name;
-        Debug.Log(menuName);
+        if (menuName == "PlayerSelect")
+        {
+            menu.AddComponent<PlayerSelectHandler>();
+            playerSelectHandler = menu.GetComponent<PlayerSelectHandler>();
+            playerSelectHandler.InitPlayerSelectHandler();
+        }
+
 
         foreach (Transform element in menu.transform)
         {
@@ -41,6 +49,7 @@ public class Menu : MonoBehaviour
 
     public void SetActiveElement(int dir)
     {
+        if (menuUIElements.Count == 0) return;
         activeElementIndex = (activeElementIndex + dir) % menuUIElements.Count;
         activeElement = menuUIElements[activeElementIndex];
         SelectElement();
@@ -50,6 +59,7 @@ public class Menu : MonoBehaviour
     public void SelectElement()
     {
         activeElement.Select();
+        Debug.Log(activeElement.GetElementName());
     }
 
 
@@ -71,9 +81,23 @@ public class Menu : MonoBehaviour
     }
 
 
+    public PlayerSelectHandler GetPlayerSelectHandler()
+    {
+        return playerSelectHandler;
+    }
+
+
     public void ResetMenu()
     {
-        activeElementIndex = 0;
-        SetActiveElement(0);
+        if (menuName == "PlayerSelect")
+        {
+            playerSelectHandler.ResetMenu();
+            menu.SetActive(false);
+        }
+        else
+        {
+            activeElementIndex = 0;
+            SetActiveElement(0);
+        }
     }
 }

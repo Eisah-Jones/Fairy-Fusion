@@ -11,7 +11,6 @@ public class UIManager : MonoBehaviour
 
     private bool isDetectingVerticalInput;
     private bool isDetectingHorizontalInput;
-    private bool buttonPressA;
 
     private float buttonDeadZone = 0.65f;
     private float inputDelayTimeVertical = 0.2f;
@@ -20,9 +19,8 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        controllerManager.InitControllerManagerMenus(1);
-
-        int i = 0;
+        controllerManager.InitControllerManagerMenus(4);
+        
         foreach (Transform m in transform)
         {
             if (m.tag == "Menu")
@@ -58,7 +56,7 @@ public class UIManager : MonoBehaviour
 
         if (isDetectingHorizontalInput)
         {
-            if (activeMenu.GetActiveElement().GetElementType() == "Slider")
+            if (activeMenu.GetActiveElement() != null && activeMenu.GetActiveElement().GetElementType() == "Slider")
             {
                 int v = GetLeftStickHorizontal(ci);
                 if (v != 0)
@@ -69,12 +67,24 @@ public class UIManager : MonoBehaviour
                 }
             }
         }
-
-        buttonPressA = ci[0].A_Button;
-        if (buttonPressA)
+        
+        if (ci[0].A_Button && activeMenu.GetName() != "PlayerSelect")
         {
             activeMenu.GetActiveElement().Interact(0);
             SetActiveMenu();
+        }
+        else if (activeMenu.GetName() == "PlayerSelect")
+        {
+            if (activeMenu.GetPlayerSelectHandler().GetBack())
+            {
+                activeMenu.ResetMenu();
+                SetActiveMenu();
+                Debug.Log("BACK");
+            }
+            else
+            {
+                activeMenu.GetPlayerSelectHandler().HandleInput(ci);
+            }
         }
     }
 
@@ -88,9 +98,14 @@ public class UIManager : MonoBehaviour
                 activeMenu.ResetMenu();
                 activeMenu = menus[i];
                 activeMenu.SetActiveElement(0);
-                break;
+                return;
             }
         }
+        activeMenu.ResetMenu();
+        activeMenu = menus[0];
+        activeMenu.GetMenu().SetActive(true);
+        activeMenu.SetActiveElement(1); // Unity is dumb
+        activeMenu.SetActiveElement(-1);
     }
 
 
@@ -114,6 +129,7 @@ public class UIManager : MonoBehaviour
         else if (leftStickHorizontal > buttonDeadZone) dir = 1;
         return dir;
     }
+
 
 
     private IEnumerator DelayInputVertical()

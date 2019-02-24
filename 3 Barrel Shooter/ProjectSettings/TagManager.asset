@@ -46,6 +46,7 @@ TagManager:
   - Menu
   - Button
   - Slider
+  - PlayerSelect
   layers:
   - Default
   - TransparentFX

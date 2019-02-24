@@ -7,4 +7,6 @@
     string GetElementType();
 
     string GetElementName();
+
+    //bool GetIsReady();
 }

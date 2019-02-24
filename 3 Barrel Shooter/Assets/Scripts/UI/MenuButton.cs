@@ -13,7 +13,6 @@ public class MenuButton : UIElement
     {
         button = b.GetComponent<Button>();
         buttonName = b.name;
-        Debug.Log(buttonName);
     }
 
 
