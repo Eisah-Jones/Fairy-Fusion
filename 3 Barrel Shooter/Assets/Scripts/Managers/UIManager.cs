@@ -115,6 +115,7 @@ public class UIManager : MonoBehaviour
                 return;
             }
         }
+
         if (SceneManager.GetActiveScene().name != "Level")
         {
             activeMenu.ResetMenu();

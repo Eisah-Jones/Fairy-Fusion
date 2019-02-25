@@ -101,6 +101,7 @@ public class PlayerInfo : MonoBehaviour
         }
     }
 
+
     private IEnumerator respawn(){
 		lives += -1;
         //deathParticles = Instantiate(levelManager.particles[3], transform.position, transform.rotation);
@@ -175,10 +176,12 @@ public class PlayerInfo : MonoBehaviour
         {
             levelManager.addKill(GetPlayerName(), elementOwnerName);
         }
-        transform.gameObject.GetComponent<PlayerController>().HandleEffects(result.playerEffect, collision.gameObject.transform);
+        transform.gameObject.GetComponent<PlayerController>().HandleEffects(result.playerEffect, collision.transform);
     }
 
-    private Vector3 GetRandomVector(int x_range, int y_range){
+
+    private Vector3 GetRandomVector(int x_range, int y_range)
+    {
 		if (x_range >= 0f && y_range >= 0f)
 			return new Vector3(Random.Range(0f,x_range),Random.Range(0f,y_range),-2f);
 		else if(x_range < 0f && y_range >= 0f)
@@ -190,7 +193,9 @@ public class PlayerInfo : MonoBehaviour
 		return new Vector3 (0, 0, 0);
 	}
 
-	private Vector3 GetVector(int area){
+
+	private Vector3 GetVector(int area)
+    {
 		Vector3 re = new Vector3(0,0,0);
 		switch(area){
 		case 1:

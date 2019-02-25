@@ -9,28 +9,32 @@ public class PlayerController : MonoBehaviour
     public GameObject fairies;
 	public Animator player_animator;
 
-    [SerializeField]
-    private float speed = 2f;
-    private float speedMultiplier = 1f;
+    public LevelManager lm;
+    public AudioSource audioSource;
+
     public string inputHorizontal = "Horizontal";
     public string inputVertical = "Vertical";
     public string shootButton = "ShootButton_P1";
     public string vacuumButton = "VacuumButton_P1";
-    float horizontal;
-    float vertical;
 
-    bool suckLeft;
-    bool shootLeft;
+    [SerializeField]
+    private float speed = 2f;
+    private float speedMultiplier = 1f;
 
-    bool suckRight;
-    bool shootRight;
+    private float horizontal;
+    private float vertical;
 
-    public bool Burning = false;
-    float last_heading;
-    public LevelManager lm;
-    public AudioSource audioSource;
+    private bool suckLeft;
+    private bool shootLeft;
+
+    private bool suckRight;
+    private bool shootRight;
+
+    private float last_heading;
     private FairyController vacControl;
 	private SpriteRenderer spriteR;
+
+    private PlayerAffector playerAffector;
 
     void Start()
     {
@@ -42,64 +46,19 @@ public class PlayerController : MonoBehaviour
 
     public void InitPlayerController(FairyController vc){
         vacControl = vc;
-        playerBody = this.gameObject;
+        playerBody = gameObject;
         fairies = transform.Find("Fairies").gameObject;
+        gameObject.AddComponent<PlayerAffector>();
+        playerAffector = gameObject.GetComponent<PlayerAffector>();
+        playerAffector.InitPlayerAffector(playerBody);
     }
 
-    private void Update()
+    public void Update()
     {
-        //    if (Input.GetKeyDown(KeyCode.Q))
-        //    {
-        //        AudioSource AS = new AudioSource();
-        //        lm.soundManager.PlaySoundsByID(AS,0);
-        //    }
-        //    if (Input.GetKeyDown(KeyCode.W))
-        //    {
-        //        AudioSource AS = new AudioSource();
-        //        lm.soundManager.PlaySoundsByID(AS, 1);
-        //    }
-        //    if (Input.GetKeyDown(KeyCode.E))
-        //    {
-        //        AudioSource AS = new AudioSource();
-        //        lm.soundManager.PlaySoundsByID(AS, 2);
-        //    }
-        //    if (Input.GetKeyDown(KeyCode.R))
-        //    {
-        //        AudioSource AS = new AudioSource();
-        //        lm.soundManager.PlaySoundsByID(AS, 3);
-        //    }
-        //    if (Input.GetKeyDown(KeyCode.T))
-        //    {
-        //        AudioSource AS = new AudioSource();
-        //        lm.soundManager.PlaySoundsByID(AS, 4);
-        //    }
-        //    if (Input.GetKeyDown(KeyCode.Y))
-        //    {
-        //        AudioSource AS = new AudioSource();
-        //        lm.soundManager.PlaySoundsByID(AS, 5);
-        //    }
-        //    if (Input.GetKeyDown(KeyCode.U))
-        //    {
-        //        AudioSource AS = new AudioSource();
-        //        lm.soundManager.PlaySoundsByID(AS, 6);
-        //    }
-        //    if (Input.GetKeyDown(KeyCode.I))
-        //    {
-        //        AudioSource AS = new AudioSource();
-        //        lm.soundManager.PlaySoundsByID(AS, 7);
-        //    }
-        //    if (Input.GetKeyDown(KeyCode.O))
-        //    {
-        //        AudioSource AS = new AudioSource();
-        //        lm.soundManager.PlaySoundsByID(AS, 8);
-        //    }
-        //    if (Input.GetKeyDown(KeyCode.P))
-        //    {
-        //        AudioSource AS = new AudioSource();
-        //        lm.soundManager.PlaySoundsByID(AS, 9 );
-        //    }
-        //}
+
     }
+
+
     public void UpdatePlayerInputs(ControllerInputs inputs)
     {
         // Vacuum Sucking
@@ -128,13 +87,6 @@ public class PlayerController : MonoBehaviour
         return playerBody.GetComponent<PlayerInfo>().GetPlayerName();
     }
 
-	private void SetAnimsFalse(){
-		player_animator.SetBool ("Up", false);
-		player_animator.SetBool ("Down", false);
-		player_animator.SetBool ("Side", false);
-		spriteR.flipX = false;
-	}
-
 
     // This function is called every frame by the level manager, called in fixed update
     public void UpdatePlayerMovement(ControllerInputs inputs)
@@ -149,142 +101,85 @@ public class PlayerController : MonoBehaviour
         float heading = Mathf.Atan2(r_vertical, r_horizontal);
 
         //Change the position of the player
-        Vector2 movement = new Vector2(horizontal * speed * speedMultiplier, vertical * speed * speedMultiplier);
+        speedMultiplier = playerAffector.GetSpeedMultiplier();
+        float horizontalSpeed = horizontal * speed * speedMultiplier;
+        float verticalSpeed   = vertical * speed * speedMultiplier;
+        Vector2 movement = new Vector2(horizontalSpeed, verticalSpeed);
 
-		//changes the characters direction it faces
-		//changes orientation to face side
-		if (r_horizontal == -1 || r_horizontal == 1) {
-			SetAnimsFalse ();
-			player_animator.SetBool ("Side", true);
-		}
-		if (player_animator.GetBool ("Side") == true) {
-			if (r_horizontal < 0) {
-				spriteR.flipX = true;
-			}
-			else if (r_horizontal > 0){
-				spriteR.flipX = false;
-			}
-		}
+        AnimatePlayer(r_vertical, r_horizontal, movement, heading);
+    }
 
-		//changes orientation to face up
-		if (r_vertical == 1) {
-			SetAnimsFalse ();
-			player_animator.SetBool ("Up", true);
-		}
-		//changes orientation to face down
-		if (r_vertical == -1) {
-			SetAnimsFalse ();
-			player_animator.SetBool ("Down", true);
-		}
+
+    public void HandleEffects(List<string> effects, Transform t)
+    {
+        playerAffector.HandleEffects(effects, t);
+    }
+
+
+    private void SetAnimsFalse()
+    {
+        player_animator.SetBool("Up", false);
+        player_animator.SetBool("Down", false);
+        player_animator.SetBool("Side", false);
+        spriteR.flipX = false;
+    }
+
+
+    private void AnimatePlayer(float vertical, float horizontal, Vector2 movement, float heading)
+    {
+        //changes the characters direction it faces
+        //changes orientation to face side
+        if (horizontal == -1 || horizontal == 1)
+        {
+            SetAnimsFalse();
+            player_animator.SetBool("Side", true);
+        }
+
+        if (player_animator.GetBool("Side") == true)
+        {
+            if (horizontal < 0)
+            {
+                spriteR.flipX = true;
+            }
+            else if (horizontal > 0)
+            {
+                spriteR.flipX = false;
+            }
+        }
+
+        //changes orientation to face up
+        if (vertical == 1)
+        {
+            SetAnimsFalse();
+            player_animator.SetBool("Up", true);
+        }
+        //changes orientation to face down
+        if (vertical == -1)
+        {
+            SetAnimsFalse();
+            player_animator.SetBool("Down", true);
+        }
 
         transform.Translate(movement * Time.deltaTime, Space.World);
         if (!Mathf.Approximately(horizontal, 0f) || !Mathf.Approximately(vertical, 0f))
         {
-            if (audioSource!=null)
+            if (audioSource != null)
                 lm.soundManager.PlaySoundsByName(audioSource, "Grasswalk");
-			player_animator.SetBool ("Moving", true);
-           
+            player_animator.SetBool("Moving", true);
+
         }
         else if (Mathf.Approximately(horizontal, 0f) && Mathf.Approximately(vertical, 0f))
         {
             if (audioSource != null)
                 lm.soundManager.StopSound(audioSource);
-			player_animator.SetBool ("Moving", false);
+            player_animator.SetBool("Moving", false);
         }
 
-        //change rotation of pplayer if no input received keeps same rotation as last time it got input prevents snapping back to 0,0 heading
+        //change rotation of player if no input received keeps same rotation as last time it got input prevents snapping back to 0,0 heading
         if (heading != 0)
         {
             float last_heading = heading;
             fairies.transform.rotation = Quaternion.Euler(0f, 0f, last_heading * Mathf.Rad2Deg);
         }
-    }
-
-
-    // #### BELOW ARE PLAYER EFFECTS!! ####
-
-    public void HandleEffects(List<string> effects, Transform t){
-        foreach (string e in effects){
-            //Debug.Log("e: "+ e);
-            if (e == "Knockback")
-            {
-                IEnumerator c = Knockback(t);
-                StartCoroutine(c);
-            }
-            else if (e == "Burn" && !Burning ) 
-            {
-                Burning = true;
-                StartCoroutine("Burn");
-            }
-            else if (e == "Pushback")
-            {
-                IEnumerator c = Pushback(t);
-                StartCoroutine(c);
-            }
-            else if (e == "Slow")
-            {
-                StartCoroutine(e);
-            }
-        }
-    }
-
-
-    private IEnumerator ResetForces()
-    {
-        yield return new WaitForSeconds(0.05f);
-        Vector2 v = playerBody.GetComponent<Rigidbody2D>().velocity;
-        playerBody.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-    }
-
-
-    private IEnumerator Knockback(Transform t)
-    {
-        Vector2 heading = playerBody.transform.position - t.position;
-        heading = heading.normalized;
-
-        playerBody.GetComponent<Rigidbody2D>().AddForce(heading * 15, ForceMode2D.Impulse);
-
-        yield return new WaitForFixedUpdate();
-    }
-
-
-    private IEnumerator Pushback(Transform t)
-    {
-        Vector2 heading = playerBody.transform.position - t.position;
-        heading = heading.normalized;
-
-        playerBody.GetComponent<Rigidbody2D>().AddForce(heading * 3, ForceMode2D.Impulse);
-
-        yield return new WaitForFixedUpdate();
-    }
-
-
-    private IEnumerator Burn()
-    {
-        int burnHits = Random.Range(1, 5);
-        for (int i = 0; i < burnHits; i++ )
-        {
-            int hitPoints = Random.Range(3, 6);
-            if (gameObject.GetComponent<PlayerInfo>().health <= 0)
-            {
-                Burning = false;
-            }
-            else if (Burning)
-            {
-                gameObject.GetComponent<PlayerInfo>().RemovePlayerHealth(hitPoints);
-                float waitTime = Random.Range(1.0f, 4.0f);
-                yield return new WaitForSeconds(waitTime);
-            }
-        }
-        Burning = false;
-        yield return new WaitForFixedUpdate();
-    }
-
-
-    private IEnumerator Slow()
-    {
-        speedMultiplier = 0.5f;
-        yield return new WaitForSeconds(3f);
-        speedMultiplier = 1f;
     }
 }

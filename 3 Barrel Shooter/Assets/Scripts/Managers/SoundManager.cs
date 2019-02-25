@@ -38,6 +38,8 @@ public class SoundManager : MonoBehaviour {
             s.Play();
         }
     }
+
+
     //public void PlaySound(int i)
     //{
     //    //Debug.Log(i);
@@ -61,8 +63,9 @@ public class SoundManager : MonoBehaviour {
     //        //s.loop = true;
     //        s.Play();
     //    }
-    //   // else { s.Stop(); }
+    //    // else { s.Stop(); }
     //}
+
     public void StopSound(AudioSource asource)
     {
         if (asource != null)
