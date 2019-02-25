@@ -36,26 +36,19 @@ public class PlayerController : MonoBehaviour
 
     private PlayerAffector playerAffector;
 
-    void Start()
+
+    public void InitPlayerController(FairyController vc)
     {
-		spriteR = gameObject.GetComponent<SpriteRenderer>();
-        lm = FindObjectOfType<LevelManager>();
-        audioSource = gameObject.AddComponent<AudioSource>();
-    }
-
-
-    public void InitPlayerController(FairyController vc){
         vacControl = vc;
         playerBody = gameObject;
         fairies = transform.Find("Fairies").gameObject;
         gameObject.AddComponent<PlayerAffector>();
         playerAffector = gameObject.GetComponent<PlayerAffector>();
         playerAffector.InitPlayerAffector(playerBody);
-    }
 
-    public void Update()
-    {
-
+        spriteR = gameObject.GetComponent<SpriteRenderer>();
+        lm = FindObjectOfType<LevelManager>();
+        audioSource = gameObject.AddComponent<AudioSource>();
     }
 
 

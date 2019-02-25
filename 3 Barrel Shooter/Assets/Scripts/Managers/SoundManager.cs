@@ -6,8 +6,8 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour {
 
     public Dictionary<string,AudioClip> sounds;
-
     public AudioSource audioSource = new AudioSource();
+
 
     public void InitSoundManager()
     {
@@ -15,6 +15,7 @@ public class SoundManager : MonoBehaviour {
         LoadSounds();
     }
     
+
     private void LoadSounds()
     {
         TextAsset txt = (TextAsset)Resources.Load("Sounds/loadSounds", typeof(TextAsset));
@@ -28,7 +29,6 @@ public class SoundManager : MonoBehaviour {
     }
 
 
-    // TODO: Implement if needed
     public void PlaySoundsByName(AudioSource s, string name)
     {
         if (s != null && !s.isPlaying)
@@ -39,32 +39,6 @@ public class SoundManager : MonoBehaviour {
         }
     }
 
-
-    //public void PlaySound(int i)
-    //{
-    //    //Debug.Log(i);
-
-    //    if (audioSource != null && !audioSource.isPlaying)
-    //    {
-    //        audioSource.clip = sounds[i];
-    //        //s.loop = true;
-    //        audioSource.Play();
-    //    }
-    //    // else { s.Stop(); }
-    //}
-
-    //public void PlaySoundsByID(AudioSource s, int i)
-    //{
-    //    //Debug.Log(i);
-
-    //    if (s != null && !s.isPlaying)
-    //    {
-    //        s.clip = sounds[i];
-    //        //s.loop = true;
-    //        s.Play();
-    //    }
-    //    // else { s.Stop(); }
-    //}
 
     public void StopSound(AudioSource asource)
     {

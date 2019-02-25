@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    // General UI Input
     private Menu activeMenu;
     private List<Menu> menus = new List<Menu>();
 
+    private LevelManager levelManager;
     private ControllerManager controllerManager = new ControllerManager();
 
     private bool isDetectingVerticalInput;
@@ -17,10 +20,21 @@ public class UIManager : MonoBehaviour
     private float buttonDeadZone = 0.65f;
     private float inputDelayTimeVertical = 0.2f;
     private float inputDelayTimeHorizontal = 0.013f;
+    
+    // Level UI Elements
+    public GameObject canvas;
+    public GameObject win;
+    public GameObject minimap;
+    public GameObject cdown;
+    public KillCounter killCounter;
+    public Image skullIcon;
+    public GameObject endScreen;
+    public Text winText;
 
 
     void Start()
     {
+        levelManager = GameObject.FindGameObjectWithTag("Level Manager").GetComponent<LevelManager>();
         controllerManager.InitControllerManagerMenus(4);
         
         foreach (Transform m in transform)
@@ -38,11 +52,32 @@ public class UIManager : MonoBehaviour
 
         isDetectingVerticalInput   = true;
         isDetectingHorizontalInput = true;
+
+        if (SceneManager.GetActiveScene().name == "Level") // Load the level UI
+        {
+            canvas = GameObject.FindGameObjectWithTag("Canvas");
+            cdown = canvas.transform.GetChild(2).gameObject;
+            canvas.AddComponent<KillCounter>();
+            killCounter = canvas.GetComponent<KillCounter>();
+            killCounter.InitKillCounter(levelManager, canvas);
+        }
     }
 
 
     void Update()
     {
+        if (cdown.activeSelf != !isPaused)
+            cdown.SetActive(!isPaused);
+
+        if (levelManager.GetIsGameOver())
+        {
+            cdown.SetActive(false);
+            minimap.SetActive(false);
+            endScreen.SetActive(true);
+            winText.text = string.Format("Player {0} Wins!", levelManager.GetWinner());
+            levelManager.SetIsOver(true);
+        }
+
         List<ControllerInputs> ci = controllerManager.GetControllerInputs();
 
         if (isDetectingVerticalInput)

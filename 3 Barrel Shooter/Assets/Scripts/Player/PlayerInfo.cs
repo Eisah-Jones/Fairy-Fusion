@@ -31,9 +31,7 @@ public class PlayerInfo : MonoBehaviour
         audioSources[2] = gameObject.AddComponent<AudioSource>();
         health = 100.0f;
         playerNum = pNum;
-
         startedRespawn = false;
-
     }
 
 
@@ -174,7 +172,7 @@ public class PlayerInfo : MonoBehaviour
         health = result.health;
         if (isDead())
         {
-            levelManager.addKill(GetPlayerName(), elementOwnerName);
+            levelManager.GetKillCounter().addKill(GetPlayerName(), elementOwnerName);
         }
         transform.gameObject.GetComponent<PlayerController>().HandleEffects(result.playerEffect, collision.transform);
     }
