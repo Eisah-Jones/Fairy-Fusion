@@ -28,14 +28,17 @@ public class SoundManager : MonoBehaviour {
         }
     }
 
-
-    public void PlaySoundsByName(AudioSource s, string name)
+    public void PlaySoundByName(AudioSource s, string name, bool loop = false)
     {
         if (s != null && !s.isPlaying)
         {
             s.clip = sounds[name];
             //s.loop = true;
+            s.pitch = Random.Range(0.5f, 1.5f);
             s.Play();
+
+            s.loop = loop;
+
         }
     }
 

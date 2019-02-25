@@ -27,7 +27,7 @@ public class Resource : MonoBehaviour {
             if (resourceAvailable == 0) 
             {
 
-                lm.soundManager.PlaySoundsByName(audiosource, "ResourcePickup");
+                lm.soundManager.PlaySoundByName(audiosource, "ResourcePickup");
                 lm.SpawnParticleEffectAtPosition(gameObject.transform.position, 4);
 
                 StartCoroutine("DestroyResource");

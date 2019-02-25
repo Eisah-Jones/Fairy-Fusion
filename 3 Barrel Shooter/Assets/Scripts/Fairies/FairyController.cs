@@ -195,7 +195,7 @@ public class FairyController : MonoBehaviour {
         {
             fairies.SetVacuum(stateLeft, stateRight);
             fairyArea.enabled = stateLeft || stateRight;
-            levelManager.soundManager.PlaySoundsByName(audioSource, "Vacuum");
+            levelManager.soundManager.PlaySoundByName(audioSource, "Glimmer", true);
             if (!(stateLeft || stateRight))
             {
                 levelManager.soundManager.StopSound(audioSource);

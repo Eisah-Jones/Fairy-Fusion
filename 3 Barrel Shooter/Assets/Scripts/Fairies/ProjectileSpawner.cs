@@ -33,15 +33,15 @@ public class ProjectileSpawner : MonoBehaviour {
         //Debug.Log("Starting Projectile Sound: EID: " + eID);
         if (eID == 4)
         {
-            sm.PlaySoundsByName(audioSource, "Woodchips"); // plays wood chip sound
+            sm.PlaySoundByName(audioSource, "Woodchips"); // plays wood chip sound
         }
         else if (eID == 2)
         {
-            sm.PlaySoundsByName(audioSource, "Rockshot"); // plays rock shot sound
+            sm.PlaySoundByName(audioSource, "Rockshot"); // plays rock shot sound
         }
         else if (eID == 7)
         {
-            sm.PlaySoundsByName(audioSource, "Fireball"); // plays fireball sound
+            sm.PlaySoundByName(audioSource, "FireBall"); // plays fireball sound
         }
         //else if (eID == 8)
         //{
@@ -60,15 +60,15 @@ public class ProjectileSpawner : MonoBehaviour {
         //Debug.Log("Starting Flame Sound: EID: " + eID);
         if (eID == 1)
         {
-            sm.PlaySoundsByName(audioSource, "Flamethrower");
+            sm.PlaySoundByName(audioSource, "Flamethrower");
         }
         else if (eID == 3)
         {
-            sm.PlaySoundsByName(audioSource, "Water");
+            sm.PlaySoundByName(audioSource, "Water");
         }
         else if (eID == 6)
         {
-            sm.PlaySoundsByName(audioSource, "Steam");
+            sm.PlaySoundByName(audioSource, "Steam");
         }
         //sm.PlaySoundsByID(audioSource, 0);
 

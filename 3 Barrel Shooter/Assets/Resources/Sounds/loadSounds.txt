@@ -6,5 +6,6 @@ Rockshot
 ResourcePickup
 Flamethrower
 Steam
-Fireball
+FireBall
 Death
+Glimmer

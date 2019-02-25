@@ -157,7 +157,7 @@ public class PlayerController : MonoBehaviour
         if (!Mathf.Approximately(horizontal, 0f) || !Mathf.Approximately(vertical, 0f))
         {
             if (audioSource != null)
-                lm.soundManager.PlaySoundsByName(audioSource, "Grasswalk");
+                lm.soundManager.PlaySoundByName(audioSource, "Grasswalk");
             player_animator.SetBool("Moving", true);
 
         }
