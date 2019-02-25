@@ -80,6 +80,15 @@ public class LevelManager: MonoBehaviour {
     public Dictionary<string, int> killDict = new Dictionary<string, int>();
     public Text killfeed;
 
+    // Set testing varible to start from Level and not MainMenu
+    public void Start()
+    {
+        int n = 2;
+        bool testing = true;
+        if (testing)
+            InitLevelManager(n);
+    }
+
 
 
     // Use this for initialization
