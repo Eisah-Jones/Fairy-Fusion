@@ -61,4 +61,10 @@ public class CameraManager : MonoBehaviour
         cameraObject.name = "Cam" + (currentCamIndex + 1).ToString();
         cameras[currentCamIndex++] = cameraObject;
     }
+
+    
+    public GameObject[] GetCameraArray()
+    {
+        return cameras;
+    }
 }

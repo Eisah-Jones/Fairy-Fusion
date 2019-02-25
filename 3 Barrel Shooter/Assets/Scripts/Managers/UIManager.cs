@@ -20,8 +20,9 @@ public class UIManager : MonoBehaviour
     private float buttonDeadZone = 0.65f;
     private float inputDelayTimeVertical = 0.2f;
     private float inputDelayTimeHorizontal = 0.013f;
-    
+
     // Level UI Elements
+    private EnemyArrows enemyArrows = new EnemyArrows();
     public GameObject canvas;
     public GameObject win;
     public GameObject minimap;
@@ -60,6 +61,7 @@ public class UIManager : MonoBehaviour
             canvas.AddComponent<KillCounter>();
             killCounter = canvas.GetComponent<KillCounter>();
             killCounter.InitKillCounter(levelManager, canvas);
+            enemyArrows.InitEnemyArrows(levelManager);
         }
     }
 
@@ -77,6 +79,8 @@ public class UIManager : MonoBehaviour
             winText.text = string.Format("Player {0} Wins!", levelManager.GetWinner());
             levelManager.SetIsOver(true);
         }
+
+        enemyArrows.UpdateArrowPosition();
 
         List<ControllerInputs> ci = controllerManager.GetControllerInputs();
 

@@ -47,6 +47,7 @@ TagManager:
   - Button
   - Slider
   - PlayerSelect
+  - GameCam
   layers:
   - Default
   - TransparentFX

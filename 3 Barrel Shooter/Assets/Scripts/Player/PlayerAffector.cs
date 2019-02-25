@@ -19,7 +19,6 @@ public class PlayerAffector : MonoBehaviour
     {
         foreach (string e in effects)
         {
-            //Debug.Log("e: "+ e);
             if (e == "Knockback")
             {
                 IEnumerator c = Knockback(t);
