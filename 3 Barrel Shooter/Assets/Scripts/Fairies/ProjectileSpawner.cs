@@ -118,8 +118,9 @@ public class ProjectileSpawner : MonoBehaviour {
     private IEnumerator fluidReset(GameObject ps){
         yield return new WaitForSeconds(1);
         isShootingFluid = false;
-        sm.StopSound(audioSource);
+        
         yield return new WaitForSeconds(1);
         ps.GetComponent<ElementParticleSystem>().DestroyParticleSystem();
+        sm.StopSound(audioSource);
     }
 }
