@@ -7,7 +7,7 @@ public class SoundManager : MonoBehaviour {
 
     public Dictionary<string,AudioClip> sounds;
     public AudioSource audioSource;
-
+    float pitchIncrement;
 
     public void InitSoundManager()
     {
@@ -48,14 +48,34 @@ public class SoundManager : MonoBehaviour {
            
         }
     }
-
-    public void PlaySoundByName(AudioSource s, string name, bool loop = false, float volume = 1.0f, float pitch = 1.0f)
+    public void PitchIncrement()
+    {
+        if (pitchIncrement >= 1.6f)
+        {
+            pitchIncrement = .5f;
+        }
+        pitchIncrement += 0.2f;
+    }
+    public void PlaySoundByName(AudioSource s, string name, bool loop = false, float volume = 1.0f, float pitch = 0.0f)
     {
         if (s != null && !s.isPlaying)
         {
             s.clip = sounds[name];
             //s.loop = true;
-            s.pitch = Random.Range(0.5f, 1.5f);
+            //if (pitch == 1.0f) // changes pitch by ascending upward
+            //{
+            //    s.pitch = 1.0f;
+            //}
+            //else
+            //{
+            //    s.pitch = pitchIncrement;
+            //    PitchIncrement();
+            //}
+
+            if (pitch != 1.0f) // randomizes pitch
+                s.pitch = Random.Range(0.7f, 1.4f);
+            else
+                s.pitch = pitch;
             s.volume = volume;
             s.Play();
 
