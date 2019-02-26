@@ -90,6 +90,7 @@ public class PlayerInfo : MonoBehaviour
             //Start respawn coroutine
             if (!startedRespawn)
             {
+                isRespawning = true;
                 startedRespawn = !startedRespawn;
              
                 StartCoroutine("respawn");
@@ -104,14 +105,14 @@ public class PlayerInfo : MonoBehaviour
 		lives += -1;
         //deathParticles = Instantiate(levelManager.particles[3], transform.position, transform.rotation);
         levelManager.SpawnParticleEffectAtPosition(transform.position, 3);
-        levelManager.soundManager.PlaySoundByName(audioSources[3], "Death"); // plays death sound
+        levelManager.soundManager.PlaySoundByName(audioSources[0], "Death"); // plays death sound
 
         yield return new WaitForSeconds(.1f);
 		Vector3 respawn = new Vector3(0,0,0);
         //Can specify respawn location before Coroutine is started and save as a temporary class variable
 		switch (rearea) {
 		case "1":
-			respawn = GetVector (4);
+			respawn = GetVector(4);
 			break;
 		case "2":
 			respawn = GetVector(3);
@@ -135,6 +136,7 @@ public class PlayerInfo : MonoBehaviour
     {
         if (collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged" || collision.tag[0] == 'R' || collision.tag == "TEST") {
 			rearea = collision.name;
+            //levelManager.soundManager.PlaySoundByName(audioSources[1], "Bump");
 			return;
 		}
         
@@ -170,7 +172,7 @@ public class PlayerInfo : MonoBehaviour
 
         PlayerCollisionModel.CollisionResult result = levelManager.playerCollisionModel.HandleCollision(health, elemName);
         health = result.health;
-        if (isDead())
+        if (isDead() && !isRespawning) // adds a kill to the player
         {
             levelManager.GetKillCounter().addKill(GetPlayerName(), elementOwnerName);
         }

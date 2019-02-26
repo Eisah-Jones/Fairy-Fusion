@@ -15,3 +15,5 @@ CompositeShot
 Laser
 Spikeshot
 DrumsFury
+Bump
+Null
