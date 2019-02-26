@@ -35,7 +35,10 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        levelManager = GameObject.FindGameObjectWithTag("Level Manager").GetComponent<LevelManager>();
+        if (SceneManager.GetActiveScene().name == "Level")
+        {
+            levelManager = GameObject.FindGameObjectWithTag("Level Manager").GetComponent<LevelManager>();
+        }
         controllerManager.InitControllerManagerMenus(4);
         
         foreach (Transform m in transform)
@@ -68,10 +71,10 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        if (cdown.activeSelf != !isPaused)
+        if (cdown != null && cdown.activeSelf != !isPaused)
             cdown.SetActive(!isPaused);
 
-        if (levelManager.GetIsGameOver())
+        if (levelManager != null && levelManager.GetIsGameOver())
         {
             cdown.SetActive(false);
             minimap.SetActive(false);
@@ -80,7 +83,10 @@ public class UIManager : MonoBehaviour
             levelManager.SetIsOver(true);
         }
 
-        enemyArrows.UpdateArrowPosition();
+        if (levelManager != null)
+        {
+            enemyArrows.UpdateArrowPosition();
+        }
 
         List<ControllerInputs> ci = controllerManager.GetControllerInputs();
 
