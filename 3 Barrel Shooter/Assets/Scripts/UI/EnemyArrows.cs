@@ -146,7 +146,7 @@ public class EnemyArrows : MonoBehaviour
         x = (Screen.width * (cameraRect.x + centerX)) + (maxTravelX * heading.x * 1.25f);
         y = (Screen.height * (cameraRect.y + centerY)) + (maxTravelY * heading.y * 1.25f);
 
-        if (x < bottomLeftX) { x = bottomLeftX; Debug.Log("YUH"); }
+        if (x < bottomLeftX) x = bottomLeftX;
         else if (x > topRightX) x = topRightX;
 
         if (y < bottomLeftY) y = bottomLeftY;
