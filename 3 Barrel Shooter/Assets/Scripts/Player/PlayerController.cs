@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
         float verticalSpeed   = vertical * speed * speedMultiplier;
         Vector2 movement = new Vector2(horizontalSpeed, verticalSpeed);
 
-        AnimatePlayer(r_vertical, r_horizontal, movement, heading);
+        AnimatePlayer(r_vertical, r_horizontal, movement, heading, vertical, horizontal);
     }
 
 
@@ -118,7 +118,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void AnimatePlayer(float vertical, float horizontal, Vector2 movement, float heading)
+    private void AnimatePlayer(float vertical, float horizontal, Vector2 movement, float heading, float l_vertical = 0.0f, float l_horizontal =0.0f)
     {
         //changes the characters direction it faces
         //changes orientation to face side
@@ -154,7 +154,9 @@ public class PlayerController : MonoBehaviour
         }
 
         transform.Translate(movement * Time.deltaTime, Space.World);
-        if (!Mathf.Approximately(horizontal, 0f) || !Mathf.Approximately(vertical, 0f))
+        Debug.Log("H: " + horizontal + ", V: " + vertical);
+        
+        if (!Mathf.Approximately(l_horizontal, 0f) || !Mathf.Approximately(l_vertical, 0f))
         {
             if (audioSource != null)
                 lm.soundManager.PlaySoundByName(audioSource, "Grasswalk");
