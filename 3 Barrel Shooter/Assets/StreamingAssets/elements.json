@@ -86,7 +86,7 @@
     "fireRate": 0,
     "projectileType": "Fluid",
     "projectileLife": 10,
-    "chamberCapacity": 10,
+    "chamberCapacity":100,
     "playerCollisionEffects": [
       "Burn"
     ],
@@ -242,7 +242,7 @@
     "fireRate": 0,
     "projectileType": "Fluid",
     "projectileLife": 10,
-    "chamberCapacity": 30,
+    "chamberCapacity": 75,
     "playerCollisionEffects": [
       "Pushback"
     ],

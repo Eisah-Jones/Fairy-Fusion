@@ -13,6 +13,7 @@ public class ProjectileSpawner : MonoBehaviour {
 
 
     private LineRenderer lineRenderer;
+    private bool resetFluidShooting;
 
 
     public void Start()
@@ -21,6 +22,7 @@ public class ProjectileSpawner : MonoBehaviour {
         audioSourceProjectile = gameObject.AddComponent<AudioSource>();
         lm = FindObjectOfType<LevelManager>();
         sm = lm.soundManager;
+        resetFluidShooting = false;
 
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.enabled = false;
@@ -108,6 +110,13 @@ public class ProjectileSpawner : MonoBehaviour {
         return hit.transform.gameObject;
     }
 
+
+    public void ResetFluidBool()
+    {
+        isShootingFluid = false;
+    }
+
+
     private IEnumerator laserReset()
     {
         yield return new WaitForSeconds(0.5f);
@@ -115,11 +124,14 @@ public class ProjectileSpawner : MonoBehaviour {
         sm.StopSound(audioSourceFluid);
     }
 
-    private IEnumerator fluidReset(GameObject ps){
-        yield return new WaitForSeconds(1f);
+    private IEnumerator fluidReset(GameObject ps)
+    {
+        while (isShootingFluid)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
         isShootingFluid = false;
-        
-        yield return new WaitForSeconds(0.5f);
         ps.GetComponent<ElementParticleSystem>().DestroyParticleSystem();
         sm.StopSound(audioSourceFluid);
     }
