@@ -40,6 +40,11 @@ public class EnemyArrows : MonoBehaviour
             maxTravelX = Screen.width * 0.2f;
             maxTravelY = Screen.height * 0.4f;
         }
+        else
+        {
+            maxTravelX = Screen.width * 0.2f;
+            maxTravelY = Screen.height * 0.2f;
+        }
     }
     
 
@@ -96,37 +101,57 @@ public class EnemyArrows : MonoBehaviour
         float angle = Mathf.Atan2(heading.y, heading.x) * Mathf.Rad2Deg;
         arrows[index].GetChild(arrowIndex).transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-        SetArrowPosition(index, arrowIndex, heading, angle);
+        SetArrowPosition(index, arrowIndex, heading);
     }
 
 
-    private void SetArrowPosition(int index, int arrowIndex, Vector2 heading, float angle)
+    private void SetArrowPosition(int index, int arrowIndex, Vector2 heading)
     {
         float x = 0;
         float y = 0;
+
+        float centerX = 0.5f;
+        float centerY = 0.5f;
+        float bottomLeftX = 0f;
+        float bottomLeftY = 0f;
+        float topRightX = Screen.width;
+        float topRightY = Screen.height;
+
         GameObject camera = levelManager.cameraManager.GetCameraArray()[index];
         Rect cameraRect = camera.GetComponent<Camera>().rect;
+
         if (numPlayers == 2)
         {
-            //Debug.Log(index + ": " + cameraRect);
+            centerX = 0.25f;
+            centerY = 0.5f;
 
-            x = (Screen.width * (cameraRect.x + 0.25f)) + (maxTravelX * heading.x * 1.25f);
-            y = (Screen.height * (cameraRect.y + 0.5f)) + (maxTravelY * heading.y * 1.25f);
+            bottomLeftX = (Screen.width * (cameraRect.x + 0.04f));
+            bottomLeftY = (Screen.height * (cameraRect.y + 0.0975f));
 
-            float xMod = 1;
-            if (angle > 110f || angle < -110f)
-                xMod = -1f;
-
-            if (xMod * x > xMod * (Screen.width * (cameraRect.x + 0.25f)) + maxTravelX)
-                x = (Screen.width * (cameraRect.x + 0.25f)) + maxTravelX * xMod;
-
-            float yMod = 1;
-            if (angle < -22f && angle > -153f)
-                yMod = -1f;
-
-            if (yMod * y > yMod * (Screen.height * (cameraRect.y + 0.5f)) + maxTravelY)
-                y = (Screen.height * (cameraRect.y + 0.5f)) + maxTravelY * yMod;
+            topRightX = (Screen.width * (cameraRect.x + 0.46f));
+            topRightY = (Screen.height * (cameraRect.y + 0.905f));
         }
+        else
+        {
+            centerX = 0.25f;
+            centerY = 0.25f;
+
+            bottomLeftX = (Screen.width * (cameraRect.x + 0.044f));
+            bottomLeftY = (Screen.height * (cameraRect.y + 0.0725f));
+
+            topRightX = (Screen.width * (cameraRect.x + 0.45f));
+            topRightY = (Screen.height * (cameraRect.y + 0.425f));
+        }
+
+        x = (Screen.width * (cameraRect.x + centerX)) + (maxTravelX * heading.x * 1.25f);
+        y = (Screen.height * (cameraRect.y + centerY)) + (maxTravelY * heading.y * 1.25f);
+
+        if (x < bottomLeftX) { x = bottomLeftX; Debug.Log("YUH"); }
+        else if (x > topRightX) x = topRightX;
+
+        if (y < bottomLeftY) y = bottomLeftY;
+        else if (y > topRightY) y = topRightY;
+
         arrows[index].GetChild(arrowIndex).transform.position = new Vector3(x, y, 0f);
     }
 }
