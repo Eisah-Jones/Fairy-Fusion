@@ -67,4 +67,10 @@ public class CameraManager : MonoBehaviour
         cameras[currentCamIndex++] = cameraObject;
 		canvas.worldCamera = cameraObject.GetComponent<Camera> ();
     }
+
+    
+    public GameObject[] GetCameraArray()
+    {
+        return cameras;
+    }
 }

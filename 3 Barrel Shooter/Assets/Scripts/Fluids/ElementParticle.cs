@@ -103,30 +103,23 @@ public class ElementParticle : MonoBehaviour {
         }
 
         if (pi == null) return;
-        //ElementObject element = collision.gameObject.GetComponent<ElementObject>();
-        //Debug.Log("PI: " + pi);
         if (elemName == "Fire" || elemName == "Water" || elemName == "Steam") // checks if element is colliding with player and does damage if its enemy
         {
-            //particleOwner = "Player" + GetComponentInParent<PlayerInfo>().playerNum;
             if (particleOwner == ("Player" + pi.playerNum.ToString()))
             {
                 return;
             }
             if (pi.health <= 0 )
             {
-                levelManager.addKill(pi.GetPlayerName(), particleOwner);
+                levelManager.GetKillCounter().addKill(pi.GetPlayerName(), particleOwner);
                 pi.health = 0;
                 pi.isRespawning = true;
             }
 
             if (pi == null) return;
-            //Debug.Log(particleOwner+ "Health: " + pi.health);
 
             PlayerCollisionModel.CollisionResult result = levelManager.playerCollisionModel.HandleCollision(pi.health, elemName);
-            //Debug.Log(result);
             pi.health = result.health;
-            //pi.gameObject.GetComponent<PlayerController>().HandleEffects(result.effect, collision.gameObject.transform);
-            //Debug.Log("New PlayerHealth: " + pi.health);
         }
     }
 }

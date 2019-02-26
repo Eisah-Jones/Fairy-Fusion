@@ -18,36 +18,25 @@ public class Countdown : MonoBehaviour
     public Text TextIndicator;
     [SerializeField] private float currentTime;
     [SerializeField] private float speed = 1;
+    LevelManager lm;
+    AudioSource asource;
+    private bool isFlashing;
 
     // Start is called before the first frame update
     void Start()
     {
+        lm = FindObjectOfType<LevelManager>();
         TextIndicator.fontSize = initialfontSize;
         currentTime = startTime;
+        isFlashing = false;
+       
+        //lm.soundManager.StartBGMusic();
     }
+
     public void incrementRound()
     {
         roundNum++;
     }
-
-
-    public void InitStart()
-    {
-        //countText = GameObject.FindGameObjectWithTag("CountText").GetComponent<Text>();
-    }
-
-
-    public void startCountDown()
-    {
-
-    }
-
-
-    public void startPreCountDown()
-    {
-
-    }
-
 
     public void togglePause()
     {
@@ -61,62 +50,43 @@ public class Countdown : MonoBehaviour
     {
         currentTime = n;
     }
+    public IEnumerator FlashText()
+    {
+        while (currentTime < 11)
+        { //keep looping while no gold
 
-
-
-
-
-
-
-
-
-
+            TextIndicator.enabled = !TextIndicator.enabled; //flip the active state of goldText
+            yield return new WaitForSeconds(.5f);// wait .5 seconds
+        }
+        TextIndicator.enabled = true; // Don't forget to flip it back on incase it was off when exiting the loop!
+    }
     // Update is called once per frame
     void Update()
     {
         if (!isPaused && currentTime > 0)
         {
             currentTime -= speed * Time.deltaTime;
-            if (currentTime < 11)
+        
+            if (!isFlashing && currentTime < 11)
             {
-                TextIndicator.fontSize = endofRoundfontSize;
+                isFlashing = true;
+                StartCoroutine("FlashText");
             }
             TextIndicator.text = ((int)currentTime).ToString();
         }
+       
         else
         {
             //TextIndicator.gameObject.transform.position = new Vector3(TextIndicator.gameObject.transform.position.x, TextIndicator.gameObject.transform.position.y + 180, TextIndicator.gameObject.transform.position.z); ;
             TextIndicator.fontSize = endofRoundfontSize;
+            // play explosion and add sound effects
             LoadingBar.gameObject.SetActive(false);
+            LoadingBar.GetChild(0).gameObject.SetActive(false);
             TextIndicator.color = Color.white;
             TextIndicator.text = "Round " + roundNum +" over!";
+            lm.StopBGMusic();
         }
         LoadingBar.GetComponent<Image>().fillAmount = (currentTime) / (startTime);
-    //    if (roundNum >= 5)
-    //    {
-    //        countText.text = "Gameover!!";
-    //        StopAllCoroutines();
-    //    }
-    //    else if (timerLeft <= 0)
-    //    {
-    //        countText.text = "Round " + roundNum + " Finish!";
-    //        // call respawn code here to respawn all players?
-
-
-    //        StopCoroutine("LoseTime");
-    //        StartCoroutine("EndRound");
-         
-
-
-    //        // Call function to initialize the next round here
-
-    //    }
-    //    else if (canTime){
-    //        countText.text = ("" + timerLeft);
-    //    }
-    //    else if (preTimer)
-    //    {
-    //        countText.text = ("" + preGameCounter);
-    //    }
+   
     }
 }

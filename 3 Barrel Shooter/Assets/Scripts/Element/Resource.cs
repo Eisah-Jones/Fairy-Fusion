@@ -13,6 +13,7 @@ public class Resource : MonoBehaviour {
     private void Start()
     {
         lm = FindObjectOfType<LevelManager>();
+        audiosource = gameObject.AddComponent<AudioSource>();
     }
     public void InitResource(int max){
         maxResource = max;
@@ -27,7 +28,7 @@ public class Resource : MonoBehaviour {
             if (resourceAvailable == 0) 
             {
 
-                lm.soundManager.PlaySoundsByName(audiosource, "ResourcePickup");
+                lm.soundManager.PlaySoundByName(audiosource, "ResourcePickup", false, .2f);
                 lm.SpawnParticleEffectAtPosition(gameObject.transform.position, 4);
 
                 StartCoroutine("DestroyResource");
@@ -52,7 +53,8 @@ public class Resource : MonoBehaviour {
 
     private IEnumerator DestroyResource()
     {
-        yield return new WaitForFixedUpdate();
+        yield return new WaitForSeconds(.2f);//WaitForFixedUpdate();
+        //this.gameObject.SetActive(false);
         Destroy(gameObject);
     }
 

@@ -6,15 +6,37 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour {
 
     public Dictionary<string,AudioClip> sounds;
-
-    public AudioSource audioSource = new AudioSource();
+    public AudioSource audioSource;
+    float pitchIncrement;
 
     public void InitSoundManager()
     {
         sounds = new Dictionary<string, AudioClip>();
         LoadSounds();
+        //audioSource = gameObject.AddComponent<AudioSource>();
     }
-    
+
+    public void StartBGMusic(AudioSource a)
+    {
+        audioSource = a;
+        PlaySoundByName(a, "DrumsFury");
+    }
+
+    public void StopBGMusic()
+    {
+        StopSound(audioSource);
+    }
+
+    public void PauseBGMusic()
+    {
+        audioSource.Pause();
+    }
+
+    public void SetVolume(AudioSource asource, float n) // between 0.0-1.0 
+    {
+        asource.volume = n;
+    }
+
     private void LoadSounds()
     {
         TextAsset txt = (TextAsset)Resources.Load("Sounds/loadSounds", typeof(TextAsset));
@@ -26,43 +48,43 @@ public class SoundManager : MonoBehaviour {
            
         }
     }
-
-
-    // TODO: Implement if needed
-    public void PlaySoundsByName(AudioSource s, string name)
+    public void PitchIncrement()
+    {
+        if (pitchIncrement >= 1.6f)
+        {
+            pitchIncrement = .5f;
+        }
+        pitchIncrement += 0.2f;
+    }
+    public void PlaySoundByName(AudioSource s, string name, bool loop = false, float volume = 1.0f, float pitch = 0.0f)
     {
         if (s != null && !s.isPlaying)
         {
             s.clip = sounds[name];
             //s.loop = true;
+            //if (pitch == 1.0f) // changes pitch by ascending upward
+            //{
+            //    s.pitch = 1.0f;
+            //}
+            //else
+            //{
+            //    s.pitch = pitchIncrement;
+            //    PitchIncrement();
+            //}
+
+            if (pitch != 1.0f) // randomizes pitch
+                s.pitch = Random.Range(0.7f, 1.4f);
+            else
+                s.pitch = pitch;
+            s.volume = volume;
             s.Play();
+
+            s.loop = loop;
+
         }
     }
-    //public void PlaySound(int i)
-    //{
-    //    //Debug.Log(i);
 
-    //    if (audioSource != null && !audioSource.isPlaying)
-    //    {
-    //        audioSource.clip = sounds[i];
-    //        //s.loop = true;
-    //        audioSource.Play();
-    //    }
-    //    // else { s.Stop(); }
-    //}
 
-    //public void PlaySoundsByID(AudioSource s, int i)
-    //{
-    //    //Debug.Log(i);
-
-    //    if (s != null && !s.isPlaying)
-    //    {
-    //        s.clip = sounds[i];
-    //        //s.loop = true;
-    //        s.Play();
-    //    }
-    //   // else { s.Stop(); }
-    //}
     public void StopSound(AudioSource asource)
     {
         if (asource != null)

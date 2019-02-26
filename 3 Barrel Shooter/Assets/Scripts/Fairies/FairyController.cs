@@ -195,7 +195,7 @@ public class FairyController : MonoBehaviour {
         {
             fairies.SetVacuum(stateLeft, stateRight);
             fairyArea.enabled = stateLeft || stateRight;
-            levelManager.soundManager.PlaySoundsByName(audioSource, "Vacuum");
+            levelManager.soundManager.PlaySoundByName(audioSource, "Glimmer", true);
             if (!(stateLeft || stateRight))
             {
                 levelManager.soundManager.StopSound(audioSource);
@@ -346,10 +346,15 @@ public class FairyController : MonoBehaviour {
         if (collisionInfo[0] == "R") // The player is harvesting some resource
         {
             Resource r = collision.GetComponent<Resource>();
-            Shaker s = collision.GetComponent<Shaker>();
-            if (r.CanCollect() && (fairies.IsCurrentChamberEmpty(true) || fairies.GetCurrentChamber(true).GetElementNameByIndex(0) == collisionInfo[2]))
+
+            if (fairies.IsCurrentChamberAtCapacity(true)) // Cannot suck element
             {
-                s.beingSucked = true; // shakes the resource
+                // TODO: play negative sound effect
+            }
+            else if (r.CanCollect() && (fairies.IsCurrentChamberEmpty(true) || 
+                fairies.GetCurrentChamber(true).GetElementNameByIndex(0) == collisionInfo[2]))
+            {
+                collision.GetComponent<Shaker>().beingSucked = true; // shakes the resource
           
                 result = fairies.AddToChamber(collisionInfo[2], int.Parse(collisionInfo[1]), suckLeft);
                 r.DecrementResource();
@@ -361,11 +366,9 @@ public class FairyController : MonoBehaviour {
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        Shaker s = other.GetComponent<Shaker>();
-
-        if (!fairies.GetVacuumOn() && s != null)
+        if (!fairies.GetVacuumOn() && other.name[0] == 'R')
         {
-            s.beingSucked = false;
+            other.GetComponent<Shaker>().beingSucked = false;
         }
   
     }

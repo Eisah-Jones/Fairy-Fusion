@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 114350045570839748}
   m_Layer: 0
   m_Name: Laser
-  m_TagString: 3-Water
+  m_TagString: 11-Laser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,7 +99,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 0.89}
+    oldSize: {x: 2.5, y: 2.225}
     newSize: {x: 1, y: 0.89}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -141,5 +141,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd5e79695d6b04ba599bcbcb5ec96475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: 
-  particleOwner: 

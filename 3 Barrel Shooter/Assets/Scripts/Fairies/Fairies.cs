@@ -332,6 +332,22 @@ public class Fairies{
     }
 
 
+    public bool IsCurrentChamberAtCapacity(bool sucking)
+    {
+        int selectedChamber;
+        bool b;
+        if (sucking) { b = vacuumOn1; } else { b = shootingLeft; }
+        if (b) selectedChamber = currentChamber;
+        else selectedChamber = (currentChamber + 1) % 3;
+
+        if (chambers[selectedChamber].GetAmountByIndex(0) == -1)
+            return false;
+
+        return chambers[selectedChamber].GetAmountByIndex(0) == 
+            levelManager.elementManager.GetCapacityByName(chambers[selectedChamber].GetElementNameByIndex(0));
+    }
+
+
     public bool IsCombinationChamberEmpty()
     {
         return combinationChambers[currentChamber] == null;
@@ -356,7 +372,7 @@ public class Fairies{
 
 
     private bool IsCombo(string name)
-    {   
+    {
         return levelManager.elementManager.GetElementDataByName(name).combinationRequirements.elem1 == null;
     }
 

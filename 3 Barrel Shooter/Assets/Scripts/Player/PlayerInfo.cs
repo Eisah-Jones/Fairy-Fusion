@@ -31,9 +31,7 @@ public class PlayerInfo : MonoBehaviour
         audioSources[2] = gameObject.AddComponent<AudioSource>();
         health = 100.0f;
         playerNum = pNum;
-
         startedRespawn = false;
-
     }
 
 
@@ -92,6 +90,7 @@ public class PlayerInfo : MonoBehaviour
             //Start respawn coroutine
             if (!startedRespawn)
             {
+                isRespawning = true;
                 startedRespawn = !startedRespawn;
              
                 StartCoroutine("respawn");
@@ -101,18 +100,19 @@ public class PlayerInfo : MonoBehaviour
         }
     }
 
+
     private IEnumerator respawn(){
 		lives += -1;
         //deathParticles = Instantiate(levelManager.particles[3], transform.position, transform.rotation);
         levelManager.SpawnParticleEffectAtPosition(transform.position, 3);
-        levelManager.soundManager.PlaySoundsByName(audioSources[3], "Death"); // plays death sound
+        levelManager.soundManager.PlaySoundByName(audioSources[0], "Death"); // plays death sound
 
         yield return new WaitForSeconds(.1f);
 		Vector3 respawn = new Vector3(25,25,0);
         //Can specify respawn location before Coroutine is started and save as a temporary class variable
 		switch (rearea) {
 		case "1":
-			respawn = GetVector (4);
+			respawn = GetVector(4);
 			break;
 		case "2":
 			respawn = GetVector(3);
@@ -136,6 +136,7 @@ public class PlayerInfo : MonoBehaviour
     {
         if (collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged" || collision.tag[0] == 'R' || collision.tag == "TEST") {
 			rearea = collision.name;
+            //levelManager.soundManager.PlaySoundByName(audioSources[1], "Bump");
 			return;
 		}
         
@@ -171,14 +172,16 @@ public class PlayerInfo : MonoBehaviour
 
         PlayerCollisionModel.CollisionResult result = levelManager.playerCollisionModel.HandleCollision(health, elemName);
         health = result.health;
-        if (isDead())
+        if (isDead() && !isRespawning) // adds a kill to the player
         {
-            levelManager.addKill(GetPlayerName(), elementOwnerName);
+            levelManager.GetKillCounter().addKill(GetPlayerName(), elementOwnerName);
         }
-        transform.gameObject.GetComponent<PlayerController>().HandleEffects(result.playerEffect, collision.gameObject.transform);
+        transform.gameObject.GetComponent<PlayerController>().HandleEffects(result.playerEffect, collision.transform);
     }
 
-    private Vector3 GetRandomVector(int x_range, int y_range){
+
+    private Vector3 GetRandomVector(int x_range, int y_range)
+    {
 		if (x_range >= 0f && y_range >= 0f)
 			return new Vector3(Random.Range(0f,x_range),Random.Range(0f,y_range),-2f);
 		else if(x_range < 0f && y_range >= 0f)
@@ -190,7 +193,9 @@ public class PlayerInfo : MonoBehaviour
 		return new Vector3 (0, 0, 0);
 	}
 
-	private Vector3 GetVector(int area){
+
+	private Vector3 GetVector(int area)
+    {
 		Vector3 re = new Vector3(0,0,0);
 		switch(area){
 		case 1:
