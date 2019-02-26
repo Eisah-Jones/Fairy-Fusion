@@ -139,14 +139,6 @@ public class LevelManager: MonoBehaviour {
 			}
 		}
 
-		if (alive_count <= 1) {
-            cdown.SetActive(false);
-            minimap.SetActive(false);
-            endScreen.SetActive (true);
-			winText.text = string.Format ("Player {0} Wins!", winner);
-            isOver = true;
-		}
-
         foreach (PlayerInfo info in pInfoList)
         {
             if (info.lives <= 0)
