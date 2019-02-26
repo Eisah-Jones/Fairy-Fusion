@@ -70,13 +70,12 @@ public class EnemyArrows : MonoBehaviour
         GameObject arrow = arrows[index].GetChild(arrowIndex).gameObject;
         if (Vector3.Distance(p1.transform.position, p2.transform.position) < 10 && arrow.activeSelf)
         {
-            Debug.Log("FALSE" + index);
+
             arrow.SetActive(false);
             return true;
         }
         else if (Vector3.Distance(p1.transform.position, p2.transform.position) >= 10 && !arrow.activeSelf)
         {
-            Debug.Log("TRUE" + index);
             arrow.SetActive(true);
         }
         return false;

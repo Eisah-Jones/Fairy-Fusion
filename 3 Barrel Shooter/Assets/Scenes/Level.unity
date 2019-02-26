@@ -4102,7 +4102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roundEndLength: 3
-  startTime: 15
+  startTime: 100
   initialfontSize: 28
   endofRoundfontSize: 28
   preGameCounter: 3
