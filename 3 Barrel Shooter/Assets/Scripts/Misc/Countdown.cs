@@ -89,6 +89,7 @@ public class Countdown : MonoBehaviour
             TextIndicator.fontSize = endofRoundfontSize;
             // play explosion and add sound effects
             LoadingBar.gameObject.SetActive(false);
+            LoadingBar.GetChild(1).gameObject.SetActive(false);
             TextIndicator.color = Color.white;
             TextIndicator.text = "Round " + roundNum +" over!";
         }

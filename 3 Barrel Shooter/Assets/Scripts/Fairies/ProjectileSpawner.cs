@@ -43,10 +43,23 @@ public class ProjectileSpawner : MonoBehaviour {
         {
             sm.PlaySoundByName(audioSource, "FireBall"); // plays fireball sound
         }
-        //else if (eID == 8)
-        //{
-        //    sm.PlaySoundsByID(audioSource, 9); // plays rock shot sound
-        //}
+        else if (eID == 8)
+        {
+            sm.PlaySoundByName(audioSource, "Mud"); 
+        }
+        else if (eID == 9)
+        {
+            sm.PlaySoundByName(audioSource, "Sniper");
+        }
+        else if (eID == 10)
+        {
+            sm.PlaySoundByName(audioSource, "Spikeshot");
+        }
+        else if (eID == 11)
+        {
+            sm.PlaySoundByName(audioSource, "Laser");
+        }
+
     }
 
 
@@ -86,6 +99,7 @@ public class ProjectileSpawner : MonoBehaviour {
     public GameObject ShootLaser(string playerName, Transform spawnPos)
     {
         if (lineRenderer == null) return null;
+        sm.PlaySoundByName(audioSource, "Laser");
         lineRenderer.enabled = true;
         RaycastHit2D hit = Physics2D.Raycast(spawnPos.position, transform.right);
         lineRenderer.SetPosition(0, spawnPos.position);
@@ -98,6 +112,7 @@ public class ProjectileSpawner : MonoBehaviour {
     {
         yield return new WaitForSeconds(0.5f);
         lineRenderer.enabled = false;
+        sm.StopSound(audioSource);
     }
 
     private IEnumerator fluidReset(GameObject ps){

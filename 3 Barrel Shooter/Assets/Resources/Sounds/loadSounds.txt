@@ -9,3 +9,8 @@ Steam
 FireBall
 Death
 Glimmer
+Mud
+Sniper
+CompositeShot
+Laser
+Spikeshot
