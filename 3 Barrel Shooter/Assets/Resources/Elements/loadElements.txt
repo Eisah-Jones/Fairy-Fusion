@@ -5,7 +5,7 @@ Leaf
 Air
 Steam
 Fireball
-Sniper
 Mud
+Sniper
 SpikeShot
 Laser

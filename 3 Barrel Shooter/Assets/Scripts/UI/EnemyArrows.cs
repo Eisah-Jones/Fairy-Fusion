@@ -30,7 +30,7 @@ public class EnemyArrows : MonoBehaviour
                 if (j >= numPlayers - 1 || i >= numPlayers)
                 {
                     arrows[i].GetChild(j).gameObject.SetActive(false);
-                    Debug.Log(j);
+              
                 }
             }
         }
@@ -109,7 +109,7 @@ public class EnemyArrows : MonoBehaviour
         Rect cameraRect = camera.GetComponent<Camera>().rect;
         if (numPlayers == 2)
         {
-            Debug.Log(index + ": " + cameraRect);
+            //Debug.Log(index + ": " + cameraRect);
 
             x = (Screen.width * (cameraRect.x + 0.25f)) + (maxTravelX * heading.x * 1.25f);
             y = (Screen.height * (cameraRect.y + 0.5f)) + (maxTravelY * heading.y * 1.25f);

@@ -28,6 +28,7 @@ public class ProjectileSpawner : MonoBehaviour {
     public void ShootProjectile(int eID, LevelManager lm, string playerName, Transform spawn)
     {
         GameObject prefab = lm.elemPrefabs[eID - 1];
+        Debug.Log("EID: " + eID);
         GameObject e = Instantiate(prefab, spawn.position, transform.rotation);
         e.GetComponent<ElementObject>().initElement(lm, lm.elementManager.GetElementDataByID(eID), true, playerName);
         //Debug.Log("Starting Projectile Sound: EID: " + eID);
@@ -45,7 +46,7 @@ public class ProjectileSpawner : MonoBehaviour {
         }
         else if (eID == 8)
         {
-            sm.PlaySoundByName(audioSource, "Mud"); 
+            sm.PlaySoundByName(audioSource, "CompositeShot"); // plays sound for mud
         }
         else if (eID == 9)
         {
@@ -55,10 +56,7 @@ public class ProjectileSpawner : MonoBehaviour {
         {
             sm.PlaySoundByName(audioSource, "Spikeshot");
         }
-        else if (eID == 11)
-        {
-            sm.PlaySoundByName(audioSource, "Laser");
-        }
+   
 
     }
 
@@ -116,10 +114,10 @@ public class ProjectileSpawner : MonoBehaviour {
     }
 
     private IEnumerator fluidReset(GameObject ps){
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1f);
         isShootingFluid = false;
         
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         ps.GetComponent<ElementParticleSystem>().DestroyParticleSystem();
         sm.StopSound(audioSource);
     }

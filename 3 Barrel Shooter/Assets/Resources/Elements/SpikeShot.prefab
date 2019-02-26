@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 114350045570839748}
   m_Layer: 0
   m_Name: SpikeShot
-  m_TagString: 3-Water
+  m_TagString: 10-Spikeshot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
