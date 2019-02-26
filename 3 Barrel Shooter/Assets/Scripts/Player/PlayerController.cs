@@ -154,7 +154,6 @@ public class PlayerController : MonoBehaviour
         }
 
         transform.Translate(movement * Time.deltaTime, Space.World);
-        Debug.Log("H: " + horizontal + ", V: " + vertical);
         
         if (!Mathf.Approximately(l_horizontal, 0f) || !Mathf.Approximately(l_vertical, 0f))
         {
