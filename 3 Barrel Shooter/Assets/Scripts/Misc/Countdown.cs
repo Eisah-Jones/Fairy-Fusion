@@ -18,36 +18,24 @@ public class Countdown : MonoBehaviour
     public Text TextIndicator;
     [SerializeField] private float currentTime;
     [SerializeField] private float speed = 1;
+    LevelManager lm;
+    AudioSource asource;
 
     // Start is called before the first frame update
     void Start()
     {
+        lm = FindObjectOfType<LevelManager>();
         TextIndicator.fontSize = initialfontSize;
         currentTime = startTime;
+       
+       
+        //lm.soundManager.StartBGMusic();
     }
+
     public void incrementRound()
     {
         roundNum++;
     }
-
-
-    public void InitStart()
-    {
-        //countText = GameObject.FindGameObjectWithTag("CountText").GetComponent<Text>();
-    }
-
-
-    public void startCountDown()
-    {
-
-    }
-
-
-    public void startPreCountDown()
-    {
-
-    }
-
 
     public void togglePause()
     {
@@ -61,15 +49,6 @@ public class Countdown : MonoBehaviour
     {
         currentTime = n;
     }
-
-
-
-
-
-
-
-
-
 
     // Update is called once per frame
     void Update()
@@ -89,36 +68,12 @@ public class Countdown : MonoBehaviour
             TextIndicator.fontSize = endofRoundfontSize;
             // play explosion and add sound effects
             LoadingBar.gameObject.SetActive(false);
-            LoadingBar.GetChild(1).gameObject.SetActive(false);
+            LoadingBar.GetChild(0).gameObject.SetActive(false);
             TextIndicator.color = Color.white;
             TextIndicator.text = "Round " + roundNum +" over!";
+            lm.StopBGMusic();
         }
         LoadingBar.GetComponent<Image>().fillAmount = (currentTime) / (startTime);
-    //    if (roundNum >= 5)
-    //    {
-    //        countText.text = "Gameover!!";
-    //        StopAllCoroutines();
-    //    }
-    //    else if (timerLeft <= 0)
-    //    {
-    //        countText.text = "Round " + roundNum + " Finish!";
-    //        // call respawn code here to respawn all players?
-
-
-    //        StopCoroutine("LoseTime");
-    //        StartCoroutine("EndRound");
-         
-
-
-    //        // Call function to initialize the next round here
-
-    //    }
-    //    else if (canTime){
-    //        countText.text = ("" + timerLeft);
-    //    }
-    //    else if (preTimer)
-    //    {
-    //        countText.text = ("" + preGameCounter);
-    //    }
+   
     }
 }

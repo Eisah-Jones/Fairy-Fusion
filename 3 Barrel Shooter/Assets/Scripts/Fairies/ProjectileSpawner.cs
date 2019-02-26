@@ -31,7 +31,6 @@ public class ProjectileSpawner : MonoBehaviour {
     public void ShootProjectile(int eID, LevelManager lm, string playerName, Transform spawn)
     {
         GameObject prefab = lm.elemPrefabs[eID - 1];
-        Debug.Log("EID: " + eID);
         GameObject e = Instantiate(prefab, spawn.position, transform.rotation);
         e.GetComponent<ElementObject>().initElement(lm, lm.elementManager.GetElementDataByID(eID), true, playerName);
         //Debug.Log("Starting Projectile Sound: EID: " + eID);

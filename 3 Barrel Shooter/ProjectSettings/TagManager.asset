@@ -48,6 +48,8 @@ TagManager:
   - Slider
   - PlayerSelect
   - GameCam
+  - 10-Spikeshot
+  - 11-Laser
   layers:
   - Default
   - TransparentFX

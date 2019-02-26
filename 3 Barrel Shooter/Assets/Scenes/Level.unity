@@ -2154,7 +2154,7 @@ Transform:
   m_GameObject: {fileID: 673667559}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 409371547}
   - {fileID: 1509579110}
@@ -2741,7 +2741,7 @@ Transform:
   m_GameObject: {fileID: 951618590}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 1006904696}
   - {fileID: 2023312664}
@@ -3446,7 +3446,7 @@ Transform:
   m_GameObject: {fileID: 1260947808}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 834611512}
   - {fileID: 2008488214}
@@ -3764,7 +3764,7 @@ Transform:
   m_GameObject: {fileID: 1483410021}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 417031128}
   - {fileID: 1892482271}
@@ -4102,7 +4102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roundEndLength: 3
-  startTime: 100
+  startTime: 15
   initialfontSize: 28
   endofRoundfontSize: 28
   preGameCounter: 3

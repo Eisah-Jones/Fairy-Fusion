@@ -50,6 +50,7 @@ public class LevelManager: MonoBehaviour {
     private bool checkingPauseInput = true;
     private bool isInitialized = false;
 
+    private AudioSource asource;
     // Set testing varible to start from Level and not MainMenu
     public void Start()
     {
@@ -82,7 +83,7 @@ public class LevelManager: MonoBehaviour {
 
         soundManager = new SoundManager();
         soundManager.InitSoundManager();
-
+        asource = gameObject.AddComponent<AudioSource>();
         // Create Model References
         chamberInteractionModel = new ChamberInteractionModel(elementManager);
         playerCollisionModel = new PlayerCollisionModel(elementManager);
@@ -106,6 +107,8 @@ public class LevelManager: MonoBehaviour {
         cameraManager.SetCameraRatio();
         cameraManager.UpdateCameraPosition(playerList);
 
+        soundManager.PlaySoundByName(asource, "DrumsFury",false, .5f, 1f);
+        //soundManager.StartBGMusic();
         // Spawn Resources
         levelGen.SpawnResources(resourceManager);
 
@@ -184,7 +187,10 @@ public class LevelManager: MonoBehaviour {
         Instantiate(particles[particleIndex], pos, transform.rotation);
     }
 
-
+    public void StopBGMusic()
+    {
+        soundManager.StopSound(asource);
+    }
     public string GetTriggerTile(int x, int y)
     {
         return levelGen.GetTerrainMap()[x, y];
