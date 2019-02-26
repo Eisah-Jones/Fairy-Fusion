@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour
 {
     private GameObject cameraPrefab;
+	private GameObject playerUIPrefab;
     private GameObject[] cameras;
 
     private int numCameras;
@@ -15,6 +16,7 @@ public class CameraManager : MonoBehaviour
     public void InitCameraManager(int numPlayers)
     {
         cameraPrefab = Resources.Load<GameObject>("Camera/GameCam");
+		playerUIPrefab = Resources.Load<GameObject> ("UI/PlayerUI");
         cameras = new GameObject[numPlayers];
 
         numCameras = numPlayers;
@@ -58,8 +60,12 @@ public class CameraManager : MonoBehaviour
     public void AddCamera()
     {
         GameObject cameraObject = Instantiate(cameraPrefab, Vector3.zero, Quaternion.identity);
+		GameObject canvasObject = Instantiate (playerUIPrefab, Vector3.zero, Quaternion.identity);
+		Canvas canvas = canvasObject.GetComponent<Canvas> ();
         cameraObject.name = "Cam" + (currentCamIndex + 1).ToString();
+		canvasObject.name = "PlayerUI" + (currentCamIndex + 1).ToString ();
         cameras[currentCamIndex++] = cameraObject;
+		canvas.worldCamera = cameraObject.GetComponent<Camera> ();
     }
 
     

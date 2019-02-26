@@ -128,18 +128,18 @@ public class LevelManager: MonoBehaviour {
 
     public bool GetIsGameOver()
     {
-        int alive_count = 0;
-        winner = 0;
+		int alive_count = 0;
+		winner = 0;
 
-        foreach (PlayerInfo info in pInfoList)
-        {
-            if (info.lives <= 0)
-                alive_count += 1;
-            else
-                winner = info.playerNum;
-        }
+		foreach (PlayerInfo info in pInfoList)
+		{
+			if (info.lives <= 0)
+				alive_count += 1;
+			else
+				winner = info.playerNum;
+		}
 
-        return alive_count == numberOfLives;
+		return alive_count == numberOfLives;
     }
 
 
