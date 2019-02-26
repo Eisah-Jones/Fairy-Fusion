@@ -20,6 +20,7 @@ public class Countdown : MonoBehaviour
     [SerializeField] private float speed = 1;
     LevelManager lm;
     AudioSource asource;
+    private bool isFlashing;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +28,7 @@ public class Countdown : MonoBehaviour
         lm = FindObjectOfType<LevelManager>();
         TextIndicator.fontSize = initialfontSize;
         currentTime = startTime;
-       
+        isFlashing = false;
        
         //lm.soundManager.StartBGMusic();
     }
@@ -49,19 +50,31 @@ public class Countdown : MonoBehaviour
     {
         currentTime = n;
     }
+    public IEnumerator FlashText()
+    {
+        while (currentTime < 11)
+        { //keep looping while no gold
 
+            TextIndicator.enabled = !TextIndicator.enabled; //flip the active state of goldText
+            yield return new WaitForSeconds(.5f);// wait .5 seconds
+        }
+        TextIndicator.enabled = true; // Don't forget to flip it back on incase it was off when exiting the loop!
+    }
     // Update is called once per frame
     void Update()
     {
         if (!isPaused && currentTime > 0)
         {
             currentTime -= speed * Time.deltaTime;
-            if (currentTime < 11)
+        
+            if (!isFlashing && currentTime < 11)
             {
-                TextIndicator.fontSize = endofRoundfontSize;
+                isFlashing = true;
+                StartCoroutine("FlashText");
             }
             TextIndicator.text = ((int)currentTime).ToString();
         }
+       
         else
         {
             //TextIndicator.gameObject.transform.position = new Vector3(TextIndicator.gameObject.transform.position.x, TextIndicator.gameObject.transform.position.y + 180, TextIndicator.gameObject.transform.position.z); ;
