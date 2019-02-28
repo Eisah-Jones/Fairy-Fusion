@@ -168,7 +168,7 @@ public class LevelGenerator : MonoBehaviour {
             int[] spawnPoint = { UnityEngine.Random.Range(0, terrainMap.GetUpperBound(0)), 
                                  UnityEngine.Random.Range(0, terrainMap.GetUpperBound(1))};
             GameObject f = Instantiate(rm.GetResourceGameObject("Fire"), new Vector3(spawnPoint[0], spawnPoint[1], 0.3f), Quaternion.identity);
-            f.GetComponent<Resource>().InitResource(5);
+            f.GetComponent<Resource>().InitResource(5, "Fire");
         }
     }
 
@@ -182,7 +182,7 @@ public class LevelGenerator : MonoBehaviour {
             int i = UnityEngine.Random.Range(0, rockSpawnPoints.Count);
             int[] spawnPoint = rockSpawnPoints[i];
             GameObject r = Instantiate(rm.GetResourceGameObject("Rock"), new Vector3(spawnPoint[0] - 0.05f, spawnPoint[1] + 0.25f, 0f), Quaternion.identity);
-            r.GetComponent<Resource>().InitResource(2);
+            r.GetComponent<Resource>().InitResource(2, "Rock");
         }
     }
 
@@ -195,7 +195,8 @@ public class LevelGenerator : MonoBehaviour {
         {
             int i = UnityEngine.Random.Range(0, treeSpawnPoints.Count);
             int[] spawnPoint = treeSpawnPoints[i];
-            Instantiate(rm.GetResourceGameObject("Tree"), new Vector3(spawnPoint[0], spawnPoint[1], 0f), Quaternion.identity);
+            GameObject t = Instantiate(rm.GetResourceGameObject("Tree"), new Vector3(spawnPoint[0], spawnPoint[1], 0f), Quaternion.identity);
+            t.GetComponent<Resource>().InitResource(5, "Tree");
         }
     }
 

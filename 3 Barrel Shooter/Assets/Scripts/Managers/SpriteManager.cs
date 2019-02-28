@@ -896,12 +896,14 @@ public class SpriteManager
     private Sprite[] resourceSprites;
     private TileMap[] tileMaps;
     private Sprite[] elementFluidSprites;
+    private Sprite[] treeSprites;
 
 
     public SpriteManager()
     {
         LoadTileMaps();
         LoadElementFluidSprites();
+        LoadTreeSprites();
     }
 
     // Get the tilemap for the given square
@@ -930,6 +932,12 @@ public class SpriteManager
         }
 
         return elementFluidSprites[id-1];
+    }
+
+
+    public Sprite GetTreeSprite(int i)
+    {
+        return treeSprites[i];
     }
 
     private TileMap GetTileMap(string mapName)
@@ -983,6 +991,16 @@ public class SpriteManager
                 elementFluidSprites[j++] = (Sprite)Resources.Load("Fluids/Fluid Sprites/" + lines[i]);
 
             //i++;
+        }
+    }
+
+
+    private void LoadTreeSprites()
+    {
+        treeSprites = new Sprite[3];
+        for (int i = 0; i < 3; i++)
+        {
+            treeSprites[i] = Resources.Load<Sprite>("Sprites/Tree/Tree" + i);
         }
     }
 }

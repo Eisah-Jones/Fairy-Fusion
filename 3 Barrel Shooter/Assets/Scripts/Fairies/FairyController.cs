@@ -288,7 +288,6 @@ public class FairyController : MonoBehaviour {
         string eName = result.GetElementName();
         string projectileType = levelManager.elementManager.GetProjectileTypeByID(eID);
         ProjectileSpawner p = GetComponent<ProjectileSpawner>();
-
         if (projectileType == "Fluid")
         {
             string o = projectileSpawner.parent.parent.GetComponent<PlayerInfo>().GetPlayerName();
@@ -368,7 +367,6 @@ public class FairyController : MonoBehaviour {
                 fairies.GetCurrentChamber(true).GetElementNameByIndex(0) == collisionInfo[2]))
             {
                 collision.GetComponent<Shaker>().beingSucked = true; // shakes the resource
-          
                 result = fairies.AddToChamber(collisionInfo[2], int.Parse(collisionInfo[1]), suckLeft);
                 r.DecrementResource();
             }

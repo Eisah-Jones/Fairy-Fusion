@@ -374,9 +374,7 @@ public class Fairies{
     public void CheckFluid(bool sL, bool sR, GameObject ps)
     {
         ProjectileSpawner spawner = ps.GetComponent<ProjectileSpawner>();
-        Debug.Log("CHECK: " + spawner.p + sL + sR);
         if (spawner.p == null) return;
-        Debug.Log("NAMES: " + chambers[currentChamber].GetElementNameByIndex(0) + ", " + spawner.p.name);
         if (!sL && !sR)
         {
             spawner.ResetFluidBool();

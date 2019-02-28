@@ -7,7 +7,6 @@ TagManager:
   - 1-Fire
   - 2-Rock
   - 3-Water
-  - 4-Wood
   - 5-Air
   - Gun
   - 6-Steam
@@ -20,7 +19,6 @@ TagManager:
   - Water
   - HUD
   - ProjectileSpawn
-  - R-4-Wood
   - R-3-Water
   - R-1-Fire
   - R-2-Rock
@@ -50,6 +48,8 @@ TagManager:
   - GameCam
   - 10-Spikeshot
   - 11-Laser
+  - 4-Leaf
+  - R-4-Leaf
   layers:
   - Default
   - TransparentFX

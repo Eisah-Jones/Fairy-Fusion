@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 114168026426302896}
   m_Layer: 0
   m_Name: R_Wood
-  m_TagString: R-4-Wood
+  m_TagString: R-4-Leaf
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -189,7 +189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 100
-  amount: 0.05
+  rangeAmount: 0.05
   beingSucked: 0
 --- !u!1 &1694477518062524
 GameObject:
