@@ -109,6 +109,7 @@ public class FairyController : MonoBehaviour {
         currentFairies[chamberIndex1].transform.position = Vector2.MoveTowards(currentFairies[chamberIndex1].transform.position, fairyPositions[0].transform.position, 10f * Time.deltaTime);
         currentFairies[chamberIndex2].transform.position = Vector2.MoveTowards(currentFairies[chamberIndex2].transform.position, fairyPositions[1].transform.position, 10f * Time.deltaTime);
         currentFairies[chamberIndex3].transform.position = Vector2.MoveTowards(currentFairies[chamberIndex3].transform.position, fairyPositions[2].transform.position, 10f * Time.deltaTime);
+
     }
 
 
@@ -195,7 +196,7 @@ public class FairyController : MonoBehaviour {
         {
             fairies.SetVacuum(stateLeft, stateRight);
             fairyArea.enabled = stateLeft || stateRight;
-            levelManager.soundManager.PlaySoundByName(audioSource, "SuckingSound", true);
+            //levelManager.soundManager.PlaySoundByName(audioSource, "SuckingSound", true);
             if (!(stateLeft || stateRight))
             {
                 levelManager.soundManager.StopSound(audioSource);
