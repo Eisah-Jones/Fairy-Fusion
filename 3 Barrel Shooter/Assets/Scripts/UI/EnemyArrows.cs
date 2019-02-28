@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class EnemyArrows : MonoBehaviour
 {
-    private LevelManager levelManager;
+    private UIManager uiManager;
     private Transform[] arrows;
 
     private float maxTravelX;
@@ -14,12 +14,13 @@ public class EnemyArrows : MonoBehaviour
     private int numPlayers;
 
 
-    public void InitEnemyArrows(LevelManager lm)
+    public void InitEnemyArrows(UIManager um)
     {
-        levelManager = lm;
-        numPlayers = levelManager.GetNumPlayers();
+        uiManager = um;
+        numPlayers = um.levelManager.GetNumPlayers();
 
-        Transform arrowContainer = levelManager.uiManager.canvas.transform.GetChild(9);
+        Transform arrowContainer = uiManager.canvas.transform.GetChild(9);
+        Debug.Log(arrowContainer);
         arrows = new Transform[4];
         for (int i = 0; i < 4; i++)
         {
@@ -35,7 +36,7 @@ public class EnemyArrows : MonoBehaviour
             }
         }
 
-        if (levelManager.GetNumPlayers() == 2)
+        if (numPlayers == 2)
         {
             maxTravelX = Screen.width * 0.2f;
             maxTravelY = Screen.height * 0.4f;
@@ -50,13 +51,12 @@ public class EnemyArrows : MonoBehaviour
 
     public void UpdateArrowPosition()
     {
-        List<GameObject> playerList = levelManager.GetPlayerList();
-        GameObject[] cameraArray = levelManager.cameraManager.GetCameraArray();
+        List<GameObject> playerList = uiManager.levelManager.GetPlayerList();
+        Debug.Log(uiManager.levelManager.cameraManager);
+        GameObject[] cameraArray = uiManager.levelManager.cameraManager.GetCameraArray();
         for (int i = 0; i < numPlayers; i++)
         {
             GameObject player = playerList[i];
-            float x;
-            float y;
             int arrowIndex = 0;
             for (int j = 0; j < numPlayers; j++)
             {
@@ -64,7 +64,6 @@ public class EnemyArrows : MonoBehaviour
                 GameObject otherPlayer = playerList[j];
                 SetArrowTransform(player, otherPlayer, i, arrowIndex);
                 arrowIndex++;
-
             }
         }
     }
@@ -117,7 +116,7 @@ public class EnemyArrows : MonoBehaviour
         float topRightX = Screen.width;
         float topRightY = Screen.height;
 
-        GameObject camera = levelManager.cameraManager.GetCameraArray()[index];
+        GameObject camera = uiManager.levelManager.cameraManager.GetCameraArray()[index];
         Rect cameraRect = camera.GetComponent<Camera>().rect;
 
         if (numPlayers == 2)

@@ -54,7 +54,7 @@ public class LevelManager: MonoBehaviour {
     // Set testing varible to start from Level and not MainMenu
     public void Start()
     {
-        int n = 2;
+        int n = 4;
         bool testing = true;
         if (testing)
             InitLevelManager(n);
@@ -81,6 +81,9 @@ public class LevelManager: MonoBehaviour {
         cameraManager = new CameraManager();
         cameraManager.InitCameraManager(numPlayers);
 
+        // Set UI manager after getting canvas reference
+        uiManager = GameObject.FindGameObjectWithTag("Canvas").GetComponent<UIManager>();
+
         soundManager = new SoundManager();
         soundManager.InitSoundManager();
         asource = gameObject.AddComponent<AudioSource>();
@@ -88,9 +91,6 @@ public class LevelManager: MonoBehaviour {
         chamberInteractionModel = new ChamberInteractionModel(elementManager);
         playerCollisionModel = new PlayerCollisionModel(elementManager);
         elementCollisionModel = new ElementCollisionModel(elementManager);
-        
-        // Set UI manager after getting canvas reference
-        uiManager = GameObject.FindGameObjectWithTag("Canvas").GetComponent<UIManager>();
 
         // Load element prefabs
         elemPrefabs = elementManager.LoadElementPrefabs();
