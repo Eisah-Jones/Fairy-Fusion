@@ -180,7 +180,7 @@ public class FairyController : MonoBehaviour {
             }
         }
 
-        UpdateFairySize();
+        //UpdateFairySize();
         UpdateFairyPos();
     }
 
