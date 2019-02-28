@@ -160,10 +160,10 @@
   "Rock": {
     "name": "Rock",
     "ID": 2,
-    "damage": 10,
-    "fireRate": 20,
+    "damage": 15,
+    "fireRate": 10,
     "projectileType": "Bullet",
-    "projectileLife": 40,
+    "projectileLife": 75,
     "chamberCapacity": 10,
     "playerCollisionEffects": [
       "Knockback"
@@ -238,7 +238,7 @@
   "Water": {
     "name": "Water",
     "ID": 3,
-    "damage": 0.1,
+    "damage": 0.15,
     "fireRate": 0,
     "projectileType": "Fluid",
     "projectileLife": 10,
@@ -316,10 +316,10 @@
   "Leaf": {
     "name": "Leaf",
     "ID": 4,
-    "damage": 5,
+    "damage": 8,
     "fireRate": 5,
     "projectileType": "Splinter",
-    "projectileLife": 40,
+    "projectileLife": 60,
     "chamberCapacity": 100,
     "playerCollisionEffects": [
       "Burn"
@@ -472,10 +472,10 @@
   "Fireball": {
     "name": "Fireball",
     "ID": 7,
-    "damage": 25,
-    "fireRate": 20,
+    "damage": 32,
+    "fireRate": 18,
     "projectileType": "Bullet",
-    "projectileLife": 40,
+    "projectileLife": 60,
     "chamberCapacity": 10,
     "playerCollisionEffects": [
       "Burn",
@@ -708,10 +708,10 @@
   "Sniper": {
     "name": "Sniper",
     "ID": 9,
-    "damage": 15,
+    "damage": 45,
     "fireRate": 50,
     "projectileType": "Bullet",
-    "projectileLife": 25,
+    "projectileLife": 65,
     "chamberCapacity": 10,
     "playerCollisionEffects": [
       "Knockback"
@@ -786,10 +786,10 @@
   "SpikeShot": {
     "name": "SpikeShot",
     "ID": 10,
-    "damage": 10,
+    "damage": 7,
     "fireRate": 10,
     "projectileType": "Explosion",
-    "projectileLife": 50,
+    "projectileLife": 60,
     "chamberCapacity": 10,
     "speed": 5,
     "yield": 1,
@@ -866,7 +866,7 @@
   "Laser": {
     "name": "Laser",
     "ID": 11,
-    "damage": 5,
+    "damage": 20,
     "fireRate": 100,
     "projectileType": "Beam",
     "projectileLife": 5,

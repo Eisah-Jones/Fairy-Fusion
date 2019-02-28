@@ -56,7 +56,7 @@ public class SoundManager : MonoBehaviour {
         }
         pitchIncrement += 0.2f;
     }
-    public void PlaySoundByName(AudioSource s, string name, bool loop = false, float volume = 1.0f, float pitch = 0.0f)
+    public void PlaySoundByName(AudioSource s, string name, bool loop = false, float volume = 0.5f, float pitch = 0.0f)
     {
         if (s != null && !s.isPlaying)
         {

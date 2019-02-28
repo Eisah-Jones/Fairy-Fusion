@@ -14,11 +14,21 @@ public class HealthBar : MonoBehaviour {
 
     private void Start()
     {
-        hb = GameObject.FindGameObjectWithTag("HealthBar");
-        hb.gameObject.SetActive(false);
+        StartCoroutine("LateStart",1);
+     
 
     }
-    public void SetSize (float sizeNormalized) {
+   
+     
+
+    IEnumerator LateStart(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        hb = GameObject.FindGameObjectWithTag("HealthBar");
+        hb.gameObject.SetActive(false);
+    }
+
+public void SetSize (float sizeNormalized) {
 		bar.localScale = new Vector3 (sizeNormalized, 1f);
 	}
 
