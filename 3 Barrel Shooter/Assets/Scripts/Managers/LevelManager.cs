@@ -54,7 +54,7 @@ public class LevelManager: MonoBehaviour {
     // Set testing varible to start from Level and not MainMenu
     public void Start()
     {
-        int n = 4;
+        int n = 2;
         bool testing = true;
         if (testing)
             InitLevelManager(n);

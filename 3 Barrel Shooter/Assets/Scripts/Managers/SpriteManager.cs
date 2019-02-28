@@ -100,6 +100,7 @@ public class SpriteManager
             TileInfo result = new TileInfo();
             result.tile = new Tile();
             SpriteInfo si = GetSprite(similarNeighbors);
+            if (map[x, y] == "Water") si.rotation = 0f;
             result.tile.sprite = si.sprite;
             result.rotation = si.rotation;
             return result;
