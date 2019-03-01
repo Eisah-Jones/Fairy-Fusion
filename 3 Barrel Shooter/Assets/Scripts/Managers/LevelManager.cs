@@ -52,6 +52,11 @@ public class LevelManager: MonoBehaviour
     private bool isInitialized = false;
 
     private AudioSource asource;
+
+
+    private Sprite[] waterSprites;
+
+
     // Set testing varible to start from Level and not MainMenu
     public void Start()
     {
@@ -115,7 +120,7 @@ public class LevelManager: MonoBehaviour
         
         levelGen.SpawnResources(resourceManager);
 
-        spriteManager.AnimateWater(true, levelGen.GetWaterTiles(groundTrigger), groundTrigger);
+        AnimateWater(levelGen.GetWaterTiles(groundTrigger));
 
         isInitialized = true;
     }
@@ -128,6 +133,38 @@ public class LevelManager: MonoBehaviour
         if (!isPaused && !isOver)
             SendControllerInputsToPlayer(controllerManager.GetControllerInputs());
         cameraManager.UpdateCameraPosition(playerList);
+    }
+
+
+    public void AnimateWater(List<int[]> tiles)
+    {
+        waterSprites = spriteManager.GetWaterSprites();
+        StartCoroutine(AnimateWaterSprite(tiles));
+    }
+
+
+    private IEnumerator AnimateWaterSprite(List<int[]> tiles)
+    {
+        int i = 0;
+        bool top = false;
+        Tile t = (Tile)ScriptableObject.CreateInstance("Tile");
+        while (true)
+        {
+            yield return new WaitForSeconds(0.075f);
+
+            foreach (int[] coord in tiles)
+            {
+                t.sprite = waterSprites[i];
+                Vector3Int pos = new Vector3Int(coord[0], coord[1], 0);
+                groundTrigger.SetTile(pos, t);
+                groundTrigger.RefreshTile(pos);
+            }
+
+            if (!top) i++;
+            else i--;
+            if (i == 9) { top = true;  yield return new WaitForSeconds(0.033f); }
+            else if (i == 4) { top = false; yield return new WaitForSeconds(0.033f); }
+        }
     }
 
 

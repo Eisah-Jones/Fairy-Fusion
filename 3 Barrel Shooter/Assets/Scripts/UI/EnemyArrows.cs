@@ -52,7 +52,7 @@ public class EnemyArrows
     public void UpdateArrowPosition()
     {
         List<GameObject> playerList = uiManager.levelManager.GetPlayerList();
-        Debug.Log(uiManager.levelManager.cameraManager);
+        //Debug.Log(uiManager.levelManager.cameraManager);
         GameObject[] cameraArray = uiManager.levelManager.cameraManager.GetCameraArray();
         for (int i = 0; i < numPlayers; i++)
         {

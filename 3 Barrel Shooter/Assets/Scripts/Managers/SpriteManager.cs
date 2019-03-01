@@ -943,42 +943,6 @@ public class SpriteManager
         return treeSprites[i];
     }
 
-    public void AnimateWater(bool b, List<int[]> tiles, Tilemap tm)
-    {
-        if (isAnimatingWater == b) return;
-        isAnimatingWater = b;
- 
-        if (isAnimatingWater)
-        {
-            Debug.Log("STARTING");
-            //StartCoroutine(AnimateWaterSprite(tiles, tm));
-            Debug.Log("PASS");
-        }
-    }
-
-
-    private IEnumerator AnimateWaterSprite(List<int[]> tiles, Tilemap tm)
-    {
-        Debug.Log("YO");
-
-        int i = 0;
-        Tile t = new Tile();
-        while (isAnimatingWater)
-        {
-            yield return new WaitForSeconds(0.5f);
-            
-            foreach (int[] coord in tiles)
-            {
-                t.sprite = waterSprites[i];
-                Vector3Int pos = new Vector3Int(coord[0], coord[1], 0);
-                tm.SetTile(pos, t);
-            }
-
-            i++;
-            if (i >= 14) i = 0;
-        }
-    }
-
 
     private TileMap GetTileMap(string mapName)
     {
@@ -1046,6 +1010,13 @@ public class SpriteManager
         {
             treeSprites[i] = Resources.Load<Sprite>("Sprites/Tree/Tree" + i);
         }
+    }
+
+
+    public Sprite[] GetWaterSprites()
+    {
+        if (waterSprites == null) LoadWaterSprites();
+        return waterSprites;
     }
 
 
