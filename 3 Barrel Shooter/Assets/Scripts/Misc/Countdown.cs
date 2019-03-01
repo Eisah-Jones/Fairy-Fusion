@@ -70,6 +70,7 @@ public class Countdown : MonoBehaviour
             if (!isFlashing && currentTime < 11)
             {
                 isFlashing = true;
+                TextIndicator.color = Color.red;
                 StartCoroutine("FlashText");
             }
             TextIndicator.text = ((int)currentTime).ToString();
