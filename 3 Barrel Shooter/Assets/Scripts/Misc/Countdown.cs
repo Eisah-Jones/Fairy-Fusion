@@ -55,8 +55,8 @@ public class Countdown : MonoBehaviour
         while (currentTime < 11)
         { //keep looping while no gold
 
-            TextIndicator.enabled = !TextIndicator.enabled; //flip the active state of goldText
-            yield return new WaitForSeconds(.5f);// wait .5 seconds
+            TextIndicator.enabled = !TextIndicator.enabled; 
+            yield return new WaitForSeconds(.5f); // add in a tick sound for countdown
         }
         TextIndicator.enabled = true; // Don't forget to flip it back on incase it was off when exiting the loop!
     }

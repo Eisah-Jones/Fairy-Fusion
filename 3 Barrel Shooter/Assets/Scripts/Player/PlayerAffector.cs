@@ -104,7 +104,7 @@ public class PlayerAffector : MonoBehaviour
         }
         Burning = false;
         yield return new WaitForFixedUpdate();
-        sr.material.color = c;
+        sr.material.color = Color.white;
 
     }
 
@@ -118,6 +118,6 @@ public class PlayerAffector : MonoBehaviour
         speedMultiplier = 0.5f;
         yield return new WaitForSeconds(3f);
         speedMultiplier = 1f;
-        sr.material.color = c;
+        sr.material.color = Color.white;
     }
 }

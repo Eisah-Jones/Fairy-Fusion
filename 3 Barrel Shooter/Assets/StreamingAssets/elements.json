@@ -322,7 +322,6 @@
     "projectileLife": 60,
     "chamberCapacity": 100,
     "playerCollisionEffects": [
-      "Burn"
     ],
     "chamberInteractions": {
       "Fire": "Laser",
