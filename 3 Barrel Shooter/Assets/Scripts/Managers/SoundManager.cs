@@ -92,7 +92,6 @@ public class SoundManager
         else if (s.isPlaying && name != "Grasswalk" && name != "LeafPetals")
         {
             c = sounds[name];
-
             if (pitch != 1.0f) // randomizes pitch
                 s.pitch = Random.Range(0.7f, 1.4f);
             else

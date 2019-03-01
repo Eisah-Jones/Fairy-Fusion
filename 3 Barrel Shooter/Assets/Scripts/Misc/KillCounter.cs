@@ -30,7 +30,27 @@ public class KillCounter : MonoBehaviour
         }
     }
 
-
+    public List<string> GetWinner()
+    {
+        int maxKills = 0;
+        List<string> topKiller = new List<string>();
+        foreach (KeyValuePair<string, int> kv in killDict)
+        {
+            if (kv.Value == maxKills)
+            {
+                topKiller.Add(kv.Key);
+            }
+            else if (kv.Value > maxKills)
+            {
+                topKiller.Clear();
+                maxKills = kv.Value;
+                topKiller.Add(kv.Key);
+                
+            }
+            
+        }
+        return topKiller;
+    }
     public Dictionary<string, int> GetKillDict()
     {
         return killDict;

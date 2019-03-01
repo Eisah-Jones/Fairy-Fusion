@@ -8,10 +8,11 @@ public class PlayerAffector : MonoBehaviour
     private bool Burning = false;
     private GameObject playerBody;
     private PlayerController playerController;
-
+    Color c;
     public void InitPlayerAffector(GameObject pb)
     {
         playerBody = pb;
+        c = pb.GetComponent<SpriteRenderer>().material.color;
     }
 
 
@@ -62,8 +63,10 @@ public class PlayerAffector : MonoBehaviour
         heading = heading.normalized;
 
         playerBody.GetComponent<Rigidbody2D>().AddForce(heading * 15, ForceMode2D.Impulse);
-
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        sr.material.color = Color.white;
         yield return new WaitForFixedUpdate();
+        sr.material.color = c;
     }
 
 
@@ -71,15 +74,19 @@ public class PlayerAffector : MonoBehaviour
     {
         Vector2 heading = playerBody.transform.position - t.position;
         heading = heading.normalized;
-
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        sr.material.color = Color.white;
         playerBody.GetComponent<Rigidbody2D>().AddForce(heading * 3, ForceMode2D.Impulse);
-
         yield return new WaitForFixedUpdate();
+        sr.material.color = c;
+
     }
 
 
     private IEnumerator Burn()
     {
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        sr.material.color = Color.black;
         int burnHits = Random.Range(1, 5);
         for (int i = 0; i < burnHits; i++)
         {
@@ -97,13 +104,20 @@ public class PlayerAffector : MonoBehaviour
         }
         Burning = false;
         yield return new WaitForFixedUpdate();
+        sr.material.color = c;
+
     }
 
 
     private IEnumerator Slow()
     {
+
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+
+        sr.material.color = Color.gray;
         speedMultiplier = 0.5f;
         yield return new WaitForSeconds(3f);
         speedMultiplier = 1f;
+        sr.material.color = c;
     }
 }

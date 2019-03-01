@@ -22,6 +22,7 @@ public class PlayerInfo : MonoBehaviour
     List<ParticleSystem.Particle> exit = new List<ParticleSystem.Particle>();
     private string elementOwnerName ="";
     private bool isFlashing = false;
+    Color c;
 
     public void InitPlayerInfo(LevelManager lm, int pNum)
     {
@@ -33,6 +34,8 @@ public class PlayerInfo : MonoBehaviour
         health = 100.0f;
         playerNum = pNum;
         startedRespawn = false;
+        c = GetComponent<SpriteRenderer>().material.color;
+
     }
 
 
@@ -106,7 +109,7 @@ public class PlayerInfo : MonoBehaviour
 		lives += -1;
         //deathParticles = Instantiate(levelManager.particles[3], transform.position, transform.rotation);
         levelManager.SpawnParticleEffectAtPosition(transform.position, 3);
-        levelManager.soundManager.PlaySoundByName(audioSources[0], "Death"); // plays death sound
+        levelManager.soundManager.PlaySoundByName(audioSources[0], "Death", false, 1.0f); // plays death sound
 
         yield return new WaitForSeconds(.1f);
 		Vector3 respawn = new Vector3(25,25,0);
@@ -186,15 +189,13 @@ public void OnTriggerEnter2D(Collider2D collision)
         float time = 0;
         isFlashing = true;
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
-        Color c = sr.material.color;
-        sr.material.color = Color.red;
-        while (time < .25f) // time it takes to stop flashing red
+        while (time < .15f) // time it takes to stop flashing 
         {
             time += Time.deltaTime;
             Debug.Log(time);
-            sr.material.color = Color.red;
+            sr.enabled = (false); 
             yield return new WaitForSeconds(.3f);
-            sr.material.color = c;
+            sr.enabled = (true); 
             yield return new WaitForSeconds(.3f);
         }
         isFlashing = false;

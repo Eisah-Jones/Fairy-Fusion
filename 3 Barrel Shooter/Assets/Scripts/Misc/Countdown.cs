@@ -85,7 +85,24 @@ public class Countdown : MonoBehaviour
             LoadingBar.GetChild(0).gameObject.SetActive(false);
             TextIndicator.color = Color.white;
             TextIndicator.text = "Round " + roundNum +" over!";
+            TextIndicator.text = "Game over!";
+            List<string> winner = lm.GetKillCounter().GetWinner();
+            if (winner.Count > 1) // if theres a tie
+            {
+                string winners = "";
+                for (int i = 0; i < winner.Count; i++)
+                {
+                    winners += winner[i] + " -";
+                }
+                TextIndicator.fontSize = 13;
+                TextIndicator.text = "It's a tie between " + winners;
+            }
+            else
+            {
+                TextIndicator.text = winner[0] + " is the WINNER!!";
+            }
             lm.StopBGMusic();
+            Time.timeScale = 0f;
         }
         LoadingBar.GetComponent<Image>().fillAmount = (currentTime) / (startTime);
    
