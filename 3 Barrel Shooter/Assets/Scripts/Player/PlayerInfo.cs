@@ -21,7 +21,8 @@ public class PlayerInfo : MonoBehaviour
     List<ParticleSystem.Particle> enter = new List<ParticleSystem.Particle>();
     List<ParticleSystem.Particle> exit = new List<ParticleSystem.Particle>();
     private string elementOwnerName ="";
-    
+    private bool isFlashing = false;
+
     public void InitPlayerInfo(LevelManager lm, int pNum)
     {
         levelManager = lm;
@@ -132,8 +133,9 @@ public class PlayerInfo : MonoBehaviour
 
     }
 
+   
 
-    public void OnTriggerEnter2D(Collider2D collision)
+public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged" || collision.tag[0] == 'R' || collision.tag == "TEST") {
 			rearea = collision.name;
@@ -172,8 +174,31 @@ public class PlayerInfo : MonoBehaviour
         if (elemName == "") return;
 
         PlayerCollisionModel.CollisionResult result = levelManager.playerCollisionModel.HandleCollision(health, elemName);
+        if (health != result.health && !isFlashing)
+            StartCoroutine("DamageFlash");
         health = result.health;
+       
         transform.gameObject.GetComponent<PlayerController>().HandleEffects(result.playerEffect, collision.transform);
+    }
+
+    private IEnumerator DamageFlash()
+    {
+        float time = 0;
+        isFlashing = true;
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        Color c = sr.material.color;
+        sr.material.color = Color.red;
+        while (time < .25f) // time it takes to stop flashing red
+        {
+            time += Time.deltaTime;
+            Debug.Log(time);
+            sr.material.color = Color.red;
+            yield return new WaitForSeconds(.3f);
+            sr.material.color = c;
+            yield return new WaitForSeconds(.3f);
+        }
+        isFlashing = false;
+        
     }
 
     private Vector3 GetRandomVector(int x_range, int y_range)
