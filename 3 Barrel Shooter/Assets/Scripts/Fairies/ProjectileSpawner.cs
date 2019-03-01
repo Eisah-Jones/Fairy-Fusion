@@ -52,7 +52,7 @@ public class ProjectileSpawner : MonoBehaviour {
         }
         else if (eID == 8)
         {
-            sm.PlaySoundByName(audioSourceProjectile, "CompositeShot"); // plays sound for mud
+            sm.PlaySoundByName(audioSourceProjectile, "MudSplat"); // plays sound for mud
         }
         else if (eID == 9)
         {

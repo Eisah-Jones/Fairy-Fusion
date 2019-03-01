@@ -8,8 +8,7 @@ Flamethrower
 Steam
 FireBall
 Death
-Glimmer
-Mud
+MudSplat
 Sniper
 CompositeShot
 Laser

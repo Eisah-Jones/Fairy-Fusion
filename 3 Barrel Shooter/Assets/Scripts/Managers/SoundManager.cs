@@ -60,9 +60,7 @@ public class SoundManager
     }
     public void PlaySoundOneShotName(AudioSource s, string name, bool loop = false, float volume = 0.5f, float pitch = 0.0f)
     {
-        AudioClip c;
-        Debug.Log(name);
-    
+        AudioClip c;    
         if (s != null)
         {
             c = sounds[name];
