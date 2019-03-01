@@ -192,7 +192,7 @@ public void OnTriggerEnter2D(Collider2D collision)
         while (time < .15f) // time it takes to stop flashing 
         {
             time += Time.deltaTime;
-            Debug.Log(time);
+   
             sr.enabled = (false); 
             yield return new WaitForSeconds(.3f);
             sr.enabled = (true); 

@@ -73,7 +73,7 @@ public class KillCounter : MonoBehaviour
 
     private void updateKillFeed(string killed, string killedBy)
     {
-        killfeed.text = killedBy + " utterly destroyed " + killed;
+        killfeed.text = killedBy + " --> " + killed;
         StartCoroutine("WaitTilNextKill", 5);
 
     }
