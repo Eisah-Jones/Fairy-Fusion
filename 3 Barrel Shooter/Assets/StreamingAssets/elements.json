@@ -317,9 +317,9 @@
     "name": "Leaf",
     "ID": 4,
     "damage": 8,
-    "fireRate": 5,
+    "fireRate": 8,
     "projectileType": "Splinter",
-    "projectileLife": 75,
+    "projectileLife": 60,
     "chamberCapacity": 100,
     "playerCollisionEffects": [
       "Burn"
@@ -473,7 +473,7 @@
     "name": "Fireball",
     "ID": 7,
     "damage": 32,
-    "fireRate": 18,
+    "fireRate": 25,
     "projectileType": "Bullet",
     "projectileLife": 60,
     "chamberCapacity": 10,
@@ -498,7 +498,7 @@
       "elem1": "Fire",
       "elem1Num": 1,
       "elem2": "Rock",
-      "elem2Num": 2
+      "elem2Num": 1
     },
     "elementCollisions": {
       "Fire": {

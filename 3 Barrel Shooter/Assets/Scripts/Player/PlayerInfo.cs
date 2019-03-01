@@ -21,7 +21,7 @@ public class PlayerInfo : MonoBehaviour
     List<ParticleSystem.Particle> enter = new List<ParticleSystem.Particle>();
     List<ParticleSystem.Particle> exit = new List<ParticleSystem.Particle>();
     private string elementOwnerName ="";
-
+    
     public void InitPlayerInfo(LevelManager lm, int pNum)
     {
         levelManager = lm;
@@ -128,7 +128,8 @@ public class PlayerInfo : MonoBehaviour
       
         startedRespawn = !startedRespawn;
         health = 100.0f;
-   
+        levelManager.GetKillCounter().addKill(GetPlayerName(), elementOwnerName);
+
     }
 
 
@@ -172,13 +173,8 @@ public class PlayerInfo : MonoBehaviour
 
         PlayerCollisionModel.CollisionResult result = levelManager.playerCollisionModel.HandleCollision(health, elemName);
         health = result.health;
-        if (isDead() && !isRespawning) // adds a kill to the player
-        {
-            levelManager.GetKillCounter().addKill(GetPlayerName(), elementOwnerName);
-        }
         transform.gameObject.GetComponent<PlayerController>().HandleEffects(result.playerEffect, collision.transform);
     }
-
 
     private Vector3 GetRandomVector(int x_range, int y_range)
     {

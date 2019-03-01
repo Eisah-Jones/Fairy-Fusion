@@ -14,6 +14,7 @@ public class SoundManager
     {
         sounds = new Dictionary<string, AudioClip>();
         LoadSounds();
+        
         //audioSource = gameObject.AddComponent<AudioSource>();
     }
 
@@ -57,11 +58,12 @@ public class SoundManager
         }
         pitchIncrement += 0.2f;
     }
-    public void PlaySoundByName(AudioSource s, string name, bool loop = false, float volume = 0.5f, float pitch = 0.0f)
+    public void PlaySoundByName(AudioSource s, string name, bool loop = false, float volume = 0.5f, float pitch = 0.0f, AudioSource backup = null)
     {
+        
         if (s != null && !s.isPlaying)
         {
-            s.clip = sounds[name];
+
             //s.loop = true;
             //if (pitch == 1.0f) // changes pitch by ascending upward
             //{
@@ -72,7 +74,7 @@ public class SoundManager
             //    s.pitch = pitchIncrement;
             //    PitchIncrement();
             //}
-
+            s.clip = sounds[name];
             if (pitch != 1.0f) // randomizes pitch
                 s.pitch = Random.Range(0.7f, 1.4f);
             else
@@ -83,6 +85,19 @@ public class SoundManager
             s.loop = loop;
 
         }
+        else if (backup!= null && !backup.isPlaying)
+        {
+            backup.clip = sounds[name];
+            if (pitch != 1.0f) // randomizes pitch
+                backup.pitch = Random.Range(0.7f, 1.4f);
+            else
+                backup.pitch = pitch;
+            backup.volume = volume;
+            backup.Play();
+
+            backup.loop = loop;
+        }
+     
     }
 
 
