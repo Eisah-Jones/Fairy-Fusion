@@ -22,6 +22,8 @@ public class ProjectileSpawner : MonoBehaviour {
     {
         audioSourceFluid = gameObject.AddComponent<AudioSource>();
         audioSourceProjectile = gameObject.AddComponent<AudioSource>();
+        backupAudio = gameObject.AddComponent<AudioSource>();
+
         lm = FindObjectOfType<LevelManager>();
         sm = lm.soundManager;
         resetFluidShooting = false;
@@ -56,7 +58,7 @@ public class ProjectileSpawner : MonoBehaviour {
         }
         else if (eID == 9)
         {
-            sm.PlaySoundByName(audioSourceProjectile, "Sniper");
+            sm.PlaySoundByName(audioSourceProjectile, "WoodShot");
         }
         else if (eID == 10)
         {
@@ -77,15 +79,15 @@ public class ProjectileSpawner : MonoBehaviour {
         //Debug.Log("Starting Flame Sound: EID: " + eID);
         if (eID == 1)
         {
-            sm.PlaySoundByName(audioSourceFluid, "Flamethrower", backupAudio);
+            sm.PlaySoundByName(audioSourceFluid, "Flamethrower");
         }
         else if (eID == 3)
         {
-            sm.PlaySoundByName(audioSourceFluid, "Water", backupAudio);
+            sm.PlaySoundByName(audioSourceFluid, "Water");
         }
         else if (eID == 6)
         {
-            sm.PlaySoundByName(audioSourceFluid, "Steam", backupAudio);
+            sm.PlaySoundByName(backupAudio, "Steam", false, .7f, 0.0f);
         }
         //sm.PlaySoundsByID(audioSource, 0);
 
@@ -121,7 +123,7 @@ public class ProjectileSpawner : MonoBehaviour {
 
     private IEnumerator laserReset()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         lineRenderer.enabled = false;
         sm.StopSound(audioSourceFluid);
     }

@@ -9,8 +9,8 @@ Steam
 FireBall
 Death
 MudSplat
-Sniper
-CompositeShot
+SniperNew
+WoodShot
 Laser
 Spikeshot
 DrumsFury

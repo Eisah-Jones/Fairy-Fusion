@@ -76,7 +76,6 @@ public class SoundManager
     public void PlaySoundByName(AudioSource s, string name, bool loop = false, float volume = 0.5f, float pitch = 0.0f)
     {
         AudioClip c;
-       
         if (s != null && !s.isPlaying)
         {
             s.clip = sounds[name];
@@ -93,6 +92,10 @@ public class SoundManager
         }
         else if (s!= null &&s.isPlaying && name != "Grasswalk" && name != "LeafPetals" && name != "Steam")
         {
+            if (name == "Steam")
+            {
+                Debug.Log("Steam1");
+            }
             c = sounds[name];
             if (pitch != 1.0f) // randomizes pitch
                 s.pitch = Random.Range(0.7f, 1.4f);

@@ -64,7 +64,7 @@ public class PlayerAffector : MonoBehaviour
 
         playerBody.GetComponent<Rigidbody2D>().AddForce(heading * 15, ForceMode2D.Impulse);
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
-        sr.material.color = Color.green;
+        sr.material.color = Color.grey;
         yield return new WaitForFixedUpdate();
         sr.material.color = c;
     }
@@ -75,7 +75,7 @@ public class PlayerAffector : MonoBehaviour
         Vector2 heading = playerBody.transform.position - t.position;
         heading = heading.normalized;
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
-        sr.material.color = Color.green;
+        sr.material.color = Color.grey;
         playerBody.GetComponent<Rigidbody2D>().AddForce(heading * 3, ForceMode2D.Impulse);
         yield return new WaitForFixedUpdate();
         sr.material.color = c;
@@ -86,7 +86,7 @@ public class PlayerAffector : MonoBehaviour
     private IEnumerator Burn()
     {
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
-        sr.material.color = Color.black;
+        sr.material.color = Color.red;
         int burnHits = Random.Range(1, 5);
         for (int i = 0; i < burnHits; i++)
         {
@@ -98,7 +98,7 @@ public class PlayerAffector : MonoBehaviour
             else if (Burning)
             {
                 gameObject.GetComponent<PlayerInfo>().RemovePlayerHealth(hitPoints);
-                float waitTime = Random.Range(1.0f, 4.0f);
+                float waitTime = Random.Range(1.0f, 2.5f);
                 yield return new WaitForSeconds(waitTime);
             }
         }
