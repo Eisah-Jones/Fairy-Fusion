@@ -163,7 +163,7 @@
     "damage": 12,
     "fireRate": 10,
     "projectileType": "Bullet",
-    "projectileLife": 75,
+    "projectileLife": 65,
     "chamberCapacity": 20,
     "playerCollisionEffects": [
       "Knockback"

@@ -52,6 +52,7 @@ public class LevelManager: MonoBehaviour
     private bool isInitialized = false;
 
     private AudioSource asource;
+    private AudioSource asource1;
 
 
     private Sprite[] waterSprites;
@@ -94,6 +95,8 @@ public class LevelManager: MonoBehaviour
         soundManager = new SoundManager();
         soundManager.InitSoundManager();
         asource = gameObject.AddComponent<AudioSource>();
+        asource1 = gameObject.AddComponent<AudioSource>();
+
         // Create Model References
         chamberInteractionModel = new ChamberInteractionModel(elementManager);
         playerCollisionModel = new PlayerCollisionModel(elementManager);
@@ -213,7 +216,11 @@ public class LevelManager: MonoBehaviour
         isOver = b;
     }
 
+    public void PlayEndRoundSound()
+    {
+        soundManager.PlaySoundOneShotName(asource1, "AirHorn", false, .5f, 1.0f);
 
+    }
     private void SendControllerInputsToPlayer(List<ControllerInputs> i)
     {
         int mapping = 0;

@@ -21,7 +21,7 @@ public class Countdown : MonoBehaviour
     LevelManager lm;
     AudioSource asource;
     private bool isFlashing;
-
+    bool gameOver = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +29,7 @@ public class Countdown : MonoBehaviour
         TextIndicator.fontSize = initialfontSize;
         currentTime = startTime;
         isFlashing = false;
-       
+        //asource = gameObject.AddComponent<AudioSource>();
         //lm.soundManager.StartBGMusic();
     }
 
@@ -60,51 +60,67 @@ public class Countdown : MonoBehaviour
         }
         TextIndicator.enabled = true; // Don't forget to flip it back on incase it was off when exiting the loop!
     }
+    IEnumerator Wait(float n)
+    {
+        yield return new WaitForSeconds(n);
+    }
     // Update is called once per frame
     void Update()
     {
-        if (!isPaused && currentTime > 0)
+        if (!gameOver)
         {
-            currentTime -= speed * Time.deltaTime;
-        
-            if (!isFlashing && currentTime < 11)
+            if (!isPaused && currentTime > 0)
             {
-                isFlashing = true;
-                TextIndicator.color = Color.red;
-                StartCoroutine("FlashText");
-            }
-            TextIndicator.text = ((int)currentTime).ToString();
-        }
-       
-        else
-        {
-            //TextIndicator.gameObject.transform.position = new Vector3(TextIndicator.gameObject.transform.position.x, TextIndicator.gameObject.transform.position.y + 180, TextIndicator.gameObject.transform.position.z); ;
-            TextIndicator.fontSize = endofRoundfontSize;
-            // play explosion and add sound effects
-            LoadingBar.gameObject.SetActive(false);
-            LoadingBar.GetChild(0).gameObject.SetActive(false);
-            TextIndicator.color = Color.white;
-            TextIndicator.text = "Round " + roundNum +" over!";
-            TextIndicator.text = "Game over!";
-            List<string> winner = lm.GetKillCounter().GetWinner();
-            if (winner.Count > 1) // if theres a tie
-            {
-                string winners = "";
-                for (int i = 0; i < winner.Count; i++)
+                currentTime -= speed * Time.deltaTime;
+
+                if (!isFlashing && currentTime < 11)
                 {
-                    winners += winner[i] + " -";
+                    isFlashing = true;
+                    TextIndicator.color = Color.red;
+                    StartCoroutine("FlashText");
                 }
-                TextIndicator.fontSize = 13;
-                TextIndicator.text = "It's a tie between " + winners;
+                TextIndicator.text = ((int)currentTime).ToString();
             }
+
             else
             {
-                TextIndicator.text = winner[0] + " is the WINNER!!";
+                //TextIndicator.gameObject.transform.position = new Vector3(TextIndicator.gameObject.transform.position.x, TextIndicator.gameObject.transform.position.y + 180, TextIndicator.gameObject.transform.position.z); ;
+                TextIndicator.fontSize = endofRoundfontSize;
+                // play explosion and add sound effects
+                LoadingBar.gameObject.SetActive(false);
+                LoadingBar.GetChild(0).gameObject.SetActive(false);
+                TextIndicator.color = Color.white;
+                TextIndicator.text = "Round " + roundNum + " over!";
+                TextIndicator.text = "Game over!";
+
+                List<string> winner = lm.GetKillCounter().GetWinner();
+                if (winner.Count > 1) // if theres a tie
+                {
+                    string winners = "";
+                    for (int i = 0; i < winner.Count; i++)
+                    {
+                        winners += winner[i] + " -";
+                    }
+                    TextIndicator.fontSize = 13;
+                    TextIndicator.text = "It's a tie between " + winners;
+
+                }
+                else
+                {
+                    TextIndicator.text = winner[0] + " is the WINNER!!";
+
+
+
+                }
+                lm.StopBGMusic();
+                lm.PlayEndRoundSound();
+                gameOver = true;
+                //StartCoroutine("Wait", 2.5f);
+
+                Time.timeScale = 0f;
             }
-            lm.StopBGMusic();
-            Time.timeScale = 0f;
+            LoadingBar.GetComponent<Image>().fillAmount = (currentTime) / (startTime);
         }
-        LoadingBar.GetComponent<Image>().fillAmount = (currentTime) / (startTime);
    
     }
 }
