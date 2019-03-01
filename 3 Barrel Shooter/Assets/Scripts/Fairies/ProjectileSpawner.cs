@@ -40,27 +40,27 @@ public class ProjectileSpawner : MonoBehaviour {
         //Debug.Log("Starting Projectile Sound: EID: " + eID);
         if (eID == 4)
         {
-            sm.PlaySoundByName(audioSourceProjectile, "Woodchips", false, .5f, 0, backupAudio); // plays wood chip sound
+            sm.PlaySoundByName(audioSourceProjectile, "Leaf", false, .5f, 1.0f); // plays wood chip sound
         }
         else if (eID == 2)
         {
-            sm.PlaySoundByName(audioSourceProjectile, "Rockshot", backupAudio); // plays rock shot sound
+            sm.PlaySoundByName(audioSourceProjectile, "Rockshot"); // plays rock shot sound
         }
         else if (eID == 7)
         {
-            sm.PlaySoundByName(audioSourceProjectile, "FireBall", backupAudio); // plays fireball sound
+            sm.PlaySoundByName(audioSourceProjectile, "FireBall"); // plays fireball sound
         }
         else if (eID == 8)
         {
-            sm.PlaySoundByName(audioSourceProjectile, "CompositeShot", backupAudio); // plays sound for mud
+            sm.PlaySoundByName(audioSourceProjectile, "CompositeShot"); // plays sound for mud
         }
         else if (eID == 9)
         {
-            sm.PlaySoundByName(audioSourceProjectile, "Sniper", backupAudio);
+            sm.PlaySoundByName(audioSourceProjectile, "Sniper");
         }
         else if (eID == 10)
         {
-            sm.PlaySoundByName(audioSourceProjectile, "Spikeshot", backupAudio);
+            sm.PlaySoundByName(audioSourceProjectile, "Spikeshot");
         }
    
 

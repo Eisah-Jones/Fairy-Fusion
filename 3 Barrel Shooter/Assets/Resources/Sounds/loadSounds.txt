@@ -1,6 +1,6 @@
 Water
 Vacuum
-Woodchips
+Leaf
 Grasswalk
 Rockshot
 ResourcePickup

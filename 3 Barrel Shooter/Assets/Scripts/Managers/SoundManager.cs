@@ -58,9 +58,9 @@ public class SoundManager
         }
         pitchIncrement += 0.2f;
     }
-    public void PlaySoundByName(AudioSource s, string name, bool loop = false, float volume = 0.5f, float pitch = 0.0f, AudioSource backup = null)
+    public void PlaySoundByName(AudioSource s, string name, bool loop = false, float volume = 0.5f, float pitch = 0.0f)
     {
-        
+        AudioClip c;
         if (s != null && !s.isPlaying)
         {
 
@@ -74,30 +74,33 @@ public class SoundManager
             //    s.pitch = pitchIncrement;
             //    PitchIncrement();
             //}
+            //c = sounds[name];
             s.clip = sounds[name];
+            
             if (pitch != 1.0f) // randomizes pitch
-                s.pitch = Random.Range(0.7f, 1.4f);
+                s.pitch = Random.Range(0.8f, 1.4f);
             else
                 s.pitch = pitch;
             s.volume = volume;
+
+            //s.PlayOneShot(c);
             s.Play();
 
             s.loop = loop;
 
         }
-        else if (backup!= null && !backup.isPlaying)
+        else if (s.isPlaying && name != "Grasswalk" && name != "LeafPetals")
         {
-            backup.clip = sounds[name];
-            if (pitch != 1.0f) // randomizes pitch
-                backup.pitch = Random.Range(0.7f, 1.4f);
-            else
-                backup.pitch = pitch;
-            backup.volume = volume;
-            backup.Play();
+            c = sounds[name];
 
-            backup.loop = loop;
+            if (pitch != 1.0f) // randomizes pitch
+                s.pitch = Random.Range(0.7f, 1.4f);
+            else
+                s.pitch = pitch;
+            s.volume = volume;
+            s.PlayOneShot(c);
         }
-     
+
     }
 
 
