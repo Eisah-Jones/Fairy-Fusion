@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour {
+public class SoundManager
+{
 
     public Dictionary<string,AudioClip> sounds;
     public AudioSource audioSource;

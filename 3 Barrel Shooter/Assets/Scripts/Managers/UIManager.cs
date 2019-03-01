@@ -39,6 +39,7 @@ public class UIManager : MonoBehaviour
         {
             levelManager = GameObject.FindGameObjectWithTag("Level Manager").GetComponent<LevelManager>();
         }
+
         controllerManager.InitControllerManagerMenus(4);
         
         foreach (Transform m in transform)

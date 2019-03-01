@@ -7,7 +7,10 @@ using UnityEngine.Tilemaps;
 // Generates the level
 // Procedurally generates terrain
 // Spawns in resources and players
-public class LevelGenerator : MonoBehaviour {
+public class LevelGenerator : MonoBehaviour
+{
+
+    public List<Sprite> waterTiles = new List<Sprite>();
 
     private int levelWidth  = 45;
     private int levelHeight = 45;
@@ -44,10 +47,10 @@ public class LevelGenerator : MonoBehaviour {
                     terrainMap[x, y] = "Water";
                 else if (sample < 0.5)
                     terrainMap[x, y] = "Grass";
-                else if (sample < 0.9)
+                else if (sample < 0.75)
                     terrainMap[x, y] = "Dirt";
                 else
-                    terrainMap[x, y] = "Mountain";
+                    terrainMap[x, y] = "Wall";
             }
         }
 
@@ -73,21 +76,21 @@ public class LevelGenerator : MonoBehaviour {
             for (int y = 0; y < terrainMap.GetUpperBound(1); y++)
             {
                 Vector3Int pos = new Vector3Int(x, y, 0);
-                Tile t = new Tile();
+                Tile t = (Tile) ScriptableObject.CreateInstance("Tile");
                 SpriteManager.TileMap.TileInfo ti = spriteManager.GetTileSprite(t, terrainMap, tilemap, x, y);
                 t = ti.tile;
                 t = RotateTile(t, ti.rotation);
-                if (terrainMap[x, y] == "Mountain") { colliderMap.SetTile(pos, t); }
+                if (terrainMap[x, y] == "Wall") { colliderMap.SetTile(pos, t); }
                 else if (terrainMap[x, y] == "Water") { triggerMap.SetTile(pos, t); }
                 else { tilemap.SetTile(pos, t); }
             }
         }
 
-        // Borders around the level
+        //Borders around the level
         for (int i = 0; i < levelWidth; i++)
         {
             Vector3Int pos = new Vector3Int(i, -1, 0);
-            Tile t = new Tile();
+            Tile t = (Tile)ScriptableObject.CreateInstance("Tile");
             SpriteManager.TileMap.TileInfo ti = spriteManager.GetTileSprite(t, terrainMap, tilemap, 0, -1);
             t = ti.tile;
             t = RotateTile(t, ti.rotation);
@@ -96,8 +99,8 @@ public class LevelGenerator : MonoBehaviour {
 
         for (int i = 0; i < levelHeight; i++)
         {
-            Vector3Int pos = new Vector3Int(levelWidth-1, i, 0);
-            Tile t = new Tile();
+            Vector3Int pos = new Vector3Int(levelWidth - 1, i, 0);
+            Tile t = (Tile)ScriptableObject.CreateInstance("Tile");
             SpriteManager.TileMap.TileInfo ti = spriteManager.GetTileSprite(t, terrainMap, tilemap, 0, -1);
             t = ti.tile;
             t = RotateTile(t, ti.rotation);
@@ -106,8 +109,8 @@ public class LevelGenerator : MonoBehaviour {
 
         for (int i = 0; i < levelWidth; i++)
         {
-            Vector3Int pos = new Vector3Int(i, levelHeight-1, 0);
-            Tile t = new Tile();
+            Vector3Int pos = new Vector3Int(i, levelHeight - 1, 0);
+            Tile t = (Tile)ScriptableObject.CreateInstance("Tile");
             SpriteManager.TileMap.TileInfo ti = spriteManager.GetTileSprite(t, terrainMap, tilemap, 0, -1);
             t = ti.tile;
             t = RotateTile(t, ti.rotation);
@@ -116,8 +119,8 @@ public class LevelGenerator : MonoBehaviour {
 
         for (int i = 0; i < levelHeight; i++)
         {
-            Vector3Int pos = new Vector3Int(0, i, 0);
-            Tile t = new Tile();
+            Vector3Int pos = new Vector3Int(-1, i, 0);
+            Tile t = (Tile)ScriptableObject.CreateInstance("Tile");
             SpriteManager.TileMap.TileInfo ti = spriteManager.GetTileSprite(t, terrainMap, tilemap, 0, -1);
             t = ti.tile;
             t = RotateTile(t, ti.rotation);
@@ -161,6 +164,24 @@ public class LevelGenerator : MonoBehaviour {
     }
 
 
+    public List<int[]> GetWaterTiles(Tilemap tm)
+    {
+        List<int[]> result = new List<int[]>();
+
+        for (int x = 0; x < terrainMap.GetUpperBound(0); x++)
+        {
+            for (int y = 0; y < terrainMap.GetUpperBound(1); y++)
+            {
+                int[] temp = { x, y };
+                if (terrainMap[x, y] == "Water")
+                    result.Add(temp);
+            }
+        }
+
+        return result;
+    }
+
+
     private void SpawnFire(ResourceManager rm)
     {
         for (int i = 0; i < 35; i++)
@@ -187,7 +208,7 @@ public class LevelGenerator : MonoBehaviour {
     }
 
 
-        private void SpawnTrees(ResourceManager rm)
+    private void SpawnTrees(ResourceManager rm)
     {
         List<int[]> treeSpawnPoints = GetTreeSpawnPoints();
 
@@ -253,7 +274,8 @@ public class LevelGenerator : MonoBehaviour {
     }
 
 
-    public Vector3 GetSpawnPos(Vector3 startPos){
+    public Vector3 GetSpawnPos(Vector3 startPos)
+    {
         //If spawn pos is invalid, search for nearest valid position
         int x = (int)startPos.x;
         int y = (int)startPos.y;
@@ -286,11 +308,12 @@ public class LevelGenerator : MonoBehaviour {
     }
 
 
-    private bool IsValidPosition(int x, int y){
-        return IsInBounds(x    , y)     && terrainMap[x    , y]     != "Mountain" &&
-               IsInBounds(x    , y - 1) && terrainMap[x    , y - 1] != "Mountain" &&
-               IsInBounds(x - 1, y)     && terrainMap[x - 1, y]     != "Mountain" &&
-               IsInBounds(x - 1, y - 1) && terrainMap[x - 1, y - 1] != "Mountain";
+    private bool IsValidPosition(int x, int y)
+    {
+        return IsInBounds(x    , y)     && terrainMap[x    , y]     != "Wall" &&
+               IsInBounds(x    , y - 1) && terrainMap[x    , y - 1] != "Wall" &&
+               IsInBounds(x - 1, y)     && terrainMap[x - 1, y]     != "Wall" &&
+               IsInBounds(x - 1, y - 1) && terrainMap[x - 1, y - 1] != "Wall";
     }
 
 
@@ -300,14 +323,8 @@ public class LevelGenerator : MonoBehaviour {
     }
 
 
-    private string GetBlockUnderPlayer(Vector3 pos){
+    private string GetBlockUnderPlayer(Vector3 pos)
+    {
         return terrainMap[(int)pos.x, (int)pos.y];
     }
-
-
-	// Use this for initialization
-	void Start () {
-        //GenerateLevel();
-        //SpawnPlayers();
-	}
 }

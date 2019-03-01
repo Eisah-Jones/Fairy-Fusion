@@ -7,7 +7,8 @@ using UnityEngine.Tilemaps;
 
 //This function manages all level information
 // Stores references to scripts that can be accessed by the player
-public class LevelManager: MonoBehaviour {
+public class LevelManager: MonoBehaviour
+{
 
     // Managers
     public ElementManager elementManager;
@@ -25,7 +26,7 @@ public class LevelManager: MonoBehaviour {
     public PlayerCollisionModel playerCollisionModel;
     public ElementCollisionModel elementCollisionModel;
 
-    private LevelGenerator levelGen = new LevelGenerator();
+    private LevelGenerator levelGen;
 
     public GameObject player; // Need to load dynamically
     public List<GameObject> playerList;
@@ -78,7 +79,8 @@ public class LevelManager: MonoBehaviour {
 
         //particleManager = new ParticleManager();
 
-        cameraManager = new CameraManager();
+        gameObject.AddComponent<CameraManager>();
+        cameraManager = gameObject.GetComponent<CameraManager>();
         cameraManager.InitCameraManager(numPlayers);
 
         // Set UI manager after getting canvas reference
@@ -96,6 +98,8 @@ public class LevelManager: MonoBehaviour {
         elemPrefabs = elementManager.LoadElementPrefabs();
 
         // Generate the level map
+        gameObject.AddComponent<LevelGenerator>();
+        levelGen = gameObject.GetComponent<LevelGenerator>();
         levelGen.GenerateLevel(ground, groundCollider, groundTrigger, spriteManager, resourceManager);
 
         // Spawn and setup players and cameras
@@ -108,9 +112,10 @@ public class LevelManager: MonoBehaviour {
         cameraManager.UpdateCameraPosition(playerList);
 
         soundManager.PlaySoundByName(asource, "DrumsFury",false, .5f, 1f);
-        //soundManager.StartBGMusic();
-        // Spawn Resources
+        
         levelGen.SpawnResources(resourceManager);
+
+        spriteManager.AnimateWater(true, levelGen.GetWaterTiles(groundTrigger), groundTrigger);
 
         isInitialized = true;
     }

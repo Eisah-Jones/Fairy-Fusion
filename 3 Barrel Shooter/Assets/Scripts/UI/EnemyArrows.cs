@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyArrows : MonoBehaviour
+public class EnemyArrows
 {
     private UIManager uiManager;
     private Transform[] arrows;
@@ -20,7 +20,7 @@ public class EnemyArrows : MonoBehaviour
         numPlayers = um.levelManager.GetNumPlayers();
 
         Transform arrowContainer = uiManager.canvas.transform.GetChild(9);
-        Debug.Log(arrowContainer);
+        //Debug.Log(arrowContainer);
         arrows = new Transform[4];
         for (int i = 0; i < 4; i++)
         {

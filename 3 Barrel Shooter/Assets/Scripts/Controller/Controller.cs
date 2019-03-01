@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // This class represents one players controller, with buttons mapped based on given number
-public class Controller : MonoBehaviour {
+public class Controller
+{
 
     // Triggers
     public string Left_Trigger;
