@@ -321,7 +321,7 @@
     "projectileType": "Splinter",
     "projectileLife": 60,
     "chamberCapacity": 100,
-    "playerCollisionEffects": [
+    "playerCollisionEffects": [ "Knockback"
     ],
     "chamberInteractions": {
       "Fire": "Laser",
