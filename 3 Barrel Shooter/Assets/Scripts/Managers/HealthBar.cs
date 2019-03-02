@@ -28,13 +28,14 @@ public class HealthBar : MonoBehaviour {
         hb.gameObject.SetActive(false);
     }
 
-public void SetSize (float sizeNormalized) {
+    public void SetSize (float sizeNormalized)
+    {
 		bar.localScale = new Vector3 (sizeNormalized, 1f);
 	}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if ('R' == collision.tag[0] ||collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged" || collision.tag == "Water") return;
+        if ('R' == collision.tag[0] ||collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged" || collision.tag == "Water"|| collision.tag == "TilemapTrigger") return;
         hb.gameObject.SetActive(true);
     }
 
@@ -44,8 +45,6 @@ public void SetSize (float sizeNormalized) {
         yield return new WaitForSeconds(4);
         hb.gameObject.SetActive(false);
         StopCoroutine("StartTimer");
-
-
     }
 
     private void OnTriggerExit2D(Collider2D collision)

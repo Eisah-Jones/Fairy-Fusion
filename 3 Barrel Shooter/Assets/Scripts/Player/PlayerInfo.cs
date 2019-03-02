@@ -35,6 +35,7 @@ public class PlayerInfo : MonoBehaviour
         playerNum = pNum;
         startedRespawn = false;
         c = GetComponent<SpriteRenderer>().material.color;
+       
 
     }
 
@@ -178,11 +179,15 @@ public void OnTriggerEnter2D(Collider2D collision)
 
         PlayerCollisionModel.CollisionResult result = levelManager.playerCollisionModel.HandleCollision(health, elemName);
         if (health != result.health && !isFlashing)
+        {
             StartCoroutine("DamageFlash");
+
+        }
         health = result.health;
-       
         transform.gameObject.GetComponent<PlayerController>().HandleEffects(result.playerEffect, collision.transform);
     }
+
+
 
     private IEnumerator DamageFlash()
     {
