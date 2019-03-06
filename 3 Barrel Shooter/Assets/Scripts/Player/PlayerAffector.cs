@@ -9,6 +9,8 @@ public class PlayerAffector : MonoBehaviour
     private GameObject playerBody;
     private PlayerController playerController;
     Color c;
+
+
     public void InitPlayerAffector(GameObject pb)
     {
         playerBody = pb;
@@ -79,7 +81,6 @@ public class PlayerAffector : MonoBehaviour
         playerBody.GetComponent<Rigidbody2D>().AddForce(heading * 3, ForceMode2D.Impulse);
         yield return new WaitForFixedUpdate();
         sr.material.color = c;
-
     }
 
 
@@ -105,13 +106,11 @@ public class PlayerAffector : MonoBehaviour
         Burning = false;
         yield return new WaitForFixedUpdate();
         sr.material.color = Color.white;
-
     }
 
 
     private IEnumerator Slow()
     {
-
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
 
         sr.material.color = Color.gray;

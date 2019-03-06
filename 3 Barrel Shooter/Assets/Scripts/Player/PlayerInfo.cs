@@ -35,8 +35,6 @@ public class PlayerInfo : MonoBehaviour
         playerNum = pNum;
         startedRespawn = false;
         c = GetComponent<SpriteRenderer>().material.color;
-       
-
     }
 
 
@@ -139,9 +137,10 @@ public class PlayerInfo : MonoBehaviour
 
    
 
-public void OnTriggerEnter2D(Collider2D collision)
+    public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged" || collision.tag[0] == 'R' || collision.tag == "TEST") {
+        if (collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged" || collision.tag[0] == 'R' || collision.tag == "TEST")
+        {
 			rearea = collision.name;
             //levelManager.soundManager.PlaySoundByName(audioSources[1], "Bump");
 			return;
@@ -152,7 +151,7 @@ public void OnTriggerEnter2D(Collider2D collision)
 
         int elemID = 0;
         string elemName = "";
-
+        
         if (elementObj != null && elementObj.GetOwner() == ("Player" + playerNum.ToString())) return;
         else if (elementObj != null)
         {
@@ -181,7 +180,6 @@ public void OnTriggerEnter2D(Collider2D collision)
         if (health != result.health && !isFlashing)
         {
             StartCoroutine("DamageFlash");
-
         }
         health = result.health;
         transform.gameObject.GetComponent<PlayerController>().HandleEffects(result.playerEffect, collision.transform);
@@ -194,14 +192,14 @@ public void OnTriggerEnter2D(Collider2D collision)
         float time = 0;
         isFlashing = true;
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
-        while (time < .15f) // time it takes to stop flashing 
+        while (time < .05f) // time it takes to stop flashing 
         {
             time += Time.deltaTime;
    
             sr.enabled = (false); 
-            yield return new WaitForSeconds(.3f);
+            yield return new WaitForSeconds(.15f);
             sr.enabled = (true); 
-            yield return new WaitForSeconds(.3f);
+            yield return new WaitForSeconds(.15f);
         }
         isFlashing = false;
         

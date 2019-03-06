@@ -18,7 +18,8 @@ public class ElementObject : MonoBehaviour {
     private Vector2 direction;
     private string particleOwner;
 
-    public void initElement(LevelManager lm, elementData e, bool isP, string o){
+    public void initElement(LevelManager lm, elementData e, bool isP, string o)
+    {
         levelManager = lm;
         elementCollisionModel = lm.elementCollisionModel;
 
@@ -26,7 +27,7 @@ public class ElementObject : MonoBehaviour {
         name = e.name;
         damage = e.damage;
         life = e.projectileLife;
-        speed = 10.0f;
+        speed = 12.5f;
         isProjectile = isP;
         owner = o;
         direction = transform.right;
@@ -43,25 +44,28 @@ public class ElementObject : MonoBehaviour {
             if (name == "SpikeShot") { StartCoroutine("Explode"); }
             else Destroy(gameObject);
         }
-
-
+        
         // If the element is a projectile, then we move it and decrease its life
-        if (isProjectile && life > 0){
+        if (isProjectile && life > 0)
+        {
             life -= 1;
             transform.GetComponent<Rigidbody2D>().velocity = direction * speed; //Replace number with speed when ready
         }
     }
 
     // Gets the element ID
-    public int GetID(){
+    public int GetID()
+    {
         return ID;
     }
 
-    public string GetName(){
+    public string GetName()
+    {
         return name;
     }
 
-    public string GetOwner(){
+    public string GetOwner()
+    {
         return owner;
     }
 
@@ -79,12 +83,13 @@ public class ElementObject : MonoBehaviour {
 
         if (collision.gameObject.tag == "Player")
         {
-            if (name == "SpikeShot") StartCoroutine("Explode");
+            if (collision.GetComponent<PlayerInfo>().GetPlayerName() == owner) return;
+            else if (name == "SpikeShot") StartCoroutine("Explode");
             else Destroy(gameObject);
         }
 
         ElementObject other = collision.gameObject.GetComponent<ElementObject>();
-        if (other != null && other.owner == owner) return;
+        //if (other != null && other.GetOwner() == owner) return;
 
         // This happens when objects are not spawned by the levelGenerator
         if (elementCollisionModel == null) return;
@@ -99,7 +104,8 @@ public class ElementObject : MonoBehaviour {
         ElementCollisionModel.CollisionResult cr = elementCollisionModel.HandleInteraction(ID, ID2);
 
         int i = 0;
-        foreach( string result in cr.elementResults ){
+        foreach( string result in cr.elementResults )
+        {
             if (result == "Destroy"){
                 // Get environmental effect and then run it
                 // Destroy gameobject

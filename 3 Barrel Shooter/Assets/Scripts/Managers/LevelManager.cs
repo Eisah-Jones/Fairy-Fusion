@@ -113,14 +113,15 @@ public class LevelManager: MonoBehaviour
 
         // Spawn and setup players and cameras
         playerList = levelGen.SpawnPlayers(player, GetComponent<LevelManager>(), numPlayers);
-        foreach (GameObject p in playerList) {
+        foreach (GameObject p in playerList)
+        {
 			pInfoList.Add (p.GetComponent<PlayerInfo> ());
             cameraManager.AddCamera();
 		}
         cameraManager.SetCameraRatio();
         cameraManager.UpdateCameraPosition(playerList);
 
-        soundManager.PlaySoundByName(asource, "DrumsFury",false, .5f, 1f);
+        soundManager.PlaySoundByName(asource, "DrumsFury", false, .5f, 1f);
         
         levelGen.SpawnResources(resourceManager);
 
