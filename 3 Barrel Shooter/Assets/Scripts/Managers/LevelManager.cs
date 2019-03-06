@@ -62,7 +62,7 @@ public class LevelManager: MonoBehaviour
     public void Start()
     {
         int n = 2;
-        bool testing = true;
+        bool testing = false;
         if (testing)
             InitLevelManager(n);
     }
@@ -70,7 +70,7 @@ public class LevelManager: MonoBehaviour
 
     // Use this for initialization
     public void InitLevelManager (int num) {
-        numPlayers = num; // will eventually be given by player selection menu
+        numPlayers = num;
 
         // Init/Create Manager References
         elementManager = new ElementManager();
@@ -91,6 +91,7 @@ public class LevelManager: MonoBehaviour
 
         // Set UI manager after getting canvas reference
         uiManager = GameObject.FindGameObjectWithTag("Canvas").GetComponent<UIManager>();
+        uiManager.InitUIManager();
 
         soundManager = new SoundManager();
         soundManager.InitSoundManager();

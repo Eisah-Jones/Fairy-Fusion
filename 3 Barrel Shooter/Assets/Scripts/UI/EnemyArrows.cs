@@ -14,13 +14,12 @@ public class EnemyArrows
     private int numPlayers;
 
 
-    public void InitEnemyArrows(UIManager um)
+    public void InitEnemyArrows(UIManager um, int num)
     {
         uiManager = um;
-        numPlayers = um.levelManager.GetNumPlayers();
+        numPlayers = num;
 
         Transform arrowContainer = uiManager.canvas.transform.GetChild(9);
-        //Debug.Log(arrowContainer);
         arrows = new Transform[4];
         for (int i = 0; i < 4; i++)
         {
@@ -31,7 +30,6 @@ public class EnemyArrows
                 if (j >= numPlayers - 1 || i >= numPlayers)
                 {
                     arrows[i].GetChild(j).gameObject.SetActive(false);
-              
                 }
             }
         }
@@ -53,7 +51,6 @@ public class EnemyArrows
     {
         List<GameObject> playerList = uiManager.levelManager.GetPlayerList();
         //Debug.Log(uiManager.levelManager.cameraManager);
-        GameObject[] cameraArray = uiManager.levelManager.cameraManager.GetCameraArray();
         for (int i = 0; i < numPlayers; i++)
         {
             GameObject player = playerList[i];
@@ -74,7 +71,6 @@ public class EnemyArrows
         GameObject arrow = arrows[index].GetChild(arrowIndex).gameObject;
         if (Vector3.Distance(p1.transform.position, p2.transform.position) < 10 && arrow.activeSelf)
         {
-
             arrow.SetActive(false);
             return true;
         }

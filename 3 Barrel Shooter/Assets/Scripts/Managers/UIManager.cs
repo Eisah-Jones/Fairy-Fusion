@@ -66,8 +66,14 @@ public class UIManager : MonoBehaviour
             killCounter = canvas.GetComponent<KillCounter>();
             killCounter.InitKillCounter(levelManager, canvas);
             enemyArrows = new EnemyArrows();
-            enemyArrows.InitEnemyArrows(this);
+            enemyArrows.InitEnemyArrows(this, levelManager.GetNumPlayers());
         }
+    }
+
+
+    public void InitUIManager()
+    {
+        Start();
     }
 
 
