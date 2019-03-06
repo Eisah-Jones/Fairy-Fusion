@@ -50,6 +50,7 @@ TagManager:
   - 11-Laser
   - 4-Leaf
   - R-4-Leaf
+  - 4-Wood
   layers:
   - Default
   - TransparentFX
@@ -60,8 +61,8 @@ TagManager:
   - 
   - 
   - MiniMap
+  - IgnoreLaser
   - Environment + Player
-  - 
   - 
   - 
   - 

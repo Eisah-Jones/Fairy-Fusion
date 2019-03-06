@@ -645,7 +645,7 @@ GameObject:
   - component: {fileID: 243219675}
   - component: {fileID: 243219674}
   - component: {fileID: 243219673}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tilemap_Trigger
   m_TagString: TilemapTrigger
   m_Icon: {fileID: 0}
