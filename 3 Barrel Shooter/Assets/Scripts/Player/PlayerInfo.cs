@@ -21,6 +21,8 @@ public class PlayerInfo : MonoBehaviour
     List<ParticleSystem.Particle> enter = new List<ParticleSystem.Particle>();
     List<ParticleSystem.Particle> exit = new List<ParticleSystem.Particle>();
     private string elementOwnerName ="";
+    private bool isFlashing = false;
+    Color c;
 
     public void InitPlayerInfo(LevelManager lm, int pNum)
     {
@@ -32,6 +34,7 @@ public class PlayerInfo : MonoBehaviour
         health = 100.0f;
         playerNum = pNum;
         startedRespawn = false;
+        c = GetComponent<SpriteRenderer>().material.color;
     }
 
 
@@ -105,7 +108,7 @@ public class PlayerInfo : MonoBehaviour
 		lives += -1;
         //deathParticles = Instantiate(levelManager.particles[3], transform.position, transform.rotation);
         levelManager.SpawnParticleEffectAtPosition(transform.position, 3);
-        levelManager.soundManager.PlaySoundByName(audioSources[0], "Death"); // plays death sound
+        levelManager.soundManager.PlaySoundByName(audioSources[0], "Death", false, 1.0f); // plays death sound
 
         yield return new WaitForSeconds(.1f);
 		Vector3 respawn = new Vector3(25,25,0);
@@ -128,13 +131,16 @@ public class PlayerInfo : MonoBehaviour
       
         startedRespawn = !startedRespawn;
         health = 100.0f;
-   
+        levelManager.GetKillCounter().addKill(GetPlayerName(), elementOwnerName);
+
     }
 
+   
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged" || collision.tag[0] == 'R' || collision.tag == "TEST") {
+        if (collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged" || collision.tag[0] == 'R' || collision.tag == "TEST")
+        {
 			rearea = collision.name;
             //levelManager.soundManager.PlaySoundByName(audioSources[1], "Bump");
 			return;
@@ -145,7 +151,7 @@ public class PlayerInfo : MonoBehaviour
 
         int elemID = 0;
         string elemName = "";
-
+        
         if (elementObj != null && elementObj.GetOwner() == ("Player" + playerNum.ToString())) return;
         else if (elementObj != null)
         {
@@ -171,14 +177,33 @@ public class PlayerInfo : MonoBehaviour
         if (elemName == "") return;
 
         PlayerCollisionModel.CollisionResult result = levelManager.playerCollisionModel.HandleCollision(health, elemName);
-        health = result.health;
-        if (isDead() && !isRespawning) // adds a kill to the player
+        if (health != result.health && !isFlashing)
         {
-            levelManager.GetKillCounter().addKill(GetPlayerName(), elementOwnerName);
+            StartCoroutine("DamageFlash");
         }
+        health = result.health;
         transform.gameObject.GetComponent<PlayerController>().HandleEffects(result.playerEffect, collision.transform);
     }
 
+
+
+    private IEnumerator DamageFlash()
+    {
+        float time = 0;
+        isFlashing = true;
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        while (time < .05f) // time it takes to stop flashing 
+        {
+            time += Time.deltaTime;
+   
+            sr.enabled = (false); 
+            yield return new WaitForSeconds(.15f);
+            sr.enabled = (true); 
+            yield return new WaitForSeconds(.15f);
+        }
+        isFlashing = false;
+        
+    }
 
     private Vector3 GetRandomVector(int x_range, int y_range)
     {

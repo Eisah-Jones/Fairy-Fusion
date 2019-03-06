@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
     private Menu activeMenu;
     private List<Menu> menus = new List<Menu>();
 
-    private LevelManager levelManager;
+    public LevelManager levelManager;
     private ControllerManager controllerManager = new ControllerManager();
 
     private bool isDetectingVerticalInput;
@@ -22,7 +22,7 @@ public class UIManager : MonoBehaviour
     private float inputDelayTimeHorizontal = 0.013f;
 
     // Level UI Elements
-    private EnemyArrows enemyArrows = new EnemyArrows();
+    private EnemyArrows enemyArrows;
     public GameObject canvas;
     public GameObject win;
     public GameObject minimap;
@@ -39,6 +39,7 @@ public class UIManager : MonoBehaviour
         {
             levelManager = GameObject.FindGameObjectWithTag("Level Manager").GetComponent<LevelManager>();
         }
+
         controllerManager.InitControllerManagerMenus(4);
         
         foreach (Transform m in transform)
@@ -64,8 +65,15 @@ public class UIManager : MonoBehaviour
             canvas.AddComponent<KillCounter>();
             killCounter = canvas.GetComponent<KillCounter>();
             killCounter.InitKillCounter(levelManager, canvas);
-            enemyArrows.InitEnemyArrows(levelManager);
+            enemyArrows = new EnemyArrows();
+            enemyArrows.InitEnemyArrows(this, levelManager.GetNumPlayers());
         }
+    }
+
+
+    public void InitUIManager()
+    {
+        Start();
     }
 
 

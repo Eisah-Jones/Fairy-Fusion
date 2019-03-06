@@ -194,10 +194,11 @@ public class Fairies{
     private bool shootingLeft;
     private bool shootingRight;
     private bool isCombiningElements; //True = combinationChambers, False = normalChambers
+    private ProjectileSpawner spawner;
 
     // Vacuum constructor
-    public Fairies(LevelManager lm){
-
+    public Fairies(LevelManager lm)
+    {
         levelManager = lm;
 
         cim = levelManager.chamberInteractionModel;
@@ -215,7 +216,8 @@ public class Fairies{
     }
 
     // Sets the combination chambers based on normal chambers
-    public void SetCombinationChambers(){
+    public void SetCombinationChambers()
+    {
 
         for (int i = 0; i < 3; i++)
         {
@@ -228,13 +230,15 @@ public class Fairies{
     }
 
 
-    public void SetIsCombiningElements(bool b){
+    public void SetIsCombiningElements(bool b)
+    {
         isCombiningElements = b;
     }
 
 
     //Switch for turning on and off vacuum
-    public void SetVacuum(bool b1, bool b2){
+    public void SetVacuum(bool b1, bool b2)
+    {
         vacuumOn1 = b1;
         vacuumOn2 = b2;
     }
@@ -246,19 +250,22 @@ public class Fairies{
 
 
     // Get a boolean determining whether or not the vacuum is set to on
-    public bool GetVacuumOn(){
+    public bool GetVacuumOn()
+    {
         return vacuumOn1 || vacuumOn2;
     }
 
 
     //Get the current element id from a chamber
-	public int GetCurrentChamberElement(){
+	public int GetCurrentChamberElement()
+    {
 		return chambers [currentChamber].GetElementIDByIndex (0);
 	}
 
 
     // Change the chamber based on direction
-    public int changeChamber(int direction){
+    public int changeChamber(int direction)
+    {
         if (direction == 0) return currentChamber;
         currentChamber = (currentChamber + direction)%3;
         if (currentChamber == -1)
@@ -268,7 +275,8 @@ public class Fairies{
 
 
     // Add an item to the chamber given id
-    public int AddToChamber(string n, int id, bool left){
+    public int AddToChamber(string n, int id, bool left)
+    {
         // If the item does not match what is in chamber, do nothing
         int selectedChamber;
         if (left) selectedChamber = currentChamber; 
@@ -290,7 +298,8 @@ public class Fairies{
     }
 
     // Returns the current chamber
-    public Fairy GetCurrentChamber(bool sucking){
+    public Fairy GetCurrentChamber(bool sucking)
+    {
         int selectedChamber;
         bool b;
         if (sucking) { b = vacuumOn1; } else { b = shootingLeft; }
@@ -301,7 +310,8 @@ public class Fairies{
     }
 
 
-    public int GetCurrentChamberIndex(){
+    public int GetCurrentChamberIndex()
+    {
         return currentChamber;
     }
 
@@ -356,6 +366,7 @@ public class Fairies{
 
     public void RemoveFromCurrentChamber(string elemName, int i)
     {
+        if (elemName == "Air") return;
         if (IsCombo(elemName))
         {
             combinationRequirements cr = levelManager.elementManager.GetElementDataByName(elemName).combinationRequirements;
@@ -367,6 +378,18 @@ public class Fairies{
         else
         {
             chambers[currentChamber].Remove(elemName, i);
+        }
+    }
+
+
+    public void CheckFluid(bool sL, bool sR, GameObject ps)
+    {
+        if (spawner == null)
+            spawner = ps.GetComponent<ProjectileSpawner>();
+        if (spawner.p == null) return;
+        if (!sL && !sR)
+        {
+            spawner.ResetFluidBool();
         }
     }
 
@@ -388,8 +411,10 @@ public class Fairies{
         //  in the combination chamber, if they are in combination chamber set
         if (IsCurrentChamberEmpty(false) || (IsCombinationChamberEmpty() && combo))
         {
-            //Debug.Log("NULL" + IsCurrentChamberEmpty(false) + ", " + IsCombinationChamberEmpty());
-            return null; //There is nothing to shoot! Return null to disapprove instantiating anything
+            //Shoot air
+            spawner.ResetFluidBool();
+            Fairy.InventoryInfo air = new Fairy.InventoryInfo("Air", 5, 1);
+            return air; //There is nothing to shoot! Return null to disapprove instantiating anything
         }
 
 

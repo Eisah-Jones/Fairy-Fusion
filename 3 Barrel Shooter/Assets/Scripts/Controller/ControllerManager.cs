@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ControllerManager : MonoBehaviour
+public class ControllerManager
 {
 
     LevelManager levelManager;

@@ -1,6 +1,6 @@
 Water
 Vacuum
-Woodchips
+Leaf
 Grasswalk
 Rockshot
 ResourcePickup
@@ -8,12 +8,14 @@ Flamethrower
 Steam
 FireBall
 Death
-Glimmer
-Mud
-Sniper
-CompositeShot
+MudSplat
+SniperNew
+WoodShot
 Laser
 Spikeshot
 DrumsFury
 Bump
 Null
+SuckingSound
+SuckingFinish
+AirHorn

@@ -49,4 +49,4 @@ MonoBehaviour:
   forceRange: 100
   emissionRangeStart: 0.001
   emissionRange: 0.001
-  spread: 40
+  spread: 360

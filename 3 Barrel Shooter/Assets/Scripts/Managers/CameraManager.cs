@@ -5,13 +5,14 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour
 {
     private GameObject cameraPrefab;
-	private GameObject playerUIPrefab;
+    private GameObject playerUIPrefab;
     private GameObject[] cameras;
 
     private int numCameras;
     private int currentCamIndex;
 
-    private float zPos;
+    [SerializeField]
+    private float size;
 
     public void InitCameraManager(int numPlayers)
     {
@@ -22,7 +23,8 @@ public class CameraManager : MonoBehaviour
         numCameras = numPlayers;
         currentCamIndex = 0;
 
-        zPos = -12f;
+        if (numCameras == 3 || numCameras == 4) size = 4.5f;
+        else size = 7;
     }
 
     public void SetCameraRatio()
@@ -53,7 +55,8 @@ public class CameraManager : MonoBehaviour
         {
             GameObject c = cameras[i];
             Vector3 playerPos = players[i].transform.position;
-            c.transform.position = new Vector3(playerPos.x, playerPos.y, zPos);
+            c.transform.position = new Vector3(playerPos.x, playerPos.y, -12f);
+            c.GetComponent<Camera>().orthographicSize = size;
         }
     }
 
@@ -65,7 +68,8 @@ public class CameraManager : MonoBehaviour
         cameraObject.name = "Cam" + (currentCamIndex + 1).ToString();
 		canvasObject.name = "PlayerUI" + (currentCamIndex + 1).ToString ();
         cameras[currentCamIndex++] = cameraObject;
-		canvas.worldCamera = cameraObject.GetComponent<Camera> ();
+        cameraObject.GetComponent<Camera>().orthographicSize = size;
+        canvas.worldCamera = cameraObject.GetComponent<Camera> ();
     }
 
     

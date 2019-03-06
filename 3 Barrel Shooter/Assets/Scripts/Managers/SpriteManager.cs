@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class SpriteManager 
+public class SpriteManager
 {
 
     public class TileMap
@@ -98,8 +98,9 @@ public class SpriteManager
             int[] similarNeighbors = GetSimilarNeighbors(neighbors, map[x, y]);
 
             TileInfo result = new TileInfo();
-            result.tile = new Tile();
+            result.tile = (Tile)ScriptableObject.CreateInstance("Tile");
             SpriteInfo si = GetSprite(similarNeighbors);
+            if (map[x, y] == "Water") si.rotation = 0f;
             result.tile.sprite = si.sprite;
             result.rotation = si.rotation;
             return result;
@@ -896,12 +897,16 @@ public class SpriteManager
     private Sprite[] resourceSprites;
     private TileMap[] tileMaps;
     private Sprite[] elementFluidSprites;
+    private Sprite[] treeSprites;
+    private Sprite[] waterSprites;
+    private bool isAnimatingWater = false;
 
 
     public SpriteManager()
     {
         LoadTileMaps();
         LoadElementFluidSprites();
+        LoadTreeSprites();
     }
 
     // Get the tilemap for the given square
@@ -910,8 +915,8 @@ public class SpriteManager
         if (x < 0 || y < 0 || x > map.GetUpperBound(0) || y > map.GetUpperBound(1))
         {
             TileMap.TileInfo result = new TileMap.TileInfo();
-            result.tile = new Tile();
-            result.tile.sprite = tileMaps[3].GetFill();
+            result.tile = (Tile)ScriptableObject.CreateInstance("Tile");
+            result.tile.sprite = tileMaps[2].GetFill();
             return result;
         }
 
@@ -932,6 +937,13 @@ public class SpriteManager
         return elementFluidSprites[id-1];
     }
 
+
+    public Sprite GetTreeSprite(int i)
+    {
+        return treeSprites[i];
+    }
+
+
     private TileMap GetTileMap(string mapName)
     {
         if (mapName == "Grass")
@@ -942,12 +954,16 @@ public class SpriteManager
         {
             return tileMaps[1];
         }
-        else if (mapName == "Water")
+        else if (mapName == "Wall")
         {
             return tileMaps[2];
         }
+        else if (mapName == "Water")
+        {
+            return tileMaps[3];
+        }
 
-        return tileMaps[3];
+        return tileMaps[4];
     }
 
 
@@ -964,8 +980,8 @@ public class SpriteManager
         }
 
         // FOR TESTING!!!
-        tileMaps[2] = new TileMap("Water");
-        tileMaps[3] = new TileMap("Mountain");
+        tileMaps[3] = new TileMap("Water");
+        //tileMaps[4] = new TileMap("Mountain");
     }
 
 
@@ -983,6 +999,33 @@ public class SpriteManager
                 elementFluidSprites[j++] = (Sprite)Resources.Load("Fluids/Fluid Sprites/" + lines[i]);
 
             //i++;
+        }
+    }
+
+
+    private void LoadTreeSprites()
+    {
+        treeSprites = new Sprite[3];
+        for (int i = 0; i < 3; i++)
+        {
+            treeSprites[i] = Resources.Load<Sprite>("Sprites/Tree/Tree" + i);
+        }
+    }
+
+
+    public Sprite[] GetWaterSprites()
+    {
+        if (waterSprites == null) LoadWaterSprites();
+        return waterSprites;
+    }
+
+
+    private void LoadWaterSprites()
+    {
+        waterSprites = new Sprite[14];
+        for (int i = 0; i < 14; i++)
+        {
+            waterSprites[i] = Resources.Load<Sprite>("TileMaps/Water/Water" + i);
         }
     }
 }

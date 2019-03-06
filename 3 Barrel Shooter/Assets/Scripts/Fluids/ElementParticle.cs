@@ -41,8 +41,9 @@ public class ElementParticle : MonoBehaviour {
 
     private void SetLight()
     {
-        int i = Random.Range(0, 1);
-        if (i == 1)
+        int i = Random.Range(0, 2);
+        if (particleName == "Steam") i = Random.Range(0, 20);
+        if (i != 0)
         {
             light.enabled = false;
         }

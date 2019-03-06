@@ -7,7 +7,8 @@ using UnityEngine.Tilemaps;
 
 //This function manages all level information
 // Stores references to scripts that can be accessed by the player
-public class LevelManager: MonoBehaviour {
+public class LevelManager: MonoBehaviour
+{
 
     // Managers
     public ElementManager elementManager;
@@ -25,7 +26,7 @@ public class LevelManager: MonoBehaviour {
     public PlayerCollisionModel playerCollisionModel;
     public ElementCollisionModel elementCollisionModel;
 
-    private LevelGenerator levelGen = new LevelGenerator();
+    private LevelGenerator levelGen;
 
     public GameObject player; // Need to load dynamically
     public List<GameObject> playerList;
@@ -51,10 +52,16 @@ public class LevelManager: MonoBehaviour {
     private bool isInitialized = false;
 
     private AudioSource asource;
+    private AudioSource asource1;
+
+
+    private Sprite[] waterSprites;
+
+
     // Set testing varible to start from Level and not MainMenu
     public void Start()
     {
-        int n = 2;
+        int n = 4;
         bool testing = true;
         if (testing)
             InitLevelManager(n);
@@ -63,7 +70,7 @@ public class LevelManager: MonoBehaviour {
 
     // Use this for initialization
     public void InitLevelManager (int num) {
-        numPlayers = num; // will eventually be given by player selection menu
+        numPlayers = num;
 
         // Init/Create Manager References
         elementManager = new ElementManager();
@@ -78,39 +85,47 @@ public class LevelManager: MonoBehaviour {
 
         //particleManager = new ParticleManager();
 
-        cameraManager = new CameraManager();
+        gameObject.AddComponent<CameraManager>();
+        cameraManager = gameObject.GetComponent<CameraManager>();
         cameraManager.InitCameraManager(numPlayers);
+
+        // Set UI manager after getting canvas reference
+        uiManager = GameObject.FindGameObjectWithTag("Canvas").GetComponent<UIManager>();
+        uiManager.InitUIManager();
 
         soundManager = new SoundManager();
         soundManager.InitSoundManager();
         asource = gameObject.AddComponent<AudioSource>();
+        asource1 = gameObject.AddComponent<AudioSource>();
+
         // Create Model References
         chamberInteractionModel = new ChamberInteractionModel(elementManager);
         playerCollisionModel = new PlayerCollisionModel(elementManager);
         elementCollisionModel = new ElementCollisionModel(elementManager);
-        
-        // Set UI manager after getting canvas reference
-        uiManager = GameObject.FindGameObjectWithTag("Canvas").GetComponent<UIManager>();
 
         // Load element prefabs
         elemPrefabs = elementManager.LoadElementPrefabs();
 
         // Generate the level map
+        gameObject.AddComponent<LevelGenerator>();
+        levelGen = gameObject.GetComponent<LevelGenerator>();
         levelGen.GenerateLevel(ground, groundCollider, groundTrigger, spriteManager, resourceManager);
 
         // Spawn and setup players and cameras
         playerList = levelGen.SpawnPlayers(player, GetComponent<LevelManager>(), numPlayers);
-        foreach (GameObject p in playerList) {
+        foreach (GameObject p in playerList)
+        {
 			pInfoList.Add (p.GetComponent<PlayerInfo> ());
             cameraManager.AddCamera();
 		}
         cameraManager.SetCameraRatio();
         cameraManager.UpdateCameraPosition(playerList);
 
-        soundManager.PlaySoundByName(asource, "DrumsFury",false, .5f, 1f);
-        //soundManager.StartBGMusic();
-        // Spawn Resources
+        soundManager.PlaySoundByName(asource, "DrumsFury", false, .5f, 1f);
+        
         levelGen.SpawnResources(resourceManager);
+
+        AnimateWater(levelGen.GetWaterTiles(groundTrigger));
 
         isInitialized = true;
     }
@@ -123,6 +138,38 @@ public class LevelManager: MonoBehaviour {
         if (!isPaused && !isOver)
             SendControllerInputsToPlayer(controllerManager.GetControllerInputs());
         cameraManager.UpdateCameraPosition(playerList);
+    }
+
+
+    public void AnimateWater(List<int[]> tiles)
+    {
+        waterSprites = spriteManager.GetWaterSprites();
+        StartCoroutine(AnimateWaterSprite(tiles));
+    }
+
+
+    private IEnumerator AnimateWaterSprite(List<int[]> tiles)
+    {
+        int i = 0;
+        bool top = false;
+        Tile t = (Tile)ScriptableObject.CreateInstance("Tile");
+        while (true)
+        {
+            yield return new WaitForSeconds(0.075f);
+
+            foreach (int[] coord in tiles)
+            {
+                t.sprite = waterSprites[i];
+                Vector3Int pos = new Vector3Int(coord[0], coord[1], 0);
+                groundTrigger.SetTile(pos, t);
+                groundTrigger.RefreshTile(pos);
+            }
+
+            if (!top) i++;
+            else i--;
+            if (i == 9) { top = true;  yield return new WaitForSeconds(0.033f); }
+            else if (i == 4) { top = false; yield return new WaitForSeconds(0.033f); }
+        }
     }
 
 
@@ -171,7 +218,11 @@ public class LevelManager: MonoBehaviour {
         isOver = b;
     }
 
+    public void PlayEndRoundSound()
+    {
+        soundManager.PlaySoundOneShotName(asource1, "AirHorn", false, .5f, 1.0f);
 
+    }
     private void SendControllerInputsToPlayer(List<ControllerInputs> i)
     {
         int mapping = 0;

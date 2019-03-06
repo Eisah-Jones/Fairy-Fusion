@@ -8,10 +8,13 @@ public class PlayerAffector : MonoBehaviour
     private bool Burning = false;
     private GameObject playerBody;
     private PlayerController playerController;
+    Color c;
+
 
     public void InitPlayerAffector(GameObject pb)
     {
         playerBody = pb;
+        c = pb.GetComponent<SpriteRenderer>().material.color;
     }
 
 
@@ -62,8 +65,10 @@ public class PlayerAffector : MonoBehaviour
         heading = heading.normalized;
 
         playerBody.GetComponent<Rigidbody2D>().AddForce(heading * 15, ForceMode2D.Impulse);
-
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        sr.material.color = Color.grey;
         yield return new WaitForFixedUpdate();
+        sr.material.color = c;
     }
 
 
@@ -71,15 +76,18 @@ public class PlayerAffector : MonoBehaviour
     {
         Vector2 heading = playerBody.transform.position - t.position;
         heading = heading.normalized;
-
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        sr.material.color = Color.grey;
         playerBody.GetComponent<Rigidbody2D>().AddForce(heading * 3, ForceMode2D.Impulse);
-
         yield return new WaitForFixedUpdate();
+        sr.material.color = c;
     }
 
 
     private IEnumerator Burn()
     {
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        sr.material.color = Color.red;
         int burnHits = Random.Range(1, 5);
         for (int i = 0; i < burnHits; i++)
         {
@@ -91,19 +99,24 @@ public class PlayerAffector : MonoBehaviour
             else if (Burning)
             {
                 gameObject.GetComponent<PlayerInfo>().RemovePlayerHealth(hitPoints);
-                float waitTime = Random.Range(1.0f, 4.0f);
+                float waitTime = Random.Range(1.0f, 2.5f);
                 yield return new WaitForSeconds(waitTime);
             }
         }
         Burning = false;
         yield return new WaitForFixedUpdate();
+        sr.material.color = Color.white;
     }
 
 
     private IEnumerator Slow()
     {
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+
+        sr.material.color = Color.gray;
         speedMultiplier = 0.5f;
         yield return new WaitForSeconds(3f);
         speedMultiplier = 1f;
+        sr.material.color = Color.white;
     }
 }

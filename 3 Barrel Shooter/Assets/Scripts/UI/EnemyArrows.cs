@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyArrows : MonoBehaviour
+public class EnemyArrows
 {
-    private LevelManager levelManager;
+    private UIManager uiManager;
     private Transform[] arrows;
+    private Sprite[] arrowSprites;
 
     private float maxTravelX;
     private float maxTravelY;
@@ -14,12 +15,14 @@ public class EnemyArrows : MonoBehaviour
     private int numPlayers;
 
 
-    public void InitEnemyArrows(LevelManager lm)
+    public void InitEnemyArrows(UIManager um, int num)
     {
-        levelManager = lm;
-        numPlayers = levelManager.GetNumPlayers();
+        uiManager = um;
+        numPlayers = num;
 
-        Transform arrowContainer = levelManager.uiManager.canvas.transform.GetChild(9);
+        LoadArrowSprites();
+
+        Transform arrowContainer = uiManager.canvas.transform.GetChild(9);
         arrows = new Transform[4];
         for (int i = 0; i < 4; i++)
         {
@@ -30,28 +33,30 @@ public class EnemyArrows : MonoBehaviour
                 if (j >= numPlayers - 1 || i >= numPlayers)
                 {
                     arrows[i].GetChild(j).gameObject.SetActive(false);
-              
                 }
             }
+            SetArrowSprites(i);
         }
 
-        if (levelManager.GetNumPlayers() == 2)
+        if (numPlayers == 2)
         {
             maxTravelX = Screen.width * 0.2f;
             maxTravelY = Screen.height * 0.4f;
+        }
+        else
+        {
+            maxTravelX = Screen.width * 0.2f;
+            maxTravelY = Screen.height * 0.2f;
         }
     }
     
 
     public void UpdateArrowPosition()
     {
-        List<GameObject> playerList = levelManager.GetPlayerList();
-        GameObject[] cameraArray = levelManager.cameraManager.GetCameraArray();
+        List<GameObject> playerList = uiManager.levelManager.GetPlayerList();
         for (int i = 0; i < numPlayers; i++)
         {
             GameObject player = playerList[i];
-            float x;
-            float y;
             int arrowIndex = 0;
             for (int j = 0; j < numPlayers; j++)
             {
@@ -59,8 +64,19 @@ public class EnemyArrows : MonoBehaviour
                 GameObject otherPlayer = playerList[j];
                 SetArrowTransform(player, otherPlayer, i, arrowIndex);
                 arrowIndex++;
-
             }
+        }
+    }
+
+
+    private void SetArrowSprites(int playerNum)
+    {
+        int arrowIndex = 0;
+        for (int i = 0; i < 4; i++)
+        {
+            if (i == playerNum) continue;
+            arrows[playerNum].GetChild(arrowIndex).GetComponent<Image>().sprite = arrowSprites[i];
+            arrowIndex++;
         }
     }
 
@@ -68,13 +84,21 @@ public class EnemyArrows : MonoBehaviour
     private bool SetArrowActive(GameObject p1, GameObject p2, int index, int arrowIndex)
     {
         GameObject arrow = arrows[index].GetChild(arrowIndex).gameObject;
-        if (Vector3.Distance(p1.transform.position, p2.transform.position) < 10 && arrow.activeSelf)
-        {
+        Image arrowImage = arrow.GetComponent<Image>();
+        
+        //Set arrow opacity
+        float dist = Vector3.Distance(p1.transform.position, p2.transform.position);
+        Color c = arrowImage.color;
+        c.a = (dist/8f) - 1f;
+        if (c.a > 1f) c.a = 1f;
+        arrowImage.color = c;
 
+        if (dist < 8 && arrow.activeSelf)
+        {
             arrow.SetActive(false);
             return true;
         }
-        else if (Vector3.Distance(p1.transform.position, p2.transform.position) >= 10 && !arrow.activeSelf)
+        else if (dist >= 8 && !arrow.activeSelf)
         {
             arrow.SetActive(true);
         }
@@ -96,37 +120,70 @@ public class EnemyArrows : MonoBehaviour
         float angle = Mathf.Atan2(heading.y, heading.x) * Mathf.Rad2Deg;
         arrows[index].GetChild(arrowIndex).transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-        SetArrowPosition(index, arrowIndex, heading, angle);
+        SetArrowPosition(index, arrowIndex, heading);
     }
 
 
-    private void SetArrowPosition(int index, int arrowIndex, Vector2 heading, float angle)
+    private void SetArrowPosition(int index, int arrowIndex, Vector2 heading)
     {
         float x = 0;
         float y = 0;
-        GameObject camera = levelManager.cameraManager.GetCameraArray()[index];
+
+        float centerX = 0.5f;
+        float centerY = 0.5f;
+        float bottomLeftX = 0f;
+        float bottomLeftY = 0f;
+        float topRightX = Screen.width;
+        float topRightY = Screen.height;
+
+        GameObject camera = uiManager.levelManager.cameraManager.GetCameraArray()[index];
         Rect cameraRect = camera.GetComponent<Camera>().rect;
+
         if (numPlayers == 2)
         {
-            //Debug.Log(index + ": " + cameraRect);
+            centerX = 0.25f;
+            centerY = 0.5f;
 
-            x = (Screen.width * (cameraRect.x + 0.25f)) + (maxTravelX * heading.x * 1.25f);
-            y = (Screen.height * (cameraRect.y + 0.5f)) + (maxTravelY * heading.y * 1.25f);
+            bottomLeftX = (Screen.width * (cameraRect.x + 0.04f));
+            bottomLeftY = (Screen.height * (cameraRect.y + 0.0975f));
 
-            float xMod = 1;
-            if (angle > 110f || angle < -110f)
-                xMod = -1f;
-
-            if (xMod * x > xMod * (Screen.width * (cameraRect.x + 0.25f)) + maxTravelX)
-                x = (Screen.width * (cameraRect.x + 0.25f)) + maxTravelX * xMod;
-
-            float yMod = 1;
-            if (angle < -22f && angle > -153f)
-                yMod = -1f;
-
-            if (yMod * y > yMod * (Screen.height * (cameraRect.y + 0.5f)) + maxTravelY)
-                y = (Screen.height * (cameraRect.y + 0.5f)) + maxTravelY * yMod;
+            topRightX = (Screen.width * (cameraRect.x + 0.46f));
+            topRightY = (Screen.height * (cameraRect.y + 0.905f));
         }
+        else
+        {
+            centerX = 0.25f;
+            centerY = 0.25f;
+
+            bottomLeftX = (Screen.width * (cameraRect.x + 0.044f));
+            bottomLeftY = (Screen.height * (cameraRect.y + 0.0725f));
+
+            topRightX = (Screen.width * (cameraRect.x + 0.45f));
+            topRightY = (Screen.height * (cameraRect.y + 0.425f));
+        }
+
+        x = (Screen.width * (cameraRect.x + centerX)) + (maxTravelX * heading.x * 1.25f);
+        y = (Screen.height * (cameraRect.y + centerY)) + (maxTravelY * heading.y * 1.25f);
+
+        if (x < bottomLeftX) x = bottomLeftX;
+        else if (x > topRightX) x = topRightX;
+
+        if (y < bottomLeftY) y = bottomLeftY;
+        else if (y > topRightY) y = topRightY;
+
         arrows[index].GetChild(arrowIndex).transform.position = new Vector3(x, y, 0f);
+    }
+
+
+    private void LoadArrowSprites()
+    {
+        arrowSprites = new Sprite[4];
+        string[] colors = { "Red", "Pink", "Purple", "Yellow" };
+        int i = 0;
+        foreach (string c in colors)
+        {
+            Sprite s = Resources.Load<Sprite>("UI/Arrows/Arrow" + c);
+            arrowSprites[i++] = s;
+        }
     }
 }

@@ -45,14 +45,12 @@ public class FairyController : MonoBehaviour {
         frameDelayNum = 2;
     }
 
-
-    // Use this for initialization
+    
     void Start () {
         audioSource = GetComponentInParent<AudioSource>();
     }
     
-
-    // Update is called once per frame
+    
     void Update () {
         UpdateFairies();
     }
@@ -111,6 +109,7 @@ public class FairyController : MonoBehaviour {
         currentFairies[chamberIndex1].transform.position = Vector2.MoveTowards(currentFairies[chamberIndex1].transform.position, fairyPositions[0].transform.position, 10f * Time.deltaTime);
         currentFairies[chamberIndex2].transform.position = Vector2.MoveTowards(currentFairies[chamberIndex2].transform.position, fairyPositions[1].transform.position, 10f * Time.deltaTime);
         currentFairies[chamberIndex3].transform.position = Vector2.MoveTowards(currentFairies[chamberIndex3].transform.position, fairyPositions[2].transform.position, 10f * Time.deltaTime);
+
     }
 
 
@@ -171,7 +170,8 @@ public class FairyController : MonoBehaviour {
 		currentFairies [chamberIndex3].GetComponent<AmmoUI> ().SetFill(chamberIndex3Count);
 	}
 
-    private void UpdateFairies(){
+    private void UpdateFairies()
+    {
         Fairies.Fairy[] chambers = fairies.GetChambers();
         for (int i = 0; i < 3; i++)
         {
@@ -197,15 +197,16 @@ public class FairyController : MonoBehaviour {
                 }
             }
         }
-        UpdateFairySize();
+
+        //UpdateFairySize();
         UpdateFairyPos();
 		UpdateFairyUI ();
     }
 
 
     // Sets the vacuum state based on controller input
-    public void HandleVacuumStateInput(bool stateLeft, bool stateRight){
-
+    public void HandleVacuumStateInput(bool stateLeft, bool stateRight)
+    {
         suckLeft = stateLeft;
         suckRight = stateRight;
 
@@ -213,7 +214,7 @@ public class FairyController : MonoBehaviour {
         {
             fairies.SetVacuum(stateLeft, stateRight);
             fairyArea.enabled = stateLeft || stateRight;
-            levelManager.soundManager.PlaySoundByName(audioSource, "Glimmer", true);
+            //levelManager.soundManager.PlaySoundByName(audioSource, "SuckingSound", true);
             if (!(stateLeft || stateRight))
             {
                 levelManager.soundManager.StopSound(audioSource);
@@ -223,7 +224,8 @@ public class FairyController : MonoBehaviour {
 
 
     // Sets the chamber based on controller input
-    public void HandleChamberStateInput(int direction){
+    public void HandleChamberStateInput(int direction)
+    {
         if (!fairies.GetVacuumOn())
             fairies.changeChamber(direction);
     }
@@ -240,16 +242,23 @@ public class FairyController : MonoBehaviour {
             StartCoroutine("StartFrameDelay");
             return;
         }
+
         isDelayingFrame = true;
 
-        if ((!canShootRight && !canShootLeft) || fairies.GetVacuumOn() || (!shootingLeft && !shootingRight)) { return; }
-
-        //canShoot = false; // temp fire rate setup
+        if ((!canShootRight && !canShootLeft) || fairies.GetVacuumOn()) { return; }
+        
+        if (!shootingLeft && !shootingRight)
+        {
+            fairies.CheckFluid(false, false, gameObject);
+            return;
+        }
 
         Fairies.Fairy.InventoryInfo result = null;
 
         if (shootingLeft && shootingRight)
         {
+
+            fairies.CheckFluid(false, false, gameObject);
             if (!canShootCombo) return;
             //Shoot a combination of the two chambers
             result = fairies.Shoot(true, -1);
@@ -263,6 +272,9 @@ public class FairyController : MonoBehaviour {
         }
         else if (shootingLeft)
         {
+            //Check to see if other chamber is shooting fluid and stop it
+            fairies.CheckFluid(true, false, gameObject);
+
             //Shoot the first chamber
             if (!canShootLeft) return;
             result = fairies.Shoot(false, 0);
@@ -276,6 +288,7 @@ public class FairyController : MonoBehaviour {
         }
         else
         {
+            fairies.CheckFluid(false, true, gameObject);
             //Shoot the second chamber
             if (!canShootRight) return;
             result = fairies.Shoot(false, 1);
@@ -288,7 +301,7 @@ public class FairyController : MonoBehaviour {
             }
         }
 
-        if (result == null) { return; }
+        if (result == null) { fairies.CheckFluid(false, false, gameObject); return; }
 
         int eID = result.GetElementID();
         string eName = result.GetElementName();
@@ -373,7 +386,6 @@ public class FairyController : MonoBehaviour {
                 fairies.GetCurrentChamber(true).GetElementNameByIndex(0) == collisionInfo[2]))
             {
                 collision.GetComponent<Shaker>().beingSucked = true; // shakes the resource
-          
                 result = fairies.AddToChamber(collisionInfo[2], int.Parse(collisionInfo[1]), suckLeft);
                 r.DecrementResource();
             }
@@ -388,7 +400,6 @@ public class FairyController : MonoBehaviour {
         {
             other.GetComponent<Shaker>().beingSucked = false;
         }
-  
     }
 
 
