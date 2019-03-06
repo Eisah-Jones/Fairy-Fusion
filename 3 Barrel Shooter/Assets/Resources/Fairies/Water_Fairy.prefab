@@ -4639,7 +4639,7 @@ ParticleSystem:
 --- !u!199 &199350556314221098
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -9465,7 +9465,7 @@ ParticleSystem:
 --- !u!199 &199227410242609040
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -9772,12 +9772,12 @@ PrefabInstance:
     - target: {fileID: 7510260886882533022, guid: a93cf1d6767730d4195a4ce2197fef1e,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 7510260886882533022, guid: a93cf1d6767730d4195a4ce2197fef1e,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 125
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 7510260886882533022, guid: a93cf1d6767730d4195a4ce2197fef1e,
         type: 3}
