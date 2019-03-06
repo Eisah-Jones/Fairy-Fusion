@@ -159,10 +159,13 @@ public class FairyController : MonoBehaviour {
 		int chamberIndex2 = (chamberIndex1 + 1) % 3;
 		int chamberIndex3 = (chamberIndex2 + 1) % 3;
 
-		//Gathers ammo information
-		float chamberIndex1Count = chambers[chamberIndex1].GetAmountByIndex(0)/100;
-		float chamberIndex2Count = chambers[chamberIndex2].GetAmountByIndex(0)/100;
-		float chamberIndex3Count = chambers[chamberIndex3].GetAmountByIndex(0)/100;
+        //Gathers ammo information
+        float chamber1Capacity = levelManager.elementManager.GetCapacityByName(chambers[chamberIndex1].GetElementNameByIndex(0));
+		float chamberIndex1Count = chambers[chamberIndex1].GetAmountByIndex(0)/ chamber1Capacity;
+        float chamber2Capacity = levelManager.elementManager.GetCapacityByName(chambers[chamberIndex2].GetElementNameByIndex(0));
+        float chamberIndex2Count = chambers[chamberIndex2].GetAmountByIndex(0)/ chamber2Capacity;
+        float chamber3Capacity = levelManager.elementManager.GetCapacityByName(chambers[chamberIndex3].GetElementNameByIndex(0));
+        float chamberIndex3Count = chambers[chamberIndex3].GetAmountByIndex(0)/ chamber3Capacity;
 
 		//Gets Radial Ammo Script and sets the fill
 		currentFairies[chamberIndex1].GetComponent<AmmoUI>().SetFill(chamberIndex1Count);

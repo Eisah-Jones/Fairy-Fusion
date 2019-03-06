@@ -25,11 +25,11 @@ public class Fairies{
                 elementName = n;
                 elementID = id;
                 count = c;
-
             }
 
             //Increases count by amount i
-            public void IncreaseCount(int i){
+            public void IncreaseCount(int i)
+            {
                 if (count < maxCount)
                 {
                     count += i;
@@ -39,7 +39,8 @@ public class Fairies{
             }
 
             //Decreases count by amount i
-            public void DecreaseCount(int i){
+            public void DecreaseCount(int i)
+            {
                 if (count != 0)
                 {
                     count -= i;
@@ -47,16 +48,19 @@ public class Fairies{
             }
 
             //Returns the elementID
-            public int GetElementID(){
+            public int GetElementID()
+            {
                 return elementID;
             }
 
             //Returns the count
-            public int GetCount(){
+            public int GetCount()
+            {
                 return count;
             }
 
-            public string GetElementName(){
+            public string GetElementName()
+            {
                 return elementName;
             }
 
@@ -71,7 +75,6 @@ public class Fairies{
             {
                 elementID = id;
             }
-
         }
 
 
