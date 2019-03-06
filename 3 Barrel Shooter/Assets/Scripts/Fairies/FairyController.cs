@@ -152,6 +152,23 @@ public class FairyController : MonoBehaviour {
         }
     }
 
+	private void UpdateFairyUI(){
+		//Gathers chamber info and matches each chamber to their current fairy
+		Fairies.Fairy[] chambers = fairies.GetChambers();
+		int chamberIndex1 = fairies.GetCurrentChamberIndex();
+		int chamberIndex2 = (chamberIndex1 + 1) % 3;
+		int chamberIndex3 = (chamberIndex2 + 1) % 3;
+
+		//Gathers ammo information
+		float chamberIndex1Count = chambers[chamberIndex1].GetAmountByIndex(0)/100;
+		float chamberIndex2Count = chambers[chamberIndex2].GetAmountByIndex(0)/100;
+		float chamberIndex3Count = chambers[chamberIndex3].GetAmountByIndex(0)/100;
+
+		//Gets Radial Ammo Script and sets the fill
+		currentFairies[chamberIndex1].GetComponent<AmmoUI>().SetFill(chamberIndex1Count);
+		currentFairies [chamberIndex2].GetComponent<AmmoUI> ().SetFill(chamberIndex2Count);
+		currentFairies [chamberIndex3].GetComponent<AmmoUI> ().SetFill(chamberIndex3Count);
+	}
 
     private void UpdateFairies()
     {
@@ -183,6 +200,7 @@ public class FairyController : MonoBehaviour {
 
         //UpdateFairySize();
         UpdateFairyPos();
+		UpdateFairyUI ();
     }
 
 
