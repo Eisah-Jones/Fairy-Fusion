@@ -1448,6 +1448,12 @@ PrefabInstance:
       propertyPath: m_PreserveAspect
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2928321366564525599, guid: 0eb268e160f58d444b05b2cc6736652b,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4db017495c69e8140a56a0e2b669e3f8,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0eb268e160f58d444b05b2cc6736652b, type: 3}
 --- !u!224 &409371547 stripped

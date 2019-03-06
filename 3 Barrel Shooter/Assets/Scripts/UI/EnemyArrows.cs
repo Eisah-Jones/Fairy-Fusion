@@ -7,6 +7,7 @@ public class EnemyArrows
 {
     private UIManager uiManager;
     private Transform[] arrows;
+    private Sprite[] arrowSprites;
 
     private float maxTravelX;
     private float maxTravelY;
@@ -18,6 +19,8 @@ public class EnemyArrows
     {
         uiManager = um;
         numPlayers = num;
+
+        LoadArrowSprites();
 
         Transform arrowContainer = uiManager.canvas.transform.GetChild(9);
         arrows = new Transform[4];
@@ -32,6 +35,7 @@ public class EnemyArrows
                     arrows[i].GetChild(j).gameObject.SetActive(false);
                 }
             }
+            SetArrowSprites(i);
         }
 
         if (numPlayers == 2)
@@ -66,15 +70,36 @@ public class EnemyArrows
     }
 
 
+    private void SetArrowSprites(int playerNum)
+    {
+        int arrowIndex = 0;
+        for (int i = 0; i < 4; i++)
+        {
+            if (i == playerNum) continue;
+            arrows[playerNum].GetChild(arrowIndex).GetComponent<Image>().sprite = arrowSprites[i];
+            arrowIndex++;
+        }
+    }
+
+
     private bool SetArrowActive(GameObject p1, GameObject p2, int index, int arrowIndex)
     {
         GameObject arrow = arrows[index].GetChild(arrowIndex).gameObject;
-        if (Vector3.Distance(p1.transform.position, p2.transform.position) < 10 && arrow.activeSelf)
+        Image arrowImage = arrow.GetComponent<Image>();
+        
+        //Set arrow opacity
+        float dist = Vector3.Distance(p1.transform.position, p2.transform.position);
+        Color c = arrowImage.color;
+        c.a = (dist/8f) - 1f;
+        if (c.a > 1f) c.a = 1f;
+        arrowImage.color = c;
+
+        if (dist < 8 && arrow.activeSelf)
         {
             arrow.SetActive(false);
             return true;
         }
-        else if (Vector3.Distance(p1.transform.position, p2.transform.position) >= 10 && !arrow.activeSelf)
+        else if (dist >= 8 && !arrow.activeSelf)
         {
             arrow.SetActive(true);
         }
@@ -148,5 +173,18 @@ public class EnemyArrows
         else if (y > topRightY) y = topRightY;
 
         arrows[index].GetChild(arrowIndex).transform.position = new Vector3(x, y, 0f);
+    }
+
+
+    private void LoadArrowSprites()
+    {
+        arrowSprites = new Sprite[4];
+        string[] colors = { "Red", "Pink", "Purple", "Yellow" };
+        int i = 0;
+        foreach (string c in colors)
+        {
+            Sprite s = Resources.Load<Sprite>("UI/Arrows/Arrow" + c);
+            arrowSprites[i++] = s;
+        }
     }
 }
