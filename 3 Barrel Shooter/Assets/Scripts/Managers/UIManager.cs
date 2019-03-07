@@ -122,7 +122,7 @@ public class UIManager : MonoBehaviour
                 }
             }
         }
-        
+
         if (GetStartButton(ci) && SceneManager.GetActiveScene().name == "Level")
         {
             menus[0].GetMenu().SetActive(!menus[0].GetMenu().activeSelf);
@@ -133,6 +133,12 @@ public class UIManager : MonoBehaviour
         {
             activeMenu.GetActiveElement().Interact(0);
             SetActiveMenu();
+        }
+        else if (ci[0].B_Button && (activeMenu.GetName() == "OptionsMenu" || activeMenu.GetName() == "TutorialMenu"))
+        {
+            Debug.Log("YUH");
+            ToMainMenu();
+
         }
         else if (activeMenu.GetName() == "PlayerSelect")
         {
@@ -152,6 +158,16 @@ public class UIManager : MonoBehaviour
     public bool GetPaused()
     {
         return isPaused;
+    }
+
+
+    private void ToMainMenu()
+    {
+        activeMenu.ResetMenu();
+        activeMenu.GetMenu().SetActive(false);
+        activeMenu = menus[0];
+        activeMenu.GetMenu().SetActive(true);
+        SetActiveMenu();
     }
 
 

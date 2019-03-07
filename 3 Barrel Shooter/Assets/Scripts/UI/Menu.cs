@@ -89,6 +89,8 @@ public class Menu
 
     public void ResetMenu()
     {
+        if (menuName == "MainMenu") return;
+
         if (menuName == "PlayerSelect")
         {
             playerSelectHandler.ResetMenu();

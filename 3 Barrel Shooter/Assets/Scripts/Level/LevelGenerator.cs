@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.SceneManagement;
+
 
 // Generates the level
 // Procedurally generates terrain
@@ -129,6 +131,56 @@ public class LevelGenerator : MonoBehaviour
     }
 
 
+    public void GenerateBackgroundLevel(Tilemap tilemap, SpriteManager sm)
+    {
+        int width = 20;
+        int height = 20;
+
+        center = new Vector3(width / 2, height / 2, 0);
+
+        float scale = 5.0f;
+        float xOffset = UnityEngine.Random.Range(0f, 99999f);
+        float yOffset = UnityEngine.Random.Range(0f, 99999f);
+
+        terrainMap = new string[width, height];
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+
+                float xCoord = (float)x / width * scale + xOffset;
+                float yCoord = (float)y / height * scale + yOffset;
+
+                float sample = Mathf.PerlinNoise(xCoord, yCoord);
+
+                if (sample < 0.3)
+                    terrainMap[x, y] = "Water";
+                else if (sample < 0.6)
+                    terrainMap[x, y] = "Grass";
+                else
+                    terrainMap[x, y] = "Dirt";
+            }
+        }
+
+        //Clear the map (ensures we dont overlap)
+        tilemap.ClearAllTiles();
+        //Loop through the width of the map
+        for (int x = 0; x < terrainMap.GetUpperBound(0); x++)
+        {
+            //Loop through the height of the map
+            for (int y = 0; y < terrainMap.GetUpperBound(1); y++)
+            {
+                Vector3Int pos = new Vector3Int(x-10, y-10, 0);
+                Tile t = (Tile)ScriptableObject.CreateInstance("Tile");
+                SpriteManager.TileMap.TileInfo ti = sm.GetTileSprite(t, terrainMap, tilemap, x, y);
+                t = ti.tile;
+                t = RotateTile(t, ti.rotation);
+                tilemap.SetTile(pos, t);
+            }
+        }
+    }
+
+
     private Tile RotateTile(Tile t, float rotation){
         Matrix4x4 matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(0f, 0f, rotation), Vector3.one);
         t.transform = matrix;
@@ -157,10 +209,46 @@ public class LevelGenerator : MonoBehaviour
     }
 
 
-    public void SpawnResources(ResourceManager rm){
+    public void SpawnResources(ResourceManager rm)
+    {
         SpawnTrees(rm);
         SpawnRocks(rm);
         SpawnFire(rm);
+    }
+
+
+    public void SpawnMainMenuResources(ResourceManager rm)
+    {
+        // Fire
+        for (int i = 0; i < 10; i++)
+        {
+            int[] spawnPoint = { UnityEngine.Random.Range(-10, 10),
+                                 UnityEngine.Random.Range(-10, 10)};
+            GameObject f = Instantiate(rm.GetResourceGameObject("Fire"), new Vector3(spawnPoint[0], spawnPoint[1], 0.3f), Quaternion.identity);
+            f.GetComponent<Resource>().InitResource(5, "Fire");
+        }
+
+        //Rocks
+        List<int[]> rockSpawnPoints = GetRockSpawnPoints();
+
+        for (int j = 0; j < 10; j++)
+        {
+            int i = UnityEngine.Random.Range(0, rockSpawnPoints.Count);
+            int[] spawnPoint = rockSpawnPoints[i];
+            GameObject r = Instantiate(rm.GetResourceGameObject("Rock"), new Vector3(spawnPoint[0] - 0.05f-10, spawnPoint[1] + 0.25f-10, 0f), Quaternion.identity);
+            r.GetComponent<Resource>().InitResource(2, "Rock");
+        }
+
+        //Trees
+        List<int[]> treeSpawnPoints = GetTreeSpawnPoints();
+
+        for (int j = 0; j < 2; j++)
+        {
+            int i = UnityEngine.Random.Range(0, treeSpawnPoints.Count);
+            int[] spawnPoint = treeSpawnPoints[i];
+            GameObject t = Instantiate(rm.GetResourceGameObject("Tree"), new Vector3(spawnPoint[0]-10, spawnPoint[1]-10, 0f), Quaternion.identity);
+            t.GetComponent<Resource>().InitResource(5, "Tree");
+        }  
     }
 
 

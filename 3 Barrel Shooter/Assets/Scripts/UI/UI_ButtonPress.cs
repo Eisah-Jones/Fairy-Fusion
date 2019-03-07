@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class UI_ButtonPress : MonoBehaviour
 {
     private Image image;
-    int i = 0;
+    int frame = 0;
     int switchFrame = 60;
 
     public Sprite imageIdle;
@@ -19,10 +19,11 @@ public class UI_ButtonPress : MonoBehaviour
         image = GetComponent<Image>();
     }
 
+
     void Update()
     {
-        i++;
-        if (i < switchFrame)
+        frame++;
+        if (frame < switchFrame)
         {
             image.sprite = imageIdle;
         }
@@ -31,6 +32,6 @@ public class UI_ButtonPress : MonoBehaviour
             image.sprite = imagePressed;
         }
 
-        if (i == switchFrame*2) i = 0;
+        if (frame == switchFrame*2) frame = 0;
     }
 }
