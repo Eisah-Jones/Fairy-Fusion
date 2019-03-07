@@ -35,14 +35,14 @@ public class HealthBar : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if ('R' == collision.tag[0] ||collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "5-Air" || collision.tag == "Untagged" || collision.tag == "Water"|| collision.tag == "TilemapTrigger") return;
+        if ('R' == collision.tag[0] ||collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "5-Air" || collision.tag == "Water"|| collision.tag == "TilemapTrigger") return;
         hb.gameObject.SetActive(true);
     }
 
     IEnumerator StartTimer()
     {
 
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(3);
         hb.gameObject.SetActive(false);
         StopCoroutine("StartTimer");
     }

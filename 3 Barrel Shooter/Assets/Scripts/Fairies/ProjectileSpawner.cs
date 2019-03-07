@@ -110,7 +110,8 @@ public class ProjectileSpawner : MonoBehaviour {
         if (lineRenderer == null) return null;
         sm.PlaySoundByName(audioSourceFluid, "Laser", backupAudio);
         lineRenderer.enabled = true;
-        RaycastHit2D hit = Physics2D.Raycast(spawnPos.position, transform.right, Mathf.Infinity, ~(1 << 9));
+        RaycastHit2D hit= Physics2D.Raycast(spawnPos.position, transform.right, Mathf.Infinity, ~(1 << 9));
+       // hit.transform.gameObject.tag = "11-Laser";
         lineRenderer.SetPosition(0, spawnPos.position);
         lineRenderer.SetPosition(1, hit.point);
         StartCoroutine("laserReset");

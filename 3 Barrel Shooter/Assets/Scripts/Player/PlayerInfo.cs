@@ -22,6 +22,7 @@ public class PlayerInfo : MonoBehaviour
     List<ParticleSystem.Particle> exit = new List<ParticleSystem.Particle>();
     private string elementOwnerName ="";
     private bool isFlashing = false;
+    private bool resetHP = false;
     Color c;
 
     public void InitPlayerInfo(LevelManager lm, int pNum)
@@ -35,12 +36,13 @@ public class PlayerInfo : MonoBehaviour
         playerNum = pNum;
         startedRespawn = false;
         c = GetComponent<SpriteRenderer>().material.color;
+
     }
 
 
     private void Start()
     {
-		HPbar = GetComponent<HealthBar> ();
+		HPbar = GetComponent<HealthBar>();
     }
 
 
@@ -58,6 +60,21 @@ public class PlayerInfo : MonoBehaviour
 
     public void RemovePlayerHealth(int hp){
         health -= hp;
+        HPbar.hb.SetActive(true);
+        if (!resetHP)
+        {
+            StartCoroutine("StartTimer");
+            resetHP = true;
+        }
+       
+    }
+
+    IEnumerator StartTimer()
+    {
+
+        yield return new WaitForSeconds(3);
+        HPbar.hb.SetActive(false);
+        resetHP = false;
     }
 
     public string GetPlayerName(){
