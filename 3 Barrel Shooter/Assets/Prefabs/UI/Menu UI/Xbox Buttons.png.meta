@@ -45,7 +45,7 @@ TextureImporter:
     21300080: Dpad_Right_Black
     21300082: Dpad_Down_Black
     21300084: LB_Pressed_Black
-    21300086: LB_Idle_Pressed
+    21300086: LB_Idle_Black
     21300088: RB_Idle_Black
     21300090: RB_Pressed_Black
     21300092: RT_Pressed_Black
@@ -996,7 +996,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: LB_Idle_Pressed
+      name: LB_Idle_Black
       rect:
         serializedVersion: 2
         x: 112

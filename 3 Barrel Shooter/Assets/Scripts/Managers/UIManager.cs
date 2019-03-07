@@ -129,7 +129,7 @@ public class UIManager : MonoBehaviour
             isPaused = menus[0].GetMenu().activeSelf;
             SetActiveMenu();
         }
-        else if (ci[0].A_Button && activeMenu.GetName() != "PlayerSelect")
+        else if (ci[0].A_Button && activeMenu.GetName() != "PlayerSelect" && activeMenu.GetActiveElement() != null)
         {
             activeMenu.GetActiveElement().Interact(0);
             SetActiveMenu();
