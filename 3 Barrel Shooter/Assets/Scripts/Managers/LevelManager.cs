@@ -54,6 +54,7 @@ public class LevelManager: MonoBehaviour
     private AudioSource asource;
     private AudioSource asource1;
 
+    public bool testing = true;
 
     private Sprite[] waterSprites;
 
@@ -61,8 +62,8 @@ public class LevelManager: MonoBehaviour
     // Set testing varible to start from Level and not MainMenu
     public void Start()
     {
-        int n = 4;
-        bool testing = false;
+        int n = 2;
+        //bool testing = false;
         if (testing)
             InitLevelManager(n);
     }

@@ -65,7 +65,7 @@ public class ProjectileSpawner : MonoBehaviour {
         }
         else if (eID == 5)
         {
-            sm.PlaySoundByName(audioSourceProjectile, "AirPuff");
+            sm.PlaySoundByName(audioSourceProjectile, "AirPuff", false, 0.5f, 1.0f);
         }
 
 
