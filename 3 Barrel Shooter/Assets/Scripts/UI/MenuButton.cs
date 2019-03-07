@@ -44,4 +44,10 @@ public class MenuButton : UIElement
     {
         return buttonName;
     }
+
+
+    public Button GetElementObject()
+    {
+        return button;
+    }
 }

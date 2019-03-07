@@ -1167,6 +1167,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Button Particles
       objectReference: {fileID: 0}
+    - target: {fileID: 1059299436370808955, guid: b1f57c60a2d5847f18247253ad6e6e12,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1059299436370808954, guid: b1f57c60a2d5847f18247253ad6e6e12,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2374,6 +2379,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Button Particles
       objectReference: {fileID: 0}
+    - target: {fileID: 1059299436370808955, guid: b1f57c60a2d5847f18247253ad6e6e12,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1059299436370808954, guid: b1f57c60a2d5847f18247253ad6e6e12,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3091,6 +3101,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Button Particles
       objectReference: {fileID: 0}
+    - target: {fileID: 1059299436370808955, guid: b1f57c60a2d5847f18247253ad6e6e12,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1059299436370808954, guid: b1f57c60a2d5847f18247253ad6e6e12,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3299,6 +3314,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Button Particles
+      objectReference: {fileID: 0}
+    - target: {fileID: 1059299436370808955, guid: b1f57c60a2d5847f18247253ad6e6e12,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1059299436370808954, guid: b1f57c60a2d5847f18247253ad6e6e12,
         type: 3}

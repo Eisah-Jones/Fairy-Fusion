@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Menu
 {
@@ -54,12 +55,33 @@ public class Menu
         if (activeElementIndex < 0) activeElementIndex = menuUIElements.Count - 1;
         activeElement = menuUIElements[activeElementIndex];
         SelectElement();
+        SetElementParticleEffects();
+    }
+
+
+    public void SetElementParticleEffects()
+    {
+        foreach (UIElement iElement in menuUIElements)
+        {
+            if (iElement.GetElementType() == "Button")
+            {
+                MenuButton mb = (MenuButton)iElement;
+                Button b = mb.GetElementObject();
+                GameObject particleEffect = b.transform.GetChild(0).gameObject;
+                if (particleEffect.name == "Button Particles")
+                {
+                    if (iElement.GetElementName() == activeElement.GetElementName()) particleEffect.SetActive(true);
+                    else particleEffect.SetActive(false);
+                }
+            }
+        }
     }
 
 
     public void SelectElement()
     {
         activeElement.Select();
+
     }
 
 
