@@ -10,6 +10,7 @@ public class SoundManager
     public AudioSource audioSource;
     float pitchIncrement;
 
+
     public void InitSoundManager()
     {
         sounds = new Dictionary<string, AudioClip>();
@@ -18,26 +19,31 @@ public class SoundManager
         //audioSource = gameObject.AddComponent<AudioSource>();
     }
 
+
     public void StartBGMusic(AudioSource a)
     {
         audioSource = a;
         PlaySoundByName(a, "DrumsFury");
     }
 
+
     public void StopBGMusic()
     {
         StopSound(audioSource);
     }
+
 
     public void PauseBGMusic()
     {
         audioSource.Pause();
     }
 
+
     public void SetVolume(AudioSource asource, float n) // between 0.0-1.0 
     {
         asource.volume = n;
     }
+
 
     private void LoadSounds()
     {
@@ -46,10 +52,12 @@ public class SoundManager
 
         foreach (string line in lines)
         {
+            if (line == "") continue;
             sounds[line] = (Resources.Load<AudioClip>("Sounds/" + line));
-           
         }
     }
+
+
     public void PitchIncrement()
     {
         if (pitchIncrement >= 1.6f)
@@ -58,6 +66,8 @@ public class SoundManager
         }
         pitchIncrement += 0.2f;
     }
+
+
     public void PlaySoundOneShotName(AudioSource s, string name, bool loop = false, float volume = 0.5f, float pitch = 0.0f)
     {
         AudioClip c;    
@@ -73,13 +83,14 @@ public class SoundManager
         }
 
     }
+
+
     public void PlaySoundByName(AudioSource s, string name, bool loop = false, float volume = 0.5f, float pitch = 0.0f)
     {
         AudioClip c;
         if (s != null && !s.isPlaying)
         {
             s.clip = sounds[name];
-
             if (pitch != 1.0f) // randomizes pitch
                 s.pitch = Random.Range(0.8f, 1.4f);
             else
