@@ -62,7 +62,7 @@ public class LevelManager: MonoBehaviour
     public void Start()
     {
         int n = 4;
-        bool testing = true;
+        bool testing = false;
         if (testing)
             InitLevelManager(n);
     }
