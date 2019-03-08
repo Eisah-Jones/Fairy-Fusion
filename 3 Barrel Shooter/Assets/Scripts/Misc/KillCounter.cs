@@ -17,7 +17,7 @@ public class KillCounter : MonoBehaviour
         canvas = c;
         killfeed = canvas.transform.GetChild(3).gameObject.GetComponent<Text>();
         InitKillDict();
-        CreateScoreCounters();
+        //CreateScoreCounters();
     }
 
 

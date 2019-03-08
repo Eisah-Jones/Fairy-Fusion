@@ -388,7 +388,7 @@ public class FairyController : MonoBehaviour {
 
             if (fairies.IsCurrentChamberAtCapacity(true)) // Cannot suck element
             {
-                // TODO: play negative sound effect
+               // levelManager.soundManager.PlaySoundOneShotName(audioSource, "MaxCap");// TODO: play negative sound effect
             }
             else if (r.CanCollect() && (fairies.IsCurrentChamberEmpty(true) || 
                 fairies.GetCurrentChamber(true).GetElementNameByIndex(0) == collisionInfo[2]))

@@ -127,8 +127,9 @@ public class PlayerInfo : MonoBehaviour
         levelManager.SpawnParticleEffectAtPosition(transform.position, 3);
         levelManager.soundManager.PlaySoundByName(audioSources[0], "Death", false, 1.0f); // plays death sound
 
-        yield return new WaitForSeconds(.1f);
-		Vector3 respawn = new Vector3(25,25,0);
+        yield return new WaitForSeconds(1.5f);
+		Vector3 respawn = new Vector3(Random.Range(0, 50), Random.Range(0, 50), 0); // temp respawn fix
+        //respawn = GetVector(Random.Range(1, 4));
         //Can specify respawn location before Coroutine is started and save as a temporary class variable
 		switch (rearea) {
 		case "1":
@@ -146,9 +147,10 @@ public class PlayerInfo : MonoBehaviour
 		}
         transform.position = respawn;
       
-        startedRespawn = !startedRespawn;
+        
         health = 100.0f;
         levelManager.GetKillCounter().addKill(GetPlayerName(), elementOwnerName);
+        startedRespawn = !startedRespawn;
 
     }
 

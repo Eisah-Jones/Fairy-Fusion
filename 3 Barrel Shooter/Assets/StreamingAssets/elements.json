@@ -82,7 +82,7 @@
   "Fire": {
     "name": "Fire",
     "ID": 1,
-    "damage": 0.3,
+    "damage": 0.4,
     "fireRate": 0,
     "projectileType": "Fluid",
     "projectileLife": 10,
@@ -163,7 +163,7 @@
     "damage": 12,
     "fireRate": 10,
     "projectileType": "Bullet",
-    "projectileLife": 65,
+    "projectileLife": 11,
     "chamberCapacity": 20,
     "playerCollisionEffects": [
       "Knockback"
@@ -238,7 +238,7 @@
   "Water": {
     "name": "Water",
     "ID": 3,
-    "damage": 0.15,
+    "damage": 0.2,
     "fireRate": 0,
     "projectileType": "Fluid",
     "projectileLife": 10,
@@ -319,7 +319,7 @@
     "damage": 8,
     "fireRate": 8,
     "projectileType": "Splinter",
-    "projectileLife": 60,
+    "projectileLife": 20,
     "chamberCapacity": 100,
     "playerCollisionEffects": [ "Knockback"
     ],
@@ -394,7 +394,7 @@
     "name": "Air",
     "ID": 5,
     "damage": 0,
-    "fireRate": 20,
+    "fireRate": 15,
     "projectileType": "Projectile",
     "projectileLife": 5,
     "chamberCapacity": -1,
@@ -474,7 +474,7 @@
     "damage": 32,
     "fireRate": 25,
     "projectileType": "Bullet",
-    "projectileLife": 60,
+    "projectileLife": 50,
     "chamberCapacity": 10,
     "playerCollisionEffects": [
       "Burn",
@@ -706,8 +706,8 @@
   "Sniper": {
     "name": "Sniper",
     "ID": 9,
-    "damage": 45,
-    "fireRate": 50,
+    "damage": 75,
+    "fireRate": 60,
     "projectileType": "Bullet",
     "projectileLife": 65,
     "chamberCapacity": 10,
@@ -787,7 +787,7 @@
     "damage": 7,
     "fireRate": 10,
     "projectileType": "Explosion",
-    "projectileLife": 60,
+    "projectileLife": 10,
     "chamberCapacity": 10,
     "speed": 5,
     "yield": 1,

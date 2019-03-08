@@ -28,6 +28,7 @@ public class UIManager : MonoBehaviour
     public GameObject minimap;
     public GameObject cdown;
     public KillCounter killCounter;
+    public KillTracker killTracker;
     public Image skullIcon;
     public GameObject endScreen;
     public Text winText;
@@ -64,6 +65,7 @@ public class UIManager : MonoBehaviour
             cdown = canvas.transform.GetChild(2).gameObject;
             canvas.AddComponent<KillCounter>();
             killCounter = canvas.GetComponent<KillCounter>();
+            killTracker = canvas.GetComponent<KillTracker>();
             killCounter.InitKillCounter(levelManager, canvas);
             enemyArrows = new EnemyArrows();
             enemyArrows.InitEnemyArrows(this, levelManager.GetNumPlayers());

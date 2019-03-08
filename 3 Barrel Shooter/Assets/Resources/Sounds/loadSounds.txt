@@ -1,5 +1,4 @@
 Water
-Vacuum
 Leaf
 Grasswalk
 Rockshot
@@ -20,3 +19,4 @@ SuckingSound
 SuckingFinish
 AirHorn
 AirPuff
+MaxCap

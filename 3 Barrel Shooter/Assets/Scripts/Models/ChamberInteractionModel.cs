@@ -22,7 +22,7 @@ public class ChamberInteractionModel
         // Unit value will vary per element, how much ammo is added per 1 element unit?
         int capacity = em.GetElementDataByID(id).chamberCapacity;
         int unitValue = 2;
-        if (id == 1 || id == 3) unitValue = 5;
+        if (id == 1 || id == 3 || id == 0) unitValue = 5;
         if (c[0].GetCount() < capacity) // checks if element is at maxcapacity
         {
             result[0].SetCount(result[0].GetCount() + unitValue);
@@ -42,7 +42,7 @@ public class ChamberInteractionModel
 
         // Unit value will vary per element, how much ammo is added per 1 element unit?
         int unitValue = 5;
-        if (id == 1 || id == 3) unitValue = 5;
+        if (id == 1 || id == 3||id ==0) unitValue = 5;
         if (c.Count <= em.GetElementDataByID(id).chamberCapacity ) // checks if element is at maxcapacity
         {
             result.Add(new Fairies.Fairy.InventoryInfo(name, id, unitValue));
