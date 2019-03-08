@@ -319,7 +319,7 @@
     "damage": 8,
     "fireRate": 8,
     "projectileType": "Splinter",
-    "projectileLife": 20,
+    "projectileLife": 10,
     "chamberCapacity": 100,
     "playerCollisionEffects": [ "Knockback"
     ],
@@ -474,7 +474,7 @@
     "damage": 32,
     "fireRate": 25,
     "projectileType": "Bullet",
-    "projectileLife": 50,
+    "projectileLife": 20,
     "chamberCapacity": 10,
     "playerCollisionEffects": [
       "Burn",
@@ -631,7 +631,7 @@
     "damage": 25,
     "fireRate": 15,
     "projectileType": "Bullet",
-    "projectileLife": 25,
+    "projectileLife": 12,
     "chamberCapacity": 10,
     "playerCollisionEffects": [
       "Slow"

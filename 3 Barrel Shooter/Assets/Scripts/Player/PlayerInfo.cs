@@ -128,7 +128,7 @@ public class PlayerInfo : MonoBehaviour
         levelManager.soundManager.PlaySoundByName(audioSources[0], "Death", false, 1.0f); // plays death sound
 
         yield return new WaitForSeconds(1.5f);
-		Vector3 respawn = new Vector3(Random.Range(0, 50), Random.Range(0, 50), 0); // temp respawn fix
+		Vector3 respawn = new Vector3(Random.Range(0, 45), Random.Range(0, 45), 0); // temp respawn fix
         //respawn = GetVector(Random.Range(1, 4));
         //Can specify respawn location before Coroutine is started and save as a temporary class variable
 		switch (rearea) {
