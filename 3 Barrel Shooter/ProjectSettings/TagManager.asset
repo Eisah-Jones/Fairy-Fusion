@@ -51,6 +51,7 @@ TagManager:
   - 4-Leaf
   - R-4-Leaf
   - 4-Wood
+  - PlayerKills
   layers:
   - Default
   - TransparentFX
