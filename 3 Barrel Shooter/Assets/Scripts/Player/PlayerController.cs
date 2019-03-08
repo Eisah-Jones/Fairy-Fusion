@@ -97,6 +97,7 @@ public class PlayerController : MonoBehaviour
         speedMultiplier = playerAffector.GetSpeedMultiplier();
         float horizontalSpeed = horizontal * speed * speedMultiplier;
         float verticalSpeed   = vertical * speed * speedMultiplier;
+
         Vector2 movement = new Vector2(horizontalSpeed, verticalSpeed);
 
         AnimatePlayer(r_vertical, r_horizontal, movement, heading, vertical, horizontal);
@@ -168,9 +169,13 @@ public class PlayerController : MonoBehaviour
                 lm.soundManager.StopSound(audioSource);
             player_animator.SetBool("Moving", false);
         }
-
         //change rotation of player if no input received keeps same rotation as last time it got input prevents snapping back to 0,0 heading
-        if (heading != 0)
+        if ( heading == 0 && horizontal > 0)
+        {
+            float last_heading = heading;
+            fairies.transform.rotation = Quaternion.Euler(0f, 0f, 1f);
+        }
+        else if (heading != 0 )
         {
             float last_heading = heading;
             fairies.transform.rotation = Quaternion.Euler(0f, 0f, last_heading * Mathf.Rad2Deg);
