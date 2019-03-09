@@ -317,7 +317,7 @@
     "name": "Leaf",
     "ID": 4,
     "damage": 10,
-    "fireRate": 6,
+    "fireRate": 10,
     "projectileType": "Splinter",
     "projectileLife": 10,
     "chamberCapacity": 100,
@@ -356,8 +356,8 @@
         "c2": null
       },
       "Leaf": {
-        "c1": null,
-        "c2": null
+        "c1": "Destroy",
+        "c2": "Destroy"
       },
       "Air": {
         "c1": "Reflect",

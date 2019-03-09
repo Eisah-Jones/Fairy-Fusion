@@ -80,10 +80,16 @@ public class ElementObject : MonoBehaviour {
     {
         // We don't care if we collide with these objects
         if (collision == null || collision.gameObject.tag == "Untagged" || collision.gameObject.tag == "Walls") return;
-    
+        if (collision.gameObject.tag == "4-Leaf")
+        {
+            if (collision.gameObject.GetComponent<ElementObject>().owner == owner)
+            {
+                return;
+            }
+        }
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("ITS A PLAYER");
+        
             if (collision.GetComponent<PlayerInfo>().GetPlayerName() == owner) return;
             
             else if (name == "SpikeShot") StartCoroutine("Explode");
