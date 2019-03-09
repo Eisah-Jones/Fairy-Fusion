@@ -183,10 +183,10 @@ public class FairyController : MonoBehaviour {
 		if((LTname == "Fire" && RTname == "Rock") || (RTname == "Fire" && LTname == "Rock")){
 			combo.sprite = uisprites[5];
 		}
-		if((LTname == "Fire" && RTname == "Water") || (RTname == "Fire" && LTname == "Water")){
+		else if((LTname == "Fire" && RTname == "Water") || (RTname == "Fire" && LTname == "Water")){
 			combo.sprite = uisprites[6];
 		}
-		if((LTname == "Fire" && RTname == "Leaf") || (RTname == "Fire" && LTname == "Leaf")){
+		else if((LTname == "Fire" && RTname == "Leaf") || (RTname == "Fire" && LTname == "Leaf")){
 			combo.sprite = uisprites[6];
 		}
 	}
@@ -196,7 +196,9 @@ public class FairyController : MonoBehaviour {
 		string RTname = rt.GetElementNameByIndex (0);
 		//Updates LT and RT and if both have an element updates combo
 		if (UpdateTrigger (LTname, LT) && UpdateTrigger (RTname, RT)) {
-			UpdateCombo (LTname,RTname);
+			UpdateCombo (LTname, RTname);
+		} else {
+			combo.sprite = uisprites [0];
 		}
 
 	}
