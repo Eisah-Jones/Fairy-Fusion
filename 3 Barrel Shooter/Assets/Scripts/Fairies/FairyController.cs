@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FairyController : MonoBehaviour {
 
@@ -20,8 +21,12 @@ public class FairyController : MonoBehaviour {
     bool suckRight;
 
     public List<GameObject> fairyPrefabs;
+	public Sprite[] uisprites;
+	public Image LT;
+	public Image RT;
     private GameObject[] currentFairies;
     private GameObject[] fairyPositions;
+
 
     private bool isDelayingFrame;
     private int frameDelayNum;
@@ -152,6 +157,29 @@ public class FairyController : MonoBehaviour {
         }
     }
 
+	private void UpdateTrigger(string elem, Image trigger){
+		if (elem == "Fire") {
+			trigger.sprite = uisprites [1];
+		} else if (elem == "Water") {
+			trigger.sprite = uisprites [2];
+		} else if (elem == "Rock") {
+			trigger.sprite = uisprites [3];
+		} else if (elem == "Leaf") {
+			trigger.sprite = uisprites [4];
+		} else {
+			//Sets to air if empty
+			trigger.sprite = uisprites [0];
+		}
+	}
+
+	private void UpdateTriggerUI(Fairies.Fairy lt, Fairies.Fairy rt){
+		string LTname = lt.GetElementNameByIndex (0);
+		string RTname = rt.GetElementNameByIndex (0);
+		//Updates LT
+		UpdateTrigger(LTname, LT);
+		//Updates RT
+		UpdateTrigger(RTname,RT);
+	}
 
     private void UpdateFairyUI(){
 		//Gathers chamber info and matches each chamber to their current fairy
@@ -176,6 +204,9 @@ public class FairyController : MonoBehaviour {
         currentFairies[chamberIndex1].GetComponent<AmmoUI>().SetFill(chamberIndex1Count, chambers[chamberIndex1].GetElementNameByIndex(0));
 		currentFairies[chamberIndex2].GetComponent<AmmoUI> ().SetFill(chamberIndex2Count, chambers[chamberIndex2].GetElementNameByIndex(0));
 		currentFairies[chamberIndex3].GetComponent<AmmoUI> ().SetFill(chamberIndex3Count, chambers[chamberIndex3].GetElementNameByIndex(0));
+
+		//Calls Update Trigger UI with the chambers
+		UpdateTriggerUI(chambers[chamberIndex1], chambers[chamberIndex2]);
 	}
 
     private void UpdateFairies()
