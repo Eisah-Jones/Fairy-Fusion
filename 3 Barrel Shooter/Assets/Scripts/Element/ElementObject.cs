@@ -79,11 +79,13 @@ public class ElementObject : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // We don't care if we collide with these objects
-        if (collision == null || collision.gameObject.tag == "Untagged" || collision.gameObject.tag == "Walls" ) return;
-
+        if (collision == null || collision.gameObject.tag == "Untagged" || collision.gameObject.tag == "Walls") return;
+    
         if (collision.gameObject.tag == "Player")
         {
+            Debug.Log("ITS A PLAYER");
             if (collision.GetComponent<PlayerInfo>().GetPlayerName() == owner) return;
+            
             else if (name == "SpikeShot") StartCoroutine("Explode");
             else Destroy(gameObject);
         }

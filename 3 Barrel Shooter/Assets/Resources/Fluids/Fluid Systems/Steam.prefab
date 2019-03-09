@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1465474705338753452}
   - component: {fileID: 1465474705338753453}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Steam
   m_TagString: Untagged
   m_Icon: {fileID: 0}

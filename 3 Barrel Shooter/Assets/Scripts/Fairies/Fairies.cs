@@ -402,7 +402,10 @@ public class Fairies{
         return levelManager.elementManager.GetElementDataByName(name).combinationRequirements.elem1 == null;
     }
 
-
+    private IEnumerator emptyChamberReset()
+    {
+        yield return new WaitForSeconds(1f);
+    }
     // Shooting scripts
     public Fairy.InventoryInfo Shoot(bool combo, int chamberNum)
     {

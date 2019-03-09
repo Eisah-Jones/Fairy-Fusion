@@ -335,12 +335,30 @@ public class FairyController : MonoBehaviour {
         }
         else
         {
-            p.ShootProjectile(eID, levelManager, playerName, projectileSpawner);
-            fairies.RemoveFromCurrentChamber(eName, 1);
-            fairies.SetCombinationChambers();
+            if (eID == 5) // delays air blast from coming out so it doesnt collide with own projectiles
+            {
+                IEnumerator c = emptyChamberDelay(eID, levelManager, playerName, projectileSpawner, p);
+                StartCoroutine(c);
+            }
+            else
+            {
+                p.ShootProjectile(eID, levelManager, playerName, projectileSpawner);
+                fairies.RemoveFromCurrentChamber(eName, 1);
+                fairies.SetCombinationChambers();
+            }
+           
         }
     }
-
+    public IEnumerator emptyChamberDelay(int eID, LevelManager lm, string pName, Transform spawn, ProjectileSpawner p)
+    {
+    
+        yield return new WaitForSeconds(.2f);
+        
+        p.ShootProjectile(eID, levelManager, pName, spawn);
+        //fairies.RemoveFromCurrentChamber(eName, 1);
+        //fairies.SetCombinationChambers();
+    
+    }
 
     public IEnumerator ShootReset(bool isLeft, bool isCombo, int resetFrames)
     {

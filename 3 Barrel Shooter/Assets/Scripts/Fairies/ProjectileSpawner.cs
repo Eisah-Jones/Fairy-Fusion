@@ -37,8 +37,10 @@ public class ProjectileSpawner : MonoBehaviour {
     public void ShootProjectile(int eID, LevelManager lm, string playerName, Transform spawn)
     {
         GameObject prefab = lm.elemPrefabs[eID - 1];
+       
         GameObject e = Instantiate(prefab, spawn.position, transform.rotation);
         e.GetComponent<ElementObject>().initElement(lm, lm.elementManager.GetElementDataByID(eID), true, playerName);
+        
         if (eID == 4)
         {
             sm.PlaySoundByName(audioSourceProjectile, "Leaf", false, .5f, 1.0f); // plays wood chip sound
@@ -131,6 +133,7 @@ public class ProjectileSpawner : MonoBehaviour {
         lineRenderer.enabled = false;
         sm.StopSound(audioSourceFluid);
     }
+
 
     private IEnumerator fluidReset(GameObject ps)
     {
