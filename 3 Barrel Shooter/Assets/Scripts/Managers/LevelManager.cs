@@ -20,6 +20,7 @@ public class LevelManager: MonoBehaviour
     public SoundManager soundManager;
     public CameraManager cameraManager;
     public UIManager uiManager;
+
     
     // Models
     public ChamberInteractionModel chamberInteractionModel;
@@ -30,6 +31,8 @@ public class LevelManager: MonoBehaviour
 
     public GameObject player; // Need to load dynamically
     public List<GameObject> playerList;
+
+	public Sprite[] uisprites;
 
     public GameObject[] elemPrefabs; // Possibly move elsewhere?
 
@@ -116,8 +119,13 @@ public class LevelManager: MonoBehaviour
         playerList = levelGen.SpawnPlayers(player, GetComponent<LevelManager>(), numPlayers);
         foreach (GameObject p in playerList)
         {
-			pInfoList.Add (p.GetComponent<PlayerInfo> ());
+			PlayerInfo pInfo = p.GetComponent<PlayerInfo> ();
+			pInfoList.Add (pInfo);
             cameraManager.AddCamera();
+			FairyController controller = p.GetComponentInChildren<FairyController> ();
+			controller.LT = GameObject.Find("PlayerUI" + pInfo.playerNum.ToString()).transform.Find("LTI").GetComponent<Image>();
+			controller.RT = GameObject.Find("PlayerUI" + pInfo.playerNum.ToString()).transform.Find("RTI").GetComponent<Image>();
+			controller.uisprites = uisprites;
 		}
         cameraManager.SetCameraRatio();
         cameraManager.UpdateCameraPosition(playerList);
