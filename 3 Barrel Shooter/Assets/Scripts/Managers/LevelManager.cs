@@ -125,6 +125,7 @@ public class LevelManager: MonoBehaviour
 			FairyController controller = p.GetComponentInChildren<FairyController> ();
 			controller.LT = GameObject.Find("PlayerUI" + pInfo.playerNum.ToString()).transform.Find("LTI").GetComponent<Image>();
 			controller.RT = GameObject.Find("PlayerUI" + pInfo.playerNum.ToString()).transform.Find("RTI").GetComponent<Image>();
+			controller.combo = GameObject.Find("PlayerUI" + pInfo.playerNum.ToString()).transform.Find("Combo").GetComponent<Image>();
 			controller.uisprites = uisprites;
 		}
         cameraManager.SetCameraRatio();

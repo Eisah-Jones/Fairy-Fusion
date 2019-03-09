@@ -24,6 +24,7 @@ public class FairyController : MonoBehaviour {
 	public Sprite[] uisprites;
 	public Image LT;
 	public Image RT;
+	public Image combo;
     private GameObject[] currentFairies;
     private GameObject[] fairyPositions;
 
@@ -157,28 +158,47 @@ public class FairyController : MonoBehaviour {
         }
     }
 
-	private void UpdateTrigger(string elem, Image trigger){
+	private bool UpdateTrigger(string elem, Image trigger){
 		if (elem == "Fire") {
 			trigger.sprite = uisprites [1];
+			return true;
 		} else if (elem == "Water") {
 			trigger.sprite = uisprites [2];
+			return true;
 		} else if (elem == "Rock") {
 			trigger.sprite = uisprites [3];
+			return true;
 		} else if (elem == "Leaf") {
 			trigger.sprite = uisprites [4];
+			return true;
 		} else {
 			//Sets to air if empty
 			trigger.sprite = uisprites [0];
+			Debug.Log(elem);
+			return false;
+		}
+	}
+
+	private void UpdateCombo(string LTname, string RTname){
+		if((LTname == "Fire" && RTname == "Rock") || (RTname == "Fire" && LTname == "Rock")){
+			combo.sprite = uisprites[5];
+		}
+		if((LTname == "Fire" && RTname == "Water") || (RTname == "Fire" && LTname == "Water")){
+			combo.sprite = uisprites[6];
+		}
+		if((LTname == "Fire" && RTname == "Leaf") || (RTname == "Fire" && LTname == "Leaf")){
+			combo.sprite = uisprites[6];
 		}
 	}
 
 	private void UpdateTriggerUI(Fairies.Fairy lt, Fairies.Fairy rt){
 		string LTname = lt.GetElementNameByIndex (0);
 		string RTname = rt.GetElementNameByIndex (0);
-		//Updates LT
-		UpdateTrigger(LTname, LT);
-		//Updates RT
-		UpdateTrigger(RTname,RT);
+		//Updates LT and RT and if both have an element updates combo
+		if (UpdateTrigger (LTname, LT) && UpdateTrigger (RTname, RT)) {
+			UpdateCombo (LTname,RTname);
+		}
+
 	}
 
     private void UpdateFairyUI(){
