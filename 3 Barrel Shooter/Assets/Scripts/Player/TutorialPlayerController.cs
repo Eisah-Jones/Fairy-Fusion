@@ -21,6 +21,8 @@ public class TutorialPlayerController : MonoBehaviour
     public bool hasAimed = false;
     public bool hasDashed = false;
     public bool hasHarnessedLeft = false;
+    public bool hasCastedLeft = false;
+    public bool hasHarnessedRight = false;
 
 
     public enum DashState
@@ -44,11 +46,12 @@ public class TutorialPlayerController : MonoBehaviour
         spriteR = player.GetComponent<SpriteRenderer>();
         fairies = transform.Find("Fairies").gameObject;
         tf = fairies.GetComponent<TutorialFairies>();
+        tf.InitTutorialFairies();
         audioSource = player.GetComponent<AudioSource>();
     }
 
 
-    public void HandleStage(int s, float leftHorizontal, float leftVertical, float rightHorizontal, float rightVertical, bool dash, bool leftBumper)
+    public void HandleStage(int s, float leftHorizontal, float leftVertical, float rightHorizontal, float rightVertical, bool dash, bool leftBumper, bool leftTrigger, bool rightBumper)
     {
 
         // gets rotation input from right stick
@@ -123,6 +126,31 @@ public class TutorialPlayerController : MonoBehaviour
                 {
                     tf.SetHarnessArea(leftBumper);
                 }
+                else if (!hasHarnessedLeft)
+                {
+                    hasHarnessedLeft = tf.GetHarnessedLeft();
+                }
+                break;
+            case 4:
+                if (!hasCastedLeft && leftTrigger)
+                {
+                    StartCoroutine("SetCasting");
+                    tf.ShootFire(true);
+                }
+                else if (hasCastedLeft)
+                {
+                    tf.ShootFire(false);
+                }
+                break;
+            case 5:
+                if (!hasHarnessedRight && rightBumper)
+                {
+                    tf.SetHarnessArea(rightBumper);
+                }
+                else if (!hasHarnessedRight)
+                {
+                    hasHarnessedRight = tf.GetHarnessedRight();
+                }
                 break;
         }
     }
@@ -140,6 +168,13 @@ public class TutorialPlayerController : MonoBehaviour
     public static Vector2 RadianToVector2(float radian)
     {
         return new Vector2(Mathf.Cos(radian), Mathf.Sin(radian));
+    }
+
+
+    private IEnumerator SetCasting()
+    {
+        yield return new WaitForSeconds(2f);
+        hasCastedLeft = true;
     }
 
 

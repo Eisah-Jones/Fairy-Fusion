@@ -16,6 +16,8 @@ public class TutorialMenu : MonoBehaviour
     GameObject sticksUI1;
     GameObject sticksUI2;
     GameObject bumpersUI1;
+    GameObject triggersUI1;
+    GameObject bumpersUI2;
 
     private bool A_Button;
     private bool B_Button;
@@ -30,6 +32,9 @@ public class TutorialMenu : MonoBehaviour
     private bool startedCoroutine = false;
 
     private bool LB = false;
+    private bool LT = false;
+
+    private bool RB = false;
 
 
     public void InitTutorialMenu(UIManager uim, LevelManager lm)
@@ -42,6 +47,8 @@ public class TutorialMenu : MonoBehaviour
         sticksUI1 = transform.GetChild(1).gameObject;
         sticksUI2 = transform.GetChild(2).gameObject;
         bumpersUI1 = transform.GetChild(3).gameObject;
+        triggersUI1 = transform.GetChild(4).gameObject;
+        bumpersUI2 = transform.GetChild(5).gameObject;
     }
 
 
@@ -60,6 +67,9 @@ public class TutorialMenu : MonoBehaviour
         RS_Click = c.Right_Stick_Click;
 
         LB = c.Left_Bumper;
+        LT = c.Left_Trigger > 0;
+
+        RB = c.Right_Bumper;
 
         switch(stage)
         {
@@ -67,7 +77,7 @@ public class TutorialMenu : MonoBehaviour
                 ControlStage(A_Button, B_Button);
                 return;
             case 1:
-                tutorialPC.HandleStage(1, LS_Horizontal, LS_Vertical, RS_Horizontal, RS_Vertical, false, false);
+                tutorialPC.HandleStage(1, LS_Horizontal, LS_Vertical, RS_Horizontal, RS_Vertical, false, false, false, false);
                 if (controlsUI.activeSelf)
                 {
                     controlsUI.SetActive(false);
@@ -80,7 +90,7 @@ public class TutorialMenu : MonoBehaviour
                 }
                 break;
             case 2:
-                tutorialPC.HandleStage(2, LS_Horizontal, LS_Vertical, RS_Horizontal, RS_Vertical, RS_Click, false);
+                tutorialPC.HandleStage(2, LS_Horizontal, LS_Vertical, RS_Horizontal, RS_Vertical, RS_Click, false, false, false);
                 if (sticksUI1.activeSelf)
                 {
                     sticksUI1.SetActive(false);
@@ -90,7 +100,7 @@ public class TutorialMenu : MonoBehaviour
                 if (tutorialPC.hasDashed && !startedCoroutine) StartCoroutine("SetStage", 3);
                 break;
             case 3:
-                tutorialPC.HandleStage(3, LS_Horizontal, LS_Vertical, RS_Horizontal, RS_Vertical, RS_Click, LB);
+                tutorialPC.HandleStage(3, LS_Horizontal, LS_Vertical, RS_Horizontal, RS_Vertical, RS_Click, LB, false, false);
                 if (sticksUI2.activeSelf)
                 {
                     sticksUI2.SetActive(false);
@@ -98,6 +108,24 @@ public class TutorialMenu : MonoBehaviour
                 }
 
                 if (tutorialPC.hasHarnessedLeft && !startedCoroutine) StartCoroutine("SetStage", 4);
+                break;
+            case 4:
+                tutorialPC.HandleStage(4, LS_Horizontal, LS_Vertical, RS_Horizontal, RS_Vertical, RS_Click, LB, LT, false);
+                if (bumpersUI1.activeSelf)
+                {
+                    bumpersUI1.SetActive(false);
+                    triggersUI1.SetActive(true);
+                }
+
+                if (tutorialPC.hasCastedLeft && !startedCoroutine) StartCoroutine("SetStage", 5);
+                break;
+            case 5:
+                tutorialPC.HandleStage(5, LS_Horizontal, LS_Vertical, RS_Horizontal, RS_Vertical, RS_Click, LB, LT, RB);
+                if (triggersUI1.activeSelf)
+                {
+                    triggersUI1.SetActive(false);
+                    bumpersUI2.SetActive(true);
+                }
                 break;
         }
     }
@@ -115,11 +143,21 @@ public class TutorialMenu : MonoBehaviour
         }
     }
 
+
+    public void ResetTutorialMenu()
+    {
+        stage = 0;
+        controlsUI.SetActive(true);
+        sticksUI1.SetActive(false);
+        sticksUI2.SetActive(false);
+        bumpersUI1.SetActive(false);
+        triggersUI1.SetActive(false);
+    }
+
     private IEnumerator SetStage(int i)
     {
-        Debug.Log(i);
         startedCoroutine = true;
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
         stage = i;
         startedCoroutine = false;
     }
