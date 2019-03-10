@@ -22,7 +22,7 @@ public class EnemyArrows
 
         LoadArrowSprites();
 
-        Transform arrowContainer = uiManager.canvas.transform.GetChild(9);
+        Transform arrowContainer = uiManager.canvas.transform.Find("Arrows");
         arrows = new Transform[4];
         for (int i = 0; i < 4; i++)
         {

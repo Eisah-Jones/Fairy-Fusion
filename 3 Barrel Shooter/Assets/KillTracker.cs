@@ -6,20 +6,18 @@ public class KillTracker : MonoBehaviour
 {
     LevelManager lm;
     
-    public GameObject canvas;
-    public int numPlayers= 2;
+    public int numPlayers= 4;
     private GameObject[] killcounts = new GameObject[4];
     // Start is called before the first frame update
     void Start()
     {
         lm = FindObjectOfType<LevelManager>();
         numPlayers = lm.numPlayers;
-        canvas = GameObject.FindGameObjectWithTag("Canvas");
-        killcounts[0] = canvas.transform.GetChild(5).gameObject;
-        killcounts[1] = canvas.transform.GetChild(6).gameObject;
-        killcounts[2] = canvas.transform.GetChild(7).gameObject;
-        killcounts[3] = canvas.transform.GetChild(8).gameObject;
-        ActivateKillDisplay();
+		for (int i = 0; i < numPlayers; i++) {
+			GameObject pUI = GameObject.Find ("PlayerUI" + (i+1).ToString ());
+			killcounts [i] = pUI.transform.Find("KillCounter").gameObject;
+		}
+        //ActivateKillDisplay();
     }
 
 
@@ -44,22 +42,22 @@ public class KillTracker : MonoBehaviour
             Text t;
             if (player.Key == "Player1")
             {
-                t = killcounts[0].GetComponent<Text>();
+                t = killcounts[0].GetComponentInChildren<Text>();
                 t.text = player.Value.ToString();
             }
             else if (player.Key == "Player2")
             {
-                t = killcounts[1].GetComponent<Text>();
+				t = killcounts[1].GetComponentInChildren<Text>();
                 t.text = player.Value.ToString();
             }
             else if (player.Key == "Player3")
             {
-                t = killcounts[2].GetComponent<Text>();
+				t = killcounts[2].GetComponentInChildren<Text>();
                 t.text = player.Value.ToString();
             }
             else if (player.Key == "Player4")
             {
-                t = killcounts[3].GetComponent<Text>();
+				t = killcounts[3].GetComponentInChildren<Text>();
                 t.text = player.Value.ToString();
             }
       
