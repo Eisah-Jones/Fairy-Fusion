@@ -97,7 +97,7 @@ public class ChamberInteractionModel
 
         //This returns the resulting name of the element of the chamber interaction
         string resultName = elem1.chamberInteractions.GetChamberResult(elem2.name);
-
+       
         //Filter out results, call function to perform other actions
         if (resultName == "Ammo") return null;
 

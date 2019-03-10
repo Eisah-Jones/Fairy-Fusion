@@ -73,8 +73,8 @@ public class PlayerController : MonoBehaviour
         vacControl.HandleVacuumStateInput(suckLeft, suckRight);
 
         // Vacuum Shooting
-        if (inputs.Left_Trigger > 0.75f || Input.GetKey(KeyCode.LeftShift)) { shootLeft = true; } else shootLeft = false;
-        if (inputs.Right_Trigger > 0.75f || Input.GetKey(KeyCode.Space)) { shootRight = true; } else shootRight = false;
+        if (inputs.Left_Trigger > 0.75f) { shootLeft = true; } else shootLeft = false;
+        if (inputs.Right_Trigger > 0.75f) { shootRight = true; } else shootRight = false;
         vacControl.HandleShootStateInput(shootLeft, shootRight, GetPlayerName(), fairies);
 
         // Change player speed based on action

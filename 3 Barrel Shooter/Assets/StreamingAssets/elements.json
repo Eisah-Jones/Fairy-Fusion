@@ -334,7 +334,7 @@
     ],
     "chamberInteractions": {
       "Fire": "Laser",
-      "Rock": "Ammo",
+      "Rock": "SpikeShot",
       "Water": "Sniper",
       "Leaf": "Ammo",
       "Air": null,
