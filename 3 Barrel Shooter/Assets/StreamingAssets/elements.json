@@ -785,7 +785,7 @@
     "name": "SpikeShot",
     "ID": 10,
     "damage": 7,
-    "fireRate": 10,
+    "fireRate": 95,
     "projectileType": "Explosion",
     "projectileLife": 10,
     "chamberCapacity": 10,

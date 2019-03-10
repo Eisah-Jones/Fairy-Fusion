@@ -27,7 +27,7 @@ public class ElementObject : MonoBehaviour {
         name = e.name;
         damage = e.damage;
         life = e.projectileLife;
-        speed = 12.5f;
+        speed = 14f;
         isProjectile = isP;
         owner = o;
         direction = transform.right;
@@ -114,7 +114,8 @@ public class ElementObject : MonoBehaviour {
             if (result == "Destroy"){
                 // Get environmental effect and then run it
                 // Destroy gameobject
-                if (i == 0) // We are evaluating outcome of THIS element object
+                if (owner == collision.gameObject.GetComponent<ElementObject>().owner) { }
+                else if (i == 0) // We are evaluating outcome of THIS element object
                     Destroy(this.gameObject);
                 else // We are evaluating outcome of COLLISION element object
                     Destroy(collision.gameObject);
@@ -125,8 +126,9 @@ public class ElementObject : MonoBehaviour {
             }
             else if (result == "Reflect")
             {
+                owner = collision.gameObject.GetComponent<ElementObject>().owner;
                 direction = -transform.right;
-                owner = null;
+                //owner = null;
             }
             i++;
         }
@@ -141,6 +143,7 @@ public class ElementObject : MonoBehaviour {
         string spawnElement = "Leaf";
         int spawnID = levelManager.elementManager.GetElementDataByName(spawnElement).ID;
         GameObject spawnObject = levelManager.elemPrefabs[spawnID - 1];
+  
         for (int i = 0; i < 16; i++)
         {
             GameObject o = Instantiate(spawnObject, transform.position, transform.rotation);

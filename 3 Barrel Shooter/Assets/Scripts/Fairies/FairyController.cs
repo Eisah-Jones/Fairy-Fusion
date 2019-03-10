@@ -405,7 +405,7 @@ public class FairyController : MonoBehaviour {
     public IEnumerator emptyChamberDelay(int eID, LevelManager lm, string pName, Transform spawn, ProjectileSpawner p)
     {
     
-        yield return new WaitForSeconds(.2f);
+        yield return new WaitForSeconds(.4f);
         
         p.ShootProjectile(eID, levelManager, pName, spawn);
         //fairies.RemoveFromCurrentChamber(eName, 1);
