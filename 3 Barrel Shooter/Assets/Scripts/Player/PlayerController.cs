@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
         lm = FindObjectOfType<LevelManager>();
         audioSource = gameObject.AddComponent<AudioSource>();
         maxTime = 5f;
-        dashForce = 45f;
+        dashForce = 30f;
     }
 
 
@@ -119,7 +119,7 @@ public class PlayerController : MonoBehaviour
 
         Vector2 movement = new Vector2(horizontalSpeed, verticalSpeed);
 
-        AnimatePlayer(r_vertical, r_horizontal, movement, heading,dash, vertical, horizontal);
+        AnimatePlayer(r_vertical, r_horizontal, movement, heading, dash, vertical, horizontal);
 
         
     }
@@ -201,29 +201,30 @@ public class PlayerController : MonoBehaviour
         //change rotation of player if no input received keeps same rotation as last time it got input prevents snapping back to 0,0 heading
         if ( heading == 0 && horizontal > 0)
         {
-            float last_heading = heading;
+            last_heading = heading;
             fairies.transform.rotation = Quaternion.Euler(0f, 0f, 1f);
         }
         else if (heading != 0 )
         {
-            float last_heading = heading;
+            last_heading = heading;
             fairies.transform.rotation = Quaternion.Euler(0f, 0f, last_heading * Mathf.Rad2Deg);
         }
     
         switch (dashState)
         {
             case DashState.Ready:
-
+                
                 if (dash)
                 {
-                    Debug.Log("Dashing");
-                    Vector2 dir = RadianToVector2(heading);
+                    //Debug.Log("Heading: " + heading);
+                    //Debug.Log("Last Heading: " + last_heading);
+                    Vector2 dir = RadianToVector2(last_heading);
                     rb.AddForce(dir * dashForce, ForceMode2D.Impulse);
                     dashState = DashState.Dashing;
                 }
                 break;
             case DashState.Dashing:
-                Debug.Log("Timer: " + dashTimer);
+                
                 dashTimer += Time.deltaTime * 3;
                 if (dashTimer >= maxTime)
                 {
