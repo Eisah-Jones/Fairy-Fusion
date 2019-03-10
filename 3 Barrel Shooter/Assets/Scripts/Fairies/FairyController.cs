@@ -185,8 +185,15 @@ public class FairyController : MonoBehaviour {
 		} else if ((LTname == "Fire" && RTname == "Water") || (RTname == "Fire" && LTname == "Water")) {
 			combo.sprite = uisprites [6];
 		} else if ((LTname == "Fire" && RTname == "Leaf") || (RTname == "Fire" && LTname == "Leaf")) {
-			combo.sprite = uisprites [6];
-		} else {
+			combo.sprite = uisprites [7];
+		} else if ((LTname == "Water" && RTname == "Rock") || (RTname == "Water" && LTname == "Rock")) {
+			combo.sprite = uisprites [8];
+		} else if ((LTname == "Water" && RTname == "Leaf") || (RTname == "Water" && LTname == "Leaf")) {
+			combo.sprite = uisprites [9];
+		} else if ((LTname == "Leaf" && RTname == "Rock") || (RTname == "Leaf" && LTname == "Rock")) {
+			combo.sprite = uisprites [10];
+		}
+		else {
 			combo.enabled = false;
 		}
 	}
