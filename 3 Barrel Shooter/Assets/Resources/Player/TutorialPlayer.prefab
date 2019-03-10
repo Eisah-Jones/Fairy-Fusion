@@ -169,6 +169,7 @@ GameObject:
   - component: {fileID: 4489838794438420}
   - component: {fileID: 61969173873926646}
   - component: {fileID: 8359969068701872591}
+  - component: {fileID: 8771524243716732634}
   m_Layer: 0
   m_Name: Fairies
   m_TagString: Fairies
@@ -201,7 +202,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1506578753729358}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -324,6 +325,18 @@ LineRenderer:
     generateLightingData: 1
   m_UseWorldSpace: 1
   m_Loop: 1
+--- !u!114 &8771524243716732634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506578753729358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7d051ee976dd4897920248bae549269, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1614526092711606
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,7 +479,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1756415907752874}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.444494, y: 1.66609, z: -2}
+  m_LocalPosition: {x: -5.5, y: 0, z: -2}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 4681194799128062}
@@ -711,6 +724,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fairies: {fileID: 0}
+  hasMoved: 0
+  hasAimed: 0
+  hasDashed: 0
+  hasHarnessedLeft: 0
+  dashState: 0
+  dashTimer: 0
 --- !u!1 &1783235806573212
 GameObject:
   m_ObjectHideFlags: 0
@@ -986,6 +1005,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4598254335826662, guid: 1da43dbb0e03b944db8fda19c3bf49d1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4598254335826662, guid: 1da43dbb0e03b944db8fda19c3bf49d1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1da43dbb0e03b944db8fda19c3bf49d1, type: 3}
 --- !u!4 &1910650029961848558 stripped
@@ -1243,6 +1270,14 @@ PrefabInstance:
     - target: {fileID: 4524413315396578, guid: 1da43dbb0e03b944db8fda19c3bf49d1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4598254335826662, guid: 1da43dbb0e03b944db8fda19c3bf49d1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4598254335826662, guid: 1da43dbb0e03b944db8fda19c3bf49d1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1da43dbb0e03b944db8fda19c3bf49d1, type: 3}
