@@ -9,7 +9,7 @@ public class TutorialPlayerController : MonoBehaviour
     public GameObject fairies;
     private PlayerAffector playerAffector;
     private float speed = 2.5f;
-
+    private float last_heading;
     public void InitTutorialController(LevelManager lm)
     {
         player = transform.gameObject;
@@ -17,6 +17,12 @@ public class TutorialPlayerController : MonoBehaviour
         fairies = transform.Find("Fairies").gameObject;
     }
 
+    public enum DashState
+    {
+        Ready,
+        Dashing,
+        Cooldown
+    }
 
     public void Stage1(float leftHorizontal, float leftVertical, float rightHorizontal, float rightVertical)
     {
@@ -36,15 +42,16 @@ public class TutorialPlayerController : MonoBehaviour
         transform.Translate(movement * Time.deltaTime, Space.World);
 
         //change rotation of player if no input received keeps same rotation as last time it got input prevents snapping back to 0,0 heading
-        if (heading == 0 && leftHorizontal > 0)
+        if (heading == 0 && rightHorizontal > 0)
         {
-            float last_heading = heading;
+            last_heading = heading;
             fairies.transform.rotation = Quaternion.Euler(0f, 0f, 1f);
         }
         else if (heading != 0)
         {
-            float last_heading = heading;
+            last_heading = heading;
             fairies.transform.rotation = Quaternion.Euler(0f, 0f, last_heading * Mathf.Rad2Deg);
         }
+        
     }
 }

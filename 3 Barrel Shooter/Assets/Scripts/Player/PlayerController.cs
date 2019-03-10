@@ -210,11 +210,11 @@ public class PlayerController : MonoBehaviour
             fairies.transform.rotation = Quaternion.Euler(0f, 0f, last_heading * Mathf.Rad2Deg);
         }
     
-        switch (dashState)
+        switch (dashState) // initiates dash mechanic
         {
             case DashState.Ready:
                 
-                if (dash)
+                if (dash) // if dash input is detected use last heading to calculate dash direction
                 {
                     //Debug.Log("Heading: " + heading);
                     //Debug.Log("Last Heading: " + last_heading);
