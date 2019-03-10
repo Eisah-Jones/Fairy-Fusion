@@ -57,7 +57,7 @@ public class LevelManager: MonoBehaviour
     private AudioSource asource;
     private AudioSource asource1;
 
-    public bool testing = true;
+    public bool testing = false;
 
     private Sprite[] waterSprites;
 

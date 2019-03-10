@@ -2823,6 +2823,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300010, guid: ab6d1f60db3a7bd46832e22ad084cd60,
         type: 3}
+    - target: {fileID: 114174851702189666, guid: c2bdb53601d854d57acc06ca8c511127,
+        type: 3}
+      propertyPath: testing
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2bdb53601d854d57acc06ca8c511127, type: 3}
 --- !u!1001 &1002105236
@@ -3553,7 +3558,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5edeb90c456f6344b80e537cb3ec046, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 0}
   numPlayers: 2
 --- !u!114 &1592296693
 MonoBehaviour:

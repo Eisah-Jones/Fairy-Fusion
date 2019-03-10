@@ -37,8 +37,9 @@ public class PlayerController : MonoBehaviour
     public DashState dashState;
     public float dashTimer;
     [SerializeField]
-    public float maxDash = 5f; // dash cool down time
-    public float dashForce = .75f; 
+    private float maxTime; // dash cool down time
+    [SerializeField]
+    private float dashForce; 
 
 
     private FairyController vacControl;
@@ -59,6 +60,8 @@ public class PlayerController : MonoBehaviour
         spriteR = gameObject.GetComponent<SpriteRenderer>();
         lm = FindObjectOfType<LevelManager>();
         audioSource = gameObject.AddComponent<AudioSource>();
+        maxTime = 5f;
+        dashForce = 45f;
     }
 
 
@@ -222,9 +225,9 @@ public class PlayerController : MonoBehaviour
             case DashState.Dashing:
                 Debug.Log("Timer: " + dashTimer);
                 dashTimer += Time.deltaTime * 3;
-                if (dashTimer >= 5)
+                if (dashTimer >= maxTime)
                 {
-                    dashTimer = 5;
+                    dashTimer = maxTime;
                     dashState = DashState.Cooldown;
                 }
                 break;
