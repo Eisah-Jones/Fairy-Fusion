@@ -237,8 +237,8 @@ public class LevelManager: MonoBehaviour
     {
         int mapping = 0;
         foreach( GameObject p in playerList ){
-            p.GetComponent<PlayerController>().UpdatePlayerMovement(i[mapping]);
-            p.GetComponent<PlayerController>().UpdatePlayerInputs(i[mapping++]);
+            p.GetComponent<PlayerController>().UpdatePlayerInputs(i[mapping]);
+            p.GetComponent<PlayerController>().UpdatePlayerMovement(i[mapping++]);
         }
     }
 

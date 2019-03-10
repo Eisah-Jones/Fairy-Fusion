@@ -10,6 +10,8 @@ public class UIManager : MonoBehaviour
     private Menu activeMenu;
     private List<Menu> menus = new List<Menu>();
 
+    private TutorialMenu tutorialMenu;
+
     public LevelManager levelManager;
     private ControllerManager controllerManager = new ControllerManager();
 
@@ -50,6 +52,11 @@ public class UIManager : MonoBehaviour
                 Menu menu = new Menu();
                 menu.InitMenu(m.gameObject);
                 menus.Add(menu);
+                if (menu.GetName() == "TutorialMenu")
+                {
+                    tutorialMenu = menu.GetMenu().GetComponent<TutorialMenu>();
+                    tutorialMenu.InitTutorialMenu(this, levelManager);
+                }
             }
         }
 
@@ -131,14 +138,17 @@ public class UIManager : MonoBehaviour
             isPaused = menus[0].GetMenu().activeSelf;
             SetActiveMenu();
         }
+        else if (activeMenu.GetName() == "TutorialMenu")
+        {
+            tutorialMenu.HandleInput(ci[0]);
+        }
         else if (ci[0].A_Button && activeMenu.GetName() != "PlayerSelect" && activeMenu.GetActiveElement() != null)
         {
             activeMenu.GetActiveElement().Interact(0);
             SetActiveMenu();
         }
-        else if (ci[0].B_Button && (activeMenu.GetName() == "OptionsMenu" || activeMenu.GetName() == "TutorialMenu"))
+        else if (ci[0].B_Button && activeMenu.GetName() == "OptionsMenu")
         {
-            Debug.Log("YUH");
             ToMainMenu();
 
         }
@@ -163,7 +173,7 @@ public class UIManager : MonoBehaviour
     }
 
 
-    private void ToMainMenu()
+    public void ToMainMenu()
     {
         activeMenu.ResetMenu();
         activeMenu.GetMenu().SetActive(false);
