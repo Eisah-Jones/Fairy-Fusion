@@ -11,7 +11,7 @@ public class HealthBar : MonoBehaviour {
     //	private void Start () {
     //		bar = transform.Find ("Bar");
     //	}
-
+    
     private void Start()
     {
         StartCoroutine("LateStart",1);
@@ -35,7 +35,8 @@ public class HealthBar : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if ('R' == collision.tag[0] ||collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "5-Air" || collision.tag == "Water"|| collision.tag == "TilemapTrigger") return;
+        if ('R' == collision.tag[0] ||collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "5-Air" ||  collision.tag == "TilemapTrigger") return;
+        // if (collision.tag == "Water" || == int()) need to check owner ship of element collision
         hb.gameObject.SetActive(true);
     }
 

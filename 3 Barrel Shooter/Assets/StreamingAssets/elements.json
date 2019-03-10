@@ -86,7 +86,9 @@
     "fireRate": 0,
     "projectileType": "Fluid",
     "projectileLife": 10,
-    "chamberCapacity":100,
+    "chamberCapacity": 200,
+    "speed": 10,
+    "yield": 0,
     "playerCollisionEffects": [
       "Burn"
     ],
@@ -161,10 +163,12 @@
     "name": "Rock",
     "ID": 2,
     "damage": 12,
-    "fireRate": 10,
+    "fireRate": 15,
     "projectileType": "Bullet",
-    "projectileLife": 11,
-    "chamberCapacity": 20,
+    "projectileLife": 6,
+    "chamberCapacity": 40,
+    "speed": 15,
+    "yield": 0,
     "playerCollisionEffects": [
       "Knockback"
     ],
@@ -242,7 +246,9 @@
     "fireRate": 0,
     "projectileType": "Fluid",
     "projectileLife": 10,
-    "chamberCapacity": 75,
+    "chamberCapacity": 200,
+    "speed": 5,
+    "yield": 0,
     "playerCollisionEffects": [
       "Pushback"
     ],
@@ -319,9 +325,12 @@
     "damage": 10,
     "fireRate": 10,
     "projectileType": "Splinter",
-    "projectileLife": 10,
-    "chamberCapacity": 100,
-    "playerCollisionEffects": [ "Knockback"
+    "projectileLife": 8,
+    "chamberCapacity": 50,
+    "speed": 15,
+    "yield": 0,
+    "playerCollisionEffects": [
+      "Knockback"
     ],
     "chamberInteractions": {
       "Fire": "Laser",
@@ -398,6 +407,8 @@
     "projectileType": "Projectile",
     "projectileLife": 7,
     "chamberCapacity": -1,
+    "speed": 5,
+    "yield": 0,
     "playerCollisionEffects": [
       "Knockback"
     ],
@@ -474,8 +485,10 @@
     "damage": 32,
     "fireRate": 25,
     "projectileType": "Bullet",
-    "projectileLife": 20,
-    "chamberCapacity": 10,
+    "projectileLife": 7,
+    "chamberCapacity": 20,
+    "speed": 25,
+    "yield": 0,
     "playerCollisionEffects": [
       "Burn",
       "Knockback"
@@ -553,8 +566,10 @@
     "damage": 0.3,
     "fireRate": 1,
     "projectileType": "Fluid",
-    "projectileLife": 10,
+    "projectileLife": 20,
     "chamberCapacity": 100,
+    "speed": 5,
+    "yield": 0,
     "playerCollisionEffects": [
       "Burn"
     ],
@@ -628,11 +643,13 @@
   "Mud": {
     "name": "Mud",
     "ID": 8,
-    "damage": 25,
-    "fireRate": 15,
+    "damage": 15,
+    "fireRate": 20,
     "projectileType": "Bullet",
-    "projectileLife": 12,
-    "chamberCapacity": 10,
+    "projectileLife": 25,
+    "chamberCapacity": 20,
+    "speed": 7,
+    "yield": 0,
     "playerCollisionEffects": [
       "Slow"
     ],
@@ -710,7 +727,9 @@
     "fireRate": 60,
     "projectileType": "Bullet",
     "projectileLife": 65,
-    "chamberCapacity": 10,
+    "chamberCapacity": 20,
+    "speed": 30,
+    "yield": 0,
     "playerCollisionEffects": [
       "Knockback"
     ],
@@ -785,10 +804,10 @@
     "name": "SpikeShot",
     "ID": 10,
     "damage": 7,
-    "fireRate": 95,
+    "fireRate": 110,
     "projectileType": "Explosion",
-    "projectileLife": 10,
-    "chamberCapacity": 10,
+    "projectileLife": 25,
+    "chamberCapacity": 20,
     "speed": 5,
     "yield": 1,
     "playerCollisionEffects": [
@@ -864,7 +883,7 @@
   "Laser": {
     "name": "Laser",
     "ID": 11,
-    "damage": 20,
+    "damage": 32,
     "fireRate": 100,
     "projectileType": "Beam",
     "projectileLife": 5,

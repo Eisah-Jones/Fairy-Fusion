@@ -27,7 +27,7 @@ public class ElementObject : MonoBehaviour {
         name = e.name;
         damage = e.damage;
         life = e.projectileLife;
-        speed = 14f;
+        speed = e.speed;
         isProjectile = isP;
         owner = o;
         direction = transform.right;
@@ -114,7 +114,7 @@ public class ElementObject : MonoBehaviour {
             if (result == "Destroy"){
                 // Get environmental effect and then run it
                 // Destroy gameobject
-                if (owner == collision.gameObject.GetComponent<ElementObject>().owner) { }
+                if (owner == other.owner) { }
                 else if (i == 0) // We are evaluating outcome of THIS element object
                     Destroy(this.gameObject);
                 else // We are evaluating outcome of COLLISION element object

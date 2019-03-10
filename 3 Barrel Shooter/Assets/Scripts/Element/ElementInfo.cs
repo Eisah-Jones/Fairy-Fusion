@@ -116,6 +116,8 @@ public class elementData
     public string projectileType;
     public int projectileLife;
     public int chamberCapacity;
+    public float speed;
+
     public List<string> playerCollisionEffects;
     public ChamberInteractions chamberInteractions;
     public ElementCollisions elementCollisions;

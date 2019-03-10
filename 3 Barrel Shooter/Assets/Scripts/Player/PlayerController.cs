@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
         spriteR = gameObject.GetComponent<SpriteRenderer>();
         lm = FindObjectOfType<LevelManager>();
         audioSource = gameObject.AddComponent<AudioSource>();
-        maxTime = 5f;
+        maxTime = 3f;
         dashForce = 30f;
     }
 
