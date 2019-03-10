@@ -782,6 +782,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 174712143}
+  - component: {fileID: 174712144}
   m_Layer: 5
   m_Name: TutorialMenu
   m_TagString: Menu
@@ -814,6 +815,18 @@ RectTransform:
   m_AnchoredPosition: {x: -0.0012817, y: 0}
   m_SizeDelta: {x: 1179, y: 521}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &174712144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174712142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bf384d3c277c474a8d8f4b14257fd94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &206435104 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7260971790055257675, guid: 5be0f4d089d954a5995cac6d76d413fe,
