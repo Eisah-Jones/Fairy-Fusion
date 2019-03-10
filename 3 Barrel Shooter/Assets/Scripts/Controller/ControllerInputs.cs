@@ -28,6 +28,7 @@ public class ControllerInputs
 
     public bool Xbox_Button;
     public bool Left_Stick_Click;
+    public bool Right_Stick_Click;
     // Thumb sticks and triggers!
     public float Right_Stick_Horizontal;
     public float Left_Stick_Horizontal;
@@ -44,6 +45,8 @@ public class ControllerInputs
         Left_Bumper = Input.GetButton(c.Left_Bumper);
 
         Left_Stick_Click = Input.GetButtonDown(c.Left_Stick_Click);
+        Right_Stick_Click = Input.GetButtonDown(c.Right_Stick_Click);
+
 
         Left_Stick_Horizontal = Input.GetAxisRaw(c.Left_Stick_Horizontal);
         Left_Stick_Vertical = Input.GetAxisRaw(c.Left_Stick_Vertical);

@@ -174,7 +174,7 @@ public class FairyController : MonoBehaviour {
 		} else {
 			//Sets to air if empty
 			trigger.sprite = uisprites [0];
-			Debug.Log(elem);
+			
 			return false;
 		}
 	}

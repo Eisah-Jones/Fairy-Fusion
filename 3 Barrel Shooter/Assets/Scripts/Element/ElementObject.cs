@@ -82,10 +82,7 @@ public class ElementObject : MonoBehaviour {
         if (collision == null || collision.gameObject.tag == "Untagged" || collision.gameObject.tag == "Walls") return;
         if (collision.gameObject.tag == "4-Leaf")
         {
-            if (collision.gameObject.GetComponent<ElementObject>().owner == owner)
-            {
-                return;
-            }
+            if (collision.gameObject.GetComponent<ElementObject>().owner == owner) return;
         }
         if (collision.gameObject.tag == "Player")
         {

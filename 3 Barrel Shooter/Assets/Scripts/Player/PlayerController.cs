@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     public GameObject playerBody;
     public GameObject fairies;
 	public Animator player_animator;
-
+    public Rigidbody2D rb;
     public LevelManager lm;
     public AudioSource audioSource;
 
@@ -30,7 +30,17 @@ public class PlayerController : MonoBehaviour
     private bool suckRight;
     private bool shootRight;
 
+    private bool dash;
+
     private float last_heading;
+
+    public DashState dashState;
+    public float dashTimer;
+    [SerializeField]
+    public float maxDash = 5f; // dash cool down time
+    public float dashForce = .75f; 
+
+
     private FairyController vacControl;
 	private SpriteRenderer spriteR;
 
@@ -45,7 +55,7 @@ public class PlayerController : MonoBehaviour
         gameObject.AddComponent<PlayerAffector>();
         playerAffector = gameObject.GetComponent<PlayerAffector>();
         playerAffector.InitPlayerAffector(playerBody);
-
+        rb = GetComponent<Rigidbody2D>();
         spriteR = gameObject.GetComponent<SpriteRenderer>();
         lm = FindObjectOfType<LevelManager>();
         audioSource = gameObject.AddComponent<AudioSource>();
@@ -80,7 +90,12 @@ public class PlayerController : MonoBehaviour
         return playerBody.GetComponent<PlayerInfo>().GetPlayerName();
     }
 
-
+    public enum DashState
+    {
+        Ready,
+        Dashing,
+        Cooldown
+    }
     // This function is called every frame by the level manager, called in fixed update
     public void UpdatePlayerMovement(ControllerInputs inputs)
     {
@@ -88,6 +103,7 @@ public class PlayerController : MonoBehaviour
         horizontal = inputs.Left_Stick_Horizontal;
         vertical = -inputs.Left_Stick_Vertical;
 
+        dash = inputs.Right_Stick_Click;
         // gets rotation input from right stick 
         float r_vertical = inputs.Right_Stick_Vertical;
         float r_horizontal = inputs.Right_Stick_Horizontal;
@@ -100,9 +116,20 @@ public class PlayerController : MonoBehaviour
 
         Vector2 movement = new Vector2(horizontalSpeed, verticalSpeed);
 
-        AnimatePlayer(r_vertical, r_horizontal, movement, heading, vertical, horizontal);
+        AnimatePlayer(r_vertical, r_horizontal, movement, heading,dash, vertical, horizontal);
+
+        
     }
 
+    public static Vector2 RadianToVector2(float radian)
+    {
+        return new Vector2(Mathf.Cos(radian), Mathf.Sin(radian));
+    }
+
+    public static Vector2 DegreeToVector2(float degree)
+    {
+        return RadianToVector2(degree * Mathf.Deg2Rad);
+    }
 
     public void HandleEffects(List<string> effects, Transform t)
     {
@@ -119,7 +146,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void AnimatePlayer(float vertical, float horizontal, Vector2 movement, float heading, float l_vertical = 0.0f, float l_horizontal =0.0f)
+    private void AnimatePlayer(float vertical, float horizontal, Vector2 movement, float heading, bool dash, float l_vertical = 0.0f, float l_horizontal =0.0f)
     {
         //changes the characters direction it faces
         //changes orientation to face side
@@ -140,7 +167,6 @@ public class PlayerController : MonoBehaviour
                 spriteR.flipX = false;
             }
         }
-
         //changes orientation to face up
         if (vertical == 1)
         {
@@ -179,6 +205,37 @@ public class PlayerController : MonoBehaviour
         {
             float last_heading = heading;
             fairies.transform.rotation = Quaternion.Euler(0f, 0f, last_heading * Mathf.Rad2Deg);
+        }
+    
+        switch (dashState)
+        {
+            case DashState.Ready:
+
+                if (dash)
+                {
+                    Debug.Log("Dashing");
+                    Vector2 dir = RadianToVector2(heading);
+                    rb.AddForce(dir * dashForce, ForceMode2D.Impulse);
+                    dashState = DashState.Dashing;
+                }
+                break;
+            case DashState.Dashing:
+                Debug.Log("Timer: " + dashTimer);
+                dashTimer += Time.deltaTime * 3;
+                if (dashTimer >= 5)
+                {
+                    dashTimer = 5;
+                    dashState = DashState.Cooldown;
+                }
+                break;
+            case DashState.Cooldown:
+                dashTimer -= Time.deltaTime;
+                if (dashTimer <= 0)
+                {
+                    dashTimer = 0;
+                    dashState = DashState.Ready;
+                }
+                break;
         }
     }
 }
