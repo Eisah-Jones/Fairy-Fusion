@@ -15,15 +15,15 @@ public class PlayerInfo : MonoBehaviour
     public int playerNum;
     public AudioSource[] audioSources = new AudioSource[4];
 	private HealthBar HPbar;
-    private bool startedRespawn;
+    private bool isRespawning = false;
     private string rearea = "";
-    public bool isRespawning=false;
     List<ParticleSystem.Particle> enter = new List<ParticleSystem.Particle>();
     List<ParticleSystem.Particle> exit = new List<ParticleSystem.Particle>();
     private string elementOwnerName ="";
     private bool isFlashing = false;
     private bool resetHP = false;
     Color c;
+    PlayerController pc;
 
     public void InitPlayerInfo(LevelManager lm, int pNum)
     {
@@ -34,7 +34,7 @@ public class PlayerInfo : MonoBehaviour
         audioSources[2] = gameObject.AddComponent<AudioSource>();
         health = 100.0f;
         playerNum = pNum;
-        startedRespawn = false;
+        pc = GetComponent<PlayerController>();
         c = GetComponent<SpriteRenderer>().material.color;
 
     }
@@ -84,6 +84,7 @@ public class PlayerInfo : MonoBehaviour
 
     public bool isDead(){
         return health <= 0.0f;
+     
     }
 
 
@@ -97,7 +98,7 @@ public class PlayerInfo : MonoBehaviour
         else { HPbar.SetSize(health / 100f); }
 
         //Check to see if player is dead
-        if(isDead()){
+        if(isDead() && !isRespawning){
             //Destroy the player object and notify player of death!!
             //LevelManager will handle the game conditions, do not have to worry about that
 
@@ -108,26 +109,20 @@ public class PlayerInfo : MonoBehaviour
             // or (preferably) disable controls, make player invisible, and teleport them, then reestablish control
             //transform.gameObject.SetActive(false);
             //Start respawn coroutine
-            if (!startedRespawn)
-            {
-                isRespawning = true;
-                startedRespawn = !startedRespawn;
-             
-                StartCoroutine("respawn");
-               
-            }
-
+            StartCoroutine("respawn");
         }
     }
 
 
     private IEnumerator respawn(){
+        isRespawning = true;
 		lives += -1;
         //deathParticles = Instantiate(levelManager.particles[3], transform.position, transform.rotation);
-        levelManager.SpawnParticleEffectAtPosition(transform.position, 3);
+        pc.StartDeathAnimation(); // stops player movement
+        //levelManager.SpawnParticleEffectAtPosition(transform.position, 3);
         levelManager.soundManager.PlaySoundByName(audioSources[0], "Death", false, 1.0f); // plays death sound
-
-        yield return new WaitForSeconds(1.5f);
+       
+        yield return new WaitForSeconds(1.8f);
 		Vector3 respawn = new Vector3(Random.Range(0, 45), Random.Range(0, 45), 0); // temp respawn fix
         //respawn = GetVector(Random.Range(1, 4));
         //Can specify respawn location before Coroutine is started and save as a temporary class variable
@@ -146,11 +141,12 @@ public class PlayerInfo : MonoBehaviour
 			break;
 		}
         transform.position = respawn;
-      
-        
+        pc.SetRevive();
+
         health = 100.0f;
+        isRespawning = false;
         levelManager.GetKillCounter().addKill(GetPlayerName(), elementOwnerName);
-        startedRespawn = !startedRespawn;
+    
 
     }
 

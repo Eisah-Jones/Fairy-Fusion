@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
 	private SpriteRenderer spriteR;
 
     private PlayerAffector playerAffector;
-
+    public bool isDead = false;
 
     public void InitPlayerController(FairyController vc)
     {
@@ -67,6 +67,7 @@ public class PlayerController : MonoBehaviour
 
     public void UpdatePlayerInputs(ControllerInputs inputs)
     {
+        if (isDead) { return; }
         // Vacuum Sucking
         suckLeft = inputs.Left_Bumper;
         suckRight = inputs.Right_Bumper;
@@ -105,6 +106,7 @@ public class PlayerController : MonoBehaviour
     // This function is called every frame by the level manager, called in fixed update
     public void UpdatePlayerMovement(ControllerInputs inputs)
     {
+        if (isDead) { return; }
         ////Change the position of the player
         horizontal = inputs.Left_Stick_Horizontal;
         vertical = -inputs.Left_Stick_Vertical;
@@ -154,6 +156,18 @@ public class PlayerController : MonoBehaviour
         spriteR.flipX = false;
     }
 
+    public void StartDeathAnimation()
+    {
+        isDead = !isDead;
+        player_animator.SetTrigger("Death");
+       
+    }
+    
+    public void SetRevive()
+    {
+        player_animator.SetTrigger("Revive");
+        isDead = !isDead;
+    }
 
     private void AnimatePlayer(float vertical, float horizontal, Vector2 movement, float heading, bool dash, float l_vertical = 0.0f, float l_horizontal =0.0f)
     {
