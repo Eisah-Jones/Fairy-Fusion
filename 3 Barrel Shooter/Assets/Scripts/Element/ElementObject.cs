@@ -75,15 +75,28 @@ public class ElementObject : MonoBehaviour {
     }
 
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log(collision.gameObject.tag);
+    }
+
+
     // When an element collides with something else
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.name == "Tilemap_Collider")
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         // We don't care if we collide with these objects
         if (collision == null || collision.gameObject.tag == "Untagged" || collision.gameObject.tag == "Walls") return;
         if (collision.gameObject.tag == "4-Leaf" || collision.gameObject.tag == "7-Fireball" || collision.gameObject.tag == "2-Rock" || collision.gameObject.tag == "4-Wood" || collision.gameObject.tag == "8-Mud")
         {
             if (collision.gameObject.GetComponent<ElementObject>().owner == owner) return;
         }
+
         if (collision.gameObject.tag == "Player")
         {
         

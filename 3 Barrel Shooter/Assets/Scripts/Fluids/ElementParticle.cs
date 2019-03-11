@@ -85,6 +85,12 @@ public class ElementParticle : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.name == "Tilemap_Collider")
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         if (collision.tag == "Walls" || collision.tag == "Untagged" || collision.tag[0] == 'R' || collision.tag == "TEST")
         {
             return;
