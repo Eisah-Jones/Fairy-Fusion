@@ -262,9 +262,9 @@ public class LevelManager: MonoBehaviour
 	private void SetUISprites(){
 		Sprite[] bullets = Resources.LoadAll<Sprite>("Sprites/Bullets");
 		uisprites [0] = bullets [11];
-		uisprites [1] = Resources.Load<Sprite>("Sprites/Resource_Fire");
+		uisprites [1] = bullets[5];
 		uisprites [2] = bullets [3];
-		uisprites [3] = Resources.Load<Sprite>("Sprites/Resource_Rock");
+		uisprites [3] = bullets[0];
 		uisprites [4] = Resources.Load<Sprite>("Sprites/Leaf");
 		uisprites [5] = bullets [2];
 		uisprites [6] = bullets [8];
