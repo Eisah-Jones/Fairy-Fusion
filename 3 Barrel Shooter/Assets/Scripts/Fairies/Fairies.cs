@@ -120,7 +120,7 @@ public class Fairies{
             //Return 2 if element is successfully removed and chamber is now empty
             //Return 1 if element is successfully removed
             //Return 0 if not
-            
+
             //Check to see if the element is in the chamber, if not return 0
             if (ContainsElement(elemName)){
                 chamber = interactionModel.RemoveFromChamber(chamber, num);
@@ -367,11 +367,13 @@ public class Fairies{
     }
 
 
-    public void RemoveFromCurrentChamber(string elemName, int i)
+    public void RemoveFromCurrentChamber(string elemName, int i, bool b)
     {
+
         if (elemName == "Air") return;
         if (IsCombo(elemName))
         {
+            Debug.Log("COMBO");
             combinationRequirements cr = levelManager.elementManager.GetElementDataByName(elemName).combinationRequirements;
             chambers[currentChamber].Remove(cr.elem1, i);
             chambers[currentChamber].Remove(cr.elem2, i);
@@ -380,7 +382,11 @@ public class Fairies{
         }
         else
         {
-            chambers[currentChamber].Remove(elemName, i);
+            Debug.Log("RM: " + currentChamber);
+            if (b)
+                chambers[currentChamber].Remove(elemName, i);
+            else
+                chambers[currentChamber + 1].Remove(elemName, i);
         }
     }
 
