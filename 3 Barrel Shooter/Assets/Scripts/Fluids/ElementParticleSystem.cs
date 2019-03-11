@@ -68,7 +68,6 @@ public class ElementParticleSystem : MonoBehaviour {
         particleSprite = lm.spriteManager.GetElementParticleSpriteByID(id);
         particleName = particleSprite.name;
         particle = Resources.Load<GameObject>("Fluids/Fluid Particle");
-        particle.GetComponent<SpriteRenderer>().sprite = particleSprite;
         rotation = t;
         StartCoroutine("SpawnParticles");
     }
@@ -94,7 +93,7 @@ public class ElementParticleSystem : MonoBehaviour {
             emissionDelay = Random.Range(emissionRangeStart, emissionRangeStart + emissionRange);
             yield return new WaitForSeconds(emissionDelay);
             GameObject p = Instantiate(particle, transform.position, rotation.rotation);
-            p.GetComponent<ElementParticle>().InitElementParticle(particleManager, particleID, particleLife, particleForce, rotation, owner, levelManager, particleName, spread, lifeRange, forceRange);
+            p.GetComponent<ElementParticle>().InitElementParticle(particleManager, particleID, particleLife, particleForce, rotation, owner, levelManager, particleName, spread, lifeRange, forceRange, particleSprite);
         }
     }
 }

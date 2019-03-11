@@ -23,6 +23,8 @@ public class Countdown : MonoBehaviour
     private bool isFlashing;
     bool gameOver = false;
     // Start is called before the first frame update
+
+
     void Start()
     {
         lm = FindObjectOfType<LevelManager>();
@@ -33,23 +35,36 @@ public class Countdown : MonoBehaviour
         //lm.soundManager.StartBGMusic();
     }
 
+
     public void incrementRound()
     {
         roundNum++;
     }
 
+
     public void togglePause()
     {
         isPaused = !isPaused;
     }
+
+
+    public void SetTimerActive(bool b)
+    {
+        isPaused = b;
+    }
+
     public void resetTimer()
     {
         currentTime = startTime;
     }
+
+
     public void setTimer(int n)
     {
         currentTime = n;
     }
+
+
     public IEnumerator FlashText()
     {
         while (currentTime < 11)
@@ -60,10 +75,14 @@ public class Countdown : MonoBehaviour
         }
         TextIndicator.enabled = true; // Don't forget to flip it back on incase it was off when exiting the loop!
     }
+
+
     IEnumerator Wait(float n)
     {
         yield return new WaitForSeconds(n);
     }
+
+
     // Update is called once per frame
     void Update()
     {
@@ -82,7 +101,7 @@ public class Countdown : MonoBehaviour
                 TextIndicator.text = ((int)currentTime).ToString();
             }
 
-            else
+            else if (!isPaused)
             {
                 //TextIndicator.gameObject.transform.position = new Vector3(TextIndicator.gameObject.transform.position.x, TextIndicator.gameObject.transform.position.y + 180, TextIndicator.gameObject.transform.position.z); ;
                 TextIndicator.fontSize = endofRoundfontSize;
@@ -121,6 +140,5 @@ public class Countdown : MonoBehaviour
             }
             LoadingBar.GetComponent<Image>().fillAmount = (currentTime) / (startTime);
         }
-   
     }
 }

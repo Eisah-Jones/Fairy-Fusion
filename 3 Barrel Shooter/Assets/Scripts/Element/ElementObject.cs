@@ -126,9 +126,10 @@ public class ElementObject : MonoBehaviour {
             }
             else if (result == "Reflect")
             {
+                if (collision.gameObject.GetComponent<ElementObject>() == null) return;
+                if (owner == collision.gameObject.GetComponent<ElementObject>().owner) return;
                 owner = collision.gameObject.GetComponent<ElementObject>().owner;
                 direction = -transform.right;
-                //owner = null;
             }
             i++;
         }
