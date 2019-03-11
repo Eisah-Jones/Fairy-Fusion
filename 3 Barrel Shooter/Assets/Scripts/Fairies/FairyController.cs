@@ -318,7 +318,14 @@ public class FairyController : MonoBehaviour {
     public void HandleShootStateInput(bool shootingLeft, bool shootingRight, string playerName, GameObject f)
     {
         fairies.SetShootingBools(shootingLeft, shootingRight);
-
+        if (shootingLeft || shootingRight)
+        {
+            suckCircle.SetBool("isSpitting", true);
+        }
+        else
+        {
+            suckCircle.SetBool("isSpitting", false);
+        }
         // Frame delay to make shooting combos easier
         if (isDelayingFrame)
         {
@@ -335,14 +342,7 @@ public class FairyController : MonoBehaviour {
             fairies.CheckFluid(false, false, gameObject);
             return;
         }
-        if (shootingLeft || shootingRight)
-        {
-            suckCircle.SetBool("isSpitting", true);
-        }
-        else
-        {
-            suckCircle.SetBool("isSpitting", false);
-        }
+    
         Fairies.Fairy.InventoryInfo result = null;
 
         if (shootingLeft && shootingRight)

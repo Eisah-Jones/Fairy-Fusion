@@ -12,7 +12,7 @@ public class ProjectileSpawner : MonoBehaviour {
     public AudioSource audioSourceFluid;
     public AudioSource backupAudio;
 
-
+    public FairyController fc;
 
     private LineRenderer lineRenderer;
     private bool resetFluidShooting;
@@ -23,7 +23,7 @@ public class ProjectileSpawner : MonoBehaviour {
         audioSourceFluid = gameObject.AddComponent<AudioSource>();
         audioSourceProjectile = gameObject.AddComponent<AudioSource>();
         backupAudio = gameObject.AddComponent<AudioSource>();
-
+        fc = GetComponent<FairyController>();
         lm = FindObjectOfType<LevelManager>();
         sm = lm.soundManager;
         resetFluidShooting = false;
@@ -47,7 +47,7 @@ public class ProjectileSpawner : MonoBehaviour {
         }
         else if (eID == 2)
         {
-            sm.PlaySoundByName(audioSourceProjectile, "Rockshot"); // plays rock shot sound
+            sm.PlaySoundByName(audioSourceProjectile, "Rockshot", false, .1f); // plays rock shot sound
         }
         else if (eID == 7)
         {
