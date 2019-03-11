@@ -177,20 +177,27 @@ public class FairyController : MonoBehaviour {
 		} else {
 			//Sets to air if empty
 			trigger.sprite = uisprites [0];
-			
 			return false;
 		}
+		return false;
 	}
 
 	private void UpdateCombo(string LTname, string RTname){
-		if((LTname == "Fire" && RTname == "Rock") || (RTname == "Fire" && LTname == "Rock")){
-			combo.sprite = uisprites[5];
+		if ((LTname == "Fire" && RTname == "Rock") || (RTname == "Fire" && LTname == "Rock")) {
+			combo.sprite = uisprites [5];
+		} else if ((LTname == "Fire" && RTname == "Water") || (RTname == "Fire" && LTname == "Water")) {
+			combo.sprite = uisprites [6];
+		} else if ((LTname == "Fire" && RTname == "Leaf") || (RTname == "Fire" && LTname == "Leaf")) {
+			combo.sprite = uisprites [7];
+		} else if ((LTname == "Water" && RTname == "Rock") || (RTname == "Water" && LTname == "Rock")) {
+			combo.sprite = uisprites [8];
+		} else if ((LTname == "Water" && RTname == "Leaf") || (RTname == "Water" && LTname == "Leaf")) {
+			combo.sprite = uisprites [9];
+		} else if ((LTname == "Leaf" && RTname == "Rock") || (RTname == "Leaf" && LTname == "Rock")) {
+			combo.sprite = uisprites [10];
 		}
-		else if((LTname == "Fire" && RTname == "Water") || (RTname == "Fire" && LTname == "Water")){
-			combo.sprite = uisprites[6];
-		}
-		else if((LTname == "Fire" && RTname == "Leaf") || (RTname == "Fire" && LTname == "Leaf")){
-			combo.sprite = uisprites[6];
+		else {
+			combo.enabled = false;
 		}
 	}
 
@@ -198,10 +205,13 @@ public class FairyController : MonoBehaviour {
 		string LTname = lt.GetElementNameByIndex (0);
 		string RTname = rt.GetElementNameByIndex (0);
 		//Updates LT and RT and if both have an element updates combo
-		if (UpdateTrigger (LTname, LT) && UpdateTrigger (RTname, RT)) {
+		bool ltbool = UpdateTrigger (LTname, LT);
+		bool rtbool = UpdateTrigger (RTname, RT);
+		if (ltbool && rtbool) {
+			combo.enabled = true;
 			UpdateCombo (LTname, RTname);
 		} else {
-			combo.sprite = uisprites [0];
+			combo.enabled = false;
 		}
 
 	}
