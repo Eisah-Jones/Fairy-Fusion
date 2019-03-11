@@ -39,10 +39,14 @@ public class Resource : MonoBehaviour {
             if (resourceAvailable == 0) 
             {
                 lm.soundManager.PlaySoundByName(audiosource, "ResourcePickup", false, 1f);
-                lm.SpawnParticleEffectAtPosition(gameObject.transform.position, 4);
+
+
 
                 if (resourceName != "Tree")
+                {
                     StartCoroutine("DestroyResource");
+                    lm.SpawnParticleEffectAtPosition(gameObject.transform.position, 4);
+                }
                 else
                 {
                     StartCoroutine("RegenerateResource");
