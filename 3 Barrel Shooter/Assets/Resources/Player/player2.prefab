@@ -721,6 +721,7 @@ MonoBehaviour:
   dashTimer: 0
   maxTime: 0
   dashForce: 0
+  isDead: 0
 --- !u!114 &114414126025001452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -745,7 +746,7 @@ Animator:
   m_GameObject: {fileID: 1756415907752874}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d705cc6940e0ddb44ab52478ae065145, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

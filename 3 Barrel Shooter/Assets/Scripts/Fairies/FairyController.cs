@@ -52,11 +52,9 @@ public class FairyController : MonoBehaviour {
     }
 
     
-    void Start () {
+    void Start () 
+    {
         audioSource = GetComponentInParent<AudioSource>();
-        suckCircle = GetComponentInChildren<Animator>();
-        Debug.Log(suckCircle.gameObject.tag);
-
     }
     
     
@@ -295,12 +293,10 @@ public class FairyController : MonoBehaviour {
         {
             fairies.SetVacuum(stateLeft, stateRight);
             fairyArea.enabled = stateLeft || stateRight;
-            suckCircle.SetBool("Sucking", true);
             //levelManager.soundManager.PlaySoundByName(audioSource, "SuckingSound", true);
             if (!(stateLeft || stateRight))
             {
                 levelManager.soundManager.StopSound(audioSource);
-                suckCircle.SetBool("Sucking", false);
             }
         }
     }
