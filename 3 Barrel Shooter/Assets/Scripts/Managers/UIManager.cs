@@ -23,6 +23,8 @@ public class UIManager : MonoBehaviour
     private float inputDelayTimeVertical = 0.2f;
     private float inputDelayTimeHorizontal = 0.013f;
 
+    private int startButtonIndex = -1;
+
     // Level UI Elements
     private EnemyArrows enemyArrows;
     public GameObject canvas;
@@ -108,10 +110,22 @@ public class UIManager : MonoBehaviour
         }
 
         List<ControllerInputs> ci = controllerManager.GetControllerInputs();
+        if (!isPaused)
+        {
+            startButtonIndex = GetStartButton(ci);
+        }
 
         if (isDetectingVerticalInput)
         {
-            int v = GetLeftStickVertical(ci);
+            int v;
+            if (startButtonIndex == -1)
+            {
+                v = GetLeftStickVertical(ci);
+            }
+            else 
+            {
+                v = GetLeftStickVertical(ci[startButtonIndex]);
+            }
             if (v != 0)
             {
                 activeMenu.SetActiveElement(v);
@@ -134,7 +148,7 @@ public class UIManager : MonoBehaviour
             }
         }
 
-        if (GetStartButton(ci) && SceneManager.GetActiveScene().name == "Level")
+        if (GetStartButton(ci) != -1 && SceneManager.GetActiveScene().name == "Level")
         {
             menus[0].GetMenu().SetActive(!menus[0].GetMenu().activeSelf);
             isPaused = menus[0].GetMenu().activeSelf;
@@ -144,10 +158,18 @@ public class UIManager : MonoBehaviour
         {
             tutorialMenu.HandleInput(ci[0]);
         }
-        else if (ci[0].A_Button && activeMenu.GetName() != "PlayerSelect" && activeMenu.GetActiveElement() != null)
+        else if (GetAButton(ci) && activeMenu.GetName() != "PlayerSelect" && activeMenu.GetActiveElement() != null)
         {
-            activeMenu.GetActiveElement().Interact(0);
-            SetActiveMenu();
+            if (isPaused && GetAButton(ci[startButtonIndex]))
+            {
+                activeMenu.GetActiveElement().Interact(0);
+                SetActiveMenu();
+            }
+            else if (!isPaused)
+            {
+                activeMenu.GetActiveElement().Interact(0);
+                SetActiveMenu();
+            }
         }
         else if (ci[0].B_Button && activeMenu.GetName() == "OptionsMenu")
         {
@@ -216,13 +238,60 @@ public class UIManager : MonoBehaviour
     }
 
 
+    private bool GetBButton(List<ControllerInputs> ci)
+    {
+        foreach (ControllerInputs c in ci)
+        {
+            if (c.B_Button) return true;
+        }
+        return false;
+    }
+
+
+    private bool GetBButton(ControllerInputs c)
+    {
+        return c.B_Button;
+    }
+
+
+    private bool GetAButton(List<ControllerInputs> ci)
+    {
+        foreach (ControllerInputs c in ci)
+        {
+            if (c.A_Button) return true;
+        }
+        return false;
+    }
+
+
+    private bool GetAButton(ControllerInputs c)
+    {
+        return c.A_Button;
+    }
+
+
     private int GetLeftStickVertical(List<ControllerInputs> ci)
     {
         int dir = 0;
-        float leftStickVertical = ci[0].Left_Stick_Vertical;
+        foreach (ControllerInputs c in ci)
+        {
+            float leftStickVertical = c.Left_Stick_Vertical;
+
+            if (leftStickVertical < -buttonDeadZone) dir = -1;
+            else if (leftStickVertical > buttonDeadZone) dir = 1;
+        }
+
+        return dir;
+    }
+
+    private int GetLeftStickVertical(ControllerInputs c)
+    {
+        int dir = 0;
+        float leftStickVertical = c.Left_Stick_Vertical;
 
         if (leftStickVertical < -buttonDeadZone) dir = -1;
         else if (leftStickVertical > buttonDeadZone) dir = 1;
+
         return dir;
     }
 
@@ -230,22 +299,28 @@ public class UIManager : MonoBehaviour
     private int GetLeftStickHorizontal(List<ControllerInputs> ci)
     {
         int dir = 0;
-        float leftStickHorizontal = ci[0].Left_Stick_Horizontal;
+        foreach (ControllerInputs c in ci)
+        {
+            float leftStickHorizontal = c.Left_Stick_Horizontal;
 
-        if (leftStickHorizontal < -buttonDeadZone) dir = -1;
-        else if (leftStickHorizontal > buttonDeadZone) dir = 1;
+            if (leftStickHorizontal < -buttonDeadZone) dir = -1;
+            else if (leftStickHorizontal > buttonDeadZone) dir = 1;
+        }
+
         return dir;
     }
 
     
-    private bool GetStartButton(List<ControllerInputs> ci)
+    private int GetStartButton(List<ControllerInputs> ci)
     {
+        int j = 0;
         foreach (ControllerInputs i in ci)
         {
             if (i.Start_Button)
-                return true;
+                return j;
+            j++;
         }
-        return false;
+        return -1;
     }
 
 
