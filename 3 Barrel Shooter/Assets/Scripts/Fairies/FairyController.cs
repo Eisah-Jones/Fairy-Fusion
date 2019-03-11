@@ -392,7 +392,7 @@ public class FairyController : MonoBehaviour {
             int shotResult = p.ShootFluid(eID, levelManager, playerName, projectileSpawner, o);
             if (shotResult != -1) // Something was shot, update chamber
             {
-                fairies.RemoveFromCurrentChamber(eName, shotResult);
+                fairies.RemoveFromCurrentChamber(eName, shotResult, false);
             }
         }
         else if (projectileType == "Beam")
@@ -414,7 +414,7 @@ public class FairyController : MonoBehaviour {
             else
             {
                 p.ShootProjectile(eID, levelManager, playerName, projectileSpawner);
-                fairies.RemoveFromCurrentChamber(eName, 1);
+                fairies.RemoveFromCurrentChamber(eName, 1, shootingLeft);
                 fairies.SetCombinationChambers();
             }
            
