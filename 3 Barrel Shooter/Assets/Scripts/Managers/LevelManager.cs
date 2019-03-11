@@ -73,7 +73,8 @@ public class LevelManager: MonoBehaviour
 
 
     // Use this for initialization
-    public void InitLevelManager (int num) {
+    public void InitLevelManager (int num) 
+    {
         numPlayers = num;
 
         // Init/Create Manager References

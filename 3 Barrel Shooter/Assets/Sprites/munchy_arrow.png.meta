@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: bed25d58eeb3e4c609aa20f3f28ba19f
+guid: 2ceb9692951e6e740bba368326200601
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Resource_Fire_3
-    21300002: Resource_Fire_1
-    21300004: Resource_Fire_2
+    21300000: munchy_arrow_0
+    21300002: munchy_arrow_1
+    21300004: munchy_arrow_2
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: -1
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -98,13 +98,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Resource_Fire_3
+      name: munchy_arrow_0
       rect:
         serializedVersion: 2
-        x: 36
-        y: 352
-        width: 256
-        height: 262
+        x: 0
+        y: 56
+        width: 56
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,19 +112,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ca2a6212119514449b47575f5ac89599
+      spriteID: f77d6b7303bf18943ac0fe72366bfb70
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Resource_Fire_1
+      name: munchy_arrow_1
       rect:
         serializedVersion: 2
-        x: 381
-        y: 368
-        width: 192
-        height: 224
+        x: 0
+        y: 28
+        width: 56
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,19 +132,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 11b792e43971ebc4dbfb63e2dbbbadeb
+      spriteID: 889a117e9105c5c43a5f90818bb248bb
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Resource_Fire_2
+      name: munchy_arrow_2
       rect:
         serializedVersion: 2
-        x: 67
-        y: 39
-        width: 168
-        height: 166
+        x: 0
+        y: 0
+        width: 56
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,7 +152,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 55df591f3e27cd545b4e5eefbd8dd22a
+      spriteID: 9021abc790898d84d84c7c67f7dff352
       vertices: []
       indices: 
       edges: []
@@ -160,7 +160,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: c85a85aef6fab8c48b5e2a5c327762fa
+    spriteID: 71f8d9d891f28a04b9a67388134f5751
     vertices: []
     indices: 
     edges: []

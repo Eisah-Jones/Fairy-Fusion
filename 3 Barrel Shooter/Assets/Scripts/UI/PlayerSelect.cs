@@ -5,48 +5,43 @@ using UnityEngine.UI;
 
 public class PlayerSelect : UIElement
 {
-    private Text text;
-    private string playerColor;
     private string elementType = "PlayerSelect";
 
-    private string join  = "Press A to Join";
-    private string readyUp = "Press A to Ready";
-    private string readied = "Ready";
+    private GameObject prompt;
+    private GameObject playerImage;
+    private GameObject ready;
 
     private bool isReady = false;
     private bool back = false;
 
-    public void InitPlayerSelect(Text t)
+    public void InitPlayerSelect(GameObject ps)
     {
-        text = t;
-        text.text = join;
+        prompt = ps.transform.GetChild(2).gameObject;
+        playerImage = ps.transform.GetChild(1).gameObject;
+        ready = ps.transform.GetChild(3).gameObject;
+        playerImage.SetActive(false);
+        ready.SetActive(false);
     }
 
 
     public void Interact(int dir)
     {
-        if (dir == 1) //A button pressed
+        if (!isReady && dir == 1)
         {
-            if (text.text == join)
-                text.text = readyUp;
-            else if (text.text == readyUp)
-            {
-                text.text = readied;
-                isReady = true;
-            }
+            isReady = !isReady;
+            playerImage.SetActive(true);
+            prompt.SetActive(false);
+            ready.SetActive(true);
         }
-        else if (dir == -1) // B button pressed
-        {
-            if (text.text == readied)
-            {
-                text.text = readyUp;
-                isReady = false;
-            }
-            else if (text.text == readyUp)
-                text.text = join;
-            else if (text.text == join) //Go back to main menu
-                back = true;
+        else if (!isReady && dir == -1) { back = true; } // Go to main menu
+        else if (isReady && dir == -1) 
+        { 
+            isReady = !isReady;
+            playerImage.SetActive(false);
+            prompt.SetActive(true);
+            ready.SetActive(false);
         }
+
     }
 
     // Not applicable
@@ -88,7 +83,6 @@ public class PlayerSelect : UIElement
 
     public void Reset()
     {
-        text.text = join;
-        back = false;
+
     }
 }

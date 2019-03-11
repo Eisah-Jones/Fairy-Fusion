@@ -1,23 +1,19 @@
 fileFormatVersion: 2
-guid: 273e1229c8ef2e74598357f25a892a49
+guid: ca82215b1622c4e428d041c8eb01e667
 TextureImporter:
   fileIDToRecycleName:
-    21300000: RainbowCircleSheet_0
-    21300002: RainbowCircleSheet_1
-    21300004: RainbowCircleSheet_2
-    21300006: RainbowCircleSheet_3
-    21300008: RainbowCircleSheet_4
-    21300010: RainbowCircleSheet_5
-    21300012: RainbowCircleSheet_6
-    21300014: RainbowCircleSheet_7
-    21300016: RainbowCircleSheet_8
-    21300018: RainbowCircleSheet_9
-    21300020: RainbowCircleSheet_10
-    21300022: RainbowCircleSheet_11
-    21300024: RainbowCircleSheet_12
-    21300026: RainbowCircleSheet_13
-    21300028: RainbowCircleSheet_14
-    21300030: RainbowCircleSheet_15
+    21300000: munchy_mouth_sheet_0
+    21300002: munchy_mouth_sheet_1
+    21300004: munchy_mouth_sheet_2
+    21300006: munchy_mouth_sheet_3
+    21300008: munchy_mouth_sheet_4
+    21300010: munchy_mouth_sheet_5
+    21300012: munchy_mouth_sheet_6
+    21300014: munchy_mouth_sheet_7
+    21300016: munchy_mouth_sheet_8
+    21300018: munchy_mouth_sheet_9
+    21300020: munchy_mouth_sheet_10
+    21300022: munchy_mouth_sheet_11
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -47,7 +43,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
+    filterMode: 0
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -63,7 +59,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -78,7 +74,7 @@ TextureImporter:
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 4
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -89,7 +85,7 @@ TextureImporter:
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 4
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -100,7 +96,7 @@ TextureImporter:
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 4
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -111,13 +107,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: RainbowCircleSheet_0
+      name: munchy_mouth_sheet_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 192
-        width: 64
-        height: 64
+        y: 140
+        width: 56
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -125,19 +121,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e0539df6532df254ba67145f14214e5f
+      spriteID: 0f64c29a7106ff14a8bdd5bdc15d85f2
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RainbowCircleSheet_1
+      name: munchy_mouth_sheet_1
       rect:
         serializedVersion: 2
-        x: 64
-        y: 192
-        width: 64
-        height: 64
+        x: 56
+        y: 140
+        width: 56
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,59 +141,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d470c098b8937b64e89a86c7af9d8925
+      spriteID: 84ceb2fadcfeb5a488a4d25853e6411c
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RainbowCircleSheet_2
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 192
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ab6e9c9bc58329f46aed05f19da5716a
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: RainbowCircleSheet_3
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 192
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 965ab41119eb21846b27470813601854
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: RainbowCircleSheet_4
+      name: munchy_mouth_sheet_2
       rect:
         serializedVersion: 2
         x: 0
-        y: 128
-        width: 64
-        height: 64
+        y: 112
+        width: 56
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -205,19 +161,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 256287100c57384439d2597d1fc9caf7
+      spriteID: c2f9cfbc1e56f844c91d87772ed56fad
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RainbowCircleSheet_5
+      name: munchy_mouth_sheet_3
       rect:
         serializedVersion: 2
-        x: 64
-        y: 128
-        width: 64
-        height: 64
+        x: 56
+        y: 112
+        width: 56
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -225,59 +181,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f0668d1086ee9b447960032cc7e2d934
+      spriteID: c2d88635511e5444fabd0a85330b8082
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RainbowCircleSheet_6
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 128
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0260e03e6c5169041a76aa8acfc75994
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: RainbowCircleSheet_7
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 128
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 481f185819c3d2c418f0220c7af7eefc
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: RainbowCircleSheet_8
+      name: munchy_mouth_sheet_4
       rect:
         serializedVersion: 2
         x: 0
-        y: 64
-        width: 64
-        height: 64
+        y: 84
+        width: 56
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -285,19 +201,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 495e05dde72c923439dc562998a7f010
+      spriteID: 6566da31776e95b448316e4a6703ba03
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RainbowCircleSheet_9
+      name: munchy_mouth_sheet_5
       rect:
         serializedVersion: 2
-        x: 64
-        y: 64
-        width: 64
-        height: 64
+        x: 56
+        y: 84
+        width: 56
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -305,19 +221,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5fada3ac60080b646b25de6c8625cdfb
+      spriteID: 0ad784915f339b843992870327048388
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RainbowCircleSheet_10
+      name: munchy_mouth_sheet_6
       rect:
         serializedVersion: 2
-        x: 128
-        y: 64
-        width: 64
-        height: 64
+        x: 0
+        y: 56
+        width: 56
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -325,19 +241,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 781f970708ea64c4bb82eeb0967b506b
+      spriteID: d54913ccc47de754ba52534b2996002a
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RainbowCircleSheet_11
+      name: munchy_mouth_sheet_7
       rect:
         serializedVersion: 2
-        x: 192
-        y: 64
-        width: 64
-        height: 64
+        x: 56
+        y: 56
+        width: 56
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -345,19 +261,59 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b094704a2a70152449e662138a264814
+      spriteID: 0827ab3b22a8216438975a970b28a724
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RainbowCircleSheet_12
+      name: munchy_mouth_sheet_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 28
+        width: 56
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fac928fd76bf4ff4fa59823327415794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: munchy_mouth_sheet_9
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 28
+        width: 56
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0dbfada0346e4bf4c8d3103374e72a5f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: munchy_mouth_sheet_10
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
-        height: 64
+        width: 56
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -365,19 +321,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8c309bba2a37ba04293b1007b53af107
+      spriteID: 3180bcc714dedf64d84fcbdbe6749a70
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RainbowCircleSheet_13
+      name: munchy_mouth_sheet_11
       rect:
         serializedVersion: 2
-        x: 64
+        x: 56
         y: 0
-        width: 64
-        height: 64
+        width: 56
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -385,47 +341,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2ee11c271ab47f04a86b68fa78543f9c
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: RainbowCircleSheet_14
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 41d18a67183728e4eb44ee18c483afc6
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: RainbowCircleSheet_15
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2c33c96766f69314bac091dae8de4528
+      spriteID: 8789f4c74ba209c43884b32a99bc8879
       vertices: []
       indices: 
       edges: []
@@ -433,7 +349,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 57ad4e911831626479277ad21876eb37
+    spriteID: 6ee806736cf486c439f620add5c2f92d
     vertices: []
     indices: 
     edges: []

@@ -20,6 +20,7 @@ public class LevelGenerator : MonoBehaviour
     private List<Vector3> spawnPos;
     private string[,] terrainMap; //Array for storing level floor map
     private SpriteManager spriteManager;
+    private List<GameObject> playerObjectList;
 
     public void GenerateLevel(Tilemap tm, Tilemap cm, Tilemap trigm, SpriteManager sm, ResourceManager rm){
 
@@ -187,13 +188,20 @@ public class LevelGenerator : MonoBehaviour
         return t;
     }
 
-    public List<GameObject> SpawnPlayers(GameObject p, LevelManager lm, int numPlayers){
+    public List<GameObject> SpawnPlayers(GameObject p, LevelManager lm, int numPlayers)
+    {
 
         List<GameObject> result = new List<GameObject>();
+        playerObjectList = new List<GameObject>();
+        for (int i = 1; i < 5; i++)
+        {
+            playerObjectList.Add(Resources.Load<GameObject>("Player/player" + i));
+        }
 
-        for (int i = 0; i < numPlayers; i++){
+        for (int i = 0; i < numPlayers; i++)
+        {
             Vector3 pos = GetSpawnPos(center + spawnPos[i]);
-            GameObject player = Instantiate(p, pos, Quaternion.identity); // Spawn player object
+            GameObject player = Instantiate(playerObjectList[i], pos, Quaternion.identity); // Spawn player object
             player.AddComponent<PlayerInfo>(); // Add PlayerInfo script
             player.GetComponent<PlayerInfo>().InitPlayerInfo(lm, i+1); // Initialize player info script
             GameObject playerGun = player.transform.Find("Fairies").gameObject; // Get a reference to the player's gun object
