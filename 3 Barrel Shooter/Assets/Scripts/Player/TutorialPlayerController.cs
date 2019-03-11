@@ -23,6 +23,7 @@ public class TutorialPlayerController : MonoBehaviour
     public bool hasHarnessedLeft = false;
     public bool hasCastedLeft = false;
     public bool hasHarnessedRight = false;
+    public bool hasCastedCombo = false;
 
 
     public enum DashState
@@ -51,65 +52,66 @@ public class TutorialPlayerController : MonoBehaviour
     }
 
 
-    public void HandleStage(int s, float leftHorizontal, float leftVertical, float rightHorizontal, float rightVertical, bool dash, bool leftBumper, bool leftTrigger, bool rightBumper)
+    public void HandleStage(int s, float leftHorizontal, float leftVertical, float rightHorizontal, float rightVertical, bool dash, bool leftBumper, bool leftTrigger, bool rightBumper, bool rightTrigger)
     {
+            // gets rotation input from right stick
+            float heading = Mathf.Atan2(rightVertical, rightHorizontal);
 
-        // gets rotation input from right stick
-        float heading = Mathf.Atan2(rightVertical, rightHorizontal);
+            //Change the position of the player
+            float horizontalSpeed = leftHorizontal * speed;
+            float verticalSpeed = -leftVertical * speed;
 
-        //Change the position of the player
-        float horizontalSpeed = leftHorizontal * speed;
-        float verticalSpeed = -leftVertical * speed;
+            Vector2 movement = new Vector2(horizontalSpeed, verticalSpeed);
 
-        Vector2 movement = new Vector2(horizontalSpeed, verticalSpeed);
-
-        AnimatePlayer(rightVertical, rightHorizontal, movement, heading, false, leftVertical, leftHorizontal);
-
-        // Move the player
-        transform.Translate(movement * Time.deltaTime, Space.World);
-
-        //change rotation of player if no input received keeps same rotation as last time it got input prevents snapping back to 0,0 heading
-        if (heading == 0 && rightHorizontal > 0)
+            AnimatePlayer(rightVertical, rightHorizontal, movement, heading, false, leftVertical, leftHorizontal);
+        if (s < 7)
         {
-            last_heading = heading;
-            fairies.transform.rotation = Quaternion.Euler(0f, 0f, 1f);
-        }
-        else if (heading != 0)
-        {
-            last_heading = heading;
-            fairies.transform.rotation = Quaternion.Euler(0f, 0f, last_heading * Mathf.Rad2Deg);
-        }
+            // Move the player
+            transform.Translate(movement * Time.deltaTime, Space.World);
 
-        switch (dashState) // initiates dash mechanic
-        {
-            case DashState.Ready:
+            //change rotation of player if no input received keeps same rotation as last time it got input prevents snapping back to 0,0 heading
+            if (heading == 0 && rightHorizontal > 0)
+            {
+                last_heading = heading;
+                fairies.transform.rotation = Quaternion.Euler(0f, 0f, 1f);
+            }
+            else if (heading != 0)
+            {
+                last_heading = heading;
+                fairies.transform.rotation = Quaternion.Euler(0f, 0f, last_heading * Mathf.Rad2Deg);
+            }
 
-                if (dash) // if dash input is detected use last heading to calculate dash direction
-                {
-                    //Debug.Log("Heading: " + heading);
-                    //Debug.Log("Last Heading: " + last_heading);
-                    Vector2 dir = RadianToVector2(last_heading);
-                    playerRigidBody.AddForce(dir * dashForce, ForceMode2D.Impulse);
-                    dashState = DashState.Dashing;
-                }
-                break;
-            case DashState.Dashing:
+            switch (dashState) // initiates dash mechanic
+            {
+                case DashState.Ready:
 
-                dashTimer += Time.deltaTime * 3;
-                if (dashTimer >= maxTime)
-                {
-                    dashTimer = maxTime;
-                    dashState = DashState.Cooldown;
-                }
-                break;
-            case DashState.Cooldown:
-                dashTimer -= Time.deltaTime;
-                if (dashTimer <= 0)
-                {
-                    dashTimer = 0;
-                    dashState = DashState.Ready;
-                }
-                break;
+                    if (dash) // if dash input is detected use last heading to calculate dash direction
+                    {
+                        //Debug.Log("Heading: " + heading);
+                        //Debug.Log("Last Heading: " + last_heading);
+                        Vector2 dir = RadianToVector2(last_heading);
+                        playerRigidBody.AddForce(dir * dashForce, ForceMode2D.Impulse);
+                        dashState = DashState.Dashing;
+                    }
+                    break;
+                case DashState.Dashing:
+
+                    dashTimer += Time.deltaTime * 3;
+                    if (dashTimer >= maxTime)
+                    {
+                        dashTimer = maxTime;
+                        dashState = DashState.Cooldown;
+                    }
+                    break;
+                case DashState.Cooldown:
+                    dashTimer -= Time.deltaTime;
+                    if (dashTimer <= 0)
+                    {
+                        dashTimer = 0;
+                        dashState = DashState.Ready;
+                    }
+                    break;
+            }
         }
 
         switch (s)
@@ -150,6 +152,14 @@ public class TutorialPlayerController : MonoBehaviour
                 else if (!hasHarnessedRight)
                 {
                     hasHarnessedRight = tf.GetHarnessedRight();
+                }
+                break;
+            case 6:
+                if (!hasCastedCombo && rightTrigger && leftTrigger)
+                {
+                    tf.ShootCombo();
+                    hasCastedCombo = true;
+                    SetAnimsFalse();
                 }
                 break;
         }
