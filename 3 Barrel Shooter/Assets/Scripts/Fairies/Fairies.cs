@@ -373,7 +373,6 @@ public class Fairies{
         if (elemName == "Air") return;
         if (IsCombo(elemName))
         {
-            Debug.Log("COMBO");
             combinationRequirements cr = levelManager.elementManager.GetElementDataByName(elemName).combinationRequirements;
             chambers[currentChamber].Remove(cr.elem1, i);
             chambers[currentChamber].Remove(cr.elem2, i);
@@ -382,7 +381,6 @@ public class Fairies{
         }
         else
         {
-            Debug.Log("RM: " + currentChamber);
             if (b)
                 chambers[currentChamber].Remove(elemName, i);
             else
