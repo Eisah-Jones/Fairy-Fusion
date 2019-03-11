@@ -165,7 +165,7 @@
     "damage": 12,
     "fireRate": 15,
     "projectileType": "Bullet",
-    "projectileLife": 6,
+    "projectileLife": 10,
     "chamberCapacity": 40,
     "speed": 15,
     "yield": 0,
@@ -325,12 +325,12 @@
     "damage": 10,
     "fireRate": 10,
     "projectileType": "Splinter",
-    "projectileLife": 8,
+    "projectileLife": 10,
     "chamberCapacity": 50,
     "speed": 15,
     "yield": 0,
     "playerCollisionEffects": [
-      "Knockback"
+      "Pushback"
     ],
     "chamberInteractions": {
       "Fire": "Laser",
@@ -485,9 +485,9 @@
     "damage": 32,
     "fireRate": 25,
     "projectileType": "Bullet",
-    "projectileLife": 7,
+    "projectileLife": 10,
     "chamberCapacity": 20,
-    "speed": 25,
+    "speed": 20,
     "yield": 0,
     "playerCollisionEffects": [
       "Burn",

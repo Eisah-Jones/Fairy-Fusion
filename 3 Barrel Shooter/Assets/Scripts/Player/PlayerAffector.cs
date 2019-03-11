@@ -66,7 +66,7 @@ public class PlayerAffector : MonoBehaviour
 
         playerBody.GetComponent<Rigidbody2D>().AddForce(heading * 15, ForceMode2D.Impulse);
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
-        sr.material.color = Color.grey;
+        sr.material.color = Color.gray;
         yield return new WaitForFixedUpdate();
         sr.material.color = c;
     }
@@ -77,7 +77,7 @@ public class PlayerAffector : MonoBehaviour
         Vector2 heading = playerBody.transform.position - t.position;
         heading = heading.normalized;
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
-        sr.material.color = Color.grey;
+        sr.material.color = Color.gray;
         playerBody.GetComponent<Rigidbody2D>().AddForce(heading * 3, ForceMode2D.Impulse);
         yield return new WaitForFixedUpdate();
         sr.material.color = c;

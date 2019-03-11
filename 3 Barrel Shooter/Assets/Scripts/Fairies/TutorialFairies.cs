@@ -16,6 +16,7 @@ public class TutorialFairies : MonoBehaviour
     private bool harnessedLeft = false;
     private bool castedLeft = false;
     private bool harnessedRight = false;
+    private bool hasCastedCombo = false;
 
     public void InitTutorialFairies()
     {
@@ -27,6 +28,7 @@ public class TutorialFairies : MonoBehaviour
         fire = Instantiate(tempFire, spawnPos.transform);
         fireSystem = fire.GetComponent<TutorialElementSystem>();
         fireSystem.InitTutorialElementSystem(spawnPos);
+        fireball = Resources.Load<GameObject>("Elements/Tutorial_Fireball");
     }
 
 
@@ -34,6 +36,14 @@ public class TutorialFairies : MonoBehaviour
     {
         Debug.Log(cl);
         fireSystem.isEmitting = cl;
+    }
+
+
+    public void ShootCombo()
+    {
+        GameObject fb = Instantiate(fireball, spawnPos.position, spawnPos.rotation);
+        fb.GetComponent<Rigidbody2D>().velocity = transform.right * 10f;
+        hasCastedCombo = true;
     }
 
 
@@ -89,20 +99,23 @@ public class TutorialFairies : MonoBehaviour
     private IEnumerator HandleElementShake(Collider2D other)
     {
         yield return new WaitForSeconds(1f);
-        Destroy(other.gameObject);
-        if (harnessedElement == "Fire" && !harnessedLeft && !harnessedRight)
+        if (other != null)
         {
-            harnessedElement = "";
-            harnessedLeft = true;
-            fairy1.GetChild(0).gameObject.SetActive(false);
-            fairy1.GetChild(1).gameObject.SetActive(true);
-        }
-        else if (harnessedElement == "Rock" && harnessedLeft)
-        {
-            harnessedElement = "";
-            harnessedRight = true;
-            fairy2.GetChild(0).gameObject.SetActive(false);
-            fairy2.GetChild(1).gameObject.SetActive(true);
+            Destroy(other.gameObject);
+            if (harnessedElement == "Fire" && !harnessedLeft && !harnessedRight)
+            {
+                harnessedElement = "";
+                harnessedLeft = true;
+                fairy1.GetChild(0).gameObject.SetActive(false);
+                fairy1.GetChild(1).gameObject.SetActive(true);
+            }
+            else if (harnessedElement == "Rock" && harnessedLeft)
+            {
+                harnessedElement = "";
+                harnessedRight = true;
+                fairy2.GetChild(0).gameObject.SetActive(false);
+                fairy2.GetChild(1).gameObject.SetActive(true);
+            }
         }
     }
 }

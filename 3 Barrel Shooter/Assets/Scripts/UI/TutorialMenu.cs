@@ -18,6 +18,8 @@ public class TutorialMenu : MonoBehaviour
     GameObject bumpersUI1;
     GameObject triggersUI1;
     GameObject bumpersUI2;
+    GameObject triggersUI2;
+    GameObject playerUI;
 
     private bool A_Button;
     private bool B_Button;
@@ -35,6 +37,7 @@ public class TutorialMenu : MonoBehaviour
     private bool LT = false;
 
     private bool RB = false;
+    private bool RT = false;
 
 
     public void InitTutorialMenu(UIManager uim, LevelManager lm)
@@ -49,6 +52,8 @@ public class TutorialMenu : MonoBehaviour
         bumpersUI1 = transform.GetChild(3).gameObject;
         triggersUI1 = transform.GetChild(4).gameObject;
         bumpersUI2 = transform.GetChild(5).gameObject;
+        triggersUI2 = transform.GetChild(6).gameObject;
+        playerUI = transform.GetChild(7).gameObject;
     }
 
 
@@ -70,6 +75,7 @@ public class TutorialMenu : MonoBehaviour
         LT = c.Left_Trigger > 0;
 
         RB = c.Right_Bumper;
+        RT = c.Right_Trigger > 0;
 
         switch(stage)
         {
@@ -77,7 +83,7 @@ public class TutorialMenu : MonoBehaviour
                 ControlStage(A_Button, B_Button);
                 return;
             case 1:
-                tutorialPC.HandleStage(1, LS_Horizontal, LS_Vertical, RS_Horizontal, RS_Vertical, false, false, false, false);
+                tutorialPC.HandleStage(1, LS_Horizontal, LS_Vertical, RS_Horizontal, RS_Vertical, false, false, false, false, false);
                 if (controlsUI.activeSelf)
                 {
                     controlsUI.SetActive(false);
@@ -90,7 +96,7 @@ public class TutorialMenu : MonoBehaviour
                 }
                 break;
             case 2:
-                tutorialPC.HandleStage(2, LS_Horizontal, LS_Vertical, RS_Horizontal, RS_Vertical, RS_Click, false, false, false);
+                tutorialPC.HandleStage(2, LS_Horizontal, LS_Vertical, RS_Horizontal, RS_Vertical, RS_Click, false, false, false, false);
                 if (sticksUI1.activeSelf)
                 {
                     sticksUI1.SetActive(false);
@@ -100,7 +106,7 @@ public class TutorialMenu : MonoBehaviour
                 if (tutorialPC.hasDashed && !startedCoroutine) StartCoroutine("SetStage", 3);
                 break;
             case 3:
-                tutorialPC.HandleStage(3, LS_Horizontal, LS_Vertical, RS_Horizontal, RS_Vertical, RS_Click, LB, false, false);
+                tutorialPC.HandleStage(3, LS_Horizontal, LS_Vertical, RS_Horizontal, RS_Vertical, RS_Click, LB, false, false, false);
                 if (sticksUI2.activeSelf)
                 {
                     sticksUI2.SetActive(false);
@@ -110,7 +116,7 @@ public class TutorialMenu : MonoBehaviour
                 if (tutorialPC.hasHarnessedLeft && !startedCoroutine) StartCoroutine("SetStage", 4);
                 break;
             case 4:
-                tutorialPC.HandleStage(4, LS_Horizontal, LS_Vertical, RS_Horizontal, RS_Vertical, RS_Click, LB, LT, false);
+                tutorialPC.HandleStage(4, LS_Horizontal, LS_Vertical, RS_Horizontal, RS_Vertical, RS_Click, LB, LT, false, false);
                 if (bumpersUI1.activeSelf)
                 {
                     bumpersUI1.SetActive(false);
@@ -120,11 +126,30 @@ public class TutorialMenu : MonoBehaviour
                 if (tutorialPC.hasCastedLeft && !startedCoroutine) StartCoroutine("SetStage", 5);
                 break;
             case 5:
-                tutorialPC.HandleStage(5, LS_Horizontal, LS_Vertical, RS_Horizontal, RS_Vertical, RS_Click, LB, LT, RB);
+                tutorialPC.HandleStage(5, LS_Horizontal, LS_Vertical, RS_Horizontal, RS_Vertical, RS_Click, LB, LT, RB, false);
                 if (triggersUI1.activeSelf)
                 {
                     triggersUI1.SetActive(false);
                     bumpersUI2.SetActive(true);
+                }
+
+                if (tutorialPC.hasHarnessedRight && !startedCoroutine) StartCoroutine("SetStage", 6);
+                break;
+            case 6:
+                tutorialPC.HandleStage(6, LS_Horizontal, LS_Vertical, RS_Horizontal, RS_Vertical, RS_Click, LB, LT, RB, RT);
+                if (bumpersUI2.activeSelf)
+                {
+                    bumpersUI2.SetActive(false);
+                    triggersUI2.SetActive(true);
+                }
+
+                if (tutorialPC.hasCastedCombo && !startedCoroutine) StartCoroutine("SetStage", 7);
+                break;
+            case 7:
+                if (triggersUI2.activeSelf)
+                {
+                    triggersUI2.SetActive(false);
+                    playerUI.SetActive(true);
                 }
                 break;
         }

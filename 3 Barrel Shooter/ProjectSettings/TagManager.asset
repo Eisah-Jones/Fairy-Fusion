@@ -52,6 +52,8 @@ TagManager:
   - R-4-Leaf
   - 4-Wood
   - PlayerKills
+  - R-4-Wood
+  - SuckCircle
   layers:
   - Default
   - TransparentFX
