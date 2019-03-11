@@ -51,8 +51,9 @@ public class LevelManager: MonoBehaviour
     private int winner = -1;
     private bool isPaused = false;
     private bool isOver = false;
-    private bool checkingPauseInput = true;
     private bool isInitialized = false;
+
+    private Countdown timer;
 
     private AudioSource asource;
     private AudioSource asource1;
@@ -97,6 +98,7 @@ public class LevelManager: MonoBehaviour
         // Set UI manager after getting canvas reference
         uiManager = GameObject.FindGameObjectWithTag("Canvas").GetComponent<UIManager>();
         uiManager.InitUIManager();
+        timer = uiManager.GetTimer();
 
         soundManager = new SoundManager();
         soundManager.InitSoundManager();
@@ -130,6 +132,7 @@ public class LevelManager: MonoBehaviour
 			controller.combo = GameObject.Find("PlayerUI" + pInfo.playerNum.ToString()).transform.Find("Combo").GetComponent<Image>();
 			controller.uisprites = uisprites;
 		}
+
         cameraManager.SetCameraRatio();
         cameraManager.UpdateCameraPosition(playerList);
 
@@ -146,6 +149,9 @@ public class LevelManager: MonoBehaviour
     void FixedUpdate()
     {
         if (!isInitialized) return;
+
+        isPaused = uiManager.GetPaused();
+        timer.SetTimerActive(isPaused);
 
         if (!isPaused && !isOver)
             SendControllerInputsToPlayer(controllerManager.GetControllerInputs());

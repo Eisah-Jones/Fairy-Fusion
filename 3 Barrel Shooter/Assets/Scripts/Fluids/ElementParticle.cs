@@ -13,7 +13,7 @@ public class ElementParticle : MonoBehaviour {
     Light light;
 
 
-    public void InitElementParticle(ParticleManager pm, int id, float pLife, float pForce, Transform t, string pO, LevelManager lm, string pName, float rotationRange, float lifeRange, float forceRange)
+    public void InitElementParticle(ParticleManager pm, int id, float pLife, float pForce, Transform t, string pO, LevelManager lm, string pName, float rotationRange, float lifeRange, float forceRange, Sprite s)
     {
         tag = id + "-" + pName;
         particleID = id;
@@ -21,6 +21,8 @@ public class ElementParticle : MonoBehaviour {
         float lR = Random.Range(-lifeRange, lifeRange);
         particleLife = pLife + lR;
         if (particleLife < 0) particleLife = 0.25f;
+
+        GetComponent<SpriteRenderer>().sprite = s;
 
         gameObject.transform.rotation = t.rotation;
         gameObject.transform.Rotate(new Vector3(0f, 0f, Random.Range(-rotationRange, rotationRange)));

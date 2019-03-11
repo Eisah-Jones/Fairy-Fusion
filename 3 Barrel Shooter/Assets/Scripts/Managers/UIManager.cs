@@ -34,6 +34,7 @@ public class UIManager : MonoBehaviour
     public Image skullIcon;
     public GameObject endScreen;
     public Text winText;
+    private Countdown timer;
 
 
     void Start()
@@ -76,6 +77,7 @@ public class UIManager : MonoBehaviour
             killCounter.InitKillCounter(levelManager, canvas);
             enemyArrows = new EnemyArrows();
             enemyArrows.InitEnemyArrows(this, levelManager.GetNumPlayers());
+            timer = canvas.transform.GetComponent<Countdown>();
         }
     }
 
@@ -180,6 +182,12 @@ public class UIManager : MonoBehaviour
         activeMenu = menus[0];
         activeMenu.GetMenu().SetActive(true);
         SetActiveMenu();
+    }
+
+
+    public Countdown GetTimer()
+    {
+        return timer;
     }
 
 

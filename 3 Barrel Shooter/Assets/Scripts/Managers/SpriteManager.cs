@@ -926,7 +926,9 @@ public class SpriteManager
 
     public Sprite GetElementParticleSpriteByID(int id)
     {
-        if (id == 3) //Water
+        if (id == 1) 
+            return elementFluidSprites[0];
+        else if (id == 3) //Water
         {
             return elementFluidSprites[1];
         }
@@ -935,7 +937,7 @@ public class SpriteManager
             return elementFluidSprites[2];
         }
 
-        return elementFluidSprites[id-1];
+        return null;
     }
 
 
