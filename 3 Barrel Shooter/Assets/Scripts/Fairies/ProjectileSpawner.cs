@@ -51,7 +51,7 @@ public class ProjectileSpawner : MonoBehaviour {
         }
         else if (eID == 7)
         {
-            sm.PlaySoundByName(audioSourceProjectile, "FireBall"); // plays fireball sound
+            sm.PlaySoundByName(audioSourceProjectile, "FireBall", false, .5f, 1.0f); // plays fireball sound adds 1.0f to the end to maintain pitch
         }
         else if (eID == 8)
         {

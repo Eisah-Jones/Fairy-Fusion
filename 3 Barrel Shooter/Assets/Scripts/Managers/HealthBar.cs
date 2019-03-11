@@ -16,9 +16,10 @@ public class HealthBar : MonoBehaviour {
     
     private void Start()
     {
-        StartCoroutine("LateStart",1);
+       
         pi = GetComponentInParent<PlayerInfo>();
         playerName = pi.GetPlayerName();
+        StartCoroutine("LateStart", 1);
 
     }
    
