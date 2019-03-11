@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class KillCounter : MonoBehaviour
 {
     // Move these to another script
     private Dictionary<string, int> killDict = new Dictionary<string, int>();
-    private Text killfeed;
+	private TextMeshProUGUI killfeed;
     private LevelManager levelManager;
     private GameObject canvas;
 
@@ -15,7 +16,7 @@ public class KillCounter : MonoBehaviour
     {
         levelManager = lm;
         canvas = c;
-        killfeed = canvas.transform.GetChild(3).gameObject.GetComponent<Text>();
+		killfeed = canvas.transform.Find("KillFeed").gameObject.GetComponent<TextMeshProUGUI>();
         InitKillDict();
         //CreateScoreCounters();
     }
