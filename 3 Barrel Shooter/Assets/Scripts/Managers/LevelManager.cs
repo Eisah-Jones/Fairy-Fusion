@@ -117,6 +117,7 @@ public class LevelManager: MonoBehaviour
 
         // Spawn and setup players and cameras
         playerList = levelGen.SpawnPlayers(player, GetComponent<LevelManager>(), numPlayers);
+		SetUISprites ();
         foreach (GameObject p in playerList)
         {
 			PlayerInfo pInfo = p.GetComponent<PlayerInfo> ();
@@ -256,4 +257,21 @@ public class LevelManager: MonoBehaviour
     {
         return levelGen.GetTerrainMap()[x, y];
     }
+
+
+	private void SetUISprites(){
+		Sprite[] bullets = Resources.LoadAll<Sprite>("Sprites/Bullets");
+		uisprites [0] = bullets [11];
+		uisprites [1] = Resources.Load<Sprite>("Sprites/Resource_Fire");
+		uisprites [2] = bullets [3];
+		uisprites [3] = Resources.Load<Sprite>("Sprites/Resource_Rock");
+		uisprites [4] = Resources.Load<Sprite>("Sprites/Leaf");
+		uisprites [5] = bullets [2];
+		uisprites [6] = bullets [8];
+		uisprites [7] = bullets [4];
+		uisprites [8] = bullets [0];
+		uisprites [9] = bullets [10];
+		uisprites [10] = bullets [1];
+	}
+
 }
