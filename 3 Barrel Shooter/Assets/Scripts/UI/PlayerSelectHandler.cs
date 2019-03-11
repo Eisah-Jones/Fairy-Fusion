@@ -8,22 +8,30 @@ public class PlayerSelectHandler : MonoBehaviour
 {
     private int minNumPlayers = 1;
     private int numPlayersReady = 0;
+    private int[] status;
 
     private List<UIElement> playerSelectUIElements = new List<UIElement>();
+
+    private GameObject startMatch;
 
     private bool back = false;
 
     public void InitPlayerSelectHandler()
     {
+        status = new int[] { 0, 0, 0, 0 };
+
         foreach (Transform element in transform)
         {
             if (element.CompareTag("PlayerSelect"))
             {
                 PlayerSelect ps = new PlayerSelect();
-                ps.InitPlayerSelect(element.GetComponent<Text>());
+                ps.InitPlayerSelect(element.gameObject);
                 playerSelectUIElements.Add(ps);
             }
         }
+
+        startMatch = transform.GetChild(4).gameObject;
+        startMatch.SetActive(false);
     }
 
 
@@ -45,16 +53,26 @@ public class PlayerSelectHandler : MonoBehaviour
                 DontDestroyOnLoad(levelManagerInitializer);
                 SceneManager.LoadScene(1); // Start the match with joined players
             }
+            else if (numPlayersReady >= minNumPlayers)
+            {
+                startMatch.SetActive(true);
+            }
+            else if (startMatch.activeSelf)
+            {
+                startMatch.SetActive(false);
+            }
 
             if (input.A_Button)
             {
                 playerSelectUIElements[i].Interact(1);
+                status[i] = status[i] + 1;
             }
             else if (input.B_Button)
             {
                 playerSelectUIElements[i].Interact(-1);
                 PlayerSelect ps = (PlayerSelect) playerSelectUIElements[i];
                 back = ps.GetBack();
+                status[i] = status[i] - 1;
             }
         }
     }
