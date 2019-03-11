@@ -20,6 +20,8 @@ public class FairyController : MonoBehaviour {
     bool suckLeft;
     bool suckRight;
 
+    public GameObject absorbs;
+    private ParticleSystem ps;
     public List<GameObject> fairyPrefabs;
 	public Sprite[] uisprites;
 	public Image LT;
@@ -56,7 +58,9 @@ public class FairyController : MonoBehaviour {
     {
         audioSource = GetComponentInParent<AudioSource>();
         suckCircle = GetComponentInChildren<Animator>();
-        Debug.Log(suckCircle.gameObject.tag);
+        //absorbs = GetComponentInChildren<ParticleSystem>();
+        ps = GetComponentInChildren<ParticleSystem>(); //absorbs.GetComponent<ParticleSystem>();
+    
     }
     
     
@@ -290,18 +294,40 @@ public class FairyController : MonoBehaviour {
     {
         suckLeft = stateLeft;
         suckRight = stateRight;
+        if (suckLeft || suckRight)
+        {
+            suckCircle.SetBool("isEating", true);
+            if (!ps.isPlaying)
+            {
+                ps.Play();
+               
+            }
+                ps.Play(); // = Instantiate(levelManager.particleManager.GetParticleByID(1), projectileSpawner.position, transform.rotation);
+            
+        }
+        else
+        {
+         
+            if (ps != null && ps.isPlaying)
+            {
+                ps.Stop();
+            }
+            //Debug.Log(GetComponent<PlayerInfo>().name);
+            if (suckCircle != null)
+            { suckCircle.SetBool("isEating", false); }
 
+        }
         if ((stateLeft || stateRight) != fairyArea.enabled)
         {
             fairies.SetVacuum(stateLeft, stateRight);
             fairyArea.enabled = stateLeft || stateRight;
-            suckCircle.SetBool("isEating", true);
+            //suckCircle.SetBool("isEating", true);
             //levelManager.soundManager.PlaySoundByName(audioSource, "SuckingSound", true);
-            if (!(stateLeft || stateRight))
-            {
-                suckCircle.SetBool("isEating", false);
-                levelManager.soundManager.StopSound(audioSource);
-            }
+            //if (!(stateLeft || stateRight))
+            //{
+            //    suckCircle.SetBool("isEating", false);
+            //    levelManager.soundManager.StopSound(audioSource);
+            //}
         }
     }
 
@@ -324,7 +350,8 @@ public class FairyController : MonoBehaviour {
         }
         else
         {
-            suckCircle.SetBool("isSpitting", false);
+            if (suckCircle !=null)
+                suckCircle.SetBool("isSpitting", false);
         }
         // Frame delay to make shooting combos easier
         if (isDelayingFrame)

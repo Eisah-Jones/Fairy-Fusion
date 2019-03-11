@@ -7,6 +7,8 @@ public class HealthBar : MonoBehaviour {
 	public Transform bar;
     float resetTimer;
     public GameObject hb;
+    PlayerInfo pi;
+    string playerName;
     // Use this for initialization
     //	private void Start () {
     //		bar = transform.Find ("Bar");
@@ -15,7 +17,8 @@ public class HealthBar : MonoBehaviour {
     private void Start()
     {
         StartCoroutine("LateStart",1);
-     
+        pi = GetComponentInParent<PlayerInfo>();
+        playerName = pi.GetPlayerName();
 
     }
    
@@ -36,7 +39,7 @@ public class HealthBar : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if ('R' == collision.tag[0] ||collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "5-Air" ||  collision.tag == "TilemapTrigger") return;
-        // if (collision.tag == "Water" || == int()) need to check owner ship of element collision
+        if (collision.tag == "6-Steam" && collision.GetComponent<ElementParticle>().GetOwner() == playerName) return;
         hb.gameObject.SetActive(true);
     }
 

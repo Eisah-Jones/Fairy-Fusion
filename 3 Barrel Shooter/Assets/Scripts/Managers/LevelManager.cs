@@ -36,7 +36,7 @@ public class LevelManager: MonoBehaviour
 
     public GameObject[] elemPrefabs; // Possibly move elsewhere?
 
-    public ParticleSystem[] particles = new ParticleSystem[5]; // Move to particle manager
+    public ParticleSystem[] particles = new ParticleSystem[6]; // Move to particle manager
 
 	private List<PlayerInfo> pInfoList = new List<PlayerInfo>();
 
@@ -89,8 +89,8 @@ public class LevelManager: MonoBehaviour
         resourceManager = new ResourceManager();
         fluidManager = new FluidManager();
 
-        //particleManager = new ParticleManager();
-
+        particleManager = new ParticleManager();
+        particleManager.InitParticleManager();
         gameObject.AddComponent<CameraManager>();
         cameraManager = gameObject.GetComponent<CameraManager>();
         cameraManager.InitCameraManager(numPlayers);

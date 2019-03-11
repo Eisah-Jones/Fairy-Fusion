@@ -9,7 +9,7 @@ public class ParticleManager : MonoBehaviour {
     private List<GameObject> particles;
 
 
-	public ParticleManager()
+	public void InitParticleManager()
     {
         particles = new List<GameObject>();
         LoadParticles();
@@ -35,9 +35,9 @@ public class ParticleManager : MonoBehaviour {
 
 
     // TODO: Implement if needed
-    public void SpawnParticleAtPointByName(Vector3 pos, string name)
+    public void SpawnParticleEffectAtPosition(Vector3 pos, int particleIndex)
     {
-
+        Instantiate(particles[particleIndex], pos, transform.rotation);
     }
 
     public void SpawnParticleAtPointByID(Vector3 pos, int i)

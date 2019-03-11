@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb;
     public LevelManager lm;
     public AudioSource audioSource;
+    public AudioSource audioSource1;
 
     public string inputHorizontal = "Horizontal";
     public string inputVertical = "Vertical";
@@ -60,7 +61,8 @@ public class PlayerController : MonoBehaviour
         spriteR = gameObject.GetComponent<SpriteRenderer>();
         lm = FindObjectOfType<LevelManager>();
         audioSource = gameObject.AddComponent<AudioSource>();
-        maxTime = 3f;
+        audioSource1 = gameObject.AddComponent<AudioSource>();
+        maxTime = 2f;
         dashForce = 30f;
     }
 
@@ -240,6 +242,7 @@ public class PlayerController : MonoBehaviour
                     //Debug.Log("Last Heading: " + last_heading);
                     Vector2 dir = RadianToVector2(last_heading);
                     rb.AddForce(dir * dashForce, ForceMode2D.Impulse);
+                    lm.soundManager.PlaySoundByName(audioSource1, "Dash");
                     dashState = DashState.Dashing;
                 }
                 break;

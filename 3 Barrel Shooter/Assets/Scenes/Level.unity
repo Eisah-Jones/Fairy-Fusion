@@ -2662,6 +2662,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114174851702189666, guid: c2bdb53601d854d57acc06ca8c511127,
         type: 3}
+      propertyPath: particles.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114174851702189666, guid: c2bdb53601d854d57acc06ca8c511127,
+        type: 3}
       propertyPath: endScreen
       value: 
       objectReference: {fileID: 1964309712}
@@ -2772,6 +2777,12 @@ PrefabInstance:
       propertyPath: numPlayers
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114174851702189666, guid: c2bdb53601d854d57acc06ca8c511127,
+        type: 3}
+      propertyPath: particles.Array.data[5]
+      value: 
+      objectReference: {fileID: 4977182597437147763, guid: 97b5354038841b94299aee8ec4127b29,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2bdb53601d854d57acc06ca8c511127, type: 3}
 --- !u!1001 &1002105236

@@ -54,6 +54,7 @@ TagManager:
   - PlayerKills
   - R-4-Wood
   - SuckCircle
+  - AbsorbParticles
   layers:
   - Default
   - TransparentFX
