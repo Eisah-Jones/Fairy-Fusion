@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particleLife: 3.5
   lifeRange: 2
-  particleForce: 302
+  particleForce: 600
   forceRange: 100
   emissionRangeStart: 0.001
   emissionRange: 0.001

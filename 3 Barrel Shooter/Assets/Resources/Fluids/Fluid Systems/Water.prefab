@@ -43,9 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 725aea9e605c541d1a732114033056fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particleLife: 0.745
+  particleLife: 0.645
   lifeRange: 0.431
-  particleForce: 1160
+  particleForce: 2000
   forceRange: 0
   emissionRangeStart: 0.001
   emissionRange: 0.001

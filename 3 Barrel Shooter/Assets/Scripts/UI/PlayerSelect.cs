@@ -41,7 +41,6 @@ public class PlayerSelect : UIElement
             prompt.SetActive(true);
             ready.SetActive(false);
         }
-
     }
 
     // Not applicable

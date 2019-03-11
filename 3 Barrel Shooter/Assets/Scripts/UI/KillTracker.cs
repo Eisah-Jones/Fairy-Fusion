@@ -8,6 +8,7 @@ public class KillTracker : MonoBehaviour
     
     public int numPlayers= 4;
     private GameObject[] killcounts = new GameObject[4];
+
     // Start is called before the first frame update
     void Start()
     {

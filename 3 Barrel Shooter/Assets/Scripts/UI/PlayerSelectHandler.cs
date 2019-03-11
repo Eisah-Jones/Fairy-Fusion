@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerSelectHandler : MonoBehaviour
 {
-    private int minNumPlayers = 1;
+    private int minNumPlayers = 2;
     private int numPlayersReady = 0;
     private int[] status;
 
