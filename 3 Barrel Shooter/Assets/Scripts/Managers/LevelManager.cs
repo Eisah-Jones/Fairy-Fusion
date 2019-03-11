@@ -269,7 +269,7 @@ public class LevelManager: MonoBehaviour
 		uisprites [5] = bullets [2];
 		uisprites [6] = bullets [8];
 		uisprites [7] = bullets [4];
-		uisprites [8] = bullets [0];
+		uisprites [8] = bullets [7];
 		uisprites [9] = bullets [10];
 		uisprites [10] = bullets [1];
 	}
