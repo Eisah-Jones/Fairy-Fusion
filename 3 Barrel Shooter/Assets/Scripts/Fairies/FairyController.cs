@@ -164,19 +164,25 @@ public class FairyController : MonoBehaviour {
 	private bool UpdateTrigger(string elem, Image trigger){
 		if (elem == "Fire") {
 			trigger.sprite = uisprites [1];
+			trigger.preserveAspect = true;
 			return true;
 		} else if (elem == "Water") {
 			trigger.sprite = uisprites [2];
+			trigger.preserveAspect = true;
+
 			return true;
 		} else if (elem == "Rock") {
 			trigger.sprite = uisprites [3];
+			trigger.preserveAspect = true;
 			return true;
 		} else if (elem == "Leaf") {
 			trigger.sprite = uisprites [4];
+			trigger.preserveAspect = true;
 			return true;
 		} else {
 			//Sets to air if empty
 			trigger.sprite = uisprites [0];
+			trigger.preserveAspect = true;
 			return false;
 		}
 		return false;
@@ -199,6 +205,7 @@ public class FairyController : MonoBehaviour {
 		else {
 			combo.enabled = false;
 		}
+		combo.preserveAspect = true;
 	}
 
 	private void UpdateTriggerUI(Fairies.Fairy lt, Fairies.Fairy rt){
