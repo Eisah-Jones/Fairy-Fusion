@@ -57,14 +57,7 @@ public class ElementParticleSystem : MonoBehaviour {
         owner = o;
         isEmitting = true;
         particleID = id;
-        //particleCount = 50;
-        //particleLife = 1f;
-        //lifeRange = 0f;
-        //particleForce = 500f;
-        //forceRange = 0f;
-        //emissionRangeStart = 0.001f;
-        //emissionRange = 0.001f;
-        //spread = 45f;
+        transform.position = transform.position + new Vector3(0f, 0f, -4f);
         particleSprite = lm.spriteManager.GetElementParticleSpriteByID(id);
         particleName = particleSprite.name;
         particle = Resources.Load<GameObject>("Fluids/Fluid Particle");
