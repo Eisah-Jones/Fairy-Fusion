@@ -67,6 +67,7 @@ public class ElementManager
 
 
     public string GetProjectileTypeByID(int id){
+        if (id >= elementDataList.Capacity || id < 0) return "NONE";
         return elementDataList[id - 1].projectileType;
     }
 
@@ -97,6 +98,20 @@ public class ElementManager
     {
         if (id == -1) { return null; }
         return elementDataList[id - 1];
+    }
+
+
+    public string GetElementNameByID(int i)
+    {
+        foreach(elementData eD in elementDataList)
+        {
+            if (eD.ID == i)
+            {
+                return eD.name;
+            }
+
+        }
+        return "NONE";
     }
 
 

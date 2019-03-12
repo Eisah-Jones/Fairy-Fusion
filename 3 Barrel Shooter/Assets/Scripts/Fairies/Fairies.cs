@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // The Vacuum class is used to represent all of the information stored in a player's vacuum
-public class Fairies{
+public class Fairies : MonoBehaviour{
 
     //Chamber represents one slot in the vacuum
     public class Fairy
@@ -198,6 +198,7 @@ public class Fairies{
     private bool shootingRight;
     private bool isCombiningElements; //True = combinationChambers, False = normalChambers
     private ProjectileSpawner spawner;
+    bool removingDoubleSize = true;
 
     // Vacuum constructor
     public Fairies(LevelManager lm)
@@ -367,7 +368,7 @@ public class Fairies{
     }
 
 
-    public void RemoveFromCurrentChamber(string elemName, int i, bool b)
+    public void RemoveFromCurrentChamber(string elemName, int i, bool shootingLeft, bool doubleSize)
     {
 
         if (elemName == "Air") return;
@@ -381,10 +382,20 @@ public class Fairies{
         }
         else
         {
-            if (b)
+            if (doubleSize)
+            {
+                //StartCoroutine("ResetDoubleRemoving");
+                chambers[currentChamber].Remove(elemName, 2);
+                chambers[currentChamber + 1].Remove(elemName, 2);
+                Debug.Log("Removing Both");
+            }
+            else if (shootingLeft)
                 chambers[currentChamber].Remove(elemName, i);
             else
+            {
+                Debug.Log("REMOVE ONE");
                 chambers[currentChamber + 1].Remove(elemName, i);
+            }
         }
     }
 
@@ -393,11 +404,11 @@ public class Fairies{
     {
         if (spawner == null)
             spawner = ps.GetComponent<ProjectileSpawner>();
+
         if (spawner.p == null) return;
+
         if (!sL && !sR)
-        {
             spawner.ResetFluidBool();
-        }
     }
 
 
@@ -406,14 +417,28 @@ public class Fairies{
         return levelManager.elementManager.GetElementDataByName(name).combinationRequirements.elem1 == null;
     }
 
+
     private IEnumerator emptyChamberReset()
     {
         yield return new WaitForSeconds(1f);
     }
+
+
+    private IEnumerator ResetDoubleRemoving()
+    {
+        removingDoubleSize = false;
+        yield return new WaitForSeconds(0.1f);
+        removingDoubleSize = true;
+    }
+
+
     // Shooting scripts
     public Fairy.InventoryInfo Shoot(bool combo, int chamberNum)
     {
-
+        if (combo && chambers[0].GetElementIDByIndex(0) == chambers[1].GetElementIDByIndex(0))
+        {
+            return null;
+        }
         // Check to make sure that we can shoot
         // if the chamber is not empty; if there is nothing in the current chamber, 
         //  there can also be nothing in the current combination chamber

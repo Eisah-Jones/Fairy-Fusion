@@ -19,6 +19,7 @@ public class FairyController : MonoBehaviour {
     private Vector3 originalFairyScale;
     bool suckLeft;
     bool suckRight;
+    bool isShootingComboSame = false;
 
     public GameObject absorbs;
     private ParticleSystem ps;
@@ -364,35 +365,47 @@ public class FairyController : MonoBehaviour {
 
         if ((!canShootRight && !canShootLeft) || fairies.GetVacuumOn()) { return; }
         
-        if (!shootingLeft && !shootingRight)
+        if (!shootingLeft || !shootingRight)
         {
-            fairies.CheckFluid(false, false, gameObject);
-            return;
+            if (isShootingComboSame)
+            {
+                isShootingComboSame = false;
+                fairies.CheckFluid(false, false, gameObject);
+                return;
+            }
+            else if (!shootingLeft && !shootingRight)
+            {
+                fairies.CheckFluid(false, false, gameObject);
+                return;
+            }
         }
     
         Fairies.Fairy.InventoryInfo result = null;
-        bool isShootingComboSame = false; // The chambers have same element
         if (shootingLeft && shootingRight)
         {
-
-            fairies.CheckFluid(false, false, gameObject);
             if (!canShootCombo) return;
             //Shoot a combination of the two chambers
             result = fairies.Shoot(true, -1);
             if (result != null)
             {
+                fairies.CheckFluid(false, false, gameObject);
                 canShootCombo = false;
-                //result.GetElementName();
+                isShootingComboSame = false;
                 IEnumerator c = ShootReset(true, true, (int)levelManager.elementManager.GetElementDataByID(result.GetElementID()).fireRate);
                 StartCoroutine(c);
             }
             if (result == null) // Same item in both chambers
             {
-                isShootingComboSame = true;
-                canShootCombo = false;
-                Debug.Log(fairies.GetCurrentChamber(true).GetElementIDByIndex(0));
-                IEnumerator c = ShootReset(true, true, (int)levelManager.elementManager.GetElementDataByID(fairies.GetCurrentChamber(true).GetElementIDByIndex(0)).fireRate);
-                StartCoroutine(c);
+                if (fairies.GetChamberByIndex(0).GetAmountByIndex(0) != 0 || fairies.GetChamberByIndex(1).GetAmountByIndex(0) != 0)
+                {
+                    if (levelManager.elementManager.GetElementDataByID(fairies.GetCurrentChamber(true).GetElementIDByIndex(0)) != null)
+                    {
+                        isShootingComboSame = true;
+                        canShootCombo = false;
+                        IEnumerator c = ShootReset(true, true, (int)levelManager.elementManager.GetElementDataByID(fairies.GetCurrentChamber(true).GetElementIDByIndex(0)).fireRate);
+                        StartCoroutine(c);
+                    }
+                }
             }
         }
         else if (shootingLeft)
@@ -429,12 +442,12 @@ public class FairyController : MonoBehaviour {
         int eID;
         string eName;
         string projectileType;
-
         if (result == null && isShootingComboSame)
         {
             Fairies.Fairy fairy = fairies.GetCurrentChamber(true);
             eID = fairy.GetElementIDByIndex(0);
-            eName = result.GetElementName();
+            Debug.Log(eID);
+            eName = levelManager.elementManager.GetElementNameByID(eID);
             projectileType = levelManager.elementManager.GetProjectileTypeByID(eID);
         }
         else if (result == null) 
@@ -454,9 +467,9 @@ public class FairyController : MonoBehaviour {
         {
             string o = projectileSpawner.parent.parent.GetComponent<PlayerInfo>().GetPlayerName();
             int shotResult = p.ShootFluid(eID, levelManager, playerName, projectileSpawner, o, isShootingComboSame);
-            if (shotResult != -1) // Something was shot, update chamber
+            if (shotResult != -1 || isShootingComboSame) // Something was shot, update chamber
             {
-                fairies.RemoveFromCurrentChamber(eName, shotResult, false);
+                fairies.RemoveFromCurrentChamber(eName, shotResult, false, isShootingComboSame);
             }
         }
         else if (projectileType == "Beam")
@@ -468,7 +481,7 @@ public class FairyController : MonoBehaviour {
             }
 
         }
-        else
+        else if (projectileType != "NONE")
         {
             if (eID == 5) // delays air blast from coming out so it doesnt collide with own projectiles
             {
@@ -478,13 +491,11 @@ public class FairyController : MonoBehaviour {
             else
             {
                 p.ShootProjectile(eID, levelManager, playerName, projectileSpawner, isShootingComboSame);
-                fairies.RemoveFromCurrentChamber(eName, 1, shootingLeft);
+                fairies.RemoveFromCurrentChamber(eName, 1, shootingLeft, isShootingComboSame);
                 fairies.SetCombinationChambers();
             }
-           
         }
-
-        if (isShootingComboSame) isShootingComboSame = !isShootingComboSame;
+        else if (projectileType == "NONE") isShootingComboSame = false;
     }
 
 
@@ -494,9 +505,6 @@ public class FairyController : MonoBehaviour {
         yield return new WaitForSeconds(.4f);
         
         p.ShootProjectile(eID, levelManager, pName, spawn, false);
-        //fairies.RemoveFromCurrentChamber(eName, 1);
-        //fairies.SetCombinationChambers();
-    
     }
 
     public IEnumerator ShootReset(bool isLeft, bool isCombo, int resetFrames)
