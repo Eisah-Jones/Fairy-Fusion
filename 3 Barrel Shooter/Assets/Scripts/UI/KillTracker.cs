@@ -5,67 +5,53 @@ using UnityEngine.UI;
 public class KillTracker : MonoBehaviour
 {
     LevelManager lm;
-    
-    public int numPlayers= 4;
-    private GameObject[] killcounts = new GameObject[4];
 
-    // Start is called before the first frame update
+    public int numPlayers;
+    Text[] t = new Text[4];
+
+
     void Start()
     {
         lm = FindObjectOfType<LevelManager>();
         numPlayers = lm.numPlayers;
-		for (int i = 0; i < numPlayers; i++) {
-			GameObject pUI = GameObject.Find ("PlayerUI" + (i+1).ToString ());
-			killcounts [i] = pUI.transform.Find("KillCounter").gameObject;
-		}
-        //ActivateKillDisplay();
     }
 
-
-    
-    void ActivateKillDisplay()
+    public void InitKillTracker()
     {
-        for (int i = 0; i < numPlayers; i++)
+        int i = 0;
+        
+        foreach (GameObject p in lm.GetPlayerList())
         {
-  
-            killcounts[i].SetActive(true);
-            killcounts[i].transform.GetChild(0).gameObject.SetActive(true);
-         
+            PlayerInfo pInfo = p.GetComponent<PlayerInfo>();
+            t[i] = GameObject.Find("PlayerUI" + pInfo.playerNum.ToString()).transform.Find("KillCounter").GetComponent<Text>();
+            i++;
         }
     }
 
-    public void updateCanvasElements(Dictionary<string, int> killDict)
+
+    public void updateCanvasElements(Dictionary<string, int> kd)
     {
-  
-   
-        foreach (KeyValuePair<string, int> player in killDict)
+        foreach (KeyValuePair<string, int> player in kd)
         {
-            Text t;
             if (player.Key == "Player1")
             {
-                t = killcounts[0].GetComponentInChildren<Text>();
-                t.text = player.Value.ToString();
+                t[0].text = player.Value.ToString();
             }
+
             else if (player.Key == "Player2")
             {
-				t = killcounts[1].GetComponentInChildren<Text>();
-                t.text = player.Value.ToString();
+                t[1].text = player.Value.ToString();
             }
+
             else if (player.Key == "Player3")
             {
-				t = killcounts[2].GetComponentInChildren<Text>();
-                t.text = player.Value.ToString();
+                t[2].text = player.Value.ToString();
             }
+
             else if (player.Key == "Player4")
             {
-				t = killcounts[3].GetComponentInChildren<Text>();
-                t.text = player.Value.ToString();
+                t[3].text = player.Value.ToString();
             }
-      
-        
-
-            
-            
         }
     }
 }

@@ -127,7 +127,7 @@ public class ElementObject : MonoBehaviour {
             if (result == "Destroy"){
                 // Get environmental effect and then run it
                 // Destroy gameobject
-                if (owner == other.owner) { }
+                if (other != null && owner == other.owner) { }
                 else if (i == 0) // We are evaluating outcome of THIS element object
                     Destroy(this.gameObject);
                 else // We are evaluating outcome of COLLISION element object

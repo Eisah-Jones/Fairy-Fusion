@@ -12,22 +12,20 @@ public class KillCounter : MonoBehaviour
     private LevelManager levelManager;
     private GameObject canvas;
 
-    public void InitKillCounter(LevelManager lm, GameObject c)
+    public void InitKillCounter(LevelManager lm, GameObject c) // pass in level manager and canvas
     {
         levelManager = lm;
         canvas = c;
 		killfeed = canvas.transform.Find("KillFeed").gameObject.GetComponent<TextMeshProUGUI>();
         InitKillDict();
-        //CreateScoreCounters();
     }
 
 
     private void InitKillDict()
     {
-        foreach (var player in levelManager.GetPlayerList())
+        foreach (GameObject player in levelManager.GetPlayerList())
         {
             killDict[player.GetComponent<PlayerInfo>().GetPlayerName()] = 0;
-
         }
     }
 
@@ -66,6 +64,10 @@ public class KillCounter : MonoBehaviour
 
     public void addKill(string killed, string killedBy)
     {
+        if (!killDict.ContainsKey(killedBy))
+        {
+            killDict[killedBy] = 1;
+        }
         killDict[killedBy] += 1;
         updateKillFeed(killed, killedBy);
         canvas.GetComponent<KillTracker>().updateCanvasElements(killDict);
