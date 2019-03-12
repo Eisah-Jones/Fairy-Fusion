@@ -107,7 +107,7 @@ public class PlayerInfo : MonoBehaviour
     public void SpawnGrave(Vector3 position)
     {
         // add animation stuff here
-        GameObject grave = Instantiate(gravePrefab, position, Quaternion.Euler(transform.forward));
+        GameObject grave = Instantiate(levelManager.Tombstone, position, Quaternion.Euler(transform.forward));
     }
 
     private IEnumerator respawn(){
@@ -115,7 +115,7 @@ public class PlayerInfo : MonoBehaviour
 		lives += -1;
         //deathParticles = Instantiate(levelManager.particles[3], transform.position, transform.rotation);
         pc.StartDeathAnimation(); // stops player movement
-        SpawnGrave(transform.position);
+       
         //levelManager.SpawnParticleEffectAtPosition(transform.position, 3);
         levelManager.soundManager.PlaySoundByName(audioSources[0], "Death", false, 1.0f); // plays death sound
        
@@ -137,6 +137,7 @@ public class PlayerInfo : MonoBehaviour
 			respawn = GetVector(1);
 			break;
 		}
+        SpawnGrave(transform.position);
         transform.position = respawn;
         pc.SetRevive();
 

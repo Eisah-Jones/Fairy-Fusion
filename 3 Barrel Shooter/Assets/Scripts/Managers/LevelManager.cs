@@ -31,6 +31,7 @@ public class LevelManager: MonoBehaviour
 
     public GameObject player; // Need to load dynamically
     public List<GameObject> playerList;
+    public GameObject Tombstone;
 
 	public Sprite[] uisprites;
 
