@@ -208,6 +208,14 @@ public class FairyController : MonoBehaviour {
 			combo.sprite = uisprites [9];
 		} else if ((LTname == "Leaf" && RTname == "Rock") || (RTname == "Leaf" && LTname == "Rock")) {
 			combo.sprite = uisprites [10];
+		} else if (LTname == "Fire" && RTname == "Fire"){
+			combo.sprite = uisprites [1];
+		} else if (LTname == "Water" && RTname == "Water"){
+			combo.sprite = uisprites [2];
+		} else if (LTname == "Rock" && RTname == "Rock"){
+			combo.sprite = uisprites [3];
+		} else if (LTname == "Leaf" && RTname == "Leaf"){
+			combo.sprite = uisprites [4];
 		}
 		else {
 			combo.enabled = false;
