@@ -535,9 +535,9 @@ public class FairyController : MonoBehaviour {
 
     Color GetColorByID(int ID)
     {
-        if (ID == 1) return Color.red; // orange fire
-        if (ID == 2) return Color.HSVToRGB(30, 100, 59); // brown rock
-        if (ID == 3) return Color.blue;
+        if (ID == 1) return new Color(.941f,.658f , .176f); // orange fire
+        if (ID == 2) return new Color(.67f,.478f,.0627f); // brown rock
+        if (ID == 3) return new Color(.333f,.815f,.925f);
         if (ID == 4) return Color.green;
         if (ID == 5) return Color.white;
         else return Color.white;
@@ -558,8 +558,18 @@ public class FairyController : MonoBehaviour {
            // if (levelManager.GetTriggerTile((int)projectileSpawner.position.x, (int)projectileSpawner.position.y) == "Water")
            // {
             fairies.AddToChamber("Water", 3, suckLeft);
-            var main = ps.main;
-            main.startColor = GetColorByID(3);
+            if (!fairies.IsCurrentChamberAtCapacity(true) && fairies.GetCurrentChamber(true).GetElementNameByIndex(0) == "Water") // Cannot suck element
+                
+            {
+                var main = ps.main;
+                main.startColor = GetColorByID(3);
+            }
+            else if (fairies.IsCurrentChamberAtCapacity(true) && fairies.GetCurrentChamber(true).GetElementNameByIndex(0) == "Water")
+            {
+                var main = ps.main;
+                main.startColor = Color.white;
+            }
+            
           //  }
             fairies.SetCombinationChambers();
             return;
