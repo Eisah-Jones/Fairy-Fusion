@@ -92,7 +92,7 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        if (cdown != null && cdown.activeSelf != !isPaused)
+        if (cdown != null && cdown.activeSelf != isPaused)
             cdown.SetActive(!isPaused);
 
         if (levelManager != null && levelManager.GetIsGameOver())
@@ -110,6 +110,7 @@ public class UIManager : MonoBehaviour
         }
 
         List<ControllerInputs> ci = controllerManager.GetControllerInputs();
+
         if (!isPaused)
         {
             startButtonIndex = GetStartButton(ci);

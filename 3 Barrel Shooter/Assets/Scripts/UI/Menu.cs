@@ -67,6 +67,7 @@ public class Menu
             {
                 MenuButton mb = (MenuButton)iElement;
                 Button b = mb.GetElementObject();
+                if (b.transform.childCount == 0) continue;
                 GameObject particleEffect = b.transform.GetChild(0).gameObject;
                 if (particleEffect.name == "Button Particles")
                 {

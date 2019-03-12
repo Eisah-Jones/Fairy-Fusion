@@ -41,18 +41,6 @@ public class ElementParticleSystem : MonoBehaviour {
     private bool doubleSize;
 
 
-    //private void Start()
-    //{
-    //    StartCoroutine("TESTING");
-    //}
-
-    //private IEnumerator TESTING()
-    //{
-    //    yield return new WaitForSeconds(5);
-    //    LevelManager lm = GameObject.FindGameObjectWithTag("Level Manager").GetComponent<LevelManager>();
-    //    InitElementParticleSystem(lm, 6, transform, "TEST");
-    //}
-
     public void InitElementParticleSystem(LevelManager lm, int id, Transform t, string o, bool ds)
     {
         levelManager = lm;
