@@ -323,12 +323,13 @@ public class FairyController : MonoBehaviour {
             fairies.SetVacuum(stateLeft, stateRight);
             fairyArea.enabled = stateLeft || stateRight;
             //suckCircle.SetBool("isEating", true);
+            levelManager.soundManager.PlaySoundByName(audioSource, "AbsorbMed_Eating", true);
             //levelManager.soundManager.PlaySoundByName(audioSource, "SuckingSound", true);
-            //if (!(stateLeft || stateRight))
-            //{
-            //    suckCircle.SetBool("isEating", false);
-            //    levelManager.soundManager.StopSound(audioSource);
-            //}
+            if (!(stateLeft || stateRight))
+            {
+                //suckCircle.SetBool("isEating", false);
+                levelManager.soundManager.StopSound(audioSource);
+            }
         }
     }
 
@@ -348,6 +349,7 @@ public class FairyController : MonoBehaviour {
         if (shootingLeft || shootingRight)
         {
             suckCircle.SetBool("isSpitting", true);
+          
         }
         else
         {
