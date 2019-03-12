@@ -47,6 +47,7 @@ public class ChamberInteractionModel
         {
             result.Add(new Fairies.Fairy.InventoryInfo(name, id, unitValue));
         }
+    
         return result;
     }
 

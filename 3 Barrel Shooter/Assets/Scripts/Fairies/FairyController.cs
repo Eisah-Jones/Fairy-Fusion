@@ -22,7 +22,8 @@ public class FairyController : MonoBehaviour {
     bool isShootingComboSame = false;
 
     public GameObject absorbs;
-    private ParticleSystem ps;
+    public ParticleSystem ps;
+
     public List<GameObject> fairyPrefabs;
 	public Sprite[] uisprites;
 	public Image LT;
@@ -61,6 +62,7 @@ public class FairyController : MonoBehaviour {
         suckCircle = GetComponentInChildren<Animator>();
         //absorbs = GetComponentInChildren<ParticleSystem>();
         ps = GetComponentInChildren<ParticleSystem>(); //absorbs.GetComponent<ParticleSystem>();
+       
     
     }
     
@@ -303,7 +305,7 @@ public class FairyController : MonoBehaviour {
                 ps.Play();
                
             }
-                ps.Play(); // = Instantiate(levelManager.particleManager.GetParticleByID(1), projectileSpawner.position, transform.rotation);
+               // ps.Play(); // = Instantiate(levelManager.particleManager.GetParticleByID(1), projectileSpawner.position, transform.rotation);
             
         }
         else
@@ -531,17 +533,34 @@ public class FairyController : MonoBehaviour {
         isDelayingFrame = false;
     }
 
+    Color GetColorByID(int ID)
+    {
+        if (ID == 1) return Color.red; // orange fire
+        if (ID == 2) return Color.HSVToRGB(30, 100, 59); // brown rock
+        if (ID == 3) return Color.blue;
+        if (ID == 4) return Color.green;
+        if (ID == 5) return Color.white;
+        else return Color.white;
+    }
 
     void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged") return;
+        if (collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged")
+        {
+            var main = ps.main;
+            main.startColor = Color.white;
+            return;
+        }
+
 
         if (collision.tag == "TilemapTrigger") 
         {
-            if (levelManager.GetTriggerTile((int)projectileSpawner.position.x, (int)projectileSpawner.position.y) == "Water")
-            {
-                fairies.AddToChamber("Water", 3, suckLeft);
-            }
+           // if (levelManager.GetTriggerTile((int)projectileSpawner.position.x, (int)projectileSpawner.position.y) == "Water")
+           // {
+            fairies.AddToChamber("Water", 3, suckLeft);
+            var main = ps.main;
+            main.startColor = GetColorByID(3);
+          //  }
             fairies.SetCombinationChambers();
             return;
         }
@@ -562,6 +581,8 @@ public class FairyController : MonoBehaviour {
             {
                 collision.GetComponent<Shaker>().beingSucked = true; // shakes the resource
                 result = fairies.AddToChamber(collisionInfo[2], int.Parse(collisionInfo[1]), suckLeft);
+                var main = ps.main;
+                main.startColor = GetColorByID(int.Parse(collisionInfo[1]));
                 r.DecrementResource();
             }
         }
@@ -571,10 +592,15 @@ public class FairyController : MonoBehaviour {
 
     private void OnTriggerExit2D(Collider2D other)
     {
+        var main = ps.main;
         if (!fairies.GetVacuumOn() && other.name[0] == 'R')
         {
             other.GetComponent<Shaker>().beingSucked = false;
+            
+            main.startColor = Color.white;
         }
+       
+        main.startColor = Color.white;
     }
 
 
