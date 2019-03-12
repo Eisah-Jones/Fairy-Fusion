@@ -99,15 +99,6 @@ public class PlayerInfo : MonoBehaviour
 
         //Check to see if player is dead
         if(isDead() && !isRespawning){
-            //Destroy the player object and notify player of death!!
-            //LevelManager will handle the game conditions, do not have to worry about that
-
-            //Check levelManager if player can respawn?
-
-            // Can either destroy the player object and have levelManager reinstantiate,
-            //Destroy(transform.gameObject);
-            // or (preferably) disable controls, make player invisible, and teleport them, then reestablish control
-            //transform.gameObject.SetActive(false);
             //Start respawn coroutine
             StartCoroutine("respawn");
         }
@@ -123,7 +114,7 @@ public class PlayerInfo : MonoBehaviour
         levelManager.soundManager.PlaySoundByName(audioSources[0], "Death", false, 1.0f); // plays death sound
        
         yield return new WaitForSeconds(1.8f);
-		Vector3 respawn = new Vector3(Random.Range(0, 45), Random.Range(0, 45), 0); // temp respawn fix
+		Vector3 respawn = new Vector3(Random.Range(0, 40), Random.Range(0, 40), 0); // temp respawn fix
         //respawn = GetVector(Random.Range(1, 4));
         //Can specify respawn location before Coroutine is started and save as a temporary class variable
 		switch (rearea) {

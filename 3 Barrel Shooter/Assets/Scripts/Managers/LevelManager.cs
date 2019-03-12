@@ -61,7 +61,6 @@ public class LevelManager: MonoBehaviour
     public bool testing = false;
 
     private Sprite[] waterSprites;
-    public GameObject[] PlayerUIs = new GameObject[4];
 
 
     // Set testing varible to start from Level and not MainMenu
@@ -122,7 +121,6 @@ public class LevelManager: MonoBehaviour
         // Spawn and setup players and cameras
         playerList = levelGen.SpawnPlayers(player, GetComponent<LevelManager>(), numPlayers);
 		SetUISprites ();
-        //int i = 0;
         
         foreach (GameObject p in playerList)
         {
@@ -130,19 +128,22 @@ public class LevelManager: MonoBehaviour
 			pInfoList.Add (pInfo);
             cameraManager.AddCamera();
 			FairyController controller = p.GetComponentInChildren<FairyController> ();
-           //PlayerUIs[i] = GameObject.Find("PlayerUI" + pInfo.playerNum.ToString()).gameObject;
-            //i++;
             controller.LT = GameObject.Find("PlayerUI" + pInfo.playerNum.ToString()).transform.Find("LTI").GetComponent<Image>();
 			controller.RT = GameObject.Find("PlayerUI" + pInfo.playerNum.ToString()).transform.Find("RTI").GetComponent<Image>();
 			controller.combo = GameObject.Find("PlayerUI" + pInfo.playerNum.ToString()).transform.Find("Combo").GetComponent<Image>();
 			controller.uisprites = uisprites;
 		}
-        uiManager.killCounter.InitKillCounter(this, GameObject.FindGameObjectWithTag("Canvas"));
-        uiManager.killTracker.InitKillTracker();
+        if (!testing)
+        {
+            uiManager.killCounter.InitKillCounter(this, GameObject.FindGameObjectWithTag("Canvas"));
+            uiManager.killTracker.InitKillTracker();
+            soundManager.PlaySoundByName(asource, "DrumsFury", false, .5f, 1f);
+        }
+
         cameraManager.SetCameraRatio();
         cameraManager.UpdateCameraPosition(playerList);
 
-        soundManager.PlaySoundByName(asource, "DrumsFury", false, .5f, 1f);
+        
         
         levelGen.SpawnResources(resourceManager);
 
@@ -173,10 +174,6 @@ public class LevelManager: MonoBehaviour
         StartCoroutine(AnimateWaterSprite(tiles));
     }
 
-    public GameObject[] GetPlayerUI()
-    {
-        return PlayerUIs;
-    }
 
     private IEnumerator AnimateWaterSprite(List<int[]> tiles)
     {

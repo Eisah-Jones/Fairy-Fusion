@@ -51,7 +51,7 @@ public class ProjectileSpawner : MonoBehaviour {
         }
         else if (eID == 2)
         {
-            sm.PlaySoundByName(audioSourceProjectile, "Rockshot", false, .1f); // plays rock shot sound
+            sm.PlaySoundByName(audioSourceProjectile, "Rockshot", false, .3f); // plays rock shot sound
         }
         else if (eID == 7)
         {
@@ -133,7 +133,7 @@ public class ProjectileSpawner : MonoBehaviour {
 
     private IEnumerator laserReset()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         lineRenderer.enabled = false;
         sm.StopSound(audioSourceFluid);
     }
