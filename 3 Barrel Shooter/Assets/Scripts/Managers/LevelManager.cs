@@ -247,7 +247,8 @@ public class LevelManager: MonoBehaviour
 
     public void PlayEndRoundSound()
     {
-        soundManager.PlaySoundOneShotName(asource1, "AirHorn", false, .5f, 1.0f);
+        //soundManager.PlaySoundOneShotName(asource1, "AirHorn", false, .5f, 1.0f);
+        soundManager.PlaySoundOneShotName(asource1, "ChineseGong", false, .5f, 1.0f);
 
     }
     private void SendControllerInputsToPlayer(List<ControllerInputs> i)

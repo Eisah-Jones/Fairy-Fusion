@@ -323,12 +323,12 @@ public class FairyController : MonoBehaviour {
             fairies.SetVacuum(stateLeft, stateRight);
             fairyArea.enabled = stateLeft || stateRight;
             //suckCircle.SetBool("isEating", true);
-            levelManager.soundManager.PlaySoundByName(audioSource, "AbsorbMed_Eating", true);
+            levelManager.soundManager.PlaySoundByName(audioSource, "AbsorbMed_Eating", true); // plays suck sound
             //levelManager.soundManager.PlaySoundByName(audioSource, "SuckingSound", true);
             if (!(stateLeft || stateRight))
             {
                 //suckCircle.SetBool("isEating", false);
-                levelManager.soundManager.StopSound(audioSource);
+                levelManager.soundManager.StopSound(audioSource); //stops suck sound
             }
         }
     }
@@ -555,7 +555,7 @@ public class FairyController : MonoBehaviour {
 
             if (fairies.IsCurrentChamberAtCapacity(true)) // Cannot suck element
             {
-               // levelManager.soundManager.PlaySoundOneShotName(audioSource, "MaxCap");// TODO: play negative sound effect
+                levelManager.soundManager.PlaySoundByName(audioSource, "MaxCap");// TODO: play negative sound effect
             }
             else if (r.CanCollect() && (fairies.IsCurrentChamberEmpty(true) || 
                 fairies.GetCurrentChamber(true).GetElementNameByIndex(0) == collisionInfo[2]))
