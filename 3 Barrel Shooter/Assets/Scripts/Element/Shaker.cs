@@ -9,6 +9,8 @@ public class Shaker : MonoBehaviour {
     public int speed = 100;
     public float rangeAmount = .05f;
     public bool beingSucked = false;
+
+
     void Awake()
     {
         startingPos.x = transform.position.x;
@@ -16,13 +18,40 @@ public class Shaker : MonoBehaviour {
         //Random.Range(0, rangeAmount);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartShake()
+    {
+        while (beingSucked)
+        {
+            this.transform.position = new Vector2(startingPos.x + Mathf.Sin(Time.time * speed) * Random.Range(0, rangeAmount), startingPos.y + (Mathf.Sin(Time.time * speed) * Random.Range(0, rangeAmount)));
+        }
+    }
+    void StopShake()
     {
         if (beingSucked)
         {
             this.transform.position = new Vector2(startingPos.x + Mathf.Sin(Time.time * speed) * Random.Range(0, rangeAmount), startingPos.y + (Mathf.Sin(Time.time * speed) * Random.Range(0, rangeAmount)));
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Fairies")
+        {
+            StartShake();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Fairies")
+        {
+            beingSucked = false;
+        }
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 
 }
