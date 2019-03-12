@@ -18,28 +18,6 @@ public class Shaker : MonoBehaviour {
         //Random.Range(0, rangeAmount);
     }
 
-    public void StartShake()
-    {
-        while (beingSucked)
-        {
-            this.transform.position = new Vector2(startingPos.x + Mathf.Sin(Time.time * speed) * Random.Range(0, rangeAmount), startingPos.y + (Mathf.Sin(Time.time * speed) * Random.Range(0, rangeAmount)));
-        }
-    }
-    void StopShake()
-    {
-        if (beingSucked)
-        {
-            this.transform.position = new Vector2(startingPos.x + Mathf.Sin(Time.time * speed) * Random.Range(0, rangeAmount), startingPos.y + (Mathf.Sin(Time.time * speed) * Random.Range(0, rangeAmount)));
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Fairies")
-        {
-            StartShake();
-        }
-    }
 
     private void OnTriggerExit2D(Collider2D other)
     {
@@ -48,10 +26,15 @@ public class Shaker : MonoBehaviour {
             beingSucked = false;
         }
     }
+
     // Update is called once per frame
     void Update()
     {
-        
+
+        if (beingSucked)
+        {
+            this.transform.position = new Vector2(startingPos.x + Mathf.Sin(Time.time * speed) * Random.Range(0, rangeAmount), startingPos.y + (Mathf.Sin(Time.time * speed) * Random.Range(0, rangeAmount)));
+        }
     }
 
 }
