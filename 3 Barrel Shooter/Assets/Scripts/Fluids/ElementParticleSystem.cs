@@ -38,6 +38,8 @@ public class ElementParticleSystem : MonoBehaviour {
     [Range(0f, 360f)]
     public float spread;
 
+    private bool doubleSize;
+
 
     //private void Start()
     //{
@@ -51,7 +53,7 @@ public class ElementParticleSystem : MonoBehaviour {
     //    InitElementParticleSystem(lm, 6, transform, "TEST");
     //}
 
-    public void InitElementParticleSystem(LevelManager lm, int id, Transform t, string o)
+    public void InitElementParticleSystem(LevelManager lm, int id, Transform t, string o, bool ds)
     {
         levelManager = lm;
         owner = o;
@@ -62,6 +64,7 @@ public class ElementParticleSystem : MonoBehaviour {
         particleName = particleSprite.name;
         particle = Resources.Load<GameObject>("Fluids/Fluid Particle");
         rotation = t;
+        doubleSize = ds;
         StartCoroutine("SpawnParticles");
     }
 
@@ -86,6 +89,7 @@ public class ElementParticleSystem : MonoBehaviour {
             emissionDelay = Random.Range(emissionRangeStart, emissionRangeStart + emissionRange);
             yield return new WaitForSeconds(emissionDelay);
             GameObject p = Instantiate(particle, transform.position, rotation.rotation);
+            if (doubleSize) p.transform.localScale *= 2;
             p.GetComponent<ElementParticle>().InitElementParticle(particleManager, particleID, particleLife, particleForce, rotation, owner, levelManager, particleName, spread, lifeRange, forceRange, particleSprite);
         }
     }

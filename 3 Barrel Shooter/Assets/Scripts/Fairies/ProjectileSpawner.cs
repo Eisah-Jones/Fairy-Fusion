@@ -34,11 +34,15 @@ public class ProjectileSpawner : MonoBehaviour {
     }
 
 
-    public void ShootProjectile(int eID, LevelManager lm, string playerName, Transform spawn)
+    public void ShootProjectile(int eID, LevelManager lm, string playerName, Transform spawn, bool doubleSize)
     {
         GameObject prefab = lm.elemPrefabs[eID - 1];
        
         GameObject e = Instantiate(prefab, spawn.position, transform.rotation);
+        if (doubleSize)
+        {
+            e.transform.localScale *= 2;
+        }
         e.GetComponent<ElementObject>().initElement(lm, lm.elementManager.GetElementDataByID(eID), true, playerName);
         
         if (eID == 4)
@@ -74,7 +78,7 @@ public class ProjectileSpawner : MonoBehaviour {
     }
 
 
-    public int ShootFluid(int eID, LevelManager lm, string playerName, Transform spawnPos, string owner)
+    public int ShootFluid(int eID, LevelManager lm, string playerName, Transform spawnPos, string owner, bool doubleSize)
     {
         if (isShootingFluid) return -1;
 
@@ -99,7 +103,7 @@ public class ProjectileSpawner : MonoBehaviour {
         GameObject prefab = lm.fluidManager.GetFluidByID(eID);
         p = Instantiate(prefab, spawnPos.position, spawnPos.rotation);
         p.transform.SetParent(transform);
-        p.GetComponent<ElementParticleSystem>().InitElementParticleSystem(lm, eID, spawnPos, owner);
+        p.GetComponent<ElementParticleSystem>().InitElementParticleSystem(lm, eID, spawnPos, owner, doubleSize);
 
         p.transform.parent = spawnPos;
         StartCoroutine(fluidReset(p));

@@ -85,19 +85,19 @@ public class FairyController : MonoBehaviour {
 
     public void AssignFairies()
     {
-        currentFairies = new GameObject[3];
+        currentFairies = new GameObject[2];
         currentFairies[0] = Instantiate(fairyPrefabs[0]);
         currentFairies[1] = Instantiate(fairyPrefabs[0]);
-        currentFairies[2] = Instantiate(fairyPrefabs[0]);
+        //currentFairies[2] = Instantiate(fairyPrefabs[0]);
 
-        fairyPositions = new GameObject[5];
+        fairyPositions = new GameObject[2];
         fairyPositions[0] = transform.GetChild(1).gameObject;
         fairyPositions[1] = transform.GetChild(2).gameObject;
-        fairyPositions[2] = transform.GetChild(3).gameObject;
+        //fairyPositions[2] = transform.GetChild(3).gameObject;
 
         currentFairies[0].transform.position = fairyPositions[0].transform.position;
         currentFairies[1].transform.position = fairyPositions[1].transform.position;
-        currentFairies[2].transform.position = fairyPositions[2].transform.position;
+        //currentFairies[2].transform.position = fairyPositions[2].transform.position;
     }
 
 
@@ -105,11 +105,11 @@ public class FairyController : MonoBehaviour {
     {
         int chamberIndex1 = fairies.GetCurrentChamberIndex();
         int chamberIndex2 = (chamberIndex1 + 1) % 3;
-        int chamberIndex3 = (chamberIndex2 + 1) % 3;
+        //int chamberIndex3 = (chamberIndex2 + 1) % 3;
 
         currentFairies[chamberIndex1].transform.position = fairyPositions[0].transform.position;
         currentFairies[chamberIndex2].transform.position = fairyPositions[1].transform.position;
-        currentFairies[chamberIndex3].transform.position = fairyPositions[2].transform.position;
+        //currentFairies[chamberIndex3].transform.position = fairyPositions[2].transform.position;
     }
 
 
@@ -117,11 +117,11 @@ public class FairyController : MonoBehaviour {
     {
         int chamberIndex1 = fairies.GetCurrentChamberIndex();
         int chamberIndex2 = (chamberIndex1 + 1) % 3;
-        int chamberIndex3 = (chamberIndex2 + 1) % 3;
+        //int chamberIndex3 = (chamberIndex2 + 1) % 3;
 
         currentFairies[chamberIndex1].transform.position = Vector2.MoveTowards(currentFairies[chamberIndex1].transform.position, fairyPositions[0].transform.position, 10f * Time.deltaTime);
         currentFairies[chamberIndex2].transform.position = Vector2.MoveTowards(currentFairies[chamberIndex2].transform.position, fairyPositions[1].transform.position, 10f * Time.deltaTime);
-        currentFairies[chamberIndex3].transform.position = Vector2.MoveTowards(currentFairies[chamberIndex3].transform.position, fairyPositions[2].transform.position, 10f * Time.deltaTime);
+        //currentFairies[chamberIndex3].transform.position = Vector2.MoveTowards(currentFairies[chamberIndex3].transform.position, fairyPositions[2].transform.position, 10f * Time.deltaTime);
 
     }
 
@@ -144,7 +144,7 @@ public class FairyController : MonoBehaviour {
             {
                 fairyTs[1].localScale = new Vector3(.3f,.3f,.3f);
                 fairyTs[2].localScale = new Vector3(.8f, .8f, .8f);
-                fairyTs[3].localScale = new Vector3(.3f,.3f,.3f);
+                //fairyTs[3].localScale = new Vector3(.3f,.3f,.3f);
             }
             else if (ed != null)
             {
@@ -232,24 +232,24 @@ public class FairyController : MonoBehaviour {
 		Fairies.Fairy[] chambers = fairies.GetChambers();
 		int chamberIndex1 = fairies.GetCurrentChamberIndex();
 		int chamberIndex2 = (chamberIndex1 + 1) % 3;
-		int chamberIndex3 = (chamberIndex2 + 1) % 3;
+		//int chamberIndex3 = (chamberIndex2 + 1) % 3;
 
         //Gathers ammo information
         float chamber1Capacity = levelManager.elementManager.GetCapacityByName(chambers[chamberIndex1].GetElementNameByIndex(0));
 		float chamberIndex1Count = chambers[chamberIndex1].GetAmountByIndex(0)/ chamber1Capacity;
         float chamber2Capacity = levelManager.elementManager.GetCapacityByName(chambers[chamberIndex2].GetElementNameByIndex(0));
         float chamberIndex2Count = chambers[chamberIndex2].GetAmountByIndex(0)/ chamber2Capacity;
-        float chamber3Capacity = levelManager.elementManager.GetCapacityByName(chambers[chamberIndex3].GetElementNameByIndex(0));
-        float chamberIndex3Count = chambers[chamberIndex3].GetAmountByIndex(0)/ chamber3Capacity;
+        //float chamber3Capacity = levelManager.elementManager.GetCapacityByName(chambers[chamberIndex3].GetElementNameByIndex(0));
+        //float chamberIndex3Count = chambers[chamberIndex3].GetAmountByIndex(0)/ chamber3Capacity;
 
         if (chambers[chamberIndex1].GetContents().Count == 0) chamberIndex1Count = 0;
         if (chambers[chamberIndex2].GetContents().Count == 0) chamberIndex2Count = 0;
-        if (chambers[chamberIndex3].GetContents().Count == 0) chamberIndex3Count = 0;
+        //if (chambers[chamberIndex3].GetContents().Count == 0) chamberIndex3Count = 0;
 
         //Gets Radial Ammo Script and sets the fill
         currentFairies[chamberIndex1].GetComponent<AmmoUI>().SetFill(chamberIndex1Count, chambers[chamberIndex1].GetElementNameByIndex(0));
 		currentFairies[chamberIndex2].GetComponent<AmmoUI> ().SetFill(chamberIndex2Count, chambers[chamberIndex2].GetElementNameByIndex(0));
-		currentFairies[chamberIndex3].GetComponent<AmmoUI> ().SetFill(chamberIndex3Count, chambers[chamberIndex3].GetElementNameByIndex(0));
+		//currentFairies[chamberIndex3].GetComponent<AmmoUI> ().SetFill(chamberIndex3Count, chambers[chamberIndex3].GetElementNameByIndex(0));
 
 		//Calls Update Trigger UI with the chambers
 		UpdateTriggerUI(chambers[chamberIndex1], chambers[chamberIndex2]);
@@ -258,7 +258,7 @@ public class FairyController : MonoBehaviour {
     private void UpdateFairies()
     {
         Fairies.Fairy[] chambers = fairies.GetChambers();
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 2; i++)//;i < 3;
         {
             Fairies.Fairy c = chambers[i];
 
@@ -371,7 +371,7 @@ public class FairyController : MonoBehaviour {
         }
     
         Fairies.Fairy.InventoryInfo result = null;
-
+        bool isShootingComboSame = false; // The chambers have same element
         if (shootingLeft && shootingRight)
         {
 
@@ -382,8 +382,16 @@ public class FairyController : MonoBehaviour {
             if (result != null)
             {
                 canShootCombo = false;
-                result.GetElementName();
+                //result.GetElementName();
                 IEnumerator c = ShootReset(true, true, (int)levelManager.elementManager.GetElementDataByID(result.GetElementID()).fireRate);
+                StartCoroutine(c);
+            }
+            if (result == null) // Same item in both chambers
+            {
+                isShootingComboSame = true;
+                canShootCombo = false;
+                Debug.Log(fairies.GetCurrentChamber(true).GetElementIDByIndex(0));
+                IEnumerator c = ShootReset(true, true, (int)levelManager.elementManager.GetElementDataByID(fairies.GetCurrentChamber(true).GetElementIDByIndex(0)).fireRate);
                 StartCoroutine(c);
             }
         }
@@ -418,16 +426,34 @@ public class FairyController : MonoBehaviour {
             }
         }
 
-        if (result == null) { fairies.CheckFluid(false, false, gameObject); return; }
+        int eID;
+        string eName;
+        string projectileType;
 
-        int eID = result.GetElementID();
-        string eName = result.GetElementName();
-        string projectileType = levelManager.elementManager.GetProjectileTypeByID(eID);
+        if (result == null && isShootingComboSame)
+        {
+            Fairies.Fairy fairy = fairies.GetCurrentChamber(true);
+            eID = fairy.GetElementIDByIndex(0);
+            eName = result.GetElementName();
+            projectileType = levelManager.elementManager.GetProjectileTypeByID(eID);
+        }
+        else if (result == null) 
+        { 
+            fairies.CheckFluid(false, false, gameObject); 
+            return; 
+        }
+        else
+        {   
+            eID = result.GetElementID();
+            eName = result.GetElementName();
+            projectileType = levelManager.elementManager.GetProjectileTypeByID(eID);
+        }
+
         ProjectileSpawner p = GetComponent<ProjectileSpawner>();
         if (projectileType == "Fluid")
         {
             string o = projectileSpawner.parent.parent.GetComponent<PlayerInfo>().GetPlayerName();
-            int shotResult = p.ShootFluid(eID, levelManager, playerName, projectileSpawner, o);
+            int shotResult = p.ShootFluid(eID, levelManager, playerName, projectileSpawner, o, isShootingComboSame);
             if (shotResult != -1) // Something was shot, update chamber
             {
                 fairies.RemoveFromCurrentChamber(eName, shotResult, false);
@@ -451,19 +477,23 @@ public class FairyController : MonoBehaviour {
             }
             else
             {
-                p.ShootProjectile(eID, levelManager, playerName, projectileSpawner);
+                p.ShootProjectile(eID, levelManager, playerName, projectileSpawner, isShootingComboSame);
                 fairies.RemoveFromCurrentChamber(eName, 1, shootingLeft);
                 fairies.SetCombinationChambers();
             }
            
         }
+
+        if (isShootingComboSame) isShootingComboSame = !isShootingComboSame;
     }
+
+
     public IEnumerator emptyChamberDelay(int eID, LevelManager lm, string pName, Transform spawn, ProjectileSpawner p)
     {
     
         yield return new WaitForSeconds(.4f);
         
-        p.ShootProjectile(eID, levelManager, pName, spawn);
+        p.ShootProjectile(eID, levelManager, pName, spawn, false);
         //fairies.RemoveFromCurrentChamber(eName, 1);
         //fairies.SetCombinationChambers();
     

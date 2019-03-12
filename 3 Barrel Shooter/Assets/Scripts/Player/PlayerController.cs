@@ -85,10 +85,10 @@ public class PlayerController : MonoBehaviour
         else { speed = 6f; }
 
         //Chamber changing
-        int direction = 0;
-        if (inputs.X_Button) { direction = 1; }
-        else if (inputs.B_Button) { direction = -1; }
-        vacControl.HandleChamberStateInput(direction);
+        //int direction = 0;
+        //if (inputs.X_Button) { direction = 1; }
+        //else if (inputs.B_Button) { direction = -1; }
+        //vacControl.HandleChamberStateInput(direction);
     }
 
 
