@@ -133,7 +133,7 @@ public class ProjectileSpawner : MonoBehaviour {
 
     private IEnumerator laserReset()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         lineRenderer.enabled = false;
         sm.StopSound(audioSourceFluid);
     }
