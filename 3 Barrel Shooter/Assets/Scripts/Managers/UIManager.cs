@@ -94,16 +94,15 @@ public class UIManager : MonoBehaviour
         if (cdown != null && cdown.activeSelf != isPaused)
             cdown.SetActive(!isPaused);
 
-        if (levelManager != null && levelManager.GetIsGameOver())
+        if (levelManager != null && timer.isGameOver)
         {
             cdown.SetActive(false);
-            minimap.SetActive(false);
             endScreen.SetActive(true);
             winText.text = string.Format("Player {0} Wins!", levelManager.GetWinner());
             levelManager.SetIsOver(true);
         }
 
-        if (levelManager != null)
+        if (levelManager != null && levelManager.playersSpawned)
         {
             enemyArrows.UpdateArrowPosition();
         }

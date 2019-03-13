@@ -2663,6 +2663,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8787065270891255458, guid: a59b1eef903b51d448c7c77590304a0a,
         type: 3}
+    - target: {fileID: 114174851702189666, guid: c2bdb53601d854d57acc06ca8c511127,
+        type: 3}
+      propertyPath: numberOfLives
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2bdb53601d854d57acc06ca8c511127, type: 3}
 --- !u!1001 &1002105236
@@ -3523,12 +3528,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roundEndLength: 3
-  startTime: 200
+  startTime: 15
   initialfontSize: 23
   endofRoundfontSize: 28
-  preGameCounter: 3
   LoadingBar: {fileID: 1350960904}
   TextIndicator: {fileID: 1614306493}
+  isGameOver: 0
   currentTime: 15
   speed: 1
 --- !u!114 &1592296692
@@ -3565,7 +3570,7 @@ MonoBehaviour:
   killTracker: {fileID: 0}
   skullIcon: {fileID: 0}
   endScreen: {fileID: 0}
-  winText: {fileID: 0}
+  winText: {fileID: 1679838122}
 --- !u!114 &1614306493 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1614306493, guid: 8c821ce54ff81c14eab4daeedede9edf,

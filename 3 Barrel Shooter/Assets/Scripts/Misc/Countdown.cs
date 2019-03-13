@@ -11,11 +11,12 @@ public class Countdown : MonoBehaviour
     public int initialfontSize = 20;
     public int endofRoundfontSize = 32;
     private bool isPaused = false;
-    private bool preTimer = true;
-    public int preGameCounter = 3;
-    private int roundNum = 1;
+  //  private bool preTimer = true;
+   // public int preGameCounter = 3;
+  //  private int roundNum = 1;
     public Transform LoadingBar;
     public Text TextIndicator;
+    public bool isGameOver = false;
     [SerializeField] private float currentTime;
     [SerializeField] private float speed = 1;
     LevelManager lm;
@@ -36,16 +37,26 @@ public class Countdown : MonoBehaviour
     }
 
 
-    public void incrementRound()
-    {
-        roundNum++;
-    }
+    //public void incrementRound()
+    //{
+    //    roundNum++;
+    //}
 
+    public float GetCurrentTime()
+    {
+        return currentTime;
+    }
 
     public void togglePause()
     {
         isPaused = !isPaused;
     }
+
+    public bool GetisPause()
+    {
+        return isPaused;
+    }
+
 
 
     public void SetTimerActive(bool b)
@@ -105,11 +116,12 @@ public class Countdown : MonoBehaviour
             {
                 //TextIndicator.gameObject.transform.position = new Vector3(TextIndicator.gameObject.transform.position.x, TextIndicator.gameObject.transform.position.y + 180, TextIndicator.gameObject.transform.position.z); ;
                 TextIndicator.fontSize = endofRoundfontSize;
+                isGameOver = true;
                 // play explosion and add sound effects
                 LoadingBar.gameObject.SetActive(false);
                 LoadingBar.GetChild(0).gameObject.SetActive(false);
                 TextIndicator.color = Color.white;
-                TextIndicator.text = "Round " + roundNum + " over!";
+               // TextIndicator.text = "Round " + roundNum + " over!";
                 TextIndicator.text = "Game over!";
 
                 List<string> winner = lm.GetKillCounter().GetWinner();
@@ -127,16 +139,13 @@ public class Countdown : MonoBehaviour
                 else
                 {
                     TextIndicator.text = winner[0] + " is the WINNER!!";
-
-
-
                 }
                 lm.StopBGMusic();
                 lm.PlayEndRoundSound();
                 gameOver = true;
                 //StartCoroutine("Wait", 2.5f);
 
-                Time.timeScale = 0f;
+                //Time.timeScale = 0f;
             }
             LoadingBar.GetComponent<Image>().fillAmount = (currentTime) / (startTime);
         }
