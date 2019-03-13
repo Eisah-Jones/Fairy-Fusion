@@ -21,6 +21,7 @@ public class LevelGenerator : MonoBehaviour
     private string[,] terrainMap; //Array for storing level floor map
     private SpriteManager spriteManager;
     private List<GameObject> playerObjectList;
+    private List<int[]> takenPositions = new List<int[]>();
 
     public void GenerateLevel(Tilemap tm, Tilemap cm, Tilemap trigm, SpriteManager sm, ResourceManager rm){
 
@@ -280,12 +281,16 @@ public class LevelGenerator : MonoBehaviour
 
     private void SpawnFire(ResourceManager rm)
     {
-        for (int i = 0; i < 35; i++)
+        for (int i = 0; i < 40;)
         {
             int[] spawnPoint = { UnityEngine.Random.Range(0, terrainMap.GetUpperBound(0)), 
                                  UnityEngine.Random.Range(0, terrainMap.GetUpperBound(1))};
-            GameObject f = Instantiate(rm.GetResourceGameObject("Fire"), new Vector3(spawnPoint[0], spawnPoint[1], 0.3f), Quaternion.identity);
-            f.GetComponent<Resource>().InitResource(5, "Fire");
+            if ((terrainMap[spawnPoint[0], spawnPoint[1]] != "Water" || terrainMap[spawnPoint[0], spawnPoint[1]] != "Wall") && !takenPositions.Contains(spawnPoint))
+            {
+                i++;
+                GameObject f = Instantiate(rm.GetResourceGameObject("Fire"), new Vector3(spawnPoint[0]+0.5f, spawnPoint[1]+0.5f, 0.3f), Quaternion.identity);
+                f.GetComponent<Resource>().InitResource(5, "Fire");
+            }
         }
     }
 
@@ -294,10 +299,11 @@ public class LevelGenerator : MonoBehaviour
     {
         List<int[]> rockSpawnPoints = GetRockSpawnPoints();
 
-        for (int j = 0; j < 25; j++)
+        for (int j = 0; j < 35; j++)
         {
             int i = UnityEngine.Random.Range(0, rockSpawnPoints.Count);
             int[] spawnPoint = rockSpawnPoints[i];
+            takenPositions.Add(spawnPoint);
             GameObject r = Instantiate(rm.GetResourceGameObject("Rock"), new Vector3(spawnPoint[0] - 0.05f, spawnPoint[1] + 0.25f, 0f), Quaternion.identity);
             r.GetComponent<Resource>().InitResource(2, "Rock");
         }
@@ -308,10 +314,20 @@ public class LevelGenerator : MonoBehaviour
     {
         List<int[]> treeSpawnPoints = GetTreeSpawnPoints();
 
-        for (int j = 0; j < 5; j++)
+        for (int j = 0; j < 10; j++)
         {
             int i = UnityEngine.Random.Range(0, treeSpawnPoints.Count);
             int[] spawnPoint = treeSpawnPoints[i];
+            treeSpawnPoints.Remove(spawnPoint);
+            takenPositions.Add(spawnPoint);
+            takenPositions.Add(new int[] { spawnPoint[0]+1, spawnPoint[1]   });
+            takenPositions.Add(new int[] { spawnPoint[0]+2, spawnPoint[1]   });
+            takenPositions.Add(new int[] { spawnPoint[0]+3, spawnPoint[1]   });
+            takenPositions.Add(new int[] { spawnPoint[0]  , spawnPoint[1]+1 });
+            takenPositions.Add(new int[] { spawnPoint[0]+1, spawnPoint[1]+1 });
+            takenPositions.Add(new int[] { spawnPoint[0]+2, spawnPoint[1]+1 });
+            takenPositions.Add(new int[] { spawnPoint[0]+3, spawnPoint[1]+1 });
+            treeSpawnPoints = GetTreeSpawnPoints();
             GameObject t = Instantiate(rm.GetResourceGameObject("Tree"), new Vector3(spawnPoint[0], spawnPoint[1], 0f), Quaternion.identity);
             t.GetComponent<Resource>().InitResource(5, "Tree");
         }
@@ -320,12 +336,15 @@ public class LevelGenerator : MonoBehaviour
 
     private List<int[]> GetRockSpawnPoints()
     {
+        int[] check = new int[2];
         List<int[]> result = new List<int[]>();
         for (int x = 0; x < terrainMap.GetUpperBound(0); x++)
         {
             for (int y = 0; y < terrainMap.GetUpperBound(1); y++)
             {
-                if (terrainMap[x, y] == "Dirt") { int[] temp = { x, y }; result.Add(temp); }
+                check[0] = x;
+                check[1] = y;
+                if (terrainMap[x, y] == "Dirt" && !takenPositions.Contains(check)) { int[] temp = { x, y }; result.Add(temp); }
             }
         }
         return result;
@@ -350,12 +369,34 @@ public class LevelGenerator : MonoBehaviour
                                            terrainMap[x + 2, y + 1],
                                            terrainMap[x + 3, y + 1]};
 
-                    if (IsAllSame(positions, "Grass")) { int[] temp = { x, y }; result.Add(temp); }
+                    if (IsAllSame(positions, "Grass") && ContainsNone(x, y)) { int[] temp = { x, y }; result.Add(temp); }
                 }
                 catch (Exception e) {} ///Means one of our positions was invalid, and can't spawn
             }
         }
         return result;
+    }
+
+
+    private bool ContainsNone(int x, int y)
+    {
+        int[] p1 = { x, y };
+        int[] p2 = { x+1, y };
+        int[] p3 = { x+2, y };
+        int[] p4 = { x+3, y };
+        int[] p5 = { x, y+1 };
+        int[] p6 = { x+1, y+1 };
+        int[] p7 = { x+2, y+1 };
+        int[] p8 = { x+3, y+1 };
+
+        return !(takenPositions.Contains(p1) ||
+                 takenPositions.Contains(p2) ||
+                 takenPositions.Contains(p3) ||
+                 takenPositions.Contains(p4) ||
+                 takenPositions.Contains(p5) ||
+                 takenPositions.Contains(p6) ||
+                 takenPositions.Contains(p7) ||
+                 takenPositions.Contains(p8));
     }
 
 
