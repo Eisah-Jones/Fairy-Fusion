@@ -76,7 +76,7 @@ public class WinnerPedastal : MonoBehaviour
             MovePlatforms();
         }
 
-        if(GetAInput(cm.GetControllerInputs()))
+        if(cm != null && GetAInput(cm.GetControllerInputs()))
         {
             currentButton.onClick.Invoke();
         }
