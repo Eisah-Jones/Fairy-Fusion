@@ -15,6 +15,7 @@ public class PlayerSelectHandler : MonoBehaviour
     private GameObject startMatch;
 
     private bool back = false;
+    private bool isStartingGame = false;
 
     public void InitPlayerSelectHandler()
     {
@@ -37,6 +38,7 @@ public class PlayerSelectHandler : MonoBehaviour
 
     public void HandleInput(List<ControllerInputs> ci)
     {
+        if (isStartingGame) return;
         GetNumPlayersReady();
 
         for (int i = 0; i < ci.Count; i++)

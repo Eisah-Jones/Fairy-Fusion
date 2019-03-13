@@ -156,7 +156,8 @@ public class UIManager : MonoBehaviour
         }
         else if (activeMenu.GetName() == "TutorialMenu")
         {
-            tutorialMenu.HandleInput(ci[0]);
+            int r = tutorialMenu.HandleInput(ci[0].A_Button, ci[0].B_Button);
+            if (r == -1) ToMainMenu();
         }
         else if (GetAButton(ci) && activeMenu.GetName() != "PlayerSelect" && activeMenu.GetActiveElement() != null)
         {
