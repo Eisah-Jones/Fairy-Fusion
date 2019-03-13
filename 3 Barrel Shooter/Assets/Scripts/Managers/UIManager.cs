@@ -39,6 +39,9 @@ public class UIManager : MonoBehaviour
     public Text winText;
     private Countdown timer;
 
+    private AudioClip blip;
+    private AudioSource blipSource;
+
 
     void Start()
     {
@@ -81,6 +84,10 @@ public class UIManager : MonoBehaviour
             enemyArrows.InitEnemyArrows(this, levelManager.GetNumPlayers());
             timer = canvas.transform.GetComponent<Countdown>();
         }
+
+
+        blipSource = gameObject.AddComponent<AudioSource>();
+        blipSource.clip = Resources.Load<AudioClip>("Sounds/blip");
     }
 
 
@@ -128,6 +135,7 @@ public class UIManager : MonoBehaviour
             }
             if (v != 0)
             {
+                blipSource.Play();
                 activeMenu.SetActiveElement(v);
                 isDetectingVerticalInput = false;
                 StartCoroutine("DelayInputVertical");
@@ -141,6 +149,7 @@ public class UIManager : MonoBehaviour
                 int v = GetLeftStickHorizontal(ci);
                 if (v != 0)
                 {
+                    blipSource.Play();
                     activeMenu.GetActiveElement().Interact(v);
                     isDetectingHorizontalInput = false;
                     StartCoroutine("DelayInputHorizontal");

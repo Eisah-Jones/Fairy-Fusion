@@ -12,12 +12,6 @@ public class LevelManagerInit : MonoBehaviour
         numPlayers = n;
     }
 
-    //private void Awake()
-    //{
-    //    Debug.Log("YUH");
-    //    StartCoroutine("InitLevel");
-    //}
-
     private void OnLevelWasLoaded(int level)
     {
         if (level == 1)

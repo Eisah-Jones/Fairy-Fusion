@@ -49,6 +49,9 @@ public class PlayerSelectHandler : MonoBehaviour
             if (numPlayersReady >= minNumPlayers && input.Start_Button && !isLoadingLevel)
             {
                 isLoadingLevel = true;
+                AudioSource selectSource = gameObject.AddComponent<AudioSource>();
+                selectSource.clip = Resources.Load<AudioClip>("Sounds/select");
+                selectSource.Play();
                 //// Maybe do a short countdown to allow for cancelling?
                 GameObject levelManagerInitializer = Instantiate(new GameObject());
                 levelManagerInitializer.name = "Level Manager Initializer";
