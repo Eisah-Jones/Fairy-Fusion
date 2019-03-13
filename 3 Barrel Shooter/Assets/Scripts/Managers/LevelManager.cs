@@ -48,11 +48,12 @@ public class LevelManager: MonoBehaviour
 
     // Level information
     public int numPlayers;
-    public int numberOfLives = 3;
+    public int numberOfLives = 15;
     private int winner = -1;
     private bool isPaused = false;
     private bool isOver = false;
     private bool isInitialized = false;
+    public bool playersSpawned = false;
 
     private Countdown timer;
 
@@ -134,6 +135,7 @@ public class LevelManager: MonoBehaviour
 			controller.combo = GameObject.Find("PlayerUI" + pInfo.playerNum.ToString()).transform.Find("Combo").GetComponent<Image>();
 			controller.uisprites = uisprites;
 		}
+        playersSpawned = true;
         if (!testing)
         {
             uiManager.killCounter.InitKillCounter(this, GameObject.FindGameObjectWithTag("Canvas"));
@@ -200,8 +202,26 @@ public class LevelManager: MonoBehaviour
         }
     }
 
+    //public void StartWin_Sequence()
+    //{
+    //    List<string> winner = lm.GetKillCounter().GetWinner();
+    //    if (winner.Count > 1) // if theres a tie
+    //    {
+    //        string winners = "";
+    //        for (int i = 0; i < winner.Count; i++)
+    //        {
+    //            winners += winner[i] + " -";
+    //        }
+    //        TextIndicator.fontSize = 13;
+    //        TextIndicator.text = "It's a tie between " + winners;
 
-    public bool GetIsGameOver()
+    //    }
+    //    else
+    //    {
+    //        TextIndicator.text = winner[0] + " is the WINNER!!";
+    //    }
+    //}
+    public bool GetIsGameOverLives()
     {
 		int alive_count = 0;
 		winner = 0;
