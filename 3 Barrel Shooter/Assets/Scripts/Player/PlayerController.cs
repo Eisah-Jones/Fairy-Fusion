@@ -119,7 +119,6 @@ public class PlayerController : MonoBehaviour
         float r_vertical = inputs.Right_Stick_Vertical;
         float r_horizontal = inputs.Right_Stick_Horizontal;
      
-        Debug.Log("RightVert: " + r_vertical);
         float heading = Mathf.Atan2(r_vertical, r_horizontal);
 
         //Change the position of the player

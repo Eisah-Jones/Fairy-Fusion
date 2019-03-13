@@ -152,8 +152,8 @@ public class LevelManager: MonoBehaviour
 
         AnimateWater(levelGen.GetWaterTiles(groundTrigger));
 
-        
 
+        
         isInitialized = true;
 
         GameObject.Find("LoadingScreen").GetComponent<LoadingScreen>().Open();

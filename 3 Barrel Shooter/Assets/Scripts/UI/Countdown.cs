@@ -31,7 +31,7 @@ public class Countdown : MonoBehaviour
     void Start()
     {
         lm = FindObjectOfType<LevelManager>();
-        TextIndicator.fontSize = initialfontSize;
+        //TextIndicator.fontSize = initialfontSize;
         currentTime = startTime;
         isFlashing = false;
         //asource = gameObject.AddComponent<AudioSource>();
@@ -99,8 +99,11 @@ public class Countdown : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("Countdown GameOver: " + gameOver);
         if (!gameOver)
         {
+            Debug.Log("isPaused: " + isPaused);
+            Debug.Log("Current Time: " + currentTime);
             if (!isPaused && currentTime > 0)
             {
                 currentTime -= speed * Time.deltaTime;
@@ -117,7 +120,7 @@ public class Countdown : MonoBehaviour
             else if (!isPaused)
             {
                 //TextIndicator.gameObject.transform.position = new Vector3(TextIndicator.gameObject.transform.position.x, TextIndicator.gameObject.transform.position.y + 180, TextIndicator.gameObject.transform.position.z); ;
-                TextIndicator.fontSize = endofRoundfontSize;
+                //TextIndicator.fontSize = endofRoundfontSize;
                 isGameOver = true;
                 // play explosion and add sound effects
                 LoadingBar.gameObject.SetActive(false);

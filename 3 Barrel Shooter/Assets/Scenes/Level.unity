@@ -3659,9 +3659,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1592296686}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a18eb14e2c35874d9fa1142bebd7d71, type: 3}
+  m_Script: {fileID: 11500000, guid: a3608e19243a84638b595248589fd225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roundEndLength: 3
+  startTime: 60
+  initialfontSize: 20
+  endofRoundfontSize: 32
+  LoadingBar: {fileID: 1350960904}
+  TextIndicator: {fileID: 7510260886085482903}
+  isGameOver: 0
+  currentTime: 0
+  speed: 1
 --- !u!114 &1592296692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4586,3 +4595,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c821ce54ff81c14eab4daeedede9edf, type: 3}
+--- !u!114 &7510260886085482903 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1614306493, guid: 8c821ce54ff81c14eab4daeedede9edf,
+    type: 3}
+  m_PrefabInstance: {fileID: 7510260886085482902}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
