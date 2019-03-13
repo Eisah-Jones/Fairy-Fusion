@@ -112,38 +112,37 @@ public class PlayerInfo : MonoBehaviour
 
     private IEnumerator respawn(){
         isRespawning = true;
-		lives += -1;
+        lives += -1;
         //deathParticles = Instantiate(levelManager.particles[3], transform.position, transform.rotation);
         pc.StartDeathAnimation(); // stops player movement
        
         //levelManager.SpawnParticleEffectAtPosition(transform.position, 3);
         levelManager.soundManager.PlaySoundByName(audioSources[0], "Death", false, 1.0f); // plays death sound
-       
+        levelManager.GetKillCounter().addKill(GetPlayerName(), elementOwnerName);
         yield return new WaitForSeconds(1.8f);
 		Vector3 respawn = new Vector3(Random.Range(0, 40), Random.Range(0, 40), 0); // temp respawn fix
         //respawn = GetVector(Random.Range(1, 4));
         //Can specify respawn location before Coroutine is started and save as a temporary class variable
-		switch (rearea) {
-		case "1":
-			respawn = GetVector(4);
-			break;
-		case "2":
-			respawn = GetVector(3);
-			break;
-		case "3":
-			respawn = GetVector(2);
-			break;
-		case "4":
-			respawn = GetVector(1);
-			break;
-		}
+		//switch (rearea) {
+		//case "1":
+		//	respawn = GetVector(4);
+		//	break;
+		//case "2":
+		//	respawn = GetVector(3);
+		//	break;
+		//case "3":
+		//	respawn = GetVector(2);
+		//	break;
+		//case "4":
+		//	respawn = GetVector(1);
+		//	break;
+		//}
         SpawnGrave(transform.position);
         transform.position = respawn;
         pc.SetRevive();
 
         health = 100.0f;
         isRespawning = false;
-        levelManager.GetKillCounter().addKill(GetPlayerName(), elementOwnerName);
     
 
     }
@@ -232,23 +231,32 @@ public class PlayerInfo : MonoBehaviour
 	}
 
 
-	private Vector3 GetVector(int area)
+    private Vector3 GetRespawnLocation()
     {
-		Vector3 re = new Vector3(0,0,0);
-		switch(area){
-		case 1:
-			re = GetRandomVector(-9,4);
-			break;
-		case 2:
-			re = GetRandomVector(9,4);
-			break;
-		case 3:
-			re = GetRandomVector(-9,-4);
-			break;
-		case 4:
-			re = GetRandomVector(9,-4);
-			break;
-		}
-		return re;
-	}
+        List<int[]> rp = levelManager.GetRespawnPositions();
+        int i = Random.Range(0, rp.Count);
+        Vector3 result = new Vector3(rp[i][0], rp[i][1], 0f);
+        return result;
+    }
+
+
+	//private Vector3 GetVector(int area)
+ //   {
+	//	Vector3 re = new Vector3(0,0,0);
+	//	switch(area){
+	//	case 1:
+	//		re = GetRandomVector(-9,4);
+	//		break;
+	//	case 2:
+	//		re = GetRandomVector(9,4);
+	//		break;
+	//	case 3:
+	//		re = GetRandomVector(-9,-4);
+	//		break;
+	//	case 4:
+	//		re = GetRandomVector(9,-4);
+	//		break;
+	//	}
+	//	return re;
+	//}
 }
