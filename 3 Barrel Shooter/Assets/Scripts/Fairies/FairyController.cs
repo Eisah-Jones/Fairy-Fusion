@@ -543,8 +543,8 @@ public class FairyController : MonoBehaviour {
 
     Color GetColorByID(int ID)
     {
-        if (ID == 1) return new Color(.941f,.658f , .176f); // orange fire
-        if (ID == 2) return new Color(.67f,.478f,.0627f); // brown rock
+        if (ID == 1) return new Color(1f,.549f , 0f); // orange fire
+        if (ID == 2) return Color.black;//(.439f,.1905f,.0f); // brown rock
         if (ID == 3) return new Color(.333f,.815f,.925f);
         if (ID == 4) return Color.green;
         if (ID == 5) return Color.white;
