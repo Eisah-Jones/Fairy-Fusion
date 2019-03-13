@@ -165,7 +165,8 @@ public class LevelManager: MonoBehaviour
         if (!isInitialized) return;
 
         isPaused = uiManager.GetPaused();
-        timer.SetTimerActive(isPaused);
+        if (timer!=null)
+            timer.SetTimerActive(isPaused);
 
         if (!isPaused && !isOver)
             SendControllerInputsToPlayer(controllerManager.GetControllerInputs());

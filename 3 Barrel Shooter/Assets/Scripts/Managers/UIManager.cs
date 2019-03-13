@@ -94,7 +94,7 @@ public class UIManager : MonoBehaviour
         if (cdown != null && cdown.activeSelf != isPaused)
             cdown.SetActive(!isPaused);
 
-        if (levelManager != null )//&& timer.isGameOver)
+        if (levelManager != null && timer!= null && timer.isGameOver)
         {
             cdown.SetActive(false);
             //endScreen.SetActive(true);
