@@ -101,7 +101,7 @@ public class SoundManager
             s.loop = loop;
 
         }
-        else if (s!= null &&s.isPlaying && name != "Grasswalk" && name != "LeafPetals" && name != "Steam")
+        else if (s!= null &&s.isPlaying && name != "Grasswalk" && name != "LeafPetals" && name != "Steam" &&  name != "AbsorbMed_Eating" && name != "MaxCap")
         {
             if (name == "Steam")
             {

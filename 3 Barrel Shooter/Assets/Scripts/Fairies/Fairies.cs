@@ -98,7 +98,8 @@ public class Fairies : MonoBehaviour{
             //Assign chamber variable
             chamber = new List<InventoryInfo>();
         }
-
+     
+        
 
         //Adds given element to the chamber
         public Fairies.Fairy Add(string name, int elemID)
@@ -106,7 +107,9 @@ public class Fairies : MonoBehaviour{
             //Check to see if the element is already in the chamber
             if (this.ContainsElement(name))
             {
+
                 chamber = interactionModel.IncreaseElement(chamber, elemID);
+                
                 return this;
             }
             //If not in chamber, then we will add it, assuming it can be added
@@ -189,6 +192,7 @@ public class Fairies : MonoBehaviour{
     //declare vacuum chamber array
     LevelManager levelManager;
     ChamberInteractionModel cim;
+
     private Fairy[] chambers;
     private elementData[] combinationChambers;
     private int currentChamber;
@@ -204,7 +208,7 @@ public class Fairies : MonoBehaviour{
     public Fairies(LevelManager lm)
     {
         levelManager = lm;
-
+   
         cim = levelManager.chamberInteractionModel;
 
         //assign and populate chamber array

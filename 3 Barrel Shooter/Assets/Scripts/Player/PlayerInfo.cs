@@ -24,6 +24,7 @@ public class PlayerInfo : MonoBehaviour
     private bool resetHP = false;
     Color c;
     PlayerController pc;
+    GameObject gravePrefab;
 
     public void InitPlayerInfo(LevelManager lm, int pNum)
     {
@@ -103,13 +104,18 @@ public class PlayerInfo : MonoBehaviour
             StartCoroutine("respawn");
         }
     }
-
+    public void SpawnGrave(Vector3 position)
+    {
+        // add animation stuff here
+        GameObject grave = Instantiate(levelManager.Tombstone, position, Quaternion.Euler(transform.forward));
+    }
 
     private IEnumerator respawn(){
         isRespawning = true;
 		lives += -1;
         //deathParticles = Instantiate(levelManager.particles[3], transform.position, transform.rotation);
         pc.StartDeathAnimation(); // stops player movement
+       
         //levelManager.SpawnParticleEffectAtPosition(transform.position, 3);
         levelManager.soundManager.PlaySoundByName(audioSources[0], "Death", false, 1.0f); // plays death sound
        
@@ -131,6 +137,7 @@ public class PlayerInfo : MonoBehaviour
 			respawn = GetVector(1);
 			break;
 		}
+        SpawnGrave(transform.position);
         transform.position = respawn;
         pc.SetRevive();
 

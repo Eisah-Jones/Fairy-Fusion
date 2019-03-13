@@ -22,7 +22,8 @@ public class FairyController : MonoBehaviour {
     bool isShootingComboSame = false;
 
     public GameObject absorbs;
-    private ParticleSystem ps;
+    public ParticleSystem ps;
+
     public List<GameObject> fairyPrefabs;
 	public Sprite[] uisprites;
 	public Image LT;
@@ -61,6 +62,7 @@ public class FairyController : MonoBehaviour {
         suckCircle = GetComponentInChildren<Animator>();
         //absorbs = GetComponentInChildren<ParticleSystem>();
         ps = GetComponentInChildren<ParticleSystem>(); //absorbs.GetComponent<ParticleSystem>();
+       
     
     }
     
@@ -206,6 +208,14 @@ public class FairyController : MonoBehaviour {
 			combo.sprite = uisprites [9];
 		} else if ((LTname == "Leaf" && RTname == "Rock") || (RTname == "Leaf" && LTname == "Rock")) {
 			combo.sprite = uisprites [10];
+		} else if (LTname == "Fire" && RTname == "Fire"){
+			combo.sprite = uisprites [1];
+		} else if (LTname == "Water" && RTname == "Water"){
+			combo.sprite = uisprites [2];
+		} else if (LTname == "Rock" && RTname == "Rock"){
+			combo.sprite = uisprites [3];
+		} else if (LTname == "Leaf" && RTname == "Leaf"){
+			combo.sprite = uisprites [4];
 		}
 		else {
 			combo.enabled = false;
@@ -303,7 +313,7 @@ public class FairyController : MonoBehaviour {
                 ps.Play();
                
             }
-                ps.Play(); // = Instantiate(levelManager.particleManager.GetParticleByID(1), projectileSpawner.position, transform.rotation);
+               // ps.Play(); // = Instantiate(levelManager.particleManager.GetParticleByID(1), projectileSpawner.position, transform.rotation);
             
         }
         else
@@ -323,12 +333,13 @@ public class FairyController : MonoBehaviour {
             fairies.SetVacuum(stateLeft, stateRight);
             fairyArea.enabled = stateLeft || stateRight;
             //suckCircle.SetBool("isEating", true);
+            levelManager.soundManager.PlaySoundByName(audioSource, "AbsorbMed_Eating", true); // plays suck sound
             //levelManager.soundManager.PlaySoundByName(audioSource, "SuckingSound", true);
-            //if (!(stateLeft || stateRight))
-            //{
-            //    suckCircle.SetBool("isEating", false);
-            //    levelManager.soundManager.StopSound(audioSource);
-            //}
+            if (!(stateLeft || stateRight))
+            {
+                //suckCircle.SetBool("isEating", false);
+                levelManager.soundManager.StopSound(audioSource); //stops suck sound
+            }
         }
     }
 
@@ -348,6 +359,7 @@ public class FairyController : MonoBehaviour {
         if (shootingLeft || shootingRight)
         {
             suckCircle.SetBool("isSpitting", true);
+          
         }
         else
         {
@@ -529,17 +541,44 @@ public class FairyController : MonoBehaviour {
         isDelayingFrame = false;
     }
 
+    Color GetColorByID(int ID)
+    {
+        if (ID == 1) return new Color(1f,.549f , 0f); // orange fire
+        if (ID == 2) return Color.black;//(.439f,.1905f,.0f); // brown rock
+        if (ID == 3) return new Color(.333f,.815f,.925f);
+        if (ID == 4) return Color.green;
+        if (ID == 5) return Color.white;
+        else return Color.white;
+    }
 
     void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged") return;
+        if (collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged")
+        {
+            var main = ps.main;
+            main.startColor = Color.white;
+            return;
+        }
+
 
         if (collision.tag == "TilemapTrigger") 
         {
-            if (levelManager.GetTriggerTile((int)projectileSpawner.position.x, (int)projectileSpawner.position.y) == "Water")
+           // if (levelManager.GetTriggerTile((int)projectileSpawner.position.x, (int)projectileSpawner.position.y) == "Water")
+           // {
+            fairies.AddToChamber("Water", 3, suckLeft);
+            if (!fairies.IsCurrentChamberAtCapacity(true) && fairies.GetCurrentChamber(true).GetElementNameByIndex(0) == "Water") // Cannot suck element
+                
             {
-                fairies.AddToChamber("Water", 3, suckLeft);
+                var main = ps.main;
+                main.startColor = GetColorByID(3);
             }
+            else if (fairies.IsCurrentChamberAtCapacity(true) && fairies.GetCurrentChamber(true).GetElementNameByIndex(0) == "Water")
+            {
+                var main = ps.main;
+                main.startColor = Color.white;
+            }
+            
+          //  }
             fairies.SetCombinationChambers();
             return;
         }
@@ -553,13 +592,15 @@ public class FairyController : MonoBehaviour {
 
             if (fairies.IsCurrentChamberAtCapacity(true)) // Cannot suck element
             {
-               // levelManager.soundManager.PlaySoundOneShotName(audioSource, "MaxCap");// TODO: play negative sound effect
+                levelManager.soundManager.PlaySoundByName(audioSource, "MaxCap");// TODO: play negative sound effect
             }
             else if (r.CanCollect() && (fairies.IsCurrentChamberEmpty(true) || 
                 fairies.GetCurrentChamber(true).GetElementNameByIndex(0) == collisionInfo[2]))
             {
                 collision.GetComponent<Shaker>().beingSucked = true; // shakes the resource
                 result = fairies.AddToChamber(collisionInfo[2], int.Parse(collisionInfo[1]), suckLeft);
+                var main = ps.main;
+                main.startColor = GetColorByID(int.Parse(collisionInfo[1]));
                 r.DecrementResource();
             }
         }
@@ -569,10 +610,15 @@ public class FairyController : MonoBehaviour {
 
     private void OnTriggerExit2D(Collider2D other)
     {
+        var main = ps.main;
         if (!fairies.GetVacuumOn() && other.name[0] == 'R')
         {
             other.GetComponent<Shaker>().beingSucked = false;
+            
+            main.startColor = Color.white;
         }
+       
+        main.startColor = Color.white;
     }
 
 
