@@ -97,7 +97,7 @@ public class UIManager : MonoBehaviour
         if (levelManager != null && timer.isGameOver)
         {
             cdown.SetActive(false);
-            endScreen.SetActive(true);
+            //endScreen.SetActive(true);
             winText.text = string.Format("Player {0} Wins!", levelManager.GetWinner());
             levelManager.SetIsOver(true);
         }
