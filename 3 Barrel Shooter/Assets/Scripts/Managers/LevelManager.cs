@@ -64,6 +64,8 @@ public class LevelManager: MonoBehaviour
 
     private Sprite[] waterSprites;
 
+    private List<int[]> playerRespawnPositions;
+
 
     // Set testing varible to start from Level and not MainMenu
     public void Start()
@@ -149,6 +151,7 @@ public class LevelManager: MonoBehaviour
         
         
         levelGen.SpawnResources(resourceManager);
+        playerRespawnPositions = levelGen.GetPlayerRespawns();
 
         AnimateWater(levelGen.GetWaterTiles(groundTrigger));
 
@@ -204,27 +207,6 @@ public class LevelManager: MonoBehaviour
             else if (i == 4) { top = false; yield return new WaitForSeconds(0.033f); }
         }
     }
-
-
-    //public void StartWin_Sequence()
-    //{
-    //    List<string> winner = lm.GetKillCounter().GetWinner();
-    //    if (winner.Count > 1) // if theres a tie
-    //    {
-    //        string winners = "";
-    //        for (int i = 0; i < winner.Count; i++)
-    //        {
-    //            winners += winner[i] + " -";
-    //        }
-    //        TextIndicator.fontSize = 13;
-    //        TextIndicator.text = "It's a tie between " + winners;
-
-    //    }
-    //    else
-    //    {
-    //        TextIndicator.text = winner[0] + " is the WINNER!!";
-    //    }
-    //}
 
 
     public bool GetIsGameOverLives()
@@ -300,6 +282,11 @@ public class LevelManager: MonoBehaviour
     public string GetTriggerTile(int x, int y)
     {
         return levelGen.GetTerrainMap()[x, y];
+    }
+
+    public List<int[]> GetRespawnPositions()
+    {
+        return playerRespawnPositions;
     }
 
 

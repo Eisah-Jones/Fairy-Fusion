@@ -279,6 +279,24 @@ public class LevelGenerator : MonoBehaviour
     }
 
 
+    public List<int[]> GetPlayerRespawns()
+    {
+        List<int[]> result = new List<int[]>();
+
+        for (int x = 0; x < terrainMap.GetUpperBound(0); x++)
+        {
+            for (int y = 0; y < terrainMap.GetUpperBound(1); y++)
+            {
+                int[] temp = { x, y };
+                if (!takenPositions.Contains(temp))
+                    result.Add(temp);
+            }
+        }
+
+        return result;
+    }
+
+
     private void SpawnFire(ResourceManager rm)
     {
         for (int i = 0; i < 40;)
