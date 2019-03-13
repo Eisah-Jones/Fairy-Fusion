@@ -238,7 +238,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 2.0857964, y: 0.06647301}
+  m_Offset: {x: 5.868166, y: 0.03826523}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -249,7 +249,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.1518784, y: 2.5640144}
+  m_Size: {x: 5.6519814, y: 3.3538265}
   m_EdgeRadius: 0
 --- !u!120 &8359969068701872591
 LineRenderer:
@@ -1046,11 +1046,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6620581126270615628}
     m_Modifications:
-    - target: {fileID: 2952947918409039143, guid: 97b5354038841b94299aee8ec4127b29,
-        type: 3}
-      propertyPath: m_Name
-      value: Absorb
-      objectReference: {fileID: 0}
     - target: {fileID: 7397934314824185101, guid: 97b5354038841b94299aee8ec4127b29,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1120,6 +1115,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2952947918409039143, guid: 97b5354038841b94299aee8ec4127b29,
+        type: 3}
+      propertyPath: m_Name
+      value: Absorb
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97b5354038841b94299aee8ec4127b29, type: 3}
