@@ -64,6 +64,7 @@ public class PlayerController : MonoBehaviour
         audioSource1 = gameObject.AddComponent<AudioSource>();
         maxTime = 2f;
         dashForce = 30f;
+        player_animator.SetBool("Side", true);
     }
 
 
@@ -117,6 +118,8 @@ public class PlayerController : MonoBehaviour
         // gets rotation input from right stick 
         float r_vertical = inputs.Right_Stick_Vertical;
         float r_horizontal = inputs.Right_Stick_Horizontal;
+     
+        Debug.Log("RightVert: " + r_vertical);
         float heading = Mathf.Atan2(r_vertical, r_horizontal);
 
         //Change the position of the player
@@ -214,11 +217,17 @@ public class PlayerController : MonoBehaviour
             player_animator.SetBool("Moving", true);
 
         }
+        else if (Mathf.Approximately(l_horizontal, 0f) && Mathf.Approximately(l_vertical, 0f))
+        {
+            player_animator.SetBool("Moving", false);
+            if (audioSource != null)
+                lm.soundManager.StopSound(audioSource);
+        }
         else if (Mathf.Approximately(horizontal, 0f) && Mathf.Approximately(vertical, 0f))
         {
             if (audioSource != null)
                 lm.soundManager.StopSound(audioSource);
-            player_animator.SetBool("Moving", false);
+            //player_animator.SetBool("Moving", false);
         }
         //change rotation of player if no input received keeps same rotation as last time it got input prevents snapping back to 0,0 heading
         if ( heading == 0 && horizontal > 0)
