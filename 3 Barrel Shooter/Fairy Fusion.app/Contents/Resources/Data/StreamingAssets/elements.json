@@ -1,0 +1,963 @@
+{
+  "Null": {
+    "name": null,
+    "ID": null,
+    "damage": null,
+    "fireRate": null,
+    "projectileType": null,
+    "projectileLife": null,
+    "chamberCapacity": null,
+    "speed": 0,
+    "yield": 0,
+    "playerCollisionEffects": [
+      null
+    ],
+    "chamberInteractions": {
+      "Fire": null,
+      "Rock": null,
+      "Water": null,
+      "Leaf": null,
+      "Air": null,
+      "Steam": null,
+      "Fireball": null,
+      "Mud": null,
+      "Sniper": null,
+      "SpikeShot": null,
+      "Laser": null
+    },
+    "combinationRequirements": {
+      "elem1": null,
+      "elem1Num": null,
+      "elem2": null,
+      "elem2Num": null
+    },
+    "elementCollisions": {
+      "Fire": {
+        "c1": null,
+        "c2": null
+      },
+      "Rock": {
+        "c1": null,
+        "c2": null
+      },
+      "Water": {
+        "c1": null,
+        "c2": null
+      },
+      "Leaf": {
+        "c1": null,
+        "c2": null
+      },
+      "Air": {
+        "c1": null,
+        "c2": null
+      },
+      "Steam": {
+        "c1": null,
+        "c2": null
+      },
+      "Fireball": {
+        "c1": null,
+        "c2": null
+      },
+      "Mud": {
+        "c1": null,
+        "c2": null
+      },
+      "Sniper": {
+        "c1": null,
+        "c2": null
+      },
+      "SpikeShot": {
+        "c1": null,
+        "c2": null
+      },
+      "Laser": {
+        "c1": null,
+        "c2": null
+      }
+    }
+  },
+
+  "Fire": {
+    "name": "Fire",
+    "ID": 1,
+    "damage": 0.4,
+    "fireRate": 0,
+    "projectileType": "Fluid",
+    "projectileLife": 10,
+    "chamberCapacity": 200,
+    "speed": 10,
+    "yield": 0,
+    "playerCollisionEffects": [
+      "Burn"
+    ],
+    "chamberInteractions": {
+      "Fire": "Ammo",
+      "Rock": "Fireball",
+      "Water": "Steam",
+      "Leaf": "Laser",
+      "Air": null,
+      "Steam": null,
+      "Fireball": null,
+      "Mud": null,
+      "Sniper": null,
+      "SpikeShot": null,
+      "Laser": null
+    },
+    "combinationRequirements": {
+      "elem1": null,
+      "elem1Num": null,
+      "elem2": null,
+      "elem2Num": null
+    },
+    "elementCollisions": {
+      "Fire": {
+        "c1": null,
+        "c2": null
+      },
+      "Rock": {
+        "c1": null,
+        "c2": "Fireball"
+      },
+      "Water": {
+        "c1": "Destroy",
+        "c2": null
+      },
+      "Leaf": {
+        "c1": null,
+        "c2": "Destroy"
+      },
+      "Air": {
+        "c1": null,
+        "c2": null
+      },
+      "Steam": {
+        "c1": "Destroy",
+        "c2": null
+      },
+      "Fireball": {
+        "c1": null,
+        "c2": null
+      },
+      "Mud": {
+        "c1": "Destroy",
+        "c2": "Rock"
+      },
+      "Sniper": {
+        "c1": null,
+        "c2": "Leaf"
+      },
+      "SpikeShot": {
+        "c1": null,
+        "c2": null
+      },
+      "Laser": {
+        "c1": null,
+        "c2": null
+      }
+    }
+  },
+
+  "Rock": {
+    "name": "Rock",
+    "ID": 2,
+    "damage": 15,
+    "fireRate": 15,
+    "projectileType": "Bullet",
+    "projectileLife": 12,
+    "chamberCapacity": 40,
+    "speed": 15,
+    "yield": 0,
+    "playerCollisionEffects": [
+      "Knockback"
+    ],
+    "chamberInteractions": {
+      "Fire": "Fireball",
+      "Rock": "Ammo",
+      "Water": "Mud",
+      "Leaf": "SpikeShot",
+      "Air": null,
+      "Steam": null,
+      "Fireball": null,
+      "Mud": null,
+      "Sniper": null,
+      "SpikeShot": null,
+      "Laser": null
+    },
+    "combinationRequirements": {
+      "elem1": null,
+      "elem1Num": null,
+      "elem2": null,
+      "elem2Num": null
+    },
+    "elementCollisions": {
+      "Fire": {
+        "c1": null,
+        "c2": null
+      },
+      "Rock": {
+        "c1": "Destroy",
+        "c2": "Destroy"
+      },
+      "Water": {
+        "c1": "Destroy",
+        "c2": null
+      },
+      "Leaf": {
+        "c1": null,
+        "c2": "Destroy"
+      },
+      "Air": {
+        "c1": "Reflect",
+        "c2": null
+      },
+      "Steam": {
+        "c1": "Reflect",
+        "c2": null
+      },
+      "Fireball": {
+        "c1": "Destroy",
+        "c2": "Destroy"
+      },
+      "Mud": {
+        "c1": null,
+        "c2": "Stop"
+      },
+      "Sniper": {
+        "c1": "Destroy",
+        "c2": "Destroy"
+      },
+      "SpikeShot": {
+        "c1": null,
+        "c2": null
+      },
+      "Laser": {
+        "c1": null,
+        "c2": null
+      }
+    }
+  },
+
+  "Water": {
+    "name": "Water",
+    "ID": 3,
+    "damage": 0.4,
+    "fireRate": 0,
+    "projectileType": "Fluid",
+    "projectileLife": 10,
+    "chamberCapacity": 200,
+    "speed": 5,
+    "yield": 0,
+    "playerCollisionEffects": [
+      "Pushback"
+    ],
+    "chamberInteractions": {
+      "Fire": "Steam",
+      "Rock": "Mud",
+      "Water": "Ammo",
+      "Leaf": "Sniper",
+      "Air": null,
+      "Steam": null,
+      "Fireball": null,
+      "Mud": null,
+      "Sniper": null,
+      "SpikeShot": null,
+      "Laser": null
+    },
+    "combinationRequirements": {
+      "elem1": null,
+      "elem1Num": null,
+      "elem2": null,
+      "elem2Num": null
+    },
+    "elementCollisions": {
+      "Fire": {
+        "c1": null,
+        "c2": null
+      },
+      "Rock": {
+        "c1": null,
+        "c2": null
+      },
+      "Water": {
+        "c1": "Stop",
+        "c2": "Stop"
+      },
+      "Leaf": {
+        "c1": null,
+        "c2": "Stop"
+      },
+      "Air": {
+        "c1": "Reflect",
+        "c2": null
+      },
+      "Steam": {
+        "c1": "Destroy",
+        "c2": null
+      },
+      "Fireball": {
+        "c1": "Destroy",
+        "c2": "Rock"
+      },
+      "Mud": {
+        "c1": null,
+        "c2": "Stop"
+      },
+      "Sniper": {
+        "c1": null,
+        "c2": "Destroy"
+      },
+      "SpikeShot": {
+        "c1": null,
+        "c2": null
+      },
+      "Laser": {
+        "c1": null,
+        "c2": null
+      }
+    }
+  },
+
+  "Leaf": {
+    "name": "Leaf",
+    "ID": 4,
+    "damage": 10,
+    "fireRate": 10,
+    "projectileType": "Splinter",
+    "projectileLife": 12,
+    "chamberCapacity": 50,
+    "speed": 15,
+    "yield": 0,
+    "playerCollisionEffects": [
+      "Pushback"
+    ],
+    "chamberInteractions": {
+      "Fire": "Laser",
+      "Rock": "SpikeShot",
+      "Water": "Sniper",
+      "Leaf": "Ammo",
+      "Air": null,
+      "Steam": null,
+      "Fireball": null,
+      "Mud": null,
+      "Sniper": null,
+      "SpikeShot": null,
+      "Laser": null
+    },
+    "combinationRequirements": {
+      "elem1": null,
+      "elem1Num": null,
+      "elem2": null,
+      "elem2Num": null
+    },
+    "elementCollisions": {
+      "Fire": {
+        "c1": null,
+        "c2": null
+      },
+      "Rock": {
+        "c1": null,
+        "c2": null
+      },
+      "Water": {
+        "c1": null,
+        "c2": null
+      },
+      "Leaf": {
+        "c1": "Destroy",
+        "c2": "Destroy"
+      },
+      "Air": {
+        "c1": "Reflect",
+        "c2": null
+      },
+      "Steam": {
+        "c1": "Reflect",
+        "c2": null
+      },
+      "Fireball": {
+        "c1": "Destroy",
+        "c2": null
+      },
+      "Mud": {
+        "c1": "Destroy",
+        "c2": "Stop"
+      },
+      "Sniper": {
+        "c1": "Destroy",
+        "c2": null
+      },
+      "SpikeShot": {
+        "c1": null,
+        "c2": null
+      },
+      "Laser": {
+        "c1": null,
+        "c2": null
+      }
+    }
+  },
+
+  "Air": {
+    "name": "Air",
+    "ID": 5,
+    "damage": 0,
+    "fireRate": 50,
+    "projectileType": "Projectile",
+    "projectileLife": 10,
+    "chamberCapacity": -1,
+    "speed": 5,
+    "yield": 0,
+    "playerCollisionEffects": [
+      "Knockback"
+    ],
+    "chamberInteractions": {
+      "Fire": null,
+      "Rock": null,
+      "Water": null,
+      "Leaf": null,
+      "Air": null,
+      "Steam": null,
+      "Fireball": null,
+      "Mud": null,
+      "Sniper": null,
+      "SpikeShot": null,
+      "Laser": null
+    },
+    "combinationRequirements": {
+      "elem1": null,
+      "elem1Num": null,
+      "elem2": null,
+      "elem2Num": null
+    },
+    "elementCollisions": {
+      "Fire": {
+        "c1": null,
+        "c2": "Reflect"
+      },
+      "Rock": {
+        "c1": null,
+        "c2": "Reflect"
+      },
+      "Water": {
+        "c1": null,
+        "c2": "Reflect"
+      },
+      "Leaf": {
+        "c1": null,
+        "c2": "Reflect"
+      },
+      "Air": {
+        "c1": null,
+        "c2": null
+      },
+      "Steam": {
+        "c1": null,
+        "c2": "Reflect"
+      },
+      "Fireball": {
+        "c1": null,
+        "c2": "Reflect"
+      },
+      "Mud": {
+        "c1": null,
+        "c2": "Reflect"
+      },
+      "Sniper": {
+        "c1": null,
+        "c2": "Reflect"
+      },
+      "SpikeShot": {
+        "c1": null,
+        "c2": "Reflect"
+      },
+      "Laser": {
+        "c1": null,
+        "c2": null
+      }
+    }
+  },
+
+  "Fireball": {
+    "name": "Fireball",
+    "ID": 7,
+    "damage": 32,
+    "fireRate": 30,
+    "projectileType": "Bullet",
+    "projectileLife": 18,
+    "chamberCapacity": 20,
+    "speed": 15,
+    "yield": 0,
+    "playerCollisionEffects": [
+      "Burn",
+      "Knockback"
+    ],
+    "chamberInteractions": {
+      "Fire": null,
+      "Rock": null,
+      "Water": null,
+      "Leaf": null,
+      "Air": null,
+      "Steam": null,
+      "Fireball": null,
+      "Mud": null,
+      "Sniper": null,
+      "SpikeShot": null,
+      "Laser": null
+    },
+    "combinationRequirements": {
+      "elem1": "Fire",
+      "elem1Num": 1,
+      "elem2": "Rock",
+      "elem2Num": 1
+    },
+    "elementCollisions": {
+      "Fire": {
+        "c1": null,
+        "c2": null
+      },
+      "Rock": {
+        "c1": "Destroy",
+        "c2": "Destroy"
+      },
+      "Water": {
+        "c1": "Rock",
+        "c2": "Destroy"
+      },
+      "Leaf": {
+        "c1": null,
+        "c2": "Destroy"
+      },
+      "Air": {
+        "c1": "Reflect",
+        "c2": null
+      },
+      "Steam": {
+        "c1": "Reflect;Rock",
+        "c2": null
+      },
+      "Fireball": {
+        "c1": "Destroy;Fire",
+        "c2": "Destroy;Fire"
+      },
+      "Mud": {
+        "c1": "Destroy",
+        "c2": "Destroy"
+      },
+      "Sniper": {
+        "c1": null,
+        "c2": "Destroy"
+      },
+      "SpikeShot": {
+        "c1": null,
+        "c2": null
+      },
+      "Laser": {
+        "c1": null,
+        "c2": null
+      }
+    }
+  },
+
+  "Steam": {
+    "name": "Steam",
+    "ID": 6,
+    "damage": 0.3,
+    "fireRate": 1,
+    "projectileType": "Fluid",
+    "projectileLife": 20,
+    "chamberCapacity": 100,
+    "speed": 5,
+    "yield": 0,
+    "playerCollisionEffects": [
+      "Burn"
+    ],
+    "chamberInteractions": {
+      "Fire": "Ammo",
+      "Rock": "Fireball",
+      "Water": "Steam",
+      "Leaf": "Ammo",
+      "Air": null,
+      "Steam": null,
+      "Fireball": null,
+      "Mud": null,
+      "Sniper": null,
+      "SpikeShot": null,
+      "Laser": null
+    },
+    "combinationRequirements": {
+      "elem1": "Water",
+      "elem1Num": 1,
+      "elem2": "Fire",
+      "elem2Num": 1
+    },
+    "elementCollisions": {
+      "Fire": {
+        "c1": null,
+        "c2": "Destroy"
+      },
+      "Rock": {
+        "c1": null,
+        "c2": "Reflect"
+      },
+      "Water": {
+        "c1": null,
+        "c2": "Destroy"
+      },
+      "Leaf": {
+        "c1": null,
+        "c2": "Reflect"
+      },
+      "Air": {
+        "c1": null,
+        "c2": null
+      },
+      "Steam": {
+        "c1": null,
+        "c2": null
+      },
+      "Fireball": {
+        "c1": null,
+        "c2": "Rock"
+      },
+      "Mud": {
+        "c1": null,
+        "c2": null
+      },
+      "Sniper": {
+        "c1": null,
+        "c2": "Leaf"
+      },
+      "SpikeShot": {
+        "c1": null,
+        "c2": null
+      },
+      "Laser": {
+        "c1": null,
+        "c2": null
+      }
+    }
+  },
+
+  "Mud": {
+    "name": "Mud",
+    "ID": 8,
+    "damage": 15,
+    "fireRate": 20,
+    "projectileType": "Bullet",
+    "projectileLife": 25,
+    "chamberCapacity": 20,
+    "speed": 7,
+    "yield": 0,
+    "playerCollisionEffects": [
+      "Slow"
+    ],
+    "chamberInteractions": {
+      "Fire": null,
+      "Rock": null,
+      "Water": null,
+      "Leaf": null,
+      "Air": null,
+      "Steam": null,
+      "Fireball": null,
+      "Mud": null,
+      "Sniper": null,
+      "SpikeShot": null,
+      "Laser": null
+    },
+    "combinationRequirements": {
+      "elem1": "Water",
+      "elem1Num": 1,
+      "elem2": "Rock",
+      "elem2Num": 1
+    },
+    "elementCollisions": {
+      "Fire": {
+        "c1": null,
+        "c2": null
+      },
+      "Rock": {
+        "c1": "Rock",
+        "c2": null
+      },
+      "Water": {
+        "c1": "Destroy",
+        "c2": null
+      },
+      "Leaf": {
+        "c1": "Stop",
+        "c2": "Destroy"
+      },
+      "Air": {
+        "c1": "Reflect",
+        "c2": null
+      },
+      "Steam": {
+        "c1": "Reflect",
+        "c2": null
+      },
+      "Fireball": {
+        "c1": "Destroy",
+        "c2": "Destroy"
+      },
+      "Mud": {
+        "c1": "Stop",
+        "c2": "Stop"
+      },
+      "Sniper": {
+        "c1": "Stop",
+        "c2": null
+      },
+      "SpikeShot": {
+        "c1": null,
+        "c2": null
+      },
+      "Laser": {
+        "c1": null,
+        "c2": null
+      }
+    }
+  },
+
+  "Sniper": {
+    "name": "Sniper",
+    "ID": 9,
+    "damage": 75,
+    "fireRate": 60,
+    "projectileType": "Bullet",
+    "projectileLife": 65,
+    "chamberCapacity": 20,
+    "speed": 30,
+    "yield": 0,
+    "playerCollisionEffects": [
+      "Knockback"
+    ],
+    "chamberInteractions": {
+      "Fire": null,
+      "Rock": null,
+      "Water": null,
+      "Leaf": null,
+      "Air": null,
+      "Steam": null,
+      "Fireball": null,
+      "Mud": null,
+      "Sniper": null,
+      "SpikeShot": null,
+      "Laser": null
+    },
+    "combinationRequirements": {
+      "elem1": "Leaf",
+      "elem1Num": 1,
+      "elem2": "Water",
+      "elem2Num": 1
+    },
+    "elementCollisions": {
+      "Fire": {
+        "c1": null,
+        "c2": null
+      },
+      "Rock": {
+        "c1": "Destroy",
+        "c2": "Destroy"
+      },
+      "Water": {
+        "c1": null,
+        "c2": "Destroy"
+      },
+      "Leaf": {
+        "c1": null,
+        "c2": "Destroy"
+      },
+      "Air": {
+        "c1": "Reflect",
+        "c2": null
+      },
+      "Steam": {
+        "c1": "Reflect",
+        "c2": null
+      },
+      "Fireball": {
+        "c1": "Destroy",
+        "c2": null
+      },
+      "Mud": {
+        "c1": null,
+        "c2": "Stop"
+      },
+      "Sniper": {
+        "c1": "Destroy",
+        "c2": "Destroy"
+      },
+      "SpikeShot": {
+        "c1": null,
+        "c2": null
+      },
+      "Laser": {
+        "c1": null,
+        "c2": null
+      }
+    }
+  },
+
+  "SpikeShot": {
+    "name": "SpikeShot",
+    "ID": 10,
+    "damage": 7,
+    "fireRate": 110,
+    "projectileType": "Explosion",
+    "projectileLife": 25,
+    "chamberCapacity": 20,
+    "speed": 5,
+    "yield": 1,
+    "playerCollisionEffects": [
+      "Knockback"
+    ],
+    "chamberInteractions": {
+      "Fire": null,
+      "Rock": null,
+      "Water": null,
+      "Leaf": null,
+      "Air": null,
+      "Steam": null,
+      "Fireball": null,
+      "Mud": null,
+      "Sniper": null,
+      "SpikeShot": null,
+      "Laser": null
+    },
+    "combinationRequirements": {
+      "elem1": "Rock",
+      "elem1Num": 1,
+      "elem2": "Leaf",
+      "elem2Num": 1
+    },
+    "elementCollisions": {
+      "Fire": {
+        "c1": "Destroy",
+        "c2": "Destroy"
+      },
+      "Rock": {
+        "c1": "Destroy",
+        "c2": "Destroy"
+      },
+      "Water": {
+        "c1": "Destroy",
+        "c2": null
+      },
+      "Leaf": {
+        "c1": null,
+        "c2": "Destroy"
+      },
+      "Air": {
+        "c1": "Reflect",
+        "c2": null
+      },
+      "Steam": {
+        "c1": "Reflect",
+        "c2": null
+      },
+      "Fireball": {
+        "c1": "Destroy",
+        "c2": "Destroy"
+      },
+      "Mud": {
+        "c1": "Destroy",
+        "c2": "Stop"
+      },
+      "Sniper": {
+        "c1": "Destroy",
+        "c2": "Destroy"
+      },
+      "SpikeShot": {
+        "c1": "Destroy",
+        "c2": "Destroy"
+      },
+      "Laser": {
+        "c1": null,
+        "c2": null
+      }
+    }
+  },
+
+  "Laser": {
+    "name": "Laser",
+    "ID": 11,
+    "damage": 32,
+    "fireRate": 100,
+    "projectileType": "Beam",
+    "projectileLife": 5,
+    "chamberCapacity": 10,
+    "speed": 0,
+    "yield": 0,
+    "playerCollisionEffects": [
+      "Burn"
+    ],
+    "chamberInteractions": {
+      "Fire": null,
+      "Rock": null,
+      "Water": null,
+      "Leaf": null,
+      "Air": null,
+      "Steam": null,
+      "Fireball": null,
+      "Mud": null,
+      "Sniper": null,
+      "SpikeShot": null,
+      "Laser": null
+    },
+    "combinationRequirements": {
+      "elem1": "Fire",
+      "elem1Num": 1,
+      "elem2": "Leaf",
+      "elem2Num": 1
+    },
+    "elementCollisions": {
+      "Fire": {
+        "c1": null,
+        "c2": null
+      },
+      "Rock": {
+        "c1": null,
+        "c2": "Destroy"
+      },
+      "Water": {
+        "c1": "Destroy",
+        "c2": null
+      },
+      "Leaf": {
+        "c1": null,
+        "c2": "Destroy"
+      },
+      "Air": {
+        "c1": null,
+        "c2": null
+      },
+      "Steam": {
+        "c1": null,
+        "c2": null
+      },
+      "Fireball": {
+        "c1": null,
+        "c2": "Destroy"
+      },
+      "Mud": {
+        "c1": null,
+        "c2": "Destroy"
+      },
+      "Sniper": {
+        "c1": null,
+        "c2": "Destroy"
+      },
+      "SpikeShot": {
+        "c1": null,
+        "c2": "Destroy"
+      },
+      "Laser": {
+        "c1": "Destroy",
+        "c2": "Destroy"
+      }
+    }
+  }
+
+}

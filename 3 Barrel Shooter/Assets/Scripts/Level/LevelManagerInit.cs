@@ -14,13 +14,12 @@ public class LevelManagerInit : MonoBehaviour
 
     private void Awake()
     {
-        if (SceneManager.GetActiveScene().name == "Level")
-            StartCoroutine("InitLevel");
+        StartCoroutine("InitLevel");
     }
 
     private IEnumerator InitLevel()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         GameObject.FindGameObjectWithTag("Level Manager").GetComponent<LevelManager>().InitLevelManager(numPlayers);
         Destroy(this);
     }

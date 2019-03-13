@@ -155,6 +155,8 @@ public class LevelManager: MonoBehaviour
         
 
         isInitialized = true;
+
+        GameObject.Find("LoadingScreen").GetComponent<LoadingScreen>().Open();
     }
 
 
@@ -202,6 +204,7 @@ public class LevelManager: MonoBehaviour
         }
     }
 
+
     //public void StartWin_Sequence()
     //{
     //    List<string> winner = lm.GetKillCounter().GetWinner();
@@ -221,6 +224,8 @@ public class LevelManager: MonoBehaviour
     //        TextIndicator.text = winner[0] + " is the WINNER!!";
     //    }
     //}
+
+
     public bool GetIsGameOverLives()
     {
 		int alive_count = 0;
