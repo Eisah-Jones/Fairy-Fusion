@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -37,11 +38,24 @@ public class WinnerPedastal : MonoBehaviour
     private Button currentButton;
     private bool isDetectingInput = true;
 
+    private List<GameObject> pList;
+    private AudioSource blipPlayer;
+
     void Start()
     {
         cm = new ControllerManager();
         cm.InitControllerManagerMenus(4);
         endPlatforms = new Vector3[4] { log0, log1, log2, log3 };
+
+        blipPlayer = gameObject.AddComponent<AudioSource>();
+        blipPlayer.clip = Resources.Load<AudioClip>("Sounds/blip");
+
+        pList = new List<GameObject>();
+        pList.Add(logs[0].transform.GetChild(0).gameObject);
+        pList.Add(logs[1].transform.GetChild(0).gameObject);
+        pList.Add(logs[2].transform.GetChild(0).gameObject);
+        pList.Add(logs[3].transform.GetChild(0).gameObject);
+
         restart = GameObject.Find("Restart").GetComponent<Button>();
         currentButton = restart;
         currentButton.Select();
@@ -76,6 +90,7 @@ public class WinnerPedastal : MonoBehaviour
             {
                 currentButton = restart;
             }
+            blipPlayer.Play();
             currentButton.Select();
             StartCoroutine("InputDetectReset");
         }
@@ -127,10 +142,6 @@ public class WinnerPedastal : MonoBehaviour
             canMove = false;
     }
 
-    public void AnimatePlayers()
-    {
-
-    }
 
     public void SetWinText(int[] playerKills, int numPlayers)
     {
@@ -162,6 +173,11 @@ public class WinnerPedastal : MonoBehaviour
         num_Players = numPlayers;
         //ResetStartPositions();
         float max = Mathf.Max(playerKills);
+
+        foreach(int k in playerKills){
+            Debug.Log(k);
+        }
+
         if (numPlayers == 2)
         {
             if (playerKills[0] == max)
@@ -314,11 +330,48 @@ public class WinnerPedastal : MonoBehaviour
 
             logs[2].gameObject.SetActive(true);
             logs[3].gameObject.SetActive(true);
-       
-
         }
-       // canMove = true;
-        //SetWinText(playerKills, numPlayers);
+
+        InitPlayerAnimations(playerKills, numPlayers);
+    }
+
+
+    public void InitPlayerAnimations(int[] playerKills, int numPlayers)
+    {
+        int max = Mathf.Max(playerKills);
+        int min = Mathf.Min(playerKills);
+        Debug.Log(max + ", " + min);
+
+        int mid = 0;
+        for (int i = 0; i < numPlayers; i++)
+        {
+            Gif g = pList[i].GetComponent<Gif>();
+            if (playerKills[i] == max) //Winner
+            {
+                g.imageDir = "WinAnimations/P" + (i + 1) + "/Win/";
+                g.numImages = 4;
+                g.ReloadImages();
+            }
+            else if (playerKills[i] == min)
+            {
+                g.imageDir = "WinAnimations/P" + (i + 1) + "/Cry/";
+                g.numImages = 6;
+                g.ReloadImages();
+            }
+            else if (mid == 0)
+            {
+                mid++;
+                g.imageDir = "WinAnimations/P" + (i + 1) + "/Clap/";
+                g.numImages = 2;
+                g.ReloadImages();
+            }
+            else
+            {
+                g.imageDir = "WinAnimations/P" + (i + 1) + "/Peace/";
+                g.numImages = 2;
+                g.ReloadImages();
+            }
+        }
     }
 
     public void LoadMenu()

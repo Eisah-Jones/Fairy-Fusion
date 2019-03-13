@@ -37,6 +37,12 @@ public class Gif : MonoBehaviour
     }
 
 
+    public void ReloadImages()
+    {
+        LoadImages();
+    }
+
+
     private void LoadImages()
     {
         frames = new List<Sprite>();

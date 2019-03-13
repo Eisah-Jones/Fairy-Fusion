@@ -162,7 +162,7 @@ PrefabInstance:
     - target: {fileID: 4431722770618446857, guid: c32371152f52abb4dbf486cf7ef3a237,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4431722770618446857, guid: c32371152f52abb4dbf486cf7ef3a237,
         type: 3}
@@ -313,7 +313,7 @@ PrefabInstance:
     - target: {fileID: 4431722770618446857, guid: c32371152f52abb4dbf486cf7ef3a237,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4431722770618446857, guid: c32371152f52abb4dbf486cf7ef3a237,
         type: 3}
@@ -583,12 +583,12 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1219497169}
+  - {fileID: 1177164661}
+  - {fileID: 1969454024}
   - {fileID: 4431722770618446857}
   - {fileID: 121884865}
   - {fileID: 196703021}
   - {fileID: 1192362996}
-  - {fileID: 1177164661}
-  - {fileID: 1969454024}
   - {fileID: 2016103422}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -863,6 +863,7 @@ GameObject:
   - component: {fileID: 418507255}
   - component: {fileID: 418507257}
   - component: {fileID: 418507256}
+  - component: {fileID: 418507258}
   m_Layer: 5
   m_Name: Image (6)
   m_TagString: Untagged
@@ -926,6 +927,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 418507254}
   m_CullTransparentMesh: 0
+--- !u!114 &418507258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418507254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2354c7f689c9d447a9350966130256c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numImages: 4
+  imageDir: WinAnimations/P2/Win/
+  bounce: 0
 --- !u!1 &479732058
 GameObject:
   m_ObjectHideFlags: 0
@@ -937,8 +953,8 @@ GameObject:
   - component: {fileID: 479732059}
   - component: {fileID: 479732063}
   - component: {fileID: 479732062}
-  - component: {fileID: 479732061}
   - component: {fileID: 479732060}
+  - component: {fileID: 479732061}
   m_Layer: 5
   m_Name: Image (5)
   m_TagString: Untagged
@@ -1013,25 +1029,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &479732061
-Animator:
-  serializedVersion: 3
+--- !u!114 &479732061
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 479732058}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a86363661cdd55246b0a86563f8a8504, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2354c7f689c9d447a9350966130256c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numImages: 4
+  imageDir: WinAnimations/P1/Win/
+  bounce: 0
 --- !u!114 &479732062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1225,6 +1237,7 @@ GameObject:
   - component: {fileID: 710524076}
   - component: {fileID: 710524078}
   - component: {fileID: 710524077}
+  - component: {fileID: 710524079}
   m_Layer: 5
   m_Name: Image (7)
   m_TagString: Untagged
@@ -1288,6 +1301,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 710524075}
   m_CullTransparentMesh: 0
+--- !u!114 &710524079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710524075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2354c7f689c9d447a9350966130256c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numImages: 4
+  imageDir: WinAnimations/P3/Win/
+  bounce: 0
 --- !u!1 &1177164660
 GameObject:
   m_ObjectHideFlags: 0
@@ -1319,7 +1347,7 @@ RectTransform:
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 375136475}
-  m_RootOrder: 5
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1472,7 +1500,7 @@ PrefabInstance:
     - target: {fileID: 4431722770618446857, guid: c32371152f52abb4dbf486cf7ef3a237,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4431722770618446857, guid: c32371152f52abb4dbf486cf7ef3a237,
         type: 3}
@@ -1580,7 +1608,7 @@ GameObject:
   - component: {fileID: 1219497171}
   - component: {fileID: 1219497170}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1719,6 +1747,7 @@ GameObject:
   - component: {fileID: 1493022371}
   - component: {fileID: 1493022373}
   - component: {fileID: 1493022372}
+  - component: {fileID: 1493022374}
   m_Layer: 5
   m_Name: Image (8)
   m_TagString: Untagged
@@ -1782,6 +1811,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1493022370}
   m_CullTransparentMesh: 0
+--- !u!114 &1493022374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493022370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2354c7f689c9d447a9350966130256c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numImages: 4
+  imageDir: WinAnimations/P4/Win/
+  bounce: 0
 --- !u!1 &1969454023
 GameObject:
   m_ObjectHideFlags: 0
@@ -1813,7 +1857,7 @@ RectTransform:
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 375136475}
-  m_RootOrder: 6
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2180,7 +2224,7 @@ PrefabInstance:
     - target: {fileID: 4431722770618446857, guid: c32371152f52abb4dbf486cf7ef3a237,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4431722770618446857, guid: c32371152f52abb4dbf486cf7ef3a237,
         type: 3}

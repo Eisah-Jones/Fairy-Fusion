@@ -135,7 +135,8 @@ public class UIManager : MonoBehaviour
             }
             if (v != 0)
             {
-                blipSource.Play();
+                if (isPaused)
+                    blipSource.Play();
                 activeMenu.SetActiveElement(v);
                 isDetectingVerticalInput = false;
                 StartCoroutine("DelayInputVertical");
