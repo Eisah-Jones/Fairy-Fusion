@@ -86,7 +86,7 @@ public class UIManager : MonoBehaviour
         }
 
 
-        blipSource = gameObject.AddComponent<AudioSource>();
+        blipSource = gameObject.GetComponent<AudioSource>();
         if (blipSource !=null)
             blipSource.clip = Resources.Load<AudioClip>("Sounds/blip");
     }
