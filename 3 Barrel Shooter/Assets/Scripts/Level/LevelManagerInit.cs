@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManagerInit : MonoBehaviour
 {
@@ -13,12 +14,13 @@ public class LevelManagerInit : MonoBehaviour
 
     private void Awake()
     {
-        StartCoroutine("InitLevel");
+        if (SceneManager.GetActiveScene().name == "Level")
+            StartCoroutine("InitLevel");
     }
 
     private IEnumerator InitLevel()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(1f);
         GameObject.FindGameObjectWithTag("Level Manager").GetComponent<LevelManager>().InitLevelManager(numPlayers);
         Destroy(this);
     }

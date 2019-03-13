@@ -53,7 +53,9 @@ public class PlayerSelectHandler : MonoBehaviour
                 levelManagerInitializer.AddComponent<LevelManagerInit>();
                 levelManagerInitializer.GetComponent<LevelManagerInit>().SetNumPlayers(numPlayersReady);
                 DontDestroyOnLoad(levelManagerInitializer);
-                SceneManager.LoadScene(1); // Start the match with joined players
+                GameObject loadingScreen = GameObject.Find("LoadingScreen");
+                loadingScreen.GetComponent<LoadingScreen>().Close();
+                StartCoroutine("LoadLevel");
             }
             else if (numPlayersReady >= minNumPlayers)
             {
@@ -104,5 +106,12 @@ public class PlayerSelectHandler : MonoBehaviour
         {
             ps.Reset();
         }
+    }
+
+
+    private IEnumerator LoadLevel()
+    {
+        yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadScene(1);
     }
 }
