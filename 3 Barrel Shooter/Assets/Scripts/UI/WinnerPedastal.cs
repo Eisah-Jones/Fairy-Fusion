@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class WinnerPedastal : MonoBehaviour
 {
@@ -28,20 +29,86 @@ public class WinnerPedastal : MonoBehaviour
     public Vector3[] startPlatforms = new Vector3[4]; // { log0, log1, log2, log3 };
     public Canvas c;
 
+
+    private ControllerManager cm;
+    private LoadingScreen loadingScreen;
+    private Button restart;
+    private Button menu;
+    private Button currentButton;
+    private bool isDetectingInput = true;
+
     void Start()
     {
-         endPlatforms = new Vector3[4] { log0, log1, log2, log3 };
-    //CalculatePedastalPositions(2, 2);
+        cm = new ControllerManager();
+        cm.InitControllerManagerMenus(4);
+        endPlatforms = new Vector3[4] { log0, log1, log2, log3 };
+        restart = GameObject.Find("Restart").GetComponent<Button>();
+        currentButton = restart;
+        currentButton.Select();
+        menu = GameObject.Find("Menu").GetComponent<Button>();
+        GameObject init = GameObject.Find("InitWin");
+        InitWinnerPed initInfo = init.GetComponent<InitWinnerPed>();
+        StartWinSequence(initInfo.playerKills, initInfo.numPlayers);
+        Destroy(init);
+        loadingScreen = GameObject.Find("LoadingScreen").GetComponent<LoadingScreen>();
+        loadingScreen.Open();
     }
+
 
     private void Update()
     {
         if (canMove)
         {
-            Debug.Log("moving..");
             MovePlatforms();
-            //canMove = false;
         }
+
+        if(GetAInput(cm.GetControllerInputs()))
+        {
+            currentButton.onClick.Invoke();
+        }
+        else if (GetLSInput(cm.GetControllerInputs()) && isDetectingInput)
+        {
+            if (currentButton == restart)
+            {
+                currentButton = menu;
+            }
+            else
+            {
+                currentButton = restart;
+            }
+            currentButton.Select();
+            StartCoroutine("InputDetectReset");
+        }
+    }
+
+
+    private IEnumerator InputDetectReset()
+    {
+        isDetectingInput = false;
+        yield return new WaitForSeconds(0.25f);
+        isDetectingInput = true;
+    }
+
+
+    public bool GetAInput(List<ControllerInputs> ci)
+    {
+        foreach(ControllerInputs c in ci)
+        {
+            if (c.A_Button)
+                return true;
+        }
+        return false;
+    }
+
+
+    public bool GetLSInput(List<ControllerInputs> ci)
+    {
+        foreach (ControllerInputs c in ci)
+        {
+            if (c.Left_Stick_Horizontal < 0 || c.Left_Stick_Horizontal > 0)
+                return true;
+        }
+        return false;
     }
 
     public void MovePlatforms()
@@ -75,13 +142,11 @@ public class WinnerPedastal : MonoBehaviour
 
     public void StartWinSequence(int[] playerKills, int numPlayers) // start win seq calls all necessary functions
     {
-        
         num_Players = numPlayers;
         Reset_Set_StartPositions();
         CalculatePedastalPositions(playerKills, numPlayers);
         SetWinText(playerKills, numPlayers);
         MovePlatforms();
-        
     }
 
     public void Reset_Set_StartPositions()
@@ -256,5 +321,14 @@ public class WinnerPedastal : MonoBehaviour
         //SetWinText(playerKills, numPlayers);
     }
 
+    public void LoadMenu()
+    {
+        Destroy(GameObject.Find("Level Manager Initializer"));
+        SceneManager.LoadScene(0);
+    }
 
+    public void LoadLevel()
+    {
+        SceneManager.LoadScene(1);
+    }
 }

@@ -156,7 +156,10 @@ public class Countdown : MonoBehaviour
                 {
                     kills[i] = killDict[players[i].name];
                 }
-                InitWinnerPed iwp = new InitWinnerPed(kills, lm.GetNumPlayers());
+                GameObject iwp = Instantiate(Resources.Load<GameObject>("UI/InitWin"));
+                iwp.name = "InitWin";
+                iwp.GetComponent<InitWinnerPed>().SetWinnerPed(kills, lm.GetNumPlayers());
+                DontDestroyOnLoad(iwp);
                 StartCoroutine("LoadWinScene");
             }
             LoadingBar.GetComponent<Image>().fillAmount = (currentTime) / (startTime);

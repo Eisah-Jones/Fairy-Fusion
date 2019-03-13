@@ -12,15 +12,21 @@ public class LevelManagerInit : MonoBehaviour
         numPlayers = n;
     }
 
-    private void Awake()
+    //private void Awake()
+    //{
+    //    Debug.Log("YUH");
+    //    StartCoroutine("InitLevel");
+    //}
+
+    private void OnLevelWasLoaded(int level)
     {
-        StartCoroutine("InitLevel");
+        if (level == 1)
+            StartCoroutine("InitLevel");
     }
 
     private IEnumerator InitLevel()
     {
         yield return new WaitForSeconds(2f);
         GameObject.FindGameObjectWithTag("Level Manager").GetComponent<LevelManager>().InitLevelManager(numPlayers);
-        Destroy(this);
     }
 }

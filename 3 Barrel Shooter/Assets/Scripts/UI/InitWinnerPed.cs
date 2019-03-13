@@ -5,15 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class InitWinnerPed : MonoBehaviour
 {
-    int[] playerKills;
-    int numPlayers;
+    public int[] playerKills;
+    public int numPlayers;
 
-    private void Awake()
-    {
-        GameObject.Find("Manager").GetComponent<WinnerPedastal>().StartWinSequence(playerKills, numPlayers);
-    }
-
-    public InitWinnerPed(int[] pk, int np)
+    public void SetWinnerPed(int[] pk, int np)
     {
         playerKills = pk;
         numPlayers = np;

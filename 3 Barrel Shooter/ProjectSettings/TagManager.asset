@@ -56,6 +56,7 @@ TagManager:
   - SuckCircle
   - AbsorbParticles
   - KillCounter
+  - InitWinner
   layers:
   - Default
   - TransparentFX
