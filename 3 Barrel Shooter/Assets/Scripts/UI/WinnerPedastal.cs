@@ -174,9 +174,7 @@ public class WinnerPedastal : MonoBehaviour
         //ResetStartPositions();
         float max = Mathf.Max(playerKills);
 
-        foreach(int k in playerKills){
-            Debug.Log(k);
-        }
+ 
 
         if (numPlayers == 2)
         {
@@ -340,7 +338,7 @@ public class WinnerPedastal : MonoBehaviour
     {
         int max = Mathf.Max(playerKills);
         int min = Mathf.Min(playerKills);
-        Debug.Log(max + ", " + min);
+   
 
         int mid = 0;
         for (int i = 0; i < numPlayers; i++)
