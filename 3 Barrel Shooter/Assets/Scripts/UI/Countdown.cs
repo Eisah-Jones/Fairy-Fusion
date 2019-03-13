@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 public class Countdown : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -158,5 +160,12 @@ public class Countdown : MonoBehaviour
             }
             LoadingBar.GetComponent<Image>().fillAmount = (currentTime) / (startTime);
         }
+    }
+
+
+    private IEnumerator LoadWinScene()
+    {
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(2);
     }
 }

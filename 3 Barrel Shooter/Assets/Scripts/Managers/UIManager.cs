@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
     private bool isDetectingVerticalInput;
     private bool isDetectingHorizontalInput;
     private bool isPaused = false;
+    private bool isLoadingLevel = false;
 
     private float buttonDeadZone = 0.65f;
     private float inputDelayTimeVertical = 0.2f;

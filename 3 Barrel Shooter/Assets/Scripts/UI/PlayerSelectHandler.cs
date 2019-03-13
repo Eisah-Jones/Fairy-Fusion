@@ -16,6 +16,7 @@ public class PlayerSelectHandler : MonoBehaviour
 
     private bool back = false;
     private bool isStartingGame = false;
+    private bool isLoadingLevel = false;
 
     public void InitPlayerSelectHandler()
     {
@@ -45,8 +46,9 @@ public class PlayerSelectHandler : MonoBehaviour
         {
             ControllerInputs input = ci[i];
 
-            if (numPlayersReady >= minNumPlayers && input.Start_Button)
+            if (numPlayersReady >= minNumPlayers && input.Start_Button && !isLoadingLevel)
             {
+                isLoadingLevel = true;
                 //// Maybe do a short countdown to allow for cancelling?
                 GameObject levelManagerInitializer = Instantiate(new GameObject());
                 levelManagerInitializer.name = "Level Manager Initializer";
