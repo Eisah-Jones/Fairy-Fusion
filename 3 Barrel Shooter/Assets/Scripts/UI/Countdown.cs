@@ -99,11 +99,8 @@ public class Countdown : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Countdown GameOver: " + gameOver);
         if (!gameOver)
         {
-            Debug.Log("isPaused: " + isPaused);
-            Debug.Log("Current Time: " + currentTime);
             if (!isPaused && currentTime > 0)
             {
                 currentTime -= speed * Time.deltaTime;
@@ -160,6 +157,7 @@ public class Countdown : MonoBehaviour
                     kills[i] = killDict[players[i].name];
                 }
                 InitWinnerPed iwp = new InitWinnerPed(kills, lm.GetNumPlayers());
+                StartCoroutine("LoadWinScene");
             }
             LoadingBar.GetComponent<Image>().fillAmount = (currentTime) / (startTime);
         }
