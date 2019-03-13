@@ -12,7 +12,7 @@ public class WinnerPedastal : MonoBehaviour
     public float minYsize = -550f;
 
     public int numPlayers;
-    public int[] pKills = new int[4];
+    //public int[] pKills = new int[4];
 
     public Canvas c;
 
