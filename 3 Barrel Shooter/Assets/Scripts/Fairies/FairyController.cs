@@ -610,6 +610,10 @@ public class FairyController : MonoBehaviour {
 
     private void OnTriggerExit2D(Collider2D other)
     {
+        if (other.tag == "Walls" || other.tag == "Player" || other.tag == "Untagged"|| other.tag == "TilemapTrigger")
+        {
+            return;
+        }
         var main = ps.main;
         if (!fairies.GetVacuumOn() && other.name[0] == 'R')
         {

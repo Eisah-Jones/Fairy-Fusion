@@ -55,7 +55,7 @@ public class HealthBar : MonoBehaviour {
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged") return;
+        if (collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged"|| collision.tag == "5-Air" ||  collision.tag == "TilemapTrigger") return;
         StartCoroutine("StartTimer");
     }
 

@@ -84,6 +84,10 @@ public class ElementObject : MonoBehaviour {
     // When an element collides with something else
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.tag == "Tilemap_Trigger")
+        {
+            return;
+        }
         if (collision.gameObject.name == "Tilemap_Collider")
         {
             Destroy(gameObject);
