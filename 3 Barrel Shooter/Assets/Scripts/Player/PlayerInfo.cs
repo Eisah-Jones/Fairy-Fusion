@@ -151,7 +151,7 @@ public class PlayerInfo : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged" || collision.tag[0] == 'R' || collision.tag == "TEST")
+        if (collision.tag == "Walls" || collision.tag == "Player" || collision.tag == "Untagged" || collision.tag[0] == 'R' || collision.tag == "TEST"|| collision.tag == "TilemapTrigger")
         {
 			rearea = collision.name;
             //levelManager.soundManager.PlaySoundByName(audioSources[1], "Bump");
