@@ -63,7 +63,8 @@ public class KillCounter : MonoBehaviour
 
     public void addKill(string killed, string killedBy)
     {
-        if (!killDict.ContainsKey(killedBy))
+        if (killedBy == null) { return; }
+        if ( !killDict.ContainsKey(killedBy))
         {
             killDict[killedBy] = 1;
         }

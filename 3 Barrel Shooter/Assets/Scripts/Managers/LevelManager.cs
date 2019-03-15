@@ -142,7 +142,7 @@ public class LevelManager: MonoBehaviour
         {
             uiManager.killCounter.InitKillCounter(this, GameObject.FindGameObjectWithTag("Canvas"));
             uiManager.killTracker.InitKillTracker();
-            soundManager.PlaySoundByName(asource, "DrumsFury", false, .5f, 1f);
+            soundManager.PlaySoundByName(asource, "DrumsFury", false, .3f, 1f);
         }
 
         cameraManager.SetCameraRatio();
