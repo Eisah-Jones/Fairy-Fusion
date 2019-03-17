@@ -165,7 +165,7 @@
     "damage": 15,
     "fireRate": 15,
     "projectileType": "Bullet",
-    "projectileLife": 12,
+    "projectileLife": 20,
     "chamberCapacity": 40,
     "speed": 15,
     "yield": 0,
@@ -322,10 +322,10 @@
   "Leaf": {
     "name": "Leaf",
     "ID": 4,
-    "damage": 10,
+    "damage": 13,
     "fireRate": 10,
     "projectileType": "Splinter",
-    "projectileLife": 12,
+    "projectileLife": 20,
     "chamberCapacity": 50,
     "speed": 15,
     "yield": 0,
@@ -405,7 +405,7 @@
     "damage": 0,
     "fireRate": 50,
     "projectileType": "Projectile",
-    "projectileLife": 10,
+    "projectileLife": 15,
     "chamberCapacity": -1,
     "speed": 5,
     "yield": 0,
@@ -643,7 +643,7 @@
   "Mud": {
     "name": "Mud",
     "ID": 8,
-    "damage": 15,
+    "damage": 30,
     "fireRate": 20,
     "projectileType": "Bullet",
     "projectileLife": 25,
@@ -723,7 +723,7 @@
   "Sniper": {
     "name": "Sniper",
     "ID": 9,
-    "damage": 75,
+    "damage": 50,
     "fireRate": 60,
     "projectileType": "Bullet",
     "projectileLife": 65,
@@ -748,9 +748,9 @@
     },
     "combinationRequirements": {
       "elem1": "Leaf",
-      "elem1Num": 1,
+      "elem1Num": 3,
       "elem2": "Water",
-      "elem2Num": 1
+      "elem2Num": 3
     },
     "elementCollisions": {
       "Fire": {
@@ -808,7 +808,7 @@
     "projectileType": "Explosion",
     "projectileLife": 25,
     "chamberCapacity": 20,
-    "speed": 5,
+    "speed": 4,
     "yield": 1,
     "playerCollisionEffects": [
       "Knockback"

@@ -62,4 +62,18 @@ public class LoadingScreen : MonoBehaviour
         }
         isOpen = false;
     }
+
+    private void OnLevelWasLoaded(int level)
+    {
+        if (level == 2)
+        {
+            StartCoroutine("OpenWinning");
+        }
+    }
+
+    private IEnumerator OpenWinning()
+    {
+        yield return new WaitForSeconds(1f);
+        Open();
+    }
 }

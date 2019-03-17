@@ -377,20 +377,35 @@ public class WinnerPedastal : MonoBehaviour
 
     public void LoadMenu()
     {
+        GameObject.Find("LoadingScreen").GetComponent<LoadingScreen>().Close();
         if (!isLoadingMenu)
         {
             isLoadingMenu = true;
             Destroy(GameObject.Find("Level Manager Initializer"));
-            SceneManager.LoadScene(0);
+            StartCoroutine("LoadingMenu");
         }
     }
 
     public void LoadLevel()
     {
+        GameObject.Find("LoadingScreen").GetComponent<LoadingScreen>().Close();
         if (!isLoadingLevel)
         {
             isLoadingLevel = true;
-            SceneManager.LoadScene(1);
+            StartCoroutine("LoadingLevel");
         }
+    }
+
+
+    private IEnumerator LoadingMenu()
+    {
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(0);
+    }
+
+    private IEnumerator LoadingLevel()
+    {
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(1);
     }
 }

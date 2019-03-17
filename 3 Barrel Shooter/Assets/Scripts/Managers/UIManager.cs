@@ -42,6 +42,8 @@ public class UIManager : MonoBehaviour
     private AudioClip blip;
     private AudioSource blipSource;
 
+    private bool isResuming;
+
 
     void Start()
     {
@@ -159,8 +161,11 @@ public class UIManager : MonoBehaviour
             }
         }
 
-        if (GetStartButton(ci) != -1 && SceneManager.GetActiveScene().name == "Level")
+
+
+        if ((GetStartButton(ci) != -1 || isResuming) && SceneManager.GetActiveScene().name == "Level")
         {
+            if (isResuming) isResuming = false;
             menus[0].GetMenu().SetActive(!menus[0].GetMenu().activeSelf);
             isPaused = menus[0].GetMenu().activeSelf;
             SetActiveMenu();
@@ -347,5 +352,11 @@ public class UIManager : MonoBehaviour
     {
         yield return new WaitForSeconds(inputDelayTimeHorizontal);
         isDetectingHorizontalInput = true;
+    }
+
+
+    public void SetResuming()
+    {
+        isResuming = true;
     }
 }
