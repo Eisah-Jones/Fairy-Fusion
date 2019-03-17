@@ -29,7 +29,8 @@ public class PlayerInfo : MonoBehaviour
     public void InitPlayerInfo(LevelManager lm, int pNum)
     {
         levelManager = lm;
-        vacuum = new Fairies(levelManager);
+        vacuum = gameObject.AddComponent<Fairies>();
+        vacuum.InitFairies(lm);
         audioSources[0] = gameObject.AddComponent<AudioSource>();
         audioSources[1] = gameObject.AddComponent<AudioSource>();
         audioSources[2] = gameObject.AddComponent<AudioSource>();

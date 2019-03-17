@@ -8,7 +8,7 @@ public class GenerateLevelBackground : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        LevelGenerator levelGen = new LevelGenerator();
+        LevelGenerator levelGen = gameObject.AddComponent<LevelGenerator>();
         Tilemap tilemap = transform.GetChild(0).GetComponent<Tilemap>();
         SpriteManager spriteManager = new SpriteManager();
         ResourceManager resourceManager = new ResourceManager();

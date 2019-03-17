@@ -3591,7 +3591,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roundEndLength: 3
-  startTime: 120
+  startTime: 10
   initialfontSize: 20
   endofRoundfontSize: 32
   LoadingBar: {fileID: 1350960904}

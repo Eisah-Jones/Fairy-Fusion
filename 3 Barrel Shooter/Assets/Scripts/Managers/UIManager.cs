@@ -177,7 +177,7 @@ public class UIManager : MonoBehaviour
                 activeMenu.GetActiveElement().Interact(0);
                 SetActiveMenu();
             }
-            else if (!isPaused)
+            else if (!isPaused && SceneManager.GetActiveScene().name == "Main Menu")
             {
                 activeMenu.GetActiveElement().Interact(0);
                 SetActiveMenu();

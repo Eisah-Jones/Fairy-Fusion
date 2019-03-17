@@ -9,7 +9,7 @@ public class LevelManagerInit : MonoBehaviour
 
     public void SetNumPlayers(int n)
     {
-        numPlayers = n;
+        numPlayers = n+1;
     }
 
     private void OnLevelWasLoaded(int level)

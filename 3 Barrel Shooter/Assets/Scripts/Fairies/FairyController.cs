@@ -458,7 +458,6 @@ public class FairyController : MonoBehaviour {
         {
             Fairies.Fairy fairy = fairies.GetCurrentChamber(true);
             eID = fairy.GetElementIDByIndex(0);
-            Debug.Log(eID);
             eName = levelManager.elementManager.GetElementNameByID(eID);
             projectileType = levelManager.elementManager.GetProjectileTypeByID(eID);
         }

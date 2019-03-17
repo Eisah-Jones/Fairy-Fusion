@@ -41,6 +41,9 @@ public class WinnerPedastal : MonoBehaviour
     private List<GameObject> pList;
     private AudioSource blipPlayer;
 
+    private bool isLoadingLevel = false;
+    private bool isLoadingMenu = false;
+
     void Start()
     {
         cm = new ControllerManager();
@@ -374,12 +377,20 @@ public class WinnerPedastal : MonoBehaviour
 
     public void LoadMenu()
     {
-        Destroy(GameObject.Find("Level Manager Initializer"));
-        SceneManager.LoadScene(0);
+        if (!isLoadingMenu)
+        {
+            isLoadingMenu = true;
+            Destroy(GameObject.Find("Level Manager Initializer"));
+            SceneManager.LoadScene(0);
+        }
     }
 
     public void LoadLevel()
     {
-        SceneManager.LoadScene(1);
+        if (!isLoadingLevel)
+        {
+            isLoadingLevel = true;
+            SceneManager.LoadScene(1);
+        }
     }
 }

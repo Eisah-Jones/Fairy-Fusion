@@ -202,12 +202,13 @@ public class Fairies : MonoBehaviour{
     private bool shootingRight;
     private bool isCombiningElements; //True = combinationChambers, False = normalChambers
     private ProjectileSpawner spawner;
-    bool removingDoubleSize = true;
+    bool removingDoubleSize;
 
     // Vacuum constructor
-    public Fairies(LevelManager lm)
+    public void InitFairies(LevelManager lm)
     {
         levelManager = lm;
+        removingDoubleSize = true;
    
         cim = levelManager.chamberInteractionModel;
 
@@ -391,13 +392,11 @@ public class Fairies : MonoBehaviour{
                 //StartCoroutine("ResetDoubleRemoving");
                 chambers[currentChamber].Remove(elemName, 2);
                 chambers[currentChamber + 1].Remove(elemName, 2);
-                Debug.Log("Removing Both");
             }
             else if (shootingLeft)
                 chambers[currentChamber].Remove(elemName, i);
             else
             {
-                Debug.Log("REMOVE ONE");
                 chambers[currentChamber + 1].Remove(elemName, i);
             }
         }

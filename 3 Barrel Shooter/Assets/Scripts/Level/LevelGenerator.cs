@@ -11,19 +11,23 @@ using UnityEngine.SceneManagement;
 // Spawns in resources and players
 public class LevelGenerator : MonoBehaviour
 {
-
-    public List<Sprite> waterTiles = new List<Sprite>();
-
-    private int levelWidth  = 45;
-    private int levelHeight = 45;
     private Vector3 center;
+    public List<Sprite> waterTiles;
     private List<Vector3> spawnPos;
     private string[,] terrainMap; //Array for storing level floor map
     private SpriteManager spriteManager;
     private List<GameObject> playerObjectList;
-    private List<int[]> takenPositions = new List<int[]>();
+    private List<int[]> takenPositions;
+    private int levelWidth;
+    private int levelHeight;
 
-    public void GenerateLevel(Tilemap tm, Tilemap cm, Tilemap trigm, SpriteManager sm, ResourceManager rm){
+    public void GenerateLevel(Tilemap tm, Tilemap cm, Tilemap trigm, SpriteManager sm, ResourceManager rm)
+    {
+        levelHeight = 45;
+        levelWidth = 45;
+
+        waterTiles = new List<Sprite>();
+        takenPositions = new List<int[]>();
 
         center = new Vector3(levelWidth / 2, levelHeight / 2, 0);
 
@@ -135,6 +139,8 @@ public class LevelGenerator : MonoBehaviour
 
     public void GenerateBackgroundLevel(Tilemap tilemap, SpriteManager sm)
     {
+        takenPositions = new List<int[]>();
+
         int width = 20;
         int height = 20;
 

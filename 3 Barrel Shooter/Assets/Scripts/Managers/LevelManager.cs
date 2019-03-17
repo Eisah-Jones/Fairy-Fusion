@@ -93,7 +93,7 @@ public class LevelManager: MonoBehaviour
         resourceManager = new ResourceManager();
         fluidManager = new FluidManager();
   
-        particleManager = new ParticleManager();
+        particleManager = gameObject.AddComponent<ParticleManager>();
         particleManager.InitParticleManager();
         gameObject.AddComponent<CameraManager>();
         cameraManager = gameObject.GetComponent<CameraManager>();
