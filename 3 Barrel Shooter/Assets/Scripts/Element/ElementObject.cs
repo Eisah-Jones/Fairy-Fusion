@@ -42,7 +42,7 @@ public class ElementObject : MonoBehaviour {
             owner = null;
             direction = transform.right;
             if (name == "SpikeShot") { StartCoroutine("Explode"); }
-            else Destroy(gameObject);
+            else gameObject.SetActive(false);//Destroy(gameObject);
         }
         
         // If the element is a projectile, then we move it and decrease its life
@@ -90,7 +90,7 @@ public class ElementObject : MonoBehaviour {
         }
         if (collision.gameObject.name == "Tilemap_Collider")
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);//Destroy(gameObject);
             return;
         }
 
@@ -103,11 +103,11 @@ public class ElementObject : MonoBehaviour {
 
         if (collision.gameObject.tag == "Player")
         {
-        
+
             if (collision.GetComponent<PlayerInfo>().GetPlayerName() == owner) return;
-            
+
             else if (name == "SpikeShot") StartCoroutine("Explode");
-            else Destroy(gameObject);
+            else gameObject.SetActive(false);//Destroy(gameObject);
         }
 
         ElementObject other = collision.gameObject.GetComponent<ElementObject>();
@@ -133,9 +133,11 @@ public class ElementObject : MonoBehaviour {
                 // Destroy gameobject
                 if (other != null && owner == other.owner) { }
                 else if (i == 0) // We are evaluating outcome of THIS element object
-                    Destroy(this.gameObject);
+                    //Destroy(this.gameObject);
+                    this.gameObject.SetActive(false);
                 else // We are evaluating outcome of COLLISION element object
-                    Destroy(collision.gameObject);
+                    //Destroy(collision.gameObject);
+                    collision.gameObject.SetActive(false);
             }
             else if (result == "Stop")
             {

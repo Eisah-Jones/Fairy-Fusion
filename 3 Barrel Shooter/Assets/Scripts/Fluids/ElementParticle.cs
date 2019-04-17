@@ -75,7 +75,8 @@ public class ElementParticle : MonoBehaviour {
     public IEnumerator DestroyParticle()
     {
         yield return new WaitForSeconds(particleLife);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        //Destroy(gameObject);
     }
 
 
@@ -88,7 +89,8 @@ public class ElementParticle : MonoBehaviour {
     {
         if (collision.gameObject.name == "Tilemap_Collider")
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+           // Destroy(gameObject);
             return;
         }
 

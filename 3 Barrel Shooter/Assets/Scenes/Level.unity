@@ -1982,7 +1982,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &673667559
 GameObject:
@@ -2449,7 +2449,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &951618590
 GameObject:
@@ -2791,7 +2791,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4238025219574134, guid: c2bdb53601d854d57acc06ca8c511127, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114174851702189666, guid: c2bdb53601d854d57acc06ca8c511127,
         type: 3}
@@ -2895,7 +2895,7 @@ PrefabInstance:
     - target: {fileID: 114174851702189666, guid: c2bdb53601d854d57acc06ca8c511127,
         type: 3}
       propertyPath: testing
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114174851702189666, guid: c2bdb53601d854d57acc06ca8c511127,
         type: 3}
@@ -3128,7 +3128,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1260947808
 GameObject:
@@ -3315,6 +3315,83 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0eb268e160f58d444b05b2cc6736652b, type: 3}
+--- !u!1 &1350644563
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1350644565}
+  - component: {fileID: 1350644564}
+  m_Layer: 0
+  m_Name: ObjectPooler
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1350644564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1350644563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62488567442b8564685a6b05e7bf855a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pools:
+  - tag: Fire
+    prefab: {fileID: 1465474705338753454, guid: d6280d8eb5d194a1f8712c59bc8f9873,
+      type: 3}
+    size: 50
+  - tag: Water
+    prefab: {fileID: 1465474705338753454, guid: 102aab200fbd0444f86bf8d2ea3c0d70,
+      type: 3}
+    size: 50
+  - tag: Rock
+    prefab: {fileID: 1057562515201500, guid: 09caa45b1ada6954ea0667a917f2c438, type: 3}
+    size: 20
+  - tag: Mud
+    prefab: {fileID: 1561566444673538, guid: 97cbc3fa4e569f24c888363ecddf6435, type: 3}
+    size: 15
+  - tag: Steam
+    prefab: {fileID: 1465474705338753454, guid: d946a24bc3cc11e48ba462c329af7db8,
+      type: 3}
+    size: 50
+  - tag: Fireball
+    prefab: {fileID: 1010250680845768, guid: c8eefab8242a52e40b50442e9f97f127, type: 3}
+    size: 15
+  - tag: Stakes
+    prefab: {fileID: 1991368369619112, guid: 4a2b509fcd127d84b94e8714bda40e5e, type: 3}
+    size: 10
+  - tag: Leaf
+    prefab: {fileID: 1363146396752148, guid: 965d4628ce6931640a70d448435428c0, type: 3}
+    size: 25
+  - tag: Spikeshot
+    prefab: {fileID: 1821820668566678, guid: 7b69b28c78c74514d809d171c9c40fd6, type: 3}
+    size: 10
+  - tag: Air
+    prefab: {fileID: 1085138494941238, guid: a8a122638dba0dc4b9046647fb15a65c, type: 3}
+    size: 15
+--- !u!4 &1350644565
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1350644563}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.784396, y: -1.192194, z: -15.590052}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1350960904 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7510260886882533022, guid: 8c821ce54ff81c14eab4daeedede9edf,
@@ -3780,7 +3857,7 @@ Transform:
   - {fileID: 607147643}
   - {fileID: 243219672}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1679838119
 GameObject:

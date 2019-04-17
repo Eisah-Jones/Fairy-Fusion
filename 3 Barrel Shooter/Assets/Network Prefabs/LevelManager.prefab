@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1442972440180742
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4238025219574134}
+  - component: {fileID: 114174851702189666}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Level Manager
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4238025219574134
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1442972440180742}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114174851702189666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1442972440180742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ead0351ba9cd4d2899addaac5cf8fd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controllerManager: {fileID: 0}
+  particleManager: {fileID: 0}
+  soundManager: {fileID: 0}
+  cameraManager: {fileID: 0}
+  countdown: {fileID: 0}
+  player: {fileID: 1756415907752874, guid: 8343588b41ec64568a9283f3a4750900, type: 3}
+  playerList: []
+  cam: {fileID: 0}
+  cameras: []
+  processCollision: 0
+  elemPrefabs:
+  - {fileID: 1504345038597090, guid: c0cd16e601811456e82fb0fa21c1d49e, type: 3}
+  - {fileID: 1057562515201500, guid: 46cd56a2809f440a7bdbc47277552674, type: 3}
+  - {fileID: 1821820668566678, guid: 72eb473c3c6da41f08d986340cda8657, type: 3}
+  - {fileID: 1363146396752148, guid: 0f2f48619714f4dfe8619fa335dcbd24, type: 3}
+  - {fileID: 1085138494941238, guid: ca67b390e9f1048d4be766a6ef5ee26d, type: 3}
+  - {fileID: 1680363510909248, guid: dbe9d3a3d33cf468f979f801db91aa3e, type: 3}
+  - {fileID: 1010250680845768, guid: 309ea2e0456e7425c89d926eaf37dc7b, type: 3}
+  - {fileID: 1561566444673538, guid: 667275776d815494e95b2913bfcbe5e0, type: 3}
+  - {fileID: 1991368369619112, guid: ff5cd9c274ddf4422839de3af6b90891, type: 3}
+  particles:
+  - {fileID: 198995448613787678, guid: 7a4269d6f51884673a5985320e948f0b, type: 3}
+  - {fileID: 198936952285669722, guid: d8888e847d8ce4680af40caa35b9064f, type: 3}
+  - {fileID: 198700791753399106, guid: 328591a39ad934eeb8f7181d5e7949cc, type: 3}
+  - {fileID: 198717262418065186, guid: e8d7b4fc1e6e9492eb800a40a62b2b23, type: 3}
+  - {fileID: 198581448367261904, guid: c6c05402edbb347729bcb03e8bb07ddd, type: 3}
+  testHUD: {fileID: 0}
+  endScreen: {fileID: 0}
+  winText: {fileID: 0}
+  ground: {fileID: 0}
+  groundCollider: {fileID: 0}
+  groundTrigger: {fileID: 0}

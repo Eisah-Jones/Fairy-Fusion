@@ -40,6 +40,7 @@ public class ElementParticleSystem : MonoBehaviour {
 
     private bool doubleSize;
 
+    ObjectPooler op = ObjectPooler.Instance;
 
     public void InitElementParticleSystem(LevelManager lm, int id, Transform t, string o, bool ds)
     {
@@ -76,7 +77,9 @@ public class ElementParticleSystem : MonoBehaviour {
         {
             emissionDelay = Random.Range(emissionRangeStart, emissionRangeStart + emissionRange);
             yield return new WaitForSeconds(emissionDelay);
-            GameObject p = Instantiate(particle, transform.position, rotation.rotation);
+            //GameObject p = Instantiate(particle, transform.position, rotation.rotation);
+            GameObject p = op.SpawnFromPool("Particle", transform.position, rotation.rotation);
+   
             if (doubleSize) p.transform.localScale *= 2;
             p.GetComponent<ElementParticle>().InitElementParticle(particleManager, particleID, particleLife, particleForce, rotation, owner, levelManager, particleName, spread, lifeRange, forceRange, particleSprite);
         }

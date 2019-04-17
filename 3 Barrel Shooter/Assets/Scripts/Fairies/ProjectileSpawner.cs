@@ -17,6 +17,7 @@ public class ProjectileSpawner : MonoBehaviour {
     private LineRenderer lineRenderer;
     private bool resetFluidShooting;
 
+    ObjectPooler objectPooler;
 
     public void Start()
     {
@@ -27,7 +28,7 @@ public class ProjectileSpawner : MonoBehaviour {
         lm = FindObjectOfType<LevelManager>();
         sm = lm.soundManager;
         resetFluidShooting = false;
-
+        objectPooler = ObjectPooler.Instance;
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.enabled = false;
         lineRenderer.useWorldSpace = true;
@@ -37,14 +38,22 @@ public class ProjectileSpawner : MonoBehaviour {
     public void ShootProjectile(int eID, LevelManager lm, string playerName, Transform spawn, bool doubleSize)
     {
         GameObject prefab = lm.elemPrefabs[eID - 1];
-       
-        GameObject e = Instantiate(prefab, spawn.position, transform.rotation);
+
+        //GameObject e = Instantiate(prefab, spawn.position, transform.rotation);
+
+        //ElementObject eObj = ;
+   
+
+        GameObject e = objectPooler.SpawnFromPool(prefab.GetComponent<ElementObject>().GetName(), spawn.position, transform.rotation);
+ 
         if (doubleSize)
         {
             e.transform.localScale *= 2;
         }
+ 
         e.GetComponent<ElementObject>().initElement(lm, lm.elementManager.GetElementDataByID(eID), true, playerName);
-        
+    
+
         if (eID == 4)
         {
             sm.PlaySoundByName(audioSourceProjectile, "Leaf", false, .5f, 1.0f); // plays wood chip sound
@@ -84,8 +93,8 @@ public class ProjectileSpawner : MonoBehaviour {
 
         isShootingFluid = true;
 
-        //instantiates flamethrower
-        //Debug.Log("Starting Flame Sound: EID: " + eID);
+    
+
         if (eID == 1)
         {
             sm.PlaySoundByName(audioSourceFluid, "Flamethrower");
@@ -98,11 +107,20 @@ public class ProjectileSpawner : MonoBehaviour {
         {
             sm.PlaySoundByName(backupAudio, "Steam", false, .7f, 0.0f);
         }
-        //sm.PlaySoundsByID(audioSource, 0);
+    
 
-        GameObject prefab = lm.fluidManager.GetFluidByID(eID);
+        GameObject prefab = lm.fluidManager.GetFluidByID(eID); // gets fluid system prefab
+
+    
+       
+
+        //GameObject p = objectPooler.SpawnFromPool(prefab.name, spawnPos.position, spawnPos.rotation);
+        //ElementParticleSystem pObj = p.GetComponent<ElementParticleSystem>();
+      
         p = Instantiate(prefab, spawnPos.position, spawnPos.rotation);
+
         p.transform.SetParent(transform);
+        //pObj.InitElementParticleSystem(lm, eID, spawnPos, owner, doubleSize);
         p.GetComponent<ElementParticleSystem>().InitElementParticleSystem(lm, eID, spawnPos, owner, doubleSize);
 
         p.transform.parent = spawnPos;

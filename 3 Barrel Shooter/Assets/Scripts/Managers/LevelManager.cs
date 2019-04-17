@@ -159,7 +159,7 @@ public class LevelManager: MonoBehaviour
         
         isInitialized = true;
 
-        GameObject.Find("LoadingScreen").GetComponent<LoadingScreen>().Open();
+        //GameObject.Find("LoadingScreen").GetComponent<LoadingScreen>().Open();
     }
 
 
