@@ -128,7 +128,7 @@ PrefabInstance:
     - target: {fileID: 9163004606518548578, guid: a12578e3fcae547a5856a7c02fa506ea,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9163004606518548581, guid: a12578e3fcae547a5856a7c02fa506ea,
         type: 3}
@@ -3345,39 +3345,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pools:
-  - tag: Fire
-    prefab: {fileID: 1465474705338753454, guid: d6280d8eb5d194a1f8712c59bc8f9873,
-      type: 3}
-    size: 50
-  - tag: Water
-    prefab: {fileID: 1465474705338753454, guid: 102aab200fbd0444f86bf8d2ea3c0d70,
-      type: 3}
-    size: 50
   - tag: Rock
     prefab: {fileID: 1057562515201500, guid: 09caa45b1ada6954ea0667a917f2c438, type: 3}
-    size: 20
+    size: 40
   - tag: Mud
     prefab: {fileID: 1561566444673538, guid: 97cbc3fa4e569f24c888363ecddf6435, type: 3}
-    size: 15
-  - tag: Steam
-    prefab: {fileID: 1465474705338753454, guid: d946a24bc3cc11e48ba462c329af7db8,
-      type: 3}
-    size: 50
+    size: 20
   - tag: Fireball
     prefab: {fileID: 1010250680845768, guid: c8eefab8242a52e40b50442e9f97f127, type: 3}
-    size: 15
-  - tag: Stakes
+    size: 30
+  - tag: Sniper
     prefab: {fileID: 1991368369619112, guid: 4a2b509fcd127d84b94e8714bda40e5e, type: 3}
-    size: 10
+    size: 15
   - tag: Leaf
     prefab: {fileID: 1363146396752148, guid: 965d4628ce6931640a70d448435428c0, type: 3}
-    size: 25
-  - tag: Spikeshot
+    size: 50
+  - tag: SpikeShot
     prefab: {fileID: 1821820668566678, guid: 7b69b28c78c74514d809d171c9c40fd6, type: 3}
-    size: 10
+    size: 8
   - tag: Air
     prefab: {fileID: 1085138494941238, guid: a8a122638dba0dc4b9046647fb15a65c, type: 3}
-    size: 15
+    size: 8
+  - tag: Particle
+    prefab: {fileID: 1763475588, guid: 799da609d56854a47ba3c2519c8fe6f0, type: 3}
+    size: 500
 --- !u!4 &1350644565
 Transform:
   m_ObjectHideFlags: 0

@@ -170,7 +170,7 @@ public class ElementObject : MonoBehaviour {
             o.transform.rotation *= Quaternion.Euler(0, 0, 22.5f*i);
             o.GetComponent<ElementObject>().initElement(levelManager, levelManager.elementManager.GetElementDataByID(spawnID), true, owner);
         }
-        Destroy(gameObject);
+        gameObject.SetActive(false);
         yield return new WaitForEndOfFrame();
     }
 }
